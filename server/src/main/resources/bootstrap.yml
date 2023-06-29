@@ -1,0 +1,6 @@
+aws:
+  paramstore:
+    enabled: true
+    prefix: /spring-boot-aws
+    name: stackoverflow-clone-21 # 리소스 이름을 작성합니다.
+    profileSeparator: _

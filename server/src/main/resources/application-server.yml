@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${AWS_RDS_Endpoint}/ott?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${RDS_Mysql_Admin_id}
+    password: ${RDS_Mysql_Admin_password}
+  jpa:
+    database: mysql
+    properties:
+      hibernates:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+    show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${CLIENT_ID}
+            clientSecret: ${CLIENT_SECRET}
+            scope:
+              - email
+              - profile
+
+config:
+  domain: ${AWS_S3_Endpoint}
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
