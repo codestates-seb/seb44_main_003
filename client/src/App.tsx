@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import Root from './pages/Root';
 import Main from './pages/Main';
-import Members from './pages/Members';
+import Member from './pages/Member';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import TV from './pages/TV';
@@ -22,8 +22,8 @@ const router = createBrowserRouter([
         element: <Main />,
       },
       {
-        path: 'members',
-        element: <Members />,
+        path: 'member',
+        element: <Member />,
       },
       {
         path: 'login',
