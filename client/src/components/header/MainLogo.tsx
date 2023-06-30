@@ -16,4 +16,5 @@ export default MainLogo;
 const S_Wrapper = styled.div`
   margin-right: 30px;
   cursor: pointer;
+  width: 150px;
 `;

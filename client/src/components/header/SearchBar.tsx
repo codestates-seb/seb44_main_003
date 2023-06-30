@@ -2,8 +2,10 @@ import { styled } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 function SearchBar() {
+  const isDesktop = useMediaQuery('(min-width: 940px)');
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [userInput, setUserInput] = useState('');
   const navigate = useNavigate();
@@ -47,12 +49,13 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  width: ${(props) => (props.$show ? '550px' : '30px')};
+  width: ${(props) => (props.$show ? '100%' : '30px')};
   transition: width 1s ease;
 `;
 
 const S_Input = styled.input<{ $show: boolean }>`
-  width: ${(props) => (props.$show ? '550px' : '0')};
+  width: ${(props) => (props.$show ? '100%' : '0')};
+  min-width: 120px;
   opacity: ${(props) => (props.$show ? 1 : 0)};
   visibility: ${(props) => (props.$show ? 'visible' : 'hidden')};
   height: 42px;
