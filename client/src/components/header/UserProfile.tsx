@@ -8,34 +8,50 @@ function UserProfile() {
     queryKey: ['user'],
     queryFn: GetUser,
   });
-  console.log(data);
+
   if (isLoading)
     return (
-      <div className="lds-ellipsis">
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
+      <S_ProfileWrapper>
+        <div className="lds-ellipsis">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      </S_ProfileWrapper>
     );
+
   if (error instanceof Error)
     return (
-      <a href="/member">
-        <BiError className="text-2xl text-gray-500" />
-      </a>
+      <S_ProfileWrapper>
+        <a href="/member">
+          <BiError />
+        </a>
+      </S_ProfileWrapper>
     );
+
   return (
-    <a href="/member">
-      <S_ProfileWrapper src={data.avatarUri} alt="user" />
-    </a>
+    <S_ProfileWrapper>
+      <a href="/member">
+        <img src={data.avatarUri} alt="user" />
+      </a>
+    </S_ProfileWrapper>
   );
 }
 
 export default UserProfile;
 
-const S_ProfileWrapper = styled.img`
+const S_ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30px;
   height: 30px;
   border-radius: 5px;
   margin-left: 40px;
+
+  > a {
+    color: var(--color-white-60);
+    font-size: 25px;
+  }
 `;
