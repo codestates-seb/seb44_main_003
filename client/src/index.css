@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'cookieRun';
+  src: url('./assets/fonts/CookieRunRegular.otf');
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('./assets/fonts/Inter-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-width: 100%;
+}
+
+body {
+  font-family: 'inter', sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
