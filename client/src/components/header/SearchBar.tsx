@@ -4,33 +4,51 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function SearchBar() {
-  const [showSearchBar, setShowSearchBar] = useState(true);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [userInput, setUserInput] = useState('');
   const navigate = useNavigate();
-  const handleClick = () => {
-    if (showSearchBar) {
-      navigate('/');
+  const search = () => {
+    if (userInput.trim().length) {
+      navigate(`/search/${userInput}`);
+      setUserInput('');
       setShowSearchBar(false);
-    } else setShowSearchBar(true);
+    }
   };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+  const handleClick = () => {
+    if (showSearchBar && userInput.length) search();
+    else setShowSearchBar(!showSearchBar);
+  };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code === 'Enter') search();
+  };
+
   return (
-    <S_Wrapper>
+    <S_Wrapper $show={showSearchBar}>
+      <S_Input
+        $show={showSearchBar}
+        type="text"
+        onChange={handleChange}
+        onKeyUp={handleKeyUp}
+      />
       <S_Logo onClick={handleClick}>
         <FiSearch />
       </S_Logo>
-      <form>
-        <S_Input $show={showSearchBar} type="text" />
-      </form>
     </S_Wrapper>
   );
 }
 
 export default SearchBar;
 
-const S_Wrapper = styled.div`
+const S_Wrapper = styled.div<{ $show: boolean }>`
   display: flex;
   justify-content: flex-end;
   position: relative;
-  width: 550px;
+  width: ${(props) => (props.$show ? '550px' : '30px')};
+  transition: width 1s ease;
 `;
 
 const S_Input = styled.input<{ $show: boolean }>`
@@ -48,7 +66,7 @@ const S_Input = styled.input<{ $show: boolean }>`
   transition: width 1s ease, opacity 1s ease, visibility 1s ease;
 `;
 
-const S_Logo = styled.span`
+const S_Logo = styled.button`
   position: absolute;
   color: var(--color-white-60);
   font-size: 20px;

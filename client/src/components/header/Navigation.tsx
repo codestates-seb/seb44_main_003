@@ -1,12 +1,18 @@
 import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const navMenus = ['TV', '영화', '추천해조잉'];
+const navMenus = [
+  { text: 'TV', route: '/tv' },
+  { text: '영화', route: '/movie' },
+  { text: '추천해조잉', route: '/recommend' },
+];
 
 function Navigation() {
+  const navigate = useNavigate();
   return (
     <StyledNav>
       {navMenus.map((menu) => (
-        <span>{menu}</span>
+        <span onClick={() => navigate(menu.route)}>{menu.text}</span>
       ))}
     </StyledNav>
   );
@@ -25,5 +31,6 @@ const StyledNav = styled.nav`
     font-size: 18px;
     font-weight: 700;
     text-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
 `;

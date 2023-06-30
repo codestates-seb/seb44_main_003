@@ -39,6 +39,5 @@ const S_Header = styled.header`
   > div {
     display: flex;
     flex-direction: row;
-    text-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.2);
   }
 `;
