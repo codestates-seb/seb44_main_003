@@ -7,7 +7,7 @@ import metamong from '../../assets/profiles/metamong.png';
 import padakmon from '../../assets/profiles/padakmon.png';
 import mukgoja from '../../assets/profiles/mukgoja.png';
 import { useSetRecoilState } from 'recoil';
-import { profileModalState } from '../../recoil/atoms/atom';
+import { profileModalState } from '../../recoil/atoms/Atoms';
 import { useMutation } from '@tanstack/react-query';
 import { PatchUser } from '../../api/api';
 
