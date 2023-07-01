@@ -2,10 +2,8 @@ import { styled } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 function SearchBar() {
-  const isDesktop = useMediaQuery('(min-width: 940px)');
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [userInput, setUserInput] = useState('');
   const navigate = useNavigate();
@@ -75,5 +73,5 @@ const S_Logo = styled.button`
   font-size: 20px;
   right: 8px;
   margin-top: 8.5px;
-  z-index: 9999;
+  z-index: 9998;
 `;
