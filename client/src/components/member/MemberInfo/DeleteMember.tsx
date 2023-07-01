@@ -35,5 +35,6 @@ const S_Wrapper = styled.div`
     height: 36px;
     border-radius: 5px;
     border: 1px solid #fff;
+    margin-bottom: 12px;
   }
 `;

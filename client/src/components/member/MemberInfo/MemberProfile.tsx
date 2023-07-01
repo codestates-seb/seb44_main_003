@@ -43,6 +43,7 @@ export default MemberProfile;
 
 const S_ProfileWrapper = styled.div`
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   width: 160px;

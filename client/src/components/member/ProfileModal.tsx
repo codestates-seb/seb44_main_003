@@ -8,42 +8,52 @@ import padakmon from '../../assets/profiles/padakmon.png';
 import mukgoja from '../../assets/profiles/mukgoja.png';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../recoil/atoms/atom';
+import { useMutation } from '@tanstack/react-query';
+import { PatchUser } from '../../api/api';
 
 const defaultProfiles = [
   {
     id: 1,
     name: 'bee_happy',
-    src: bee_happy,
+    url: bee_happy,
   },
   {
     id: 2,
     name: 'kongdami',
-    src: kongdami,
+    url: kongdami,
   },
   {
     id: 3,
     name: 'kuroming',
-    src: kuroming,
+    url: kuroming,
   },
   {
     id: 4,
     name: 'metamong',
-    src: metamong,
+    url: metamong,
   },
   {
     id: 5,
     name: 'padakmon',
-    src: padakmon,
+    url: padakmon,
   },
   {
     id: 6,
     name: 'mukgoja',
-    src: mukgoja,
+    url: mukgoja,
   },
 ];
 
 function ProfileModal() {
   const setShowModal = useSetRecoilState(profileModalState);
+  const mutationPatch = useMutation({
+    mutationFn: PatchUser,
+  });
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLImageElement;
+    mutationPatch.mutate({ avatarUri: target.src });
+  };
+
   return (
     <S_Modal>
       <BiX
@@ -57,8 +67,9 @@ function ProfileModal() {
         {defaultProfiles.map((profile) => (
           <img
             id={profile.id.toString()}
-            src={profile.src}
+            src={profile.url}
             alt={profile.name}
+            onClick={handleClick}
           />
         ))}
       </div>

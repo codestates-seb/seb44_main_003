@@ -88,6 +88,7 @@ const S_Wrapper = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  min-width: 470px;
   justify-content: space-around;
   padding: 0 30px;
 
