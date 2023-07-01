@@ -15,14 +15,17 @@ function Information() {
     return <S_Wrapper>Error:{error.message}</S_Wrapper>;
   if (isSuccess) {
     const memberSince = new Date(data.createdAt);
+    console.log(memberSince);
     const currentDate = new Date();
     const timeDiff = currentDate.getTime() - memberSince.getTime();
+    console.log(timeDiff);
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return (
       <S_Wrapper>
         <h1>{data.nickname}</h1>
         <p>
-          가입일 : {data.createdAt} | 조잉에 함께한 지 {daysDiff}일 째입니다
+          가입일 : {data.createdAt.substring(0, 10)} | 조잉에 함께한 지{' '}
+          {daysDiff}일 째입니다
         </p>
         <div>
           <button type="button">프로필 변경</button>

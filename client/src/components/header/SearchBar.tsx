@@ -2,10 +2,8 @@ import { styled } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 function SearchBar() {
-  const isDesktop = useMediaQuery('(min-width: 940px)');
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [userInput, setUserInput] = useState('');
   const navigate = useNavigate();
