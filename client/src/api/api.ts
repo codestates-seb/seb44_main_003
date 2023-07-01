@@ -19,4 +19,4 @@ instance.interceptors.request.use((config) => {
 
 /* 유저 정보 가져오기 */
 export const GetUser = () =>
-  instance.get('/members').then((res) => res.data.body.data);
+  instance.get('/members').then((res) => res.data[0]);
