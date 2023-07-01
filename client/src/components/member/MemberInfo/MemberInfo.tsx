@@ -1,14 +1,12 @@
 import { styled } from 'styled-components';
 import MemberProfile from './MemberProfile';
 import Information from './Information';
-import DeleteMember from './DeleteMember';
 
 function MemberInfo() {
   return (
     <S_Wrapper>
       <MemberProfile />
       <Information />
-      <DeleteMember />
     </S_Wrapper>
   );
 }
