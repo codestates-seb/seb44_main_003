@@ -21,3 +21,7 @@ instance.interceptors.request.use((config) => {
 /* 유저 정보 가져오기 */
 export const GetUser = (): Promise<Member> =>
   instance.get('/members').then((res) => res.data[0]);
+
+export const PatchUser = (data: any) => instance.patch('/members', data);
+
+export const DeleteUser = () => instance.delete('/members');

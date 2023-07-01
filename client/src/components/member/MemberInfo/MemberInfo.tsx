@@ -16,6 +16,7 @@ function MemberInfo() {
 export default MemberInfo;
 
 const S_Wrapper = styled.div`
+  padding: 0 40px;
   display: flex;
   width: 100%;
   color: white;

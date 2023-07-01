@@ -1,9 +1,24 @@
 import { styled } from 'styled-components';
+import { useMutation } from '@tanstack/react-query';
+import { DeleteUser } from '../../../api/api';
 
 function DeleteMember() {
+  const mutationDelete = useMutation({
+    mutationFn: DeleteUser,
+  });
+
+  const handleDelete = () => {
+    const confirm = window.confirm(
+      '정말로 회원 정보를 모두 삭제하시겠습니까? 삭제 후에는 복구가 불가능합니다.'
+    );
+    confirm && mutationDelete.mutate();
+  };
+
   return (
     <S_Wrapper>
-      <button type="button">회원 탈퇴</button>
+      <button type="button" onClick={handleDelete}>
+        회원 탈퇴
+      </button>
     </S_Wrapper>
   );
 }

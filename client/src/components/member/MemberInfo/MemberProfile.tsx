@@ -47,7 +47,6 @@ const S_ProfileWrapper = styled.div`
   justify-content: center;
   width: 160px;
   height: 160px;
-  margin-left: 40px;
 
   > img {
     border-radius: 10px;

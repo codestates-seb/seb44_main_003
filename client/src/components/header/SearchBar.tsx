@@ -73,5 +73,5 @@ const S_Logo = styled.button`
   font-size: 20px;
   right: 8px;
   margin-top: 8.5px;
-  z-index: 9999;
+  z-index: 9998;
 `;
