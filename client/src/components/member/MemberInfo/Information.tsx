@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { HiPencil } from 'react-icons/hi';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { profileModalState } from '../../../recoil/atoms/atom';
+import { profileModalState } from '../../../recoil/atoms/Atoms';
 import useMediaQuery from '../../../hooks/useMediaQuery';
 
 function Information() {
