@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 /* ----- Root ----- */
-export const StyledRoot = styled.div`
+export const S_Root = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -9,7 +9,7 @@ export const StyledRoot = styled.div`
 `;
 
 /* ----- Wrapper Root-Main ----- */
-export const StyledWrapper = styled.main`
+export const S_Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,4 +17,9 @@ export const StyledWrapper = styled.main`
   width: calc(100%-(60px));
   overflow: hidden;
   margin: 0 30px;
+`;
+
+export const S_Container = styled.main`
+  max-width: 1500px;
+  flex-grow: 1;
 `;
