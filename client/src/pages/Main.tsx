@@ -1,5 +1,11 @@
+import Carousel from '../components/Carousel';
+
 const Main = () => {
-  return <div></div>;
+  return (
+    <>
+      <Carousel />
+    </>
+  );
 };
 
 export default Main;
