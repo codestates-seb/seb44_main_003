@@ -1,15 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/Header';
-import { StyledRoot, StyledWrapper } from '../style/style';
+import { S_Root, S_Wrapper, S_Container } from '../style/style';
 
 function Root() {
   return (
-    <StyledRoot>
+    <S_Root>
       <Header />
-      <StyledWrapper>
-        <Outlet />
-      </StyledWrapper>
-    </StyledRoot>
+      <S_Wrapper>
+        <S_Container>
+          <Outlet />
+        </S_Container>
+      </S_Wrapper>
+    </S_Root>
   );
 }
 

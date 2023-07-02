@@ -77,7 +77,6 @@ export default function Carousel() {
 const S_Wrapper = styled.div<{ background: string }>`
   width: 100%;
   height: 450px;
-  max-width: 1500px;
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(${(props) => props.background});
   background-color: var(--color-bg-100);
