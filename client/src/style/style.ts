@@ -11,7 +11,6 @@ export const S_Root = styled.div`
 /* ----- Wrapper Root-Main ----- */
 export const S_Wrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-grow: 1;
   width: calc(100%-(60px));
