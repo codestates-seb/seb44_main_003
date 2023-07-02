@@ -13,7 +13,8 @@ export const StyledWrapper = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
   flex-grow: 1;
+  width: calc(100%-(60px));
   overflow: hidden;
+  margin: 0 30px;
 `;
