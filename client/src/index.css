@@ -21,6 +21,8 @@
 body {
   font-family: 'inter', sans-serif;
   background-color: var(--color-bg-100);
+  width: 100vw;
+  height: 100vh;
 }
 
 a {
