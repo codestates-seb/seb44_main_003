@@ -1,8 +1,8 @@
 :root {
   /* color */
   --color-bg-100: #14181f;
-  --color-bg-80: rgba(20, 24, 31, 80);
-  --color-bg-60: rgba(20, 24, 31, 60);
+  --color-bg-80: rgba(20, 24, 31, 0.8);
+  --color-bg-60: rgba(20, 24, 31, 0.6);
 
   --color-primary-yellow: #ffff00;
   --color-primary-gold: #ffcd29;
@@ -12,8 +12,8 @@
   --color-dropdown-stroke: #4c535f;
 
   --color-white-100: #ffffff;
-  --color-white-80: rgba(255, 255, 255, 80);
-  --color-white-60: rgba(255, 255, 255, 60);
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-60: rgba(255, 255, 255, 0.6);
 
   /* shadow */
 
