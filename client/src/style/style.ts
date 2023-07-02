@@ -16,5 +16,5 @@ export const StyledWrapper = styled.main`
   flex-grow: 1;
   width: calc(100%-(60px));
   overflow: hidden;
-  margin: 0 41px;
+  margin: 0 30px;
 `;
