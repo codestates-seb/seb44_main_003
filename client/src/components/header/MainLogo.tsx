@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import logo from '../../assets/logo/logo_white.png';
+import logo from '../../assets/logo/logo_white.svg';
 import { useNavigate } from 'react-router-dom';
 
 function MainLogo() {
