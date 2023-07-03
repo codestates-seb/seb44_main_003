@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediaResponseDto {
-    private Integer id;
+    private Long id;
     private String title;
     private String mainPoster;
 }
