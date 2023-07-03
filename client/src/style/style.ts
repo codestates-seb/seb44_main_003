@@ -15,10 +15,8 @@ export const S_Root = styled.div`
   h3,
   h4 {
     font-size: 18px;
-    color: white;
     @media only screen and (max-width: 480px) {
       font-size: 14px;
-      color: white;
     }
   }
 `;
