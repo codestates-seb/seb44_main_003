@@ -21,11 +21,10 @@ a {
   text-decoration: none;
 }
 
-input, button {
+button {
   all: unset;
   cursor: pointer;
   text-align: center;
-  border: none;
   outline: none;
 }
 

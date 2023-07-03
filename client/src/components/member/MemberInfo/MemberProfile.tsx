@@ -48,7 +48,10 @@ const S_ProfileWrapper = styled.div`
   justify-content: center;
   width: 160px;
   height: 160px;
-
+  @media only screen and (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+  }
   > img {
     border-radius: 10px;
   }
