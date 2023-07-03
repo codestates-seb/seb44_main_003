@@ -20,7 +20,7 @@ public enum ExceptionCode {
     TAG_NOT_FOUND(404, "태그를 찾을 수 없습니다"),
     DIB_NOT_FOUND(404, "찜을 찾을 수 없습니다"),
     RECOMMEND_NOT_FOUND(404, "추천을 찾을 수 없습니다"),
-    ITEM_NOT_FOUND(404, "컨텐츠를 찾을 수 없습니다"),
+    MEDIA_NOT_FOUND(404, "컨텐츠를 찾을 수 없습니다"),
     INVALID_AUTHORIZATION(401, "권한이 없습니다");
 
     @Getter
