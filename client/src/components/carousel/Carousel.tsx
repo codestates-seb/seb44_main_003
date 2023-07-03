@@ -5,28 +5,52 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination, Mousewheel, EffectCoverflow } from 'swiper';
-import img1 from '../assets/gif/1.gif';
-// import img2 from '../assets/2.gif';
-// import img3 from '../assets/3.gif';
-// import img4 from '../assets/4.gif';
-// import img5 from '../assets/5.gif';
+import ModalHover from './ModalHover';
 
 const items = [
-  { image: img1, text: '이미지 1 텍스트' },
-  { image: img1, text: '이미지 2 텍스트' },
-  { image: img1, text: '이미지 3 텍스트' },
-  { image: img1, text: '이미지 4 텍스트' },
-  { image: img1, text: '이미지 5 텍스트' },
+  {
+    image:
+      'https://i.namu.wiki/i/Uu2YDFFnBy2JkKYs1oeOxdzzcnXJhcnuNy2ecxYF9RGCVGyCu1XftFsHLOlbsW8OX3Ch2NhMhcRB6qteKhXHXQ.webp',
+    text: '이미지 1 텍스트',
+  },
+  {
+    image:
+      'https://i.namu.wiki/i/Uu2YDFFnBy2JkKYs1oeOxdzzcnXJhcnuNy2ecxYF9RGCVGyCu1XftFsHLOlbsW8OX3Ch2NhMhcRB6qteKhXHXQ.webp',
+    text: '이미지 2 텍스트',
+  },
+  {
+    image:
+      'https://i.namu.wiki/i/Uu2YDFFnBy2JkKYs1oeOxdzzcnXJhcnuNy2ecxYF9RGCVGyCu1XftFsHLOlbsW8OX3Ch2NhMhcRB6qteKhXHXQ.webp',
+    text: '이미지 3 텍스트',
+  },
+  {
+    image:
+      'https://i.namu.wiki/i/Uu2YDFFnBy2JkKYs1oeOxdzzcnXJhcnuNy2ecxYF9RGCVGyCu1XftFsHLOlbsW8OX3Ch2NhMhcRB6qteKhXHXQ.webp',
+    text: '이미지 4 텍스트',
+  },
+  {
+    image:
+      'https://i.namu.wiki/i/Uu2YDFFnBy2JkKYs1oeOxdzzcnXJhcnuNy2ecxYF9RGCVGyCu1XftFsHLOlbsW8OX3Ch2NhMhcRB6qteKhXHXQ.webp',
+    text: '이미지 5 텍스트',
+  },
 ];
 
 export default function Carousel() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModal, setIsModal] = useState(false);
 
   const handleSlideChange = (swiper: {
     activeIndex: SetStateAction<number>;
   }) => {
     setCurrentImageIndex(swiper.activeIndex);
+  };
+
+  const handleModalOpen = () => {
+    setIsModal(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModal(false);
   };
 
   return (
@@ -37,14 +61,14 @@ export default function Carousel() {
           centeredSlides={true}
           effect={'coverflow'}
           coverflowEffect={{
-            rotate: 10,
+            rotate: 12,
             stretch: -40,
             depth: 200,
             modifier: 3,
             slideShadows: true,
           }}
           autoplay={{
-            delay: 8000,
+            delay: 80000,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -64,21 +88,24 @@ export default function Carousel() {
           {items.map((item, idx) => {
             return (
               <StyledSwiperSlide key={idx}>
-                <StyledImage src={item.image} />
+                <StyledImage
+                  src={item.image}
+                  onMouseOver={handleModalOpen}
+                  onMoseOut={handleModalClose}
+                />
               </StyledSwiperSlide>
             );
           })}
         </S_Swiper>
       </S_Wrapper>
+      {isModal && <ModalHover />}
     </>
   );
 }
 
-const S_Wrapper = styled.div<{ background: string }>`
+const S_Wrapper = styled.div`
   width: 100%;
   height: 450px;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(${(props) => props.background});
   background-color: var(--color-bg-100);
   background-position: center;
   background-size: cover;
