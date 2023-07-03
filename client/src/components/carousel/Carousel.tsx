@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
 import 'swiper/css';
@@ -36,14 +36,7 @@ const items = [
 ];
 
 export default function Carousel() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModal, setIsModal] = useState(false);
-
-  const handleSlideChange = (swiper: {
-    activeIndex: SetStateAction<number>;
-  }) => {
-    setCurrentImageIndex(swiper.activeIndex);
-  };
 
   const handleModalOpen = () => {
     setIsModal(true);
@@ -55,7 +48,7 @@ export default function Carousel() {
 
   return (
     <>
-      <S_Wrapper background={items[currentImageIndex].image}>
+      <S_Wrapper>
         <S_Swiper
           slidesPerView={3}
           centeredSlides={true}
@@ -81,7 +74,6 @@ export default function Carousel() {
             },
           }}
           mousewheel={true}
-          onSlideChange={handleSlideChange}
           modules={[Autoplay, Pagination, Mousewheel, EffectCoverflow]}
           className="mySwiper"
         >
@@ -91,7 +83,7 @@ export default function Carousel() {
                 <StyledImage
                   src={item.image}
                   onMouseOver={handleModalOpen}
-                  onMoseOut={handleModalClose}
+                  onMouseOut={handleModalClose}
                 />
               </StyledSwiperSlide>
             );
