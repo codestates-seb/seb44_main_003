@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
+import GlobalStyle from './styles/global-styles';
 import Root from './pages/Root';
 import Main from './pages/Main';
 import Member from './pages/Member';
@@ -66,6 +67,7 @@ function App() {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
+        <GlobalStyle />
         <RouterProvider router={router} />
       </QueryClientProvider>
     </RecoilRoot>

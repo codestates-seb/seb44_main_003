@@ -6,10 +6,6 @@ export const S_Root = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  @media only screen and (max-width: 480px) {
-    font-size: 13px;
-  }
 `;
 
 /* ----- Wrapper Root-Main ----- */
