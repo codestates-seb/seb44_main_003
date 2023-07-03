@@ -10,6 +10,17 @@ export const S_Root = styled.div`
   @media only screen and (max-width: 480px) {
     font-size: 13px;
   }
+  & h1,
+  h2,
+  h3,
+  h4 {
+    font-size: 18px;
+    color: white;
+    @media only screen and (max-width: 480px) {
+      font-size: 14px;
+      color: white;
+    }
+  }
 `;
 
 /* ----- Wrapper Root-Main ----- */
