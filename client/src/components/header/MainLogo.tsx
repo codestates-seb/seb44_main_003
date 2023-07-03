@@ -17,4 +17,8 @@ const S_Wrapper = styled.div`
   margin-right: 30px;
   cursor: pointer;
   width: 150px;
+  @media only screen and (max-width: 480px) {
+    width: 80px;
+    height: 30px;
+  }
 `;
