@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/Header';
-import { S_Root, S_Wrapper, S_Container } from '../style/style';
+import { S_Root, S_Wrapper, S_Container } from '../styles/style';
 
 function Root() {
   return (

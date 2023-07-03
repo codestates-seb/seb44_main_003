@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
-import { Autoplay, Pagination, Mousewheel, EffectCoverflow } from 'swiper';
+import { Pagination, Mousewheel, EffectCoverflow } from 'swiper';
 import ModalHover from './ModalHover';
 
 const items = [
@@ -37,13 +37,28 @@ const items = [
 
 export default function Carousel() {
   const [isModal, setIsModal] = useState(false);
+  const [hoverTimeout, setHoverTimeout] = useState<number | undefined>(
+    undefined
+  );
 
-  const handleModalOpen = () => {
-    setIsModal(true);
+  const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
+    const slide = (e.target as Element).closest('.swiper-slide');
+    if (!slide || !slide.classList.contains('swiper-slide-active')) {
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setIsModal(true);
+    }, 800);
+    setHoverTimeout(timeout);
   };
 
   const handleModalClose = () => {
+    clearTimeout(hoverTimeout);
     setIsModal(false);
+  };
+
+  const handleMouseLeave = () => {
+    clearTimeout(hoverTimeout);
   };
 
   return (
@@ -60,10 +75,6 @@ export default function Carousel() {
             modifier: 3,
             slideShadows: true,
           }}
-          autoplay={{
-            delay: 80000,
-            disableOnInteraction: false,
-          }}
           pagination={{
             clickable: true,
             type: 'bullets',
@@ -74,23 +85,23 @@ export default function Carousel() {
             },
           }}
           mousewheel={true}
-          modules={[Autoplay, Pagination, Mousewheel, EffectCoverflow]}
+          modules={[Pagination, Mousewheel, EffectCoverflow]}
           className="mySwiper"
         >
           {items.map((item, idx) => {
             return (
-              <StyledSwiperSlide key={idx}>
-                <StyledImage
+              <S_SwiperSlide key={idx}>
+                <S_Image
                   src={item.image}
-                  onMouseOver={handleModalOpen}
-                  onMouseOut={handleModalClose}
+                  onMouseEnter={handleModalOpen}
+                  onMouseLeave={handleMouseLeave}
                 />
-              </StyledSwiperSlide>
+              </S_SwiperSlide>
             );
           })}
         </S_Swiper>
       </S_Wrapper>
-      {isModal && <ModalHover />}
+      {isModal && <ModalHover handleModalClose={handleModalClose} />}
     </>
   );
 }
@@ -101,10 +112,9 @@ const S_Wrapper = styled.div`
   background-color: var(--color-bg-100);
   background-position: center;
   background-size: cover;
-  transition: background-image 1s ease-in-out;
 `;
 
-const StyledSwiperSlide = styled(SwiperSlide)`
+const S_SwiperSlide = styled(SwiperSlide)`
   position: relative;
   height: 400px;
   display: flex;
@@ -112,7 +122,7 @@ const StyledSwiperSlide = styled(SwiperSlide)`
   border-radius: 10px;
 `;
 
-const StyledImage = styled.img`
+const S_Image = styled.img`
   position: relative;
   width: 100%;
   height: 100%;
@@ -127,6 +137,11 @@ const S_Swiper = styled(Swiper)`
   .swiper-wrapper {
     display: flex;
     align-items: center;
+  }
+  .swiper-slide-active:hover {
+    transform: scale(1.2) !important;
+    filter: brightness(0.1) !important;
+    transition: all 0.8s ease-in !important;
   }
   .swiper-slide-shadow-left,
   .swiper-slide-shadow-right {

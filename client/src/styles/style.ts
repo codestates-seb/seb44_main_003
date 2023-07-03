@@ -6,6 +6,19 @@ export const S_Root = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  font-size: 16px;
+  @media only screen and (max-width: 480px) {
+    font-size: 13px;
+  }
+  & h1,
+  h2,
+  h3,
+  h4 {
+    font-size: 18px;
+    @media only screen and (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
 `;
 
 /* ----- Wrapper Root-Main ----- */
