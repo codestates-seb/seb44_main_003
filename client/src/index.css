@@ -10,29 +10,6 @@
   font-style: normal;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  max-width: 100%;
-}
-
-body {
-  font-family: 'inter', sans-serif;
-  background-color: var(--color-bg-100);
-  width: 100vw;
-  height: 100vh;
-}
-
-a {
-  text-decoration: none;
-}
-
-input:focus {
-  outline: none;
-}
-
 .lds-ellipsis {
   display: inline-block;
   position: relative;
@@ -87,10 +64,4 @@ input:focus {
   100% {
     transform: translate(10px, 0);
   }
-}
-
-button {
-  all: unset;
-  cursor: pointer;
-  text-align: center;
 }
