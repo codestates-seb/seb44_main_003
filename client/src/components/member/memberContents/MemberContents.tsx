@@ -49,7 +49,6 @@ const S_list = styled.li<{ $isSelected: boolean }>`
   cursor: pointer;
   padding: 0 3px;
   color: ${(props) => (props.$isSelected ? ' #FF0' : undefined)};
-  font-size: 16px;
   padding-bottom: 10px;
   border-bottom: ${(props) =>
     props.$isSelected ? '5px solid #FF0' : undefined};

@@ -5,10 +5,8 @@ import { HiPencil } from 'react-icons/hi';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
-import useMediaQuery from '../../../hooks/useMediaQuery';
 
 function Information() {
-  const isDesktop = useMediaQuery('(min-width: 800px)');
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
@@ -54,7 +52,7 @@ function Information() {
     const timeDiff = currentDate.getTime() - memberSince.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return (
-      <S_Wrapper $primary={isDesktop}>
+      <S_Wrapper>
         {isEditing ? (
           <form className="flex" onSubmit={handleSubmit}>
             <input
@@ -78,7 +76,7 @@ function Information() {
           <div>가입일 : {data.createdAt.substring(0, 10)} </div>
           <span>|</span> <div>조잉에 함께한 지 {daysDiff}일 째입니다</div>
         </p>
-        <S_Div $primary={isDesktop}>
+        <S_Div>
           <div>
             <button
               type="button"
@@ -101,7 +99,7 @@ function Information() {
 
 export default Information;
 
-const S_Wrapper = styled.div<{ $primary?: boolean }>`
+const S_Wrapper = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -113,6 +111,9 @@ const S_Wrapper = styled.div<{ $primary?: boolean }>`
     align-items: center;
     font-size: 32px;
     font-weight: 700;
+    @media only screen and (max-width: 480px) {
+      font-size: 20px;
+    }
     > svg {
       margin-left: 10px;
       cursor: pointer;
@@ -126,6 +127,10 @@ const S_Wrapper = styled.div<{ $primary?: boolean }>`
       width: 200px;
       padding: 5px;
       border-radius: 5px;
+      @media only screen and (max-width: 700px) {
+        display: block;
+        margin-bottom: 10px;
+      }
     }
     > button {
       width: 80px;
@@ -142,23 +147,33 @@ const S_Wrapper = styled.div<{ $primary?: boolean }>`
   > p {
     font-size: 18px;
     color: var(--color-white-80);
+    @media only screen and (max-width: 480px) {
+      font-size: 14px;
+    }
     > div {
       margin: 10px 0;
-      display: ${(props) => (props.$primary ? 'inline' : undefined)};
+      @media only screen and (min-width: 800px) {
+        display: inline;
+      }
     }
     > span {
       margin: 0 3px;
-      display: ${(props) => (props.$primary ? undefined : 'none')};
+      @media only screen and (max-width: 800px) {
+        display: none;
+      }
     }
   }
 `;
 
-const S_Div = styled.div<{ $primary: boolean }>`
+const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-
-  transform: ${(props) =>
-    props.$primary ? undefined : 'translate(-200px, 85px)'};
+  @media only screen and (max-width: 800px) {
+    transform: translate(-200px, 65px);
+  }
+  @media only screen and (max-width: 480px) {
+    transform: translate(-100px, 35px);
+  }
   > button {
     width: 140px;
     height: 36px;
@@ -166,6 +181,10 @@ const S_Div = styled.div<{ $primary: boolean }>`
     border: 1px solid #fff;
     flex-shrink: 0;
     margin-left: 10px;
+    @media only screen and (max-width: 480px) {
+      width: 100px;
+      height: 30px;
+    }
   }
   > div {
     flex-shrink: 0;
@@ -174,6 +193,10 @@ const S_Div = styled.div<{ $primary: boolean }>`
       height: 36px;
       border-radius: 5px;
       border: 1px solid #fff;
+      @media only screen and (max-width: 480px) {
+        width: 100px;
+        height: 30px;
+      }
     }
     > button:first-child {
       margin-right: 10px;
