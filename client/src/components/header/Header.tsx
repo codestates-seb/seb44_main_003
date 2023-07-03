@@ -3,13 +3,11 @@ import MainLogo from './MainLogo';
 import Navigation from './Navigation';
 import MemberMenu from './MemberMenu';
 import SearchBar from './SearchBar';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 function Header() {
-  const isDesktop = useMediaQuery('(min-width: 940px)');
   return (
     <S_Header>
-      <S_Wrapper $primary={isDesktop}>
+      <S_Wrapper>
         <div>
           <MainLogo />
           <Navigation />
@@ -40,7 +38,7 @@ const S_Header = styled.header`
   );
 `;
 
-const S_Wrapper = styled.div<{ $primary: boolean }>`
+const S_Wrapper = styled.div`
   max-width: 1500px;
   display: flex;
   align-items: center;
@@ -56,6 +54,9 @@ const S_Wrapper = styled.div<{ $primary: boolean }>`
   > :nth-child(2) {
     flex-grow: 1;
     justify-content: flex-end;
-    margin-left: ${(props) => (props.$primary ? '60px' : '0')};
+    margin-left: 60px;
+    @media only screen and (max-width: 940px) {
+      margin-left: 0;
+    }
   }
 `;

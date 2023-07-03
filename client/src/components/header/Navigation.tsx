@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import useMediaQuery from '../../hooks/useMediaQuery';
 
 const navMenus = [
   { text: 'TV', route: '/tv' },
@@ -9,12 +8,11 @@ const navMenus = [
 ];
 
 function Navigation() {
-  const isDesktop = useMediaQuery('(min-width: 940px)');
   const navigate = useNavigate();
   return (
-    <StyledNav $primary={isDesktop}>
+    <StyledNav>
       {navMenus.map((menu) => (
-        <span onClick={() => navigate(menu.route)}>{menu.text}</span>
+        <h1 onClick={() => navigate(menu.route)}>{menu.text}</h1>
       ))}
     </StyledNav>
   );
@@ -22,18 +20,19 @@ function Navigation() {
 
 export default Navigation;
 
-const StyledNav = styled.nav<{ $primary: boolean }>`
+const StyledNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 250px;
-  position: ${(props) => (props.$primary ? 'static' : 'absolute')};
-  top: ${(props) => (props.$primary ? undefined : '90px')};
-  left: ${(props) => (props.$primary ? undefined : '40px')};
+  @media only screen and (max-width: 940px) {
+    position: absolute;
+    top: 90px;
+    left: 40px;
+  }
 
-  > span {
+  > h1 {
     color: white;
-    font-size: 18px;
     font-weight: 700;
     text-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.2);
     cursor: pointer;
