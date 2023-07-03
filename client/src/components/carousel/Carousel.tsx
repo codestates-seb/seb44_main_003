@@ -69,7 +69,7 @@ export default function Carousel() {
             type: 'bullets',
             bulletClass: 'swiper-pagination-bullet',
             bulletActiveClass: 'swiper-pagination-bullet-active',
-            renderBullet: (_: null, className: string) => {
+            renderBullet: (_: any, className: string) => {
               return `<span class="${className}"></span>`;
             },
           }}
