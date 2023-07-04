@@ -2,6 +2,7 @@ package com.ott.server.member.controller;
 
 import com.ott.server.dto.SingleResponseDto;
 import com.ott.server.exception.BusinessLogicException;
+import com.ott.server.interest.entity.Interest;
 import com.ott.server.interest.repository.InterestRepository;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.member.entity.Member;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -56,7 +58,14 @@ public class MemberController {
 
             memberOttRepository.save(memberOtt);
         }
-        String[] interest = requestBody.getInterest();
+        String[] interests = requestBody.getInterest();
+        for(int i = 0; i < interests.length; i++){
+            Interest interest = new Interest();
+            interest.setMember(member);
+            interest.setInterestName(interests[i]);
+
+            interestRepository.save(interest);
+        }
 
         return ResponseEntity.created(location).build();
     }
@@ -72,6 +81,34 @@ public class MemberController {
 
         Member updatedMember =
                 memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
+
+        List<MemberOtt> memberOtts = memberOttRepository.findByMember(member);
+        for(int i = 0; i < memberOtts.size(); i++){
+            memberOttRepository.delete(memberOtts.get(i));
+        }
+
+        String[] otts = requestBody.getOtt();
+        for(int i = 0; i < otts.length; i++){
+            MemberOtt memberOtt = new MemberOtt();
+            memberOtt.setMember(member);
+            memberOtt.setMemberOttName(otts[i]);
+
+            memberOttRepository.save(memberOtt);
+        }
+
+        List<Interest> memberInterests = interestRepository.findByMember(member);
+        for(int i = 0; i < memberInterests.size(); i++){
+            interestRepository.delete(memberInterests.get(i));
+        }
+
+        String[] interests = requestBody.getInterest();
+        for(int i = 0; i < interests.length; i++){
+            Interest interest = new Interest();
+            interest.setMember(member);
+            interest.setInterestName(interests[i]);
+
+            interestRepository.save(interest);
+        }
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(memberMapper.memberToMemberResponse(updatedMember)),

@@ -18,7 +18,7 @@ public enum ExceptionCode {
     VOTE_NOT_FOUND(404, "투표를 찾을 수 없습니다"),
     INVALID_TAG_FORMAT(400, "유효하지 않은 태그 형식입니다"),
     TAG_NOT_FOUND(404, "태그를 찾을 수 없습니다"),
-    DIB_NOT_FOUND(404, "찜을 찾을 수 없습니다"),
+    BOOKMARK_NOT_FOUND(404, "찜을 찾을 수 없습니다"),
     RECOMMEND_NOT_FOUND(404, "추천을 찾을 수 없습니다"),
     MEDIA_NOT_FOUND(404, "컨텐츠를 찾을 수 없습니다"),
     INVALID_AUTHORIZATION(401, "권한이 없습니다");
