@@ -1,5 +1,9 @@
 import axios from 'axios';
+<<<<<<< HEAD
 import { Member, NewMember, LoginInfo } from '../types/types';
+=======
+import { Member, TV } from '../types/types';
+>>>>>>> 0a02dfe (feat/tvpage: TV 페이지 구현 완료)
 
 const accessToken = localStorage.getItem('token');
 
@@ -31,3 +35,7 @@ export const PostUser = (data: NewMember) =>
 export const PatchUser = (data: any) => instance.patch(`/members`, data);
 
 export const DeleteUser = () => instance.delete('/members');
+
+/* TV 데이터 가져오기 */
+export const GetTVData = (): Promise<TV[]> =>
+  instance.get('/TV').then((res) => res.data);
