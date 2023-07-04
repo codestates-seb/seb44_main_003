@@ -12,7 +12,9 @@ function Navigation() {
   return (
     <StyledNav>
       {navMenus.map((menu) => (
-        <h1 onClick={() => navigate(menu.route)}>{menu.text}</h1>
+        <h1 key={menu.text} onClick={() => navigate(menu.route)}>
+          {menu.text}
+        </h1>
       ))}
     </StyledNav>
   );
