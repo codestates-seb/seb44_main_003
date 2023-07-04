@@ -5,7 +5,7 @@ import netflix from '../../assets/ott/netflix.svg';
 import tving from '../../assets/ott/tving.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
-import coupang from '../../assets/ott/coupang.svg';
+import wavve from '../../assets/ott/wavve.svg';
 
 const Information = () => {
   return (
@@ -50,10 +50,10 @@ const Information = () => {
               <h1>OTT</h1>
               <div className="ott">
                 <img src={netflix} alt="netflix" />
-                <img src={tving} alt="tving" />
-                <img src={disney} alt="disney" />
+                <img src={disney} alt="disney+" />
                 <img src={watcha} alt="watcha" />
-                <img src={coupang} alt="coupang" />
+                <img src={wavve} alt="wavve" />
+                <img src={tving} alt="tving" />
               </div>
               <p className="bold-white">크리에이터 &nbsp;&nbsp;&nbsp;나영석</p>
               <p className="bold-white margin">
@@ -187,8 +187,12 @@ const S_TitleFont = styled.div`
     margin: 15px 0;
   }
   img {
+    box-shadow: var(--shadow-box-m-25);
     margin-right: 15px;
-    cursor: pointer;
+  }
+  img:last-child {
+    filter: saturate(0);
+    opacity: 0.8;
   }
   @media only screen and (max-width: 768px) {
     .margin {
