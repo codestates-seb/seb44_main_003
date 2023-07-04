@@ -75,11 +75,11 @@ public class MediaService {
     }
 
     public Page<MediaResponseDto> getMedias(String category, List<String> genre, List<String> ott, Pageable pageable) {
-        Page<Media> medias = mediaRepository.findByCategoryAndGenreAndOtt(category, genre, ott, pageable);
+        //Page<Media> medias = mediaRepository.findByCategoryAndGenreAndOtt(category, genre, ott, pageable);
 
-        Page<MediaResponseDto> mediasResponseDto = medias.map(mediaMapper::toResponseDto);
+        //Page<MediaResponseDto> mediasResponseDto = medias.map(mediaMapper::toResponseDto);
 
-        return mediasResponseDto;
+        return null;//mediasResponseDto;
     }
 
 

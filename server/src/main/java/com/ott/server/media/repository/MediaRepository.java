@@ -9,5 +9,5 @@ import java.util.List;
 
 // MediaRepository
 public interface MediaRepository extends JpaRepository<Media, Long> {
-    Page<Media> findByCategoryAndGenreAndOtt(String category, List<String> genre, List<String> ott, Pageable pageable);
+    //Page<Media> findByCategoryAndGenreAndOtt(String category, List<String> genre, List<String> ott, Pageable pageable);
 }
