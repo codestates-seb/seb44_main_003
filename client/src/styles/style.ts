@@ -26,8 +26,7 @@ export const S_Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  width: calc(100%-(60px));
-  overflow: hidden;
+  overflow-x: hidden;
 `;
 
 export const S_Container = styled.main`
