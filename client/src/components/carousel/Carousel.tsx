@@ -67,6 +67,7 @@ export default function Carousel() {
         <S_Swiper
           slidesPerView={3}
           centeredSlides={true}
+          initialSlide={2}
           effect={'coverflow'}
           coverflowEffect={{
             rotate: 12,

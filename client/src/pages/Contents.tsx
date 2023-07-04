@@ -1,5 +1,11 @@
+import Information from '../components/contents/Information';
+
 const Contents = () => {
-  return <div></div>;
+  return (
+    <>
+      <Information />
+    </>
+  );
 };
 
 export default Contents;
