@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Member } from '../types/types';
+import { Member, NewMember, LoginInfo } from '../types/types';
 
 const accessToken = localStorage.getItem('token');
 
@@ -22,6 +22,12 @@ instance.interceptors.request.use((config) => {
 export const GetUser = (): Promise<Member> =>
   instance.get('/members').then((res) => res.data[0]);
 
-export const PatchUser = (data: any) => instance.patch('/members', data);
+export const Login = (data: LoginInfo) =>
+  axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, data);
+
+export const PostUser = (data: NewMember) =>
+  axios.post(`${import.meta.env.VITE_BASE_URL}/members`, data);
+
+export const PatchUser = (data: any) => instance.patch(`/members`, data);
 
 export const DeleteUser = () => instance.delete('/members');
