@@ -3,28 +3,33 @@ import Logo from './Logo';
 import { useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import SocialLogin from './SocialLogin';
+import AdditionalInfo from './AdditionalInfo';
 
 function Authentication() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   return (
-    <S_div>
+    <S_Wrapper>
       <Logo />
       {isLoginPage ? <LoginForm /> : <SignupForm />}
-    </S_div>
+      <SocialLogin isLoginPage={isLoginPage} />
+      <AdditionalInfo isLoginPage={isLoginPage} />
+    </S_Wrapper>
   );
 }
 
-const S_div = styled.div`
+const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 30px 0;
   width: 420px;
   background-color: #d9d9d933;
   backdrop-filter: blur(3px);
   border: 1px solid #ffffff4d;
   border-radius: 10px;
+  color: var(--color-white-80);
   @media only screen and (max-width: 480px) {
     width: 360px;
   }
@@ -46,13 +51,11 @@ const S_div = styled.div`
       top: 53%;
       right: 20px;
       transform: translate(50%, 50%);
-      color: var(--color-white-80);
       font-size: 20px;
     }
   }
   & label {
     display: block;
-    color: var(--color-white-80);
     font-weight: 400;
     margin-top: 20px;
     margin-bottom: 5px;
@@ -95,8 +98,15 @@ const S_div = styled.div`
     border-radius: 10px;
     border: 1px solid #ffffff4d;
     background-color: #ffff0033;
-    color: var(--color-white-80);
     margin-top: 25px;
+  }
+
+  & button:hover {
+    background-color: #ffff0060;
+  }
+
+  & a {
+    font-weight: 700;
   }
 `;
 
