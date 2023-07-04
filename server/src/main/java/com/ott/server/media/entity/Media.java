@@ -42,19 +42,19 @@ public class Media extends Auditable {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean recent;
 
-    @ManyToMany
-    @JoinTable(
-            name = "media_genre",
-            joinColumns = @JoinColumn(name = "media_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
-    private List<Genre> genre;
-
-    @ManyToMany
-    @JoinTable(
-            name = "media_ott",
-            joinColumns = @JoinColumn(name = "media_id"),
-            inverseJoinColumns = @JoinColumn(name = "ott_id")
-    )
-    private List<MediaOtt> mediaOtt;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "media_genre",
+//            joinColumns = @JoinColumn(name = "media_id"),
+//            inverseJoinColumns = @JoinColumn(name = "genre_id")
+//    )
+//    private List<Genre> genre;
+//
+//    @ManyToMany
+//    @JoinTable(
+//            name = "media_ott",
+//            joinColumns = @JoinColumn(name = "media_id"),
+//            inverseJoinColumns = @JoinColumn(name = "ott_id")
+//    )
+//    private List<MediaOtt> mediaOtt;
 }
