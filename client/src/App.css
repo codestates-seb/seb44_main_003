@@ -1,42 +1,39 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+:root {
+  /* color */
+  --color-bg-100: #14181f;
+  --color-bg-80: rgba(20, 24, 31, 0.8);
+  --color-bg-60: rgba(20, 24, 31, 0.6);
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+  --color-primary-yellow: #ffff00;
+  --color-primary-gold: #ffcd29;
+  --color-primary-linear: linear-gradient(to bottom, #ffff00, #ffcd29);
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+  --color-dropdown: #282f39;
+  --color-dropdown-stroke: #4c535f;
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+  --color-white-100: #ffffff;
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-60: rgba(255, 255, 255, 0.6);
 
-.card {
-  padding: 2em;
-}
+  /* shadow */
 
-.read-the-docs {
-  color: #888;
+  --shadow-l-40: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.4));
+  --shadow-l-25: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
+
+  --shadow-modal-l: drop-shadow(4px 4px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-m: drop-shadow(2px 2px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-s: drop-shadow(1px 1px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-m-b: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.6));
+  --shadow-modal-s-b: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.6));
+
+  --shadow-box-l-25: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.25));
+  --shadow-box-l-80: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8));
+  --shadow-box-m-50: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+  --shadow-box-m-25: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  --shadow-box-s-50: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+  --shadow-box-s-25: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+
+  --shadow-text: text-shadow(3px 3px 10px 0px rgba(0, 0, 0, 0.2));
+
+  --shadow-yellow-50: drop-shadow(0px 0px 10px rgba(255, 255, 0, 0.5));
 }
