@@ -1,9 +1,5 @@
 import axios from 'axios';
-<<<<<<< HEAD
-import { Member, NewMember, LoginInfo } from '../types/types';
-=======
-import { Member, TV } from '../types/types';
->>>>>>> 0a02dfe (feat/tvpage: TV 페이지 구현 완료)
+import { Member, NewMember, LoginInfo, TV } from '../types/types';
 
 const accessToken = localStorage.getItem('token');
 
