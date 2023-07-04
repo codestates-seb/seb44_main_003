@@ -30,3 +30,10 @@ export type AuthData = {
   password: string;
   confirm?: string;
 };
+
+export type TV = {
+  id: number;
+  title: string;
+  genre: string[];
+  mainPoster: string;
+};

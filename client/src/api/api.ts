@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Member, NewMember, LoginInfo } from '../types/types';
+import { Member, NewMember, LoginInfo, TV } from '../types/types';
 
 const accessToken = localStorage.getItem('token');
 
@@ -31,3 +31,7 @@ export const PostUser = (data: NewMember) =>
 export const PatchUser = (data: any) => instance.patch(`/members`, data);
 
 export const DeleteUser = () => instance.delete('/members');
+
+/* TV 데이터 가져오기 */
+export const GetTVData = (): Promise<TV[]> =>
+  instance.get('/TV').then((res) => res.data);
