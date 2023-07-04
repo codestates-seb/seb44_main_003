@@ -52,6 +52,9 @@ dependencies {
 	implementation 'com.google.code.gson:gson'
 	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+	implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
+	implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.8.1'
+
 
 }
 
