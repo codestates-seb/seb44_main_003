@@ -1,5 +1,9 @@
 package com.ott.server.member.dto;
 
+import com.ott.server.interest.dto.InterestDto;
+import com.ott.server.interest.entity.Interest;
+import com.ott.server.memberott.dto.MemberOttDto;
+import com.ott.server.memberott.entity.MemberOtt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 public class MemberDto {
@@ -58,5 +63,7 @@ public class MemberDto {
         private String nickname;
         private String avatarUri;
         private LocalDateTime createdAt;
+        private List<MemberOttDto.Response> memberOtts;
+        private List<InterestDto.Response> interests;
     }
 }

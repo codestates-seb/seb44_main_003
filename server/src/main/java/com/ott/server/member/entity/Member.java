@@ -1,6 +1,8 @@
 package com.ott.server.member.entity;
 
 import com.ott.server.audit.Auditable;
+import com.ott.server.interest.entity.Interest;
+import com.ott.server.memberott.entity.MemberOtt;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,11 +44,11 @@ public class Member extends Auditable {
 //    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 //    private List<dib> dibs = new ArrayList<>();
 //
-//    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<Interest> interests = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<MemberOtt> memberOtts = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Interest> interests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<MemberOtt> memberOtts = new ArrayList<>();
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
