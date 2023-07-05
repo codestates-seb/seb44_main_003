@@ -9,10 +9,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class MediaDto {
-
+    @Setter
     @Getter
     public static class Create {
-        private Long id;
         private String title;
         private String content;
         private String category;
@@ -23,8 +22,8 @@ public class MediaDto {
         private int releaseDate;
         private String ageRate;
         private Boolean recent;
-        private List<Genre> genre;
-        private List<MediaOtt> mediaOtt;
+        private List<String> genre;
+        private List<String> mediaOtt;
     }
 
     @Getter
@@ -40,19 +39,34 @@ public class MediaDto {
         private int releaseDate;
         private String ageRate;
         private Boolean recent;
-        private List<Genre> genre;
-        private List<MediaOtt> mediaOtt;
+        private List<String> genre;
+        private List<String> mediaOtt;
 
         public void setId(Long id) {
             this.id = id;
         }
     }
 
-    @AllArgsConstructor
     @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private Long id;
         private String title;
         private String mainPoster;
+        private List<String> genre;
+        private List<String> mediaOtt;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Response2 {
+        private Long id;
+        private String title;
+        private String mainPoster;
+
     }
 }
