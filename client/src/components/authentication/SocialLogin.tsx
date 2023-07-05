@@ -8,9 +8,17 @@ function SocialLogin({ isLoginPage }: { isLoginPage: boolean }) {
     <S_Wrapper>
       <p>소셜 계정으로 {isLoginPage ? '로그인' : '회원가입'}</p>
       <div>
-        <img src={google} alt="google login" />
-        <img src={naver} alt="naver login" />
-        <img src={kakao} alt="kakao login" />
+        <a
+          href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/google`}
+        >
+          <img src={google} alt="google login" />
+        </a>
+        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/naver`}>
+          <img src={naver} alt="naver login" />
+        </a>
+        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`}>
+          <img src={kakao} alt="kakao login" />
+        </a>
       </div>
     </S_Wrapper>
   );

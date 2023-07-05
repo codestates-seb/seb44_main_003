@@ -118,7 +118,13 @@ function SignupForm() {
     e.preventDefault();
     setSignupError(null);
     if (validate()) {
-      mutation.mutate({ nickname, email, password });
+      mutation.mutate({
+        nickname,
+        email,
+        password,
+        avatarUri:
+          'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/248/988c9527e85c5b2f7e13a974ae6714c0_res.jpeg',
+      });
     }
   };
 
