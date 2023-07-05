@@ -26,9 +26,5 @@ public class Genre extends Auditable {
 
     @Column(name = "genre_name")
     private String genreName;
-
-    @ManyToOne
-    @JoinColumn(name = "MEDIA_ID")
-    private Media media;
 }
 
