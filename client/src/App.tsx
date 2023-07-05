@@ -45,11 +45,11 @@ const router = createBrowserRouter([
         element: <Movie />,
       },
       {
-        path: 'content',
+        path: 'content/:id',
         element: <Content />,
       },
       {
-        path: 'search',
+        path: 'search/:userInput?/:ott?/:genre?',
         element: <Search />,
       },
     ],
