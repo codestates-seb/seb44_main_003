@@ -35,3 +35,7 @@ export const DeleteUser = () => instance.delete('/members');
 /* TV 데이터 가져오기 */
 export const GetTVData = (): Promise<ItemData[]> =>
   instance.get('/TV').then((res) => res.data);
+
+/* Movie 데이터 가져오기 */
+export const GetMovieData = (): Promise<ItemData[]> =>
+  instance.get('/movie').then((res) => res.data);
