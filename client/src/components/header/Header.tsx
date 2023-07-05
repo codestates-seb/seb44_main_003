@@ -36,6 +36,7 @@ const S_Header = styled.header`
     rgba(20, 24, 31, 0.49) 0%,
     rgba(20, 24, 31, 0) 100%
   );
+  z-index: 1000;
 `;
 
 const S_Wrapper = styled.div`

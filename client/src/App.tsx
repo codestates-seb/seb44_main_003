@@ -9,7 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import TV from './pages/TV';
 import Movie from './pages/Movie';
-import Contents from './pages/Contents';
+import Content from './pages/Content';
 import Search from './pages/Search';
 import './App.css';
 
@@ -43,8 +43,8 @@ const router = createBrowserRouter([
         element: <Movie />,
       },
       {
-        path: 'contents',
-        element: <Contents />,
+        path: 'content',
+        element: <Content />,
       },
       {
         path: 'search',

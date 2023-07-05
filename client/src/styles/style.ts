@@ -3,7 +3,7 @@ import styled from 'styled-components';
 /* ----- Root ----- */
 export const S_Root = styled.div`
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: 16px;
