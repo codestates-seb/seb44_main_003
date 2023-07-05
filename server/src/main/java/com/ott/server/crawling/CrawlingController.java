@@ -161,7 +161,7 @@ public class CrawlingController {
             }catch (RuntimeException e){
                 category = "영화";
             }
-
+            if(category == null) category = "영화";
             Boolean recent = false;
 
             //감독, 출연진, 연령등급
@@ -175,7 +175,7 @@ public class CrawlingController {
 
             for(int i = 0; i < mediaOtts.size(); i++){
                 String ott = mediaOtts.get(i);
-                if(ott.equals("Watcha")) continue; //||ott.equals("wavve")
+                if(ott.equals("Watcha")||ott.equals("wavve")) continue; //
 
                 try{
                     driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[3]/div[2]/div["+ottNumber.get(i)+"]/div/a")).click();
@@ -257,8 +257,9 @@ public class CrawlingController {
             private List<String> genre;
             private List<String> mediaOtt;
 //             */
-           MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
-//            mediaService.createMedia(createData);
+            MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, titlePoster, releaseDate, "전체이용가", recent ,genres, mediaOtts);
+
+            mediaService.createMedia(createData);
 
             System.out.println();
             driver.navigate().back();
