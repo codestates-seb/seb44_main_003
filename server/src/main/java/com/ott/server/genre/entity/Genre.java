@@ -17,12 +17,18 @@ import java.util.List;
 public class Genre extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long genreId;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "MEDIA_ID")
+    private Media media;
+
+
+    @Column(name = "genre_name")
+    private String genreName;
 
     @ManyToOne
     @JoinColumn(name = "MEDIA_ID")
     private Media media;
 }
+

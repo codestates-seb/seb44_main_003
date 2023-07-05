@@ -78,7 +78,7 @@ public class ReviewService {
         return reviewRepository.findAll(pageable).stream()
                 .map(review -> {
                     ReviewListDto reviewListDto = new ReviewListDto();
-                    reviewListDto.setMediaId(review.getMedia().getId());
+                    reviewListDto.setMediaId(review.getMedia().getMediaId());
                     reviewListDto.setContent(review.getContent());
                     reviewListDto.setCreatedAt(review.getCreatedAt());
                     reviewListDto.setLastModifiedAt(review.getLastModifiedAt());

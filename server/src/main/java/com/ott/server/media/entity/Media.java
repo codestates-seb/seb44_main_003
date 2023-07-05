@@ -19,7 +19,7 @@ public class Media extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mediaId;
 
     @Column(length = 50, nullable = false)
     private String title;
