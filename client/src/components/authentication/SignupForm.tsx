@@ -105,7 +105,7 @@ function SignupForm() {
       }
     },
     onError(error: AxiosError) {
-      if (error.response && error.response.status === 400) {
+      if (error.response && error.response.status === 409) {
         setSignupError('이미 사용 중인 이메일입니다.');
         console.error('error:  with same data already exist.');
       } else {
@@ -124,6 +124,9 @@ function SignupForm() {
         password,
         avatarUri:
           'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/248/988c9527e85c5b2f7e13a974ae6714c0_res.jpeg',
+        //category: '',
+        ott: [],
+        interest: [],
       });
     }
   };
