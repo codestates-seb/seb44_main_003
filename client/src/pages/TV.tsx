@@ -1,12 +1,13 @@
-import styled from 'styled-components';
-import Item from '../components/Item';
 import Banner from '../components/Banner';
+import Silder from '../components/Silder/Silder';
+import image from '../assets/이번생도잘부탁해.webp'
+import styled from 'styled-components';
 
 const TV = () => {
   return (
     <S_Wrapper>
-      <Banner></Banner>
-      <Item></Item>
+      <Banner image={image}/>
+      <Silder/>
     </S_Wrapper>
   );
 };
