@@ -27,7 +27,7 @@ spring:
             client-id: l96jJOaCltiFH52RtFeI
             client-secret: YCH_bRY2oK
             client-name: Naver
-            redirect-uri: "http://localhost:8080/login/oauth2/code/naver"
+            redirect-uri: "https://joying.vercel.app/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
             scope:
               - name
@@ -38,7 +38,7 @@ spring:
             client-secret: ejmftexg9aPj2YroYV5z7ooxXSDnTDpE
             client-name: Kakao
             client-authentication-method: POST
-            redirect-uri: "http://localhost:8080/login/oauth2/code/kakao"
+            redirect-uri: "https://joying.vercel.app/login/oauth2/code/kakao"
             authorization-grant-type: authorization_code
             scope:
               - profile_nickname
@@ -74,5 +74,5 @@ mail:
     admin: admin@gmail.com
 jwt:
   key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 3
+  access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
