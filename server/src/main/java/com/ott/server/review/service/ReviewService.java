@@ -1,6 +1,7 @@
 package com.ott.server.review.service;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.review.dto.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.exception.ExceptionCode;

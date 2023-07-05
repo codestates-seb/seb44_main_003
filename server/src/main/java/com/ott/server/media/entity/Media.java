@@ -1,10 +1,19 @@
 package com.ott.server.media.entity;
 
 import com.ott.server.audit.Auditable;
+import com.ott.server.genre.entity.Genre;
+import com.ott.server.mediaott.entity.MediaOtt;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Media extends Auditable {
 
@@ -42,19 +51,10 @@ public class Media extends Auditable {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean recent;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "media_genre",
-//            joinColumns = @JoinColumn(name = "media_id"),
-//            inverseJoinColumns = @JoinColumn(name = "genre_id")
-//    )
-//    private List<Genre> genre;
-//
-//    @ManyToMany
-//    @JoinTable(
-//            name = "media_ott",
-//            joinColumns = @JoinColumn(name = "media_id"),
-//            inverseJoinColumns = @JoinColumn(name = "ott_id")
-//    )
-//    private List<MediaOtt> mediaOtt;
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Genre> genres = new ArrayList<>();
+
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<MediaOtt> mediaOtts = new ArrayList<>();
+
 }
