@@ -1,5 +1,6 @@
 package com.ott.server.crawling;
 
+import com.ott.server.media.dto.MediaDto;
 import com.ott.server.media.service.MediaService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -103,9 +104,11 @@ public class CrawlingController {
 
             Thread.sleep(1000);
             System.out.println(location-1+") 데이터 수집");
+            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[1]")));
             List<WebElement> otts = driver.findElements(By.className("price-comparison__grid__row__holder"));
             List<String> mediaOtts = new ArrayList<>();
             List<Integer> ottNumber = new ArrayList<>();
+
 
             //Disney Plus, wavve, Netflix, Watcha
             for(int i = 1; i <= otts.size(); i++) {
@@ -117,7 +120,6 @@ public class CrawlingController {
                     try {
                         ott = otts.get(i - 1).findElement(
                                 By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[3]/div[2]/div["+i+"]/div/a/picture/img")).getAttribute("title");
-                        System.out.println(ott + i);
                     }catch (RuntimeException re) {
                         try{
                         ott = otts.get(i - 1).findElement(
@@ -146,9 +148,9 @@ public class CrawlingController {
 
             String content = new String();
             try{
-                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[5]/div[2]/p/span")).getText();
+                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[5]/div[2]/p/span")).getText().replaceAll("\n", " ");
             }catch (RuntimeException e){
-                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[4]/p/span")).getText();
+                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[4]/p/span")).getText().replaceAll("\n", " ");
             }
 
             List<String> genres = List.of(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[3]/div[2]/div[2]")).getText().split(", "));
@@ -163,10 +165,14 @@ public class CrawlingController {
 
             Boolean recent = false;
 
-            //제목,  감독, 출연진, 연령등급
+            //감독, 출연진, 연령등급
 
             String title = new String();
             String titlePoster = new String();
+            String ageRate = new String();
+            String creator = new String();
+            String cast = new String();
+
 
             for(int i = 0; i < mediaOtts.size(); i++){
                 String ott = mediaOtts.get(i);
@@ -190,6 +196,7 @@ public class CrawlingController {
                             webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[3]/div/div[1]/p/div/div[1]/img")));
                             title = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[4]/h1")).getText();
                             titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[2]/img")).getAttribute("src");
+
                         }catch (RuntimeException e){                        }
                         break;
                     case "wavve":
@@ -229,9 +236,13 @@ public class CrawlingController {
             System.out.println("내용    : " + content);
             System.out.println("OTT : "+ mediaOtts);
             System.out.println("출시일    : "+ releaseDate);
-            System.out.println("장르 : "+genres);
-            System.out.println("카테고리 : "+category);
+            System.out.println("장르  : "+genres);
+            System.out.println("카테고리    : "+category);
             System.out.println("최신작 : "+recent);
+            System.out.println("이용가 : ");
+            System.out.println("감독  : ");
+            System.out.println("출연진 : ");
+
 
             /*
             private String title;
@@ -247,7 +258,7 @@ public class CrawlingController {
             private List<String> genre;
             private List<String> mediaOtt;
 //             */
-//            CreateOrUpdateMediaDto createData = new Create(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
+           MediaDto.Create createData = new MediaDto.Create(1L,title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
 //            mediaService.createMedia(createData);
 
             System.out.println();

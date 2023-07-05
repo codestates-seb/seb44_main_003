@@ -11,6 +11,7 @@ import java.util.List;
 public class MediaDto {
 
     @Getter
+    @AllArgsConstructor
     public static class Create {
         private Long id;
         private String title;

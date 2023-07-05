@@ -37,9 +37,13 @@ public class MediaController {
     public ResponseEntity<MediaDto.Response> getMedia(@PathVariable Long mediaId) {
         return new ResponseEntity<>(mediaService.getMedia(mediaId), HttpStatus.OK);
     }
+    //대분류
+    //localhost:8080/medias?page={page}&size={size}&genre={genre}
 
-    @GetMapping("/{category}")
-    public ResponseEntity<Page<MediaDto.Response>> getMedias(
+
+    //소분류
+    @GetMapping("/{category}")  //localhost:8080/medias/{category}?page={page}&size={size}&genre={genre}
+    public ResponseEntity<Page<MediaDto.Response>> getMediasBy(
             @PathVariable String category,
             @RequestParam(required = true, defaultValue = "0") int page,
             @RequestParam(required = true, defaultValue = "10") int size,

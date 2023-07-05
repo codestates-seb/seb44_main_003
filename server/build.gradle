@@ -60,8 +60,6 @@ dependencies {
 }
 
 
-
-
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()

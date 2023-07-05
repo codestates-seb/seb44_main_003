@@ -57,7 +57,7 @@ spring:
             userInfoUri: https://kapi.kakao.com/v2/user/me
             userNameAttribute: id
 
-            
+
 
 config:
   domain: ${AWS_S3_Endpoint}
