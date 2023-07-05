@@ -1,6 +1,5 @@
 package com.ott.server.crawling;
 
-import com.ott.server.media.dto.CreateOrUpdateMediaDto;
 import com.ott.server.media.service.MediaService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -248,7 +247,7 @@ public class CrawlingController {
             private List<String> genre;
             private List<String> mediaOtt;
 //             */
-//            CreateOrUpdateMediaDto createData = new CreateOrUpdateMediaDto(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
+//            CreateOrUpdateMediaDto createData = new Create(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
 //            mediaService.createMedia(createData);
 
             System.out.println();
