@@ -12,6 +12,7 @@ import TV from './pages/TV';
 import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
+import List from './pages/List';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -45,8 +46,16 @@ const router = createBrowserRouter([
         element: <Movie />,
       },
       {
-        path: 'content',
+        path: 'content/:id',
         element: <Content />,
+      },
+      {
+        path: 'tv/list',
+        element: <List />,
+      },
+      {
+        path: 'movie/list',
+        element: <List />,
       },
       {
         path: 'search',

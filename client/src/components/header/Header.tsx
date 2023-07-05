@@ -27,7 +27,6 @@ const S_Header = styled.header`
   display: flex;
   justify-content: center;
   padding: 0 20px;
-  height: 90px;
   width: 100%;
   top: 0;
   position: sticky;
@@ -40,12 +39,13 @@ const S_Header = styled.header`
 `;
 
 const S_Wrapper = styled.div`
+  margin-top: 15px;
+  position: absolute;
   max-width: 1500px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-  height: 90px;
   width: 100%;
 
   > div {

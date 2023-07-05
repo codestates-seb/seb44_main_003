@@ -127,7 +127,6 @@ public class CrawlingController {
                         }catch (RuntimeException rre){}
                     }
                 }
-                System.out.println(ott + i);
 
                 if (ott.equals("wavve") || ott.equals("Watcha") || ott.equals("Netflix") || ott.equals("Disney Plus")) {
                     mediaOtts.add(ott);
@@ -258,7 +257,7 @@ public class CrawlingController {
             private List<String> genre;
             private List<String> mediaOtt;
 //             */
-//           MediaDto.Create createData = new MediaDto.Create(1L,title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
+           MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
 //            mediaService.createMedia(createData);
 
             System.out.println();

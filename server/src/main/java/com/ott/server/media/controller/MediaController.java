@@ -2,7 +2,8 @@ package com.ott.server.media.controller;
 
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.media.dto.MediaDto;
-import com.ott.server.media.dto.MediaResponseDto;
+import com.ott.server.media.entity.Media;
+import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.media.service.MediaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,15 +13,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/medias")
 public class MediaController {
 
     private final MediaService mediaService;
+    private final MediaRepository mediaRepository;
 
-    public MediaController(MediaService mediaService) {
+    public MediaController(MediaService mediaService, MediaRepository mediaRepository) {
         this.mediaService = mediaService;
+        this.mediaRepository = mediaRepository;
     }
 
     @PostMapping
@@ -33,6 +37,10 @@ public class MediaController {
         return new ResponseEntity<>(mediaService.updateMedia(mediaId, updateMediaDto), HttpStatus.OK);
     }
 
+
+
+
+
     @GetMapping("/{mediaId}")
     public ResponseEntity<MediaDto.Response> getMedia(@PathVariable Long mediaId) {
         return new ResponseEntity<>(mediaService.getMedia(mediaId), HttpStatus.OK);
@@ -41,9 +49,17 @@ public class MediaController {
     //localhost:8080/medias?page={page}&size={size}&genre={genre}
 
 
+
     //소분류
-    @GetMapping("/{category}")  //localhost:8080/medias/{category}?page={page}&size={size}&genre={genre}
-    public ResponseEntity<Page<MediaDto.Response>> getMediasBy(
+
+    @GetMapping("/all")
+    public ResponseEntity<List<MediaDto.Response2>> getAllMedia() {
+        List<MediaDto.Response2> allMedia = mediaService.getAllMedia();
+        return new ResponseEntity<>(allMedia, HttpStatus.OK);
+    }
+
+    @GetMapping("/tv")
+    public ResponseEntity<Page<MediaDto.Response>> getMediasByTv(
             @PathVariable String category,
             @RequestParam(required = true, defaultValue = "0") int page,
             @RequestParam(required = true, defaultValue = "10") int size,
@@ -54,7 +70,21 @@ public class MediaController {
         Page<MediaDto.Response> medias = mediaService.getMedias(category, genre, ott, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
-    }
+    } // todo 분기하여 처리하는 코드 만들예정
+
+    @GetMapping("/movie")
+    public ResponseEntity<Page<MediaDto.Response>> getMediasByMovie(
+            @PathVariable String category,
+            @RequestParam(required = true, defaultValue = "0") int page,
+            @RequestParam(required = true, defaultValue = "10") int size,
+            @RequestParam(required = true) List<String> genre,
+            @RequestParam(required = true) List<String> ott) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<MediaDto.Response> medias = mediaService.getMedias(category, genre, ott, pageable);
+
+        return new ResponseEntity<>(medias, HttpStatus.OK);
+    } // todo 분기하여 처리하는 코드 만들예정
 
 
     @DeleteMapping("/{mediaId}")
