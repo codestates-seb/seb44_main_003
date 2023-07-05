@@ -51,10 +51,10 @@ public class Media extends Auditable {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean recent;
 
-    @ElementCollection
-    private List<String> genres = new ArrayList<>();
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Genre> genres = new ArrayList<>();
 
-    @ElementCollection
-    private List<String> mediaOtts = new ArrayList<>();
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<MediaOtt> mediaOtts = new ArrayList<>();
 
 }

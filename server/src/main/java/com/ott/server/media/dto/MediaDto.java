@@ -23,8 +23,8 @@ public class MediaDto {
         private int releaseDate;
         private String ageRate;
         private Boolean recent;
-        private List<String> genre;
-        private List<String> mediaOtt;
+        private List<Genre> genre;
+        private List<MediaOtt> mediaOtt;
     }
 
     @Getter
@@ -40,8 +40,8 @@ public class MediaDto {
         private int releaseDate;
         private String ageRate;
         private Boolean recent;
-        private List<String> genre;
-        private List<String> mediaOtt;
+        private List<Genre> genre;
+        private List<MediaOtt> mediaOtt;
 
         public void setId(Long id) {
             this.id = id;

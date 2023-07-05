@@ -20,7 +20,7 @@ public class Genre extends Auditable {
     private Long genreId;
 
     @ManyToOne
-    @JoinColumn(name = "media_id")
+    @JoinColumn(name = "MEDIA_ID")
     private Media media;
 
     @Column(name = "genre_name")
@@ -32,3 +32,4 @@ public class Genre extends Auditable {
     @Column(name = "last_modified_at")
     private LocalDateTime lastModifiedAt;
 }
+

@@ -15,17 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class MediaOtt extends Auditable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mediaOttId;
 
     @ManyToOne
-    @JoinColumn(name = "media_id")
+    @JoinColumn(name = "MEDIA_ID")
     private Media media;
 
     @Column(name = "ott_name")
     private String ottName;
-
-
 }

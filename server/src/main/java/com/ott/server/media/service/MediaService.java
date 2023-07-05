@@ -39,20 +39,20 @@ public class MediaService {
         Media media = mediaMapper.toEntityFromCreateDto(createMediaDto);
         Media savedMedia = mediaRepository.save(media);
 
-        List<String> otts = createMediaDto.getMediaOtt();
-        for(String ott : otts){
+        List<MediaOtt> otts = createMediaDto.getMediaOtt();
+        for(MediaOtt ott : otts){
             MediaOtt mediaOtt = new MediaOtt();
             mediaOtt.setMedia(savedMedia);
-            mediaOtt.setOttName(ott);
+            mediaOtt.setOttName(ott.getOttName());
 
             mediaOttRepository.save(mediaOtt);
         }
 
-        List<String> genres = createMediaDto.getGenre();
-        for(String genre : genres){
+        List<Genre> genres = createMediaDto.getGenre();
+        for(Genre genre : genres){
             Genre genreEntity = new Genre();
             genreEntity.setMedia(savedMedia);
-            genreEntity.setGenreName(genre);
+            genreEntity.setGenreName(genre.getGenreName());
 
             genreRepository.save(genreEntity);
         }
@@ -69,20 +69,20 @@ public class MediaService {
                     mediaOttRepository.deleteByMedia(media);
                     genreRepository.deleteByMedia(media);
 
-                    List<String> otts = updateMediaDto.getMediaOtt();
-                    for(String ott : otts){
+                    List<MediaOtt> otts = updateMediaDto.getMediaOtt();
+                    for(MediaOtt ott : otts){
                         MediaOtt mediaOtt = new MediaOtt();
                         mediaOtt.setMedia(updatedMedia);
-                        mediaOtt.setOttName(ott);
+                        mediaOtt.setOttName(ott.getOttName());
 
                         mediaOttRepository.save(mediaOtt);
                     }
 
-                    List<String> genres = updateMediaDto.getGenre();
-                    for(String genre : genres){
+                    List<Genre> genres = updateMediaDto.getGenre();
+                    for(Genre genre : genres){
                         Genre genreEntity = new Genre();
                         genreEntity.setMedia(updatedMedia);
-                        genreEntity.setGenreName(genre);
+                        genreEntity.setGenreName(genre.getGenreName());
 
                         genreRepository.save(genreEntity);
                     }
