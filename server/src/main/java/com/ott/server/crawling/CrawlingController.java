@@ -117,7 +117,8 @@ public class CrawlingController {
                 } catch (RuntimeException e) {
                     try {
                         ott = otts.get(i - 1).findElement(
-                                By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[3]/div[2]/div["+i+"]/div/a/picture/img")).getAttribute("title");
+                                By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[3]/div[2]/div["+i+"]/div/a/picture/img")).getAttribute("title");
+                        System.out.println(ott + i);
                     }catch (RuntimeException re) {
                         try{
                         ott = otts.get(i - 1).findElement(
@@ -125,6 +126,7 @@ public class CrawlingController {
                         }catch (RuntimeException rre){}
                     }
                 }
+                System.out.println(ott + i);
 
                 if (ott.equals("wavve") || ott.equals("Watcha") || ott.equals("Netflix") || ott.equals("Disney Plus")) {
                     mediaOtts.add(ott);
@@ -188,14 +190,19 @@ public class CrawlingController {
                         try {
                             webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[3]/div/div[1]/p/div/div[1]/img")));
                             title = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[4]/h1")).getText();
-                            titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[3]/div/div[1]/p/div/div[1]/img")).getAttribute("src");
+                            titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[2]/img")).getAttribute("src");
                         }catch (RuntimeException e){                        }
                         break;
                     case "wavve":
+                        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")));
+
+                        title = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("art");
+                        titlePoster = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("src");
                         try {
-                            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")));
-                            title = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/main/div/div[2]/div[1]/strong")).getText();
-                            titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("src");
+                            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")));
+
+                            title = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("art");
+                            titlePoster = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("src");
                         }catch (RuntimeException e){                        }
                         break;
                     case "Netflix":
@@ -209,7 +216,7 @@ public class CrawlingController {
 
                 driver.close();
                 driver.switchTo().window(originalWindow);
-                if(!title.equals("")&&!titlePoster.equals("")) break;
+                if(!(title == null)&&!(titlePoster==null)) break;
             }
             if(title.equals("")&&titlePoster.equals("")) {
                 title = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div/h1")).getText();
