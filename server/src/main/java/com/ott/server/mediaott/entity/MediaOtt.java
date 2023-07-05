@@ -25,4 +25,8 @@ public class MediaOtt extends Auditable {
 
     @Column(name = "ott_name")
     private String ottName;
+
+    @ManyToOne
+    @JoinColumn(name = "MEDIA_ID")
+    private Media media;
 }

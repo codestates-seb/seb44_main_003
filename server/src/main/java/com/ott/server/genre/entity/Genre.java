@@ -23,13 +23,12 @@ public class Genre extends Auditable {
     @JoinColumn(name = "MEDIA_ID")
     private Media media;
 
+
     @Column(name = "genre_name")
     private String genreName;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "last_modified_at")
-    private LocalDateTime lastModifiedAt;
+    @ManyToOne
+    @JoinColumn(name = "MEDIA_ID")
+    private Media media;
 }
 
