@@ -1,5 +1,5 @@
 import Banner from '../components/banner/Banner';
-import Silder from '../components/silder/Silder';
+import Silde from '../components/silde/Silde';
 import image from '../assets/이번생도잘부탁해.webp'
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ const TV = () => {
   return (
     <S_Wrapper>
       <Banner image={image}/>
-      <Silder/>
+      <Silde/>
     </S_Wrapper>
   );
 };

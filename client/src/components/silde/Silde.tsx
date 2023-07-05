@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const Silder = () => {
+const Silde = () => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
   const genres: string[] = [
     '드라마',
@@ -81,7 +81,7 @@ const Silder = () => {
   );
 };
 
-export default Silder;
+export default Silde;
 
 const S_Wrapper = styled.div`
   position: relative;
