@@ -67,9 +67,9 @@ const Silde = () => {
               virtual
             >
               {tvData[index].map((data: ItemData, slideIndex: number) => (
-                <SwiperSlide key={data.id} virtualIndex={slideIndex}>
+                <S_SwiperSlide key={data.id} virtualIndex={slideIndex}>
                   <Item data={data} />
-                </SwiperSlide>
+                </S_SwiperSlide>
               ))}
             </S_Swiper>
           ) : (
@@ -137,6 +137,17 @@ const S_Swiper = styled(Swiper)`
     }
   } 
 `
+
+const S_SwiperSlide = styled(SwiperSlide)`
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  filter: var(--shadow-l-40);
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-15px);
+  }
+`;
 
 const S_LoadingMessage = styled.div`
   color: var(--color-white-80);
