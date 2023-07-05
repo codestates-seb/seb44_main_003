@@ -55,6 +55,8 @@ dependencies {
 	implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.8.1'
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
 }
 
 

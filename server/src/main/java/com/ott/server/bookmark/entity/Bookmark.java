@@ -25,7 +25,6 @@ public class Bookmark extends Auditable {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEDIA_ID")
     private Media media;
-
 }

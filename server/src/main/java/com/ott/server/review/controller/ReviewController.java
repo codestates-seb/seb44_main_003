@@ -8,9 +8,12 @@ import com.ott.server.review.dto.ReviewDto;
 import com.ott.server.review.dto.ReviewUpdateDto;
 import com.ott.server.review.entity.Review;
 import com.ott.server.review.service.ReviewService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,6 @@ public class ReviewController {
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
-
     @PostMapping
     public ResponseEntity createReview(@RequestBody ReviewCreateDto request, Authentication authentication) {
         try {

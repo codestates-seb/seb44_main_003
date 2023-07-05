@@ -1,26 +1,31 @@
 package com.ott.server.mediaott.entity;
 
+import com.ott.server.audit.Auditable;
 import com.ott.server.media.entity.Media;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-public class MediaOtt {
+public class MediaOtt extends Auditable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mediaOttId;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "media_id")
+    private Media media;
 
-    @ManyToMany(mappedBy = "mediaOtt")
-    private List<Media> media;
+    @Column(name = "ott_name")
+    private String ottName;
 
-    @Column(name = "created_at")
-    private LocalDateTime created_at;
 
-    @Column(name = "last_modified_at")
-    private LocalDateTime last_modified_at;
 }

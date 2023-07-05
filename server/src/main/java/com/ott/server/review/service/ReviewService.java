@@ -1,6 +1,7 @@
 package com.ott.server.review.service;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.review.dto.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.exception.ExceptionCode;
@@ -77,7 +78,7 @@ public class ReviewService {
         return reviewRepository.findAll(pageable).stream()
                 .map(review -> {
                     ReviewListDto reviewListDto = new ReviewListDto();
-                    reviewListDto.setMediaId(review.getMedia().getId());
+                    reviewListDto.setMediaId(review.getMedia().getMediaId());
                     reviewListDto.setContent(review.getContent());
                     reviewListDto.setCreatedAt(review.getCreatedAt());
                     reviewListDto.setLastModifiedAt(review.getLastModifiedAt());
