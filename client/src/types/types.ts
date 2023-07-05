@@ -31,7 +31,7 @@ export type AuthData = {
   confirm?: string;
 };
 
-export type TV = {
+export type ItemData = {
   id: number;
   title: string;
   genre: string[];
