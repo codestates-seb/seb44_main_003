@@ -7,7 +7,7 @@ import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 
-const Information = () => {
+const ContentDetail = () => {
   return (
     <S_Wrapper backgroundimage="https://image.tving.com/upload/cms/caip/CAIP0900/P001716794.jpg/dims/resize/480">
       <div className="main-flex">
@@ -76,7 +76,7 @@ const Information = () => {
   );
 };
 
-export default Information;
+export default ContentDetail;
 
 const S_Wrapper = styled.section<{ backgroundimage: string }>`
   position: relative;
