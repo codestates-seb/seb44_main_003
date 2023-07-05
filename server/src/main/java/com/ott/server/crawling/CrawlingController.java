@@ -247,7 +247,7 @@ public class CrawlingController {
             private Boolean recent;
             private List<String> genre;
             private List<String> mediaOtt;
-             */
+//             */
 //            CreateOrUpdateMediaDto createData = new CreateOrUpdateMediaDto(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
 //            mediaService.createMedia(createData);
 
