@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GetTVData } from '../../api/api';
 import { ItemData } from '../../types/types';
-import Item from '../Item';
+import Item from '../ui/ItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,7 +14,18 @@ SwiperCore.use([Virtual, Navigation]);
 const Silder = () => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
   const genres: string[] = [
-    '드라마', '액션', '로맨스', '애니', '코미디', '판타지', '스릴러', '호러', '음악', '사극', '다큐멘터리', '스포츠'
+    '드라마',
+    '액션',
+    '로맨스',
+    '애니',
+    '코미디',
+    '판타지',
+    '스릴러',
+    '호러',
+    '음악',
+    '사극',
+    '다큐멘터리',
+    '스포츠'
   ];
   const [tvData, setTVData] = useState<ItemData[][]>([]); // TV 데이터를 저장할 상태
   useEffect(() => {
@@ -43,8 +54,8 @@ const Silder = () => {
   return (
     <S_Wrapper>
       {genres.map((genre, index) => (
-        <Genrelist key={index}>
-          <GenreTitle>{genre}</GenreTitle>
+        <S_Genrelist key={index}>
+          <S_GenreTitle>{genre}</S_GenreTitle>
           {tvData[index] ? (
             <S_Swiper
               onSwiper={setSwiperRef}
@@ -62,9 +73,9 @@ const Silder = () => {
               ))}
             </S_Swiper>
           ) : (
-            <LoadingMessage>Loading TV data...</LoadingMessage>
+            <S_LoadingMessage>Loading TV data...</S_LoadingMessage>
           )}
-        </Genrelist>
+        </S_Genrelist>
       ))}
     </S_Wrapper>
   );
@@ -80,11 +91,11 @@ const S_Wrapper = styled.div`
   width: 100%;
 `;
 
-const Genrelist = styled.div`
+const S_Genrelist = styled.div`
   margin-bottom: 3.75rem;
 `;
 
-const GenreTitle = styled.h2`
+const S_GenreTitle = styled.h2`
   margin: 28px 0 10px 0;
   color: var(--color-white-100);
   font-size: 24px;
@@ -127,6 +138,6 @@ const S_Swiper = styled(Swiper)`
   } 
 `
 
-const LoadingMessage = styled.div`
+const S_LoadingMessage = styled.div`
   color: var(--color-white-80);
 `;
