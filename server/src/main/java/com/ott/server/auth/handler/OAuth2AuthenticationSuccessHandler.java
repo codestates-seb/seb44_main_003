@@ -86,10 +86,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
-                .host("localhost")
+                .scheme("https")
+                .host("joying.vercel.app")
 //                .port(80)
-                .path("/receive-token.html")
+                .path("/")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

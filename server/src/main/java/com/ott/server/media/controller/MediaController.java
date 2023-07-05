@@ -1,7 +1,6 @@
 package com.ott.server.media.controller;
 
 import com.ott.server.exception.BusinessLogicException;
-import com.ott.server.media.dto.CreateOrUpdateMediaDto;
 import com.ott.server.media.dto.MediaDto;
 import com.ott.server.media.dto.MediaResponseDto;
 import com.ott.server.media.service.MediaService;
@@ -25,22 +24,22 @@ public class MediaController {
     }
 
     @PostMapping
-    public ResponseEntity<MediaDto> createMedia(@RequestBody CreateOrUpdateMediaDto createMediaDto) {
+    public ResponseEntity<MediaDto.Response> createMedia(@RequestBody MediaDto.Create createMediaDto) {
         return new ResponseEntity<>(mediaService.createMedia(createMediaDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{mediaId}")
-    public ResponseEntity<MediaDto> updateMedia(@PathVariable Long mediaId, @RequestBody CreateOrUpdateMediaDto updateMediaDto) {
+    public ResponseEntity<MediaDto.Response> updateMedia(@PathVariable Long mediaId, @RequestBody MediaDto.Update updateMediaDto) {
         return new ResponseEntity<>(mediaService.updateMedia(mediaId, updateMediaDto), HttpStatus.OK);
     }
 
     @GetMapping("/{mediaId}")
-    public ResponseEntity<MediaDto> getMedia(@PathVariable Long mediaId) {
+    public ResponseEntity<MediaDto.Response> getMedia(@PathVariable Long mediaId) {
         return new ResponseEntity<>(mediaService.getMedia(mediaId), HttpStatus.OK);
     }
 
     @GetMapping("/{category}")
-    public ResponseEntity<Page<MediaResponseDto>> getMedias(
+    public ResponseEntity<Page<MediaDto.Response>> getMedias(
             @PathVariable String category,
             @RequestParam(required = true, defaultValue = "0") int page,
             @RequestParam(required = true, defaultValue = "10") int size,
@@ -48,11 +47,10 @@ public class MediaController {
             @RequestParam(required = true) List<String> ott) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<MediaResponseDto> medias = mediaService.getMedias(category, genre, ott, pageable);
+        Page<MediaDto.Response> medias = mediaService.getMedias(category, genre, ott, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
-
 
 
     @DeleteMapping("/{mediaId}")

@@ -53,7 +53,7 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
 
 const S_Input = styled.input<{ $show: boolean }>`
   width: ${(props) => (props.$show ? '100%' : '0')};
-  min-width: 120px;
+  min-width: 40px;
   opacity: ${(props) => (props.$show ? 1 : 0)};
   visibility: ${(props) => (props.$show ? 'visible' : 'hidden')};
   height: 42px;

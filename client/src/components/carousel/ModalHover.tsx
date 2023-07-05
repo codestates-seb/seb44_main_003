@@ -26,7 +26,6 @@ export default ModalHover;
 
 const S_Modal = styled.div`
   display: flex;
-  justify-content: flex-end;
   position: absolute;
   top: 50%;
   left: 50%;
