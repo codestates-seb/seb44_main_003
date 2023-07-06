@@ -9,7 +9,7 @@ function SearchBar() {
   const navigate = useNavigate();
   const search = () => {
     if (userInput.trim().length) {
-      navigate(`/search/${userInput}`);
+      navigate(`/search?keyword=${userInput}`);
       setUserInput('');
       setShowSearchBar(false);
     }
