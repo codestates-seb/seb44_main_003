@@ -4,7 +4,6 @@ import { HiXCircle } from 'react-icons/hi';
 import { useMutation } from '@tanstack/react-query';
 import { Login } from '../../api/api';
 import { LoginInfo } from '../../types/types';
-import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
 
 function LoginForm() {
@@ -15,8 +14,6 @@ function LoginForm() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
-  const navigate = useNavigate();
-
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -58,16 +55,17 @@ function LoginForm() {
         /* todo: refreshToken 구현되면 accessToken은 변수로만 저장 */
         const accessToken = data.headers.authorization;
         const refreshToken = data.headers.refresh;
+        console.log('refresh: ' + refreshToken);
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           const expiration = new Date();
           expiration.setMinutes(expiration.getMinutes() + 30);
           localStorage.setItem('expiration', expiration.toISOString());
         }
-        if (refreshToken) {
-          document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
-        }
-        navigate('/');
+        // if (refreshToken) {
+        //   document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
+        // }
+        window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
       }
     },
     onError(error: AxiosError) {
