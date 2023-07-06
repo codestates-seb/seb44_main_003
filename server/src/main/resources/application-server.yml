@@ -27,7 +27,7 @@ spring:
             client-id: l96jJOaCltiFH52RtFeI
             client-secret: YCH_bRY2oK
             client-name: Naver
-            redirect-uri: "https://joying.vercel.app/login/oauth2/code/naver"
+            redirect-uri: "http://ec2-43-202-91-184.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/naver"
             authorization-grant-type: authorization_code
             scope:
               - name
@@ -38,7 +38,7 @@ spring:
             client-secret: ejmftexg9aPj2YroYV5z7ooxXSDnTDpE
             client-name: Kakao
             client-authentication-method: POST
-            redirect-uri: "https://joying.vercel.app/login/oauth2/code/kakao"
+            redirect-uri: "http://ec2-43-202-91-184.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao"
             authorization-grant-type: authorization_code
             scope:
               - profile_nickname

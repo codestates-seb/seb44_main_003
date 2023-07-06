@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         ObjectMapper objectMapper = new ObjectMapper();
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
 
         return authenticationManager.authenticate(authenticationToken);
     }
@@ -58,7 +58,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();
 //        claims.put("memberId", member.getMemberId());  // 식별자도 포함할 수 있다.
-        claims.put("username", member.getEmail());
+        claims.put("email", member.getEmail());
         claims.put("roles", member.getRoles());
 
         String subject = member.getEmail();
