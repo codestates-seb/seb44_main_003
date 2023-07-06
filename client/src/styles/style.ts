@@ -22,7 +22,8 @@ export const S_Root = styled.div`
 `;
 
 /* ----- Wrapper Root-Main ----- */
-export const S_Wrapper = styled.div`
+export const S_Wrapper = styled.div<{ $spacedTop: boolean }>`
+  padding-top: ${(props) => (props.$spacedTop ? '120px' : '0')};
   display: flex;
   justify-content: center;
   flex-grow: 1;
