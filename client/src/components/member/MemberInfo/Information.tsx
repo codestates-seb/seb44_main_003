@@ -73,7 +73,7 @@ function Information() {
           </h1>
         )}
         <p>
-          <div>가입일 : {data.createdAt.substring(0, 10)} </div>
+          <div>가입일 : {data.createdAt} </div>
           <span>|</span> <div>조잉에 함께한 지 {daysDiff}일 째입니다</div>
         </p>
         <S_Div>
