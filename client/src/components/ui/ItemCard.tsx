@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { ItemData } from '../../types/types';
 
 interface ItemProps {
-  data: ItemData;
+  item: ItemData;
 }
 
-const ItemCard: React.FC<ItemProps> = ({ data }) => {
+const ItemCard: React.FC<ItemProps> = ({ item }) => {
   return (
     <>
-      <S_ItemImg src={data.mainPoster} alt={`${data.id}`} />
-      <S_ItemTitle>{data.title}</S_ItemTitle>
+      <S_ItemImg src={item.mainPoster} alt={`${item.id}`} />
+      <S_ItemTitle>{item.title}</S_ItemTitle>
     </>
   );
 };

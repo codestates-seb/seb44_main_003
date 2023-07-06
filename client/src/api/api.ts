@@ -34,11 +34,13 @@ export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
 export const GetTVData = (): Promise<ItemData[]> =>
-  instance.get('/TV').then((res) => res.data);
+  axios.get(`${import.meta.env.VITE_BASE_URL}medias/all`).then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
 export const GetMovieData = (): Promise<ItemData[]> =>
-  instance.get('/movie').then((res) => res.data);
+axios.get(`${import.meta.env.VITE_BASE_URL}medias/all`).then((res) => res.data);
+// export const GetMovieData = (genre: string): Promise<ItemData[]> =>
+// axios.get(`${import.meta.env.VITE_BASE_URL}/medias/movie?genre=${genre}`).then((res) => res.data);
 
 /* 검색결과 가져오기 */
 export const GetSearchedData = (keyword: string | null) =>
