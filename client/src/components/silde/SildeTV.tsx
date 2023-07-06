@@ -29,17 +29,18 @@ const SildeTV = () => {
         <S_Swiper
           onSwiper={setSwiperRef}
           slidesPerView={6} // 한 슬라이드에 보여줄 갯수
+          slidesPerGroup={5} // 한 번에 넘어가는 슬라이드 그룹의 개수
           centeredSlides={false} // 센터 모드
           spaceBetween={18} // 슬라이드 사이 여백
           navigation={true} // 버튼
           watchOverflow={true}
           virtual
         > 
+          {data.map((item) => (
           <S_SwiperSlide>
-            {data.map((item) => (
-              <ItemCard item={item} />
-            ))}
+            <ItemCard item={item} />
           </S_SwiperSlide>
+          ))}
         </S_Swiper>
       </S_Wrapper>
     );
@@ -70,7 +71,8 @@ const S_Wrapper = styled.div`
 const S_Swiper = styled(Swiper)`
   display: flex;
   overflow: visible; // 요소의 내용이 요소의 크기를 넘어갈 경우에도 내용을 표시
-  margin: 20px auto;
+  margin-top: 1.25rem;
+  margin-bottom: 3.75rem;
 
   .swiper-button-prev,
   .swiper-button-next {
@@ -105,13 +107,7 @@ const S_Swiper = styled(Swiper)`
 
 const S_SwiperSlide = styled(SwiperSlide)`
   display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
-  filter: var(--shadow-l-40);
   cursor: pointer;
-  &:hover {
-    transform: translateY(-15px);
-  }
 `;
 
 // const S_LoadingMessage = styled.div`
