@@ -46,6 +46,11 @@ export const GetMovieData = (): Promise<ItemData[]> =>
 // export const GetMovieData = (genre: string): Promise<ItemData[]> =>
 // axios.get(`${import.meta.env.VITE_BASE_URL}/medias/movie?genre=${genre}`).then((res) => res.data);
 
+export const GetMediaDetail = (mediaId: number): Promise<ItemData[]> =>
+  axios
+    .get(`${import.meta.env.VITE_BASE_URL}/medias/${mediaId}`)
+    .then((res) => res.data);
+
 /* 검색결과 가져오기 */
 export const GetSearchedData = (keyword: string | null) =>
   axios

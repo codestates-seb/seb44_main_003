@@ -2,7 +2,7 @@ import Banner from '../components/banner/Banner';
 import SildeMovie from '../components/silde/SildeMovie';
 import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
-import ListBtns from '../components/ListBtns';
+import ListBtns from '../components/ui/ListBtns';
 
 const Movie = () => {
   // const genres: string[] = [
