@@ -16,7 +16,7 @@ const Main = () => {
     localStorage.setItem('expiration', expiration.toISOString());
     if (refreshToken)
       document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
-    window.location.href = `${import.meta.env.VITE_CLIENT_URL}/`;
+    window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
   }
 
   useEffect(() => {
