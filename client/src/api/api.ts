@@ -20,7 +20,7 @@ instance.interceptors.request.use((config) => {
 
 /* 유저 정보 가져오기 */
 export const GetUser = (): Promise<Member> =>
-  instance.get('/members').then((res) => res.data[0]);
+  instance.get('/members').then((res) => res.data);
 
 export const Login = (data: LoginInfo) =>
   axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, data);
@@ -34,11 +34,15 @@ export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
 export const GetTVData = (): Promise<ItemData[]> =>
-  axios.get(`${import.meta.env.VITE_BASE_URL}medias/all`).then((res) => res.data);
+  axios
+    .get(`${import.meta.env.VITE_BASE_URL}medias/all`)
+    .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
 export const GetMovieData = (): Promise<ItemData[]> =>
-axios.get(`${import.meta.env.VITE_BASE_URL}medias/all`).then((res) => res.data);
+  axios
+    .get(`${import.meta.env.VITE_BASE_URL}medias/all`)
+    .then((res) => res.data);
 // export const GetMovieData = (genre: string): Promise<ItemData[]> =>
 // axios.get(`${import.meta.env.VITE_BASE_URL}/medias/movie?genre=${genre}`).then((res) => res.data);
 

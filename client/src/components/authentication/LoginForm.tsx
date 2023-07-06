@@ -56,7 +56,8 @@ function LoginForm() {
     onSuccess(data) {
       if (data.status === 200) {
         /* todo: refreshToken 구현되면 accessToken은 변수로만 저장 */
-        const { accessToken, refreshToken } = data.headers.authorization;
+        const accessToken = data.headers.authorization;
+        const refreshToken = data.headers.refresh;
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           const expiration = new Date();
