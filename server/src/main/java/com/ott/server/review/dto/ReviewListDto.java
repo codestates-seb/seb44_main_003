@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class ReviewListDto {
-    private Long mediaId;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;
+    private MemberDetailDto memberDetailDto;
 }

@@ -1,3 +1,4 @@
+
 package com.ott.server.media.controller;
 
 import com.ott.server.exception.BusinessLogicException;
@@ -9,12 +10,14 @@ import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.media.service.MediaService;
 import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,7 +50,10 @@ public class MediaController {
 
 
 
-    @GetMapping("/{mediaId}")
+
+
+
+    @GetMapping("/detail/{mediaId}")
     public ResponseEntity<MediaDto.Response3> getMedia(@PathVariable Long mediaId) {
         MediaDto.Response3 media = mediaService.getMedia(mediaId);
         media.setCountRecommend(mediaService.countRecommendByMedia(mediaId));
@@ -65,6 +71,22 @@ public class MediaController {
     public ResponseEntity<List<MediaDto.Response2>> getAllMedia() {
         List<MediaDto.Response2> allMedia = mediaService.getAllMedia();
         return new ResponseEntity<>(allMedia, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MediaDto.Response2>> getMedias(
+            @RequestParam(required = true, defaultValue = "1") int page,
+            @RequestParam(required = true, defaultValue = "10") int size,
+            @RequestParam(required = true) List<String> genreNames,
+            @RequestParam List<String> ottNames) {
+
+        Pageable pageable = PageRequest.of(page - 1, size);
+        List<Genre> genres = genreRepository.findByGenreNameIn(genreNames);
+        List<MediaOtt> otts = ottRepository.findByOttNameIn(ottNames);
+        List<MediaDto.Response2> medias = mediaService.getMediasAll(genres, otts, pageable);
+
+
+        return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
     @GetMapping("/tv")

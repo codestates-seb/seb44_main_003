@@ -1,5 +1,6 @@
 package com.ott.server.media.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ott.server.audit.Auditable;
 import com.ott.server.bookmark.entity.Bookmark;
 import com.ott.server.genre.entity.Genre;
@@ -53,11 +54,14 @@ public class Media extends Auditable {
     private Boolean recent;
 
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonManagedReference
     private List<Genre> genres = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonManagedReference
     private List<MediaOtt> mediaOtts = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonManagedReference
     private List<Bookmark> bookmarks = new ArrayList<>();
 }

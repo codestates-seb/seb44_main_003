@@ -1,5 +1,6 @@
 package com.ott.server.genre.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ott.server.audit.Auditable;
 import com.ott.server.media.entity.Media;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Genre extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "MEDIA_ID")
+    @JsonBackReference
     private Media media;
 
 

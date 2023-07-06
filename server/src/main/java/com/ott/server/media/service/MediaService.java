@@ -167,6 +167,21 @@ public class MediaService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
     } //todo mapper고치기
 
+    public List<MediaDto.Response2> getMediasAll(List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
+        Page<Media> mediasPage = mediaRepository.findByGenresInAndMediaOttsIn(genres, otts, pageable);
+        List<Media> medias = mediasPage.getContent();
+        List<MediaDto.Response2> responses = new ArrayList<>();
+        for (Media media : medias){
+            MediaDto.Response2 response = new MediaDto.Response2();
+            response.setId(media.getMediaId());
+            response.setTitle(media.getTitle());
+            response.setMainPoster(media.getMainPoster());
+            responses.add(response);
+        }
+
+        return responses;
+    }
+
 
     public List<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
         Page<Media> mediasPage = mediaRepository.findByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
