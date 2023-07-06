@@ -11,12 +11,12 @@ import { useQuery } from '@tanstack/react-query'
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]); 
 
-const SildeMovie = () => {
+const SildeMovie = ({genre}: {genre: string}) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['movieData'],
-    queryFn: () => GetMovieData(),
+    queryKey: ['movieData', genre],
+    queryFn: () => GetMovieData(genre),
   })
 
   if (isLoading) return 'Loading...'
@@ -37,9 +37,9 @@ const SildeMovie = () => {
           virtual
         > 
           {data.map((item) => (
-          <S_SwiperSlide>
-            <ItemCard item={item} />
-          </S_SwiperSlide>
+            <S_SwiperSlide>
+              <ItemCard item={item} />
+            </S_SwiperSlide>
           ))}
         </S_Swiper>
       </S_Wrapper>
@@ -56,17 +56,6 @@ const S_Wrapper = styled.div`
   padding: 0px 3.75rem;
   width: 100%;
 `;
-
-// const S_Genrelist = styled.div`
-//   margin-bottom: 3.75rem;
-// `;
-
-// const S_GenreTitle = styled.h2`
-//   margin: 28px 0 10px 0;
-//   color: var(--color-white-100);
-//   font-size: 24px;
-//   font-weight: 700;
-// `;
 
 const S_Swiper = styled(Swiper)`
   display: flex;

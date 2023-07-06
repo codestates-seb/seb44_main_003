@@ -11,12 +11,12 @@ import { useQuery } from '@tanstack/react-query'
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SildeTV = () => {
+const SildeTV = ({genre}: {genre: string}) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['tvData'],
-    queryFn: () => GetTVData(),
+    queryKey: ['tvData', genre],
+    queryFn: () => GetTVData(genre),
   })
 
   if (isLoading) return 'Loading...'
