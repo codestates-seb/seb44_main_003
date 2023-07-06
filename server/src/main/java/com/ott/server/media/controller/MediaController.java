@@ -53,7 +53,7 @@ public class MediaController {
 
 
 
-    @GetMapping("/detail/{mediaId}")
+    @GetMapping("/{mediaId}")
     public ResponseEntity<MediaDto.Response3> getMedia(@PathVariable Long mediaId) {
         MediaDto.Response3 media = mediaService.getMedia(mediaId);
         media.setCountRecommend(mediaService.countRecommendByMedia(mediaId));
