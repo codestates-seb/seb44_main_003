@@ -39,3 +39,9 @@ export const GetTVData = (): Promise<ItemData[]> =>
 /* Movie 데이터 가져오기 */
 export const GetMovieData = (): Promise<ItemData[]> =>
   instance.get('/movie').then((res) => res.data);
+
+/* 검색결과 가져오기 */
+export const GetSearchedData = (keyword: string | null) =>
+  axios
+    .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
+    .then((res) => res.data);
