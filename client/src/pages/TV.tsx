@@ -2,7 +2,7 @@ import Banner from '../components/banner/Banner';
 import SildeTV from '../components/silde/SildeTV';
 import image from '../assets/이번생도잘부탁해.webp';
 import styled from 'styled-components';
-import ListBtns from '../components/ListBtns';
+import ListBtns from '../components/ui/ListBtns';
 
 const TV = () => {
   return (

@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import ListBtns from '../components/ListBtns';
+import ListBtns from '../components/ui/ListBtns';
 import { GetFilterdData } from '../api/api';
 import InfinityScroll from '../components/silde/InfinityScroll';
 
@@ -12,8 +12,6 @@ const List = () => {
   const selectedList = `${path}${genre ? `?genre=${genre}` : ''}${
     ott ? `${genre ? '&' : '?'}ott=${ott}` : ''
   }`;
-
-  console.log(selectedList);
 
   const { isLoading, data, error, isSuccess } = useQuery(
     ['selectedList', selectedList],

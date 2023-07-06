@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import GenreBtn from './ui/GenreBtn';
-import OttBtn from './ui/OttBtn';
+import GenreBtn from './GenreBtn';
+import OttBtn from './OttBtn';
 
 const ListBtns = () => {
   return (

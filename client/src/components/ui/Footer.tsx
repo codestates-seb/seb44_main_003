@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
-import kuhub from '../assets/profiles/kuhub.svg';
+import kuhub from '../../assets/profiles/kuhub.svg';
 
 const Footer = () => {
   const location = useLocation();
