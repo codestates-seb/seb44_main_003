@@ -1,6 +1,7 @@
 package com.ott.server.crawling;
 
 import com.ott.server.media.dto.MediaDto;
+import com.ott.server.media.entity.Media;
 import com.ott.server.media.service.MediaService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -11,10 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +36,10 @@ public class CrawlingController {
 
     private static final String url = "https://www.justwatch.com/kr";
 
-    @GetMapping
-    public String process() throws InterruptedException{
+    @PostMapping
+    public String process(@RequestBody @Positive LocationDto requestBody) throws InterruptedException{
 
+        int location = requestBody.getLocation();
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\Snu\\Desktop\\chromedriver.exe");
         System.setProperty("webdriver.http.factory", "jdk-http-client");
 
@@ -55,7 +56,7 @@ public class CrawlingController {
 
         log.error("크롬 드라이버 생성");
         try {
-            getDataList();
+            getDataList(location);
             log.error("getDataList() 실행 완료");
         } catch (InterruptedException e){
             log.error("getDataList() 에러 발생");
@@ -68,7 +69,7 @@ public class CrawlingController {
 
         return "log 확인";
     }
-    private List<String> getDataList() throws InterruptedException{
+    private List<String> getDataList(int location) throws InterruptedException{
         List<String> list = new ArrayList<>();
 
         WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
@@ -85,9 +86,18 @@ public class CrawlingController {
         log.info("동의 성공");
         Thread.sleep(500);
 
-        int location = 1; //default = 1
+        int currentLocation = 0;
+        int nextLocation = 275;
+        for(int i = 1; i < location; i = i+8){
+            ((JavascriptExecutor)driver).executeScript("window.scrollTo("+currentLocation+", "+nextLocation+")");
+            currentLocation = nextLocation;
+            nextLocation += 275;
+            Thread.sleep(500);
+        }
+
+
         //for(WebElement element: elements){
-        outer: while(location != 100){
+        outer: while(location != 1000){
             try {
                 WebElement element = driver.findElement(
                          By.xpath("/html/body/div[1]/div[4]/div[4]/div/div[2]/div[1]/div/div[" + (location++) + "]"));
@@ -277,7 +287,8 @@ public class CrawlingController {
 //             */
             MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, titlePoster, releaseDate, "전체이용가", recent ,genres, mediaOtts);
 
-            mediaService.createMedia(createData);
+            MediaDto.Response media = mediaService.createMedia(createData);
+            System.out.println("media-id : "+ media.getId());
 
             System.out.println();
             driver.navigate().back();
