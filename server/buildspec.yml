@@ -15,7 +15,7 @@ phases:
       - echo $(basename ./server/build/libs/*.jar)
 artifacts:
   files:
-    - DeployServer/build/libs/*.jar
-    - DeployServer/scripts/**
-    - DeployServer/appspec.yml
+    - server/build/libs/*.jar
+    - server/scripts/**
+    - server/appspec.yml
   discard-paths: yes
