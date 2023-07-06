@@ -28,7 +28,11 @@ button {
   outline: none;
 }
 
-input:focus {
+textarea{
+  resize: none
+}
+
+textarea:focus, input:focus {
   outline: none;
 }
 

@@ -1,11 +1,11 @@
 import ContentDetail from '../components/contents/ContentDetail';
-import Comments from '../components/comments/Comments';
+import CommentSection from '../components/comments/CommentSection';
 
 const Content = () => {
   return (
     <>
       <ContentDetail />
-      <Comments />
+      <CommentSection />
     </>
   );
 };

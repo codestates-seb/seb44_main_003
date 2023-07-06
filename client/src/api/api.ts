@@ -63,7 +63,7 @@ export const GetSearchedData = (keyword: string | null) =>
     .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
     .then((res) => res.data);
 
-/* 후기 데이터 */
+/* 후기 데이터 가져오기 */
 export const GetComments = ({
   id,
   page,
@@ -80,6 +80,15 @@ export const GetComments = ({
       }/reviews?mediaId=${id}&page=${page}&size=${size}`
     )
     .then((res) => res.data);
+
+/* 후기 추가 */
+export const PostComment = ({
+  mediaId,
+  content,
+}: {
+  mediaId: string;
+  content: string;
+}) => instance.post('/reviews', { mediaId: parseInt(mediaId), content });
 
 /* 리스트 필터 가져오기 */
 export const GetFilterdData = (queryString: string | null) =>
