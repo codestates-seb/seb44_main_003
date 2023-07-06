@@ -51,3 +51,9 @@ export const GetSearchedData = (keyword: string | null) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
     .then((res) => res.data);
+
+/* 리스트 필터 가져오기 */
+export const GetFilterdData = (queryString: string | null) =>
+  axios
+    .get(`${import.meta.env.VITE_BASE_URL}${queryString}`)
+    .then((res) => res.data);

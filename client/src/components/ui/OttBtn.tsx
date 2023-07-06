@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
 import tving from '../../assets/ott/tving.svg';
@@ -8,20 +8,22 @@ import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 
 const OttBtn = () => {
-  const currentPath = window.location.pathname;
-  const currentOtts = new URL(window.location.href).searchParams.get('ott');
-  const currentGenre = new URL(window.location.href).searchParams.get('genre');
+  const path = useLocation().pathname;
+  const ott = new URLSearchParams(location.search).get('ott');
+  const genre = new URLSearchParams(location.search).get('genre');
+
   const urlData = {
-    netflix: currentOtts?.includes('netflix') ? 'netflix' : '',
-    disney: currentOtts?.includes('disney') ? 'disney' : '',
-    watcha: currentOtts?.includes('watcha') ? 'watcha' : '',
-    wavve: currentOtts?.includes('wavve') ? 'wavve' : '',
-    tving: currentOtts?.includes('tving') ? 'tving' : '',
+    netflix: ott?.includes('netflix') ? 'netflix' : '',
+    disney: ott?.includes('disney') ? 'disney' : '',
+    watcha: ott?.includes('watcha') ? 'watcha' : '',
+    wavve: ott?.includes('wavve') ? 'wavve' : '',
+    tving: ott?.includes('tving') ? 'tving' : '',
   };
-  const [isFiltered, setFiltered] = useState(urlData);
+  const [selectedOtt, setSelectedOtt] = useState(urlData);
   const navigate = useNavigate();
 
-  const handleBtnClick = (ott: string) => {
+  const handleBtnClick = (e: React.MouseEvent<EventTarget>) => {
+    const ott = (e.target as HTMLImageElement).alt;
     if (
       ott === 'netflix' ||
       ott === 'disney' ||
@@ -29,54 +31,54 @@ const OttBtn = () => {
       ott === 'wavve' ||
       ott === 'tving'
     ) {
-      if (isFiltered[ott] === '') {
-        setFiltered((prev) => ({ ...prev, [ott]: ott }));
+      if (selectedOtt[ott] === '') {
+        setSelectedOtt((prev) => ({ ...prev, [ott]: ott }));
       } else {
-        setFiltered((prev) => ({ ...prev, [ott]: '' }));
+        setSelectedOtt((prev) => ({ ...prev, [ott]: '' }));
       }
     }
   };
 
   useEffect(() => {
-    const genre = currentGenre ? `genre=${currentGenre}&` : '';
-    const ottValue = Object.values(isFiltered);
+    const genreValue = genre ? `genre=${genre}&` : '';
+    const ottValue = Object.values(selectedOtt);
     if (ottValue.every((str) => str === '')) {
-      navigate(`${currentPath}?${genre}`);
+      navigate(`${path}?${genreValue}`);
     } else {
       const selectedOtt = ottValue.filter((str) => str !== '').join(',');
-      navigate(`${currentPath}?${genre}&ott=${selectedOtt}`);
+      navigate(`${path}?${genreValue}ott=${selectedOtt}`);
     }
-  }, [isFiltered]);
+  }, [selectedOtt]);
 
-  if (currentPath === '/tv' || currentPath === '/movie') {
+  if (path === '/tv' || path === '/movie') {
     return (
-      <S_WrapTvMovie>
+      <>
         <S_Ott
           src={netflix}
           alt="netflix"
-          onClick={() => navigate(`${currentPath}/list?ott=netflix`)}
+          onClick={() => navigate(`${path}/list?ott=netflix`)}
         />
         <S_Ott
           src={disney}
           alt="disney"
-          onClick={() => navigate(`${currentPath}/list?ott=disney`)}
+          onClick={() => navigate(`${path}/list?ott=disney`)}
         />
         <S_Ott
           src={watcha}
           alt="watcha"
-          onClick={() => navigate(`${currentPath}/list?ott=watcha`)}
+          onClick={() => navigate(`${path}/list?ott=watcha`)}
         />
         <S_Ott
           src={wavve}
           alt="wavve"
-          onClick={() => navigate(`${currentPath}/list?ott=wavve`)}
+          onClick={() => navigate(`${path}/list?ott=wavve`)}
         />
         <S_Ott
           src={tving}
           alt="tving"
-          onClick={() => navigate(`${currentPath}/list?ott=tving`)}
+          onClick={() => navigate(`${path}/list?ott=netflix`)}
         />
-      </S_WrapTvMovie>
+      </>
     );
   }
 
@@ -85,46 +87,41 @@ const OttBtn = () => {
       <S_Ott
         src={netflix}
         alt="netflix"
-        className={isFiltered.netflix ? '' : 'dark'}
+        className={selectedOtt.netflix ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
-          const target = e.target as HTMLImageElement;
-          handleBtnClick(target.alt);
+          handleBtnClick(e);
         }}
       />
       <S_Ott
         src={disney}
         alt="disney"
-        className={isFiltered.disney ? '' : 'dark'}
+        className={selectedOtt.disney ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
-          const target = e.target as HTMLImageElement;
-          handleBtnClick(target.alt);
+          handleBtnClick(e);
         }}
       />
       <S_Ott
         src={watcha}
         alt="watcha"
-        className={isFiltered.watcha ? '' : 'dark'}
+        className={selectedOtt.watcha ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
-          const target = e.target as HTMLImageElement;
-          handleBtnClick(target.alt);
+          handleBtnClick(e);
         }}
       />
       <S_Ott
         src={wavve}
         alt="wavve"
-        className={isFiltered.wavve ? '' : 'dark'}
+        className={selectedOtt.wavve ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
-          const target = e.target as HTMLImageElement;
-          handleBtnClick(target.alt);
+          handleBtnClick(e);
         }}
       />
       <S_Ott
         src={tving}
         alt="tving"
-        className={isFiltered.tving ? '' : 'dark'}
+        className={selectedOtt.tving ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
-          const target = e.target as HTMLImageElement;
-          handleBtnClick(target.alt);
+          handleBtnClick(e);
         }}
       />
     </>
@@ -132,13 +129,6 @@ const OttBtn = () => {
 };
 
 export default OttBtn;
-
-const S_WrapTvMovie = styled.div`
-  position: relative;
-  top: 0;
-  left: 60px;
-  z-index: 1;
-`;
 
 const S_Ott = styled.img`
   box-shadow: var(--shadow-box-m-25);
