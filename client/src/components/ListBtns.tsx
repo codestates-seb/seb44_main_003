@@ -15,6 +15,7 @@ const ListBtns = () => {
 export default ListBtns;
 
 const S_Wrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
 

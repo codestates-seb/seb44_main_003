@@ -2,7 +2,7 @@ import Banner from '../components/banner/Banner';
 import SildeMovie from '../components/silde/SildeMovie';
 import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
-import OttBtn from '../components/ui/OttBtn';
+import ListBtns from '../components/ListBtns';
 
 const Movie = () => {
   // const genres: string[] = [
@@ -19,11 +19,11 @@ const Movie = () => {
   //   '다큐멘터리',
   //   '스포츠'
   // ];
-  
+
   return (
     <S_Wrapper>
       <Banner image={image} />
-      <OttBtn />
+      <ListBtns />
       <SildeMovie />
     </S_Wrapper>
   );
