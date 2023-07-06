@@ -5,6 +5,21 @@ import styled from 'styled-components';
 import OttBtn from '../components/ui/OttBtn';
 
 const Movie = () => {
+  // const genres: string[] = [
+  //   '드라마',
+  //   '액션',
+  //   '로맨스',
+  //   '애니',
+  //   '코미디',
+  //   '판타지',
+  //   '스릴러',
+  //   '호러',
+  //   '음악',
+  //   '사극',
+  //   '다큐멘터리',
+  //   '스포츠'
+  // ];
+  
   return (
     <S_Wrapper>
       <Banner image={image} />
