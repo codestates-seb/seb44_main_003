@@ -1,84 +1,49 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GetTVData } from '../../api/api';
-import { ItemData } from '../../types/types';
-import Item from '../ui/ItemCard';
+import ItemCard from '../ui/ItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useQuery } from '@tanstack/react-query'
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
 const SildeTV = () => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
-  const genres: string[] = [
-    '드라마',
-    '액션',
-    '로맨스',
-    '애니',
-    '코미디',
-    '판타지',
-    '스릴러',
-    '호러',
-    '음악',
-    '사극',
-    '다큐멘터리',
-    '스포츠'
-  ];
-  const [tvData, setTVData] = useState<ItemData[][]>([]); // TV 데이터를 저장할 상태
-  useEffect(() => {
-    Promise.all(
-      genres.map((genre) => {
-        return GetTVData()
-          .then((data) => {
-            const filteredData = data.filter((tv) => tv.genre.includes(genre));
-            return filteredData;
-          })
-          .catch((error) => {
-            console.error(`'${genre}' 장르의 TV 데이터 가져오기 실패:`, error);
-            return [];
-          });
-      })
-    )
-      .then((results) => {
-        setTVData(results);
-      })
-      .catch((error) => {
-        console.error('TV 데이터 가져오기 실패:', error);
-        setTVData([]);
-      });
-  }, []);
 
-  return (
-    <S_Wrapper>
-      {genres.map((genre, index) => (
-        <S_Genrelist key={index}>
-          <S_GenreTitle>{genre}</S_GenreTitle>
-          {tvData[index] ? (
-            <S_Swiper
-              onSwiper={setSwiperRef}
-              slidesPerView={6} // 한 슬라이드에 보여줄 갯수
-              centeredSlides={false} // 센터 모드
-              spaceBetween={18} // 슬라이드 사이 여백
-              navigation={true} // 버튼
-              watchOverflow={true}
-              virtual
-            >
-              {tvData[index].map((data: ItemData, slideIndex: number) => (
-                <S_SwiperSlide key={data.id} virtualIndex={slideIndex}>
-                  <Item data={data} />
-                </S_SwiperSlide>
-              ))}
-            </S_Swiper>
-          ) : (
-            <S_LoadingMessage>Loading TV data...</S_LoadingMessage>
-          )}
-        </S_Genrelist>
-      ))}
-    </S_Wrapper>
-  );
+  const { isLoading, error, data, isSuccess } = useQuery({
+    queryKey: ['tvData'],
+    queryFn: () => GetTVData(),
+  })
+
+  if (isLoading) return 'Loading...'
+
+  if (error instanceof Error) return 'An error has occurred: ' + error.message
+
+  if (isSuccess) {
+    return (
+      <S_Wrapper>
+        <S_Swiper
+          onSwiper={setSwiperRef}
+          slidesPerView={6} // 한 슬라이드에 보여줄 갯수
+          centeredSlides={false} // 센터 모드
+          spaceBetween={18} // 슬라이드 사이 여백
+          navigation={true} // 버튼
+          watchOverflow={true}
+          virtual
+        > 
+          <S_SwiperSlide>
+            {data.map((item) => (
+              <ItemCard item={item} />
+            ))}
+          </S_SwiperSlide>
+        </S_Swiper>
+      </S_Wrapper>
+    );
+  };
 };
 
 export default SildeTV;
@@ -91,16 +56,16 @@ const S_Wrapper = styled.div`
   width: 100%;
 `;
 
-const S_Genrelist = styled.div`
-  margin-bottom: 3.75rem;
-`;
+// const S_Genrelist = styled.div`
+//   margin-bottom: 3.75rem;
+// `;
 
-const S_GenreTitle = styled.h2`
-  margin: 28px 0 10px 0;
-  color: var(--color-white-100);
-  font-size: 24px;
-  font-weight: 700;
-`;
+// const S_GenreTitle = styled.h2`
+//   margin: 28px 0 10px 0;
+//   color: var(--color-white-100);
+//   font-size: 24px;
+//   font-weight: 700;
+// `;
 
 const S_Swiper = styled(Swiper)`
   display: flex;
@@ -149,6 +114,6 @@ const S_SwiperSlide = styled(SwiperSlide)`
   }
 `;
 
-const S_LoadingMessage = styled.div`
-  color: var(--color-white-80);
-`;
+// const S_LoadingMessage = styled.div`
+//   color: var(--color-white-80);
+// `;

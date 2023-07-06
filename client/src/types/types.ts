@@ -34,6 +34,5 @@ export type AuthData = {
 export type ItemData = {
   id: number;
   title: string;
-  genre: string[];
   mainPoster: string;
 };

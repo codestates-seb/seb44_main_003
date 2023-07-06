@@ -10,13 +10,13 @@ const Main = () => {
   const refreshToken = searchParams.get('refresh_token');
   const currentToken = useLoaderData();
   if (!isLoggedIn && accessToken) {
-    localStorage.setItem('token', `Bearer ${accessToken}`);
+    localStorage.setItem('token', accessToken);
     const expiration = new Date();
     expiration.setMinutes(expiration.getMinutes() + 30);
     localStorage.setItem('expiration', expiration.toISOString());
     if (refreshToken)
       document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
-    window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
+    window.location.href = `${import.meta.env.VITE_CLIENT_URL}/`;
   }
 
   useEffect(() => {
