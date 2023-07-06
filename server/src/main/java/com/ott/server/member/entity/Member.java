@@ -1,6 +1,7 @@
 package com.ott.server.member.entity;
 
 import com.ott.server.audit.Auditable;
+import com.ott.server.bookmark.entity.Bookmark;
 import com.ott.server.interest.entity.Interest;
 import com.ott.server.memberott.entity.MemberOtt;
 import lombok.Builder;
@@ -44,9 +45,9 @@ public class Member extends Auditable {
 //    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 //    private List<Recommend> recommends = new ArrayList<>();
 //
-//    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<dib> dibs = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
     @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Interest> interests = new ArrayList<>();
 

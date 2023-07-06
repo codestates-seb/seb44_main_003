@@ -4,6 +4,7 @@ import com.ott.server.genre.entity.Genre;
 import com.ott.server.mediaott.entity.MediaOtt;
 import lombok.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 @Getter
 @Setter
@@ -58,6 +59,26 @@ public class MediaDto {
         private String mainPoster;
         private List<String> genre;
         private List<String> mediaOtt;
+    }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Response3 {
+        private String title;
+        private String content;
+        private String category;
+        private String creator;
+        private String cast;
+        private String mainPoster;
+        private String titlePoster;
+        private Integer releaseDate;
+        private String ageRate;
+        private Boolean recent;
+        private List<String> genre;
+        private List<String> mediaOtt;
+        private Integer countRecommend;
+        private Boolean checkBookmark;
     }
 
     @Getter

@@ -1,6 +1,7 @@
 package com.ott.server.media.entity;
 
 import com.ott.server.audit.Auditable;
+import com.ott.server.bookmark.entity.Bookmark;
 import com.ott.server.genre.entity.Genre;
 import com.ott.server.mediaott.entity.MediaOtt;
 import lombok.Getter;
@@ -57,4 +58,6 @@ public class Media extends Auditable {
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<MediaOtt> mediaOtts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Bookmark> bookmarks = new ArrayList<>();
 }

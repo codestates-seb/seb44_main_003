@@ -38,6 +38,10 @@ public interface MediaMapper {
     @Mapping(source = "mediaOtts", target = "mediaOtt")
     MediaDto.Response toResponseDto(Media media);
 
+    @Mapping(source = "mediaId", target = "title")
+    @Mapping(source = "genres", target = "genre")
+    @Mapping(source = "mediaOtts", target = "mediaOtt")
+    MediaDto.Response3 toResponse3Dto(Media media);
     default String fromGenre(Genre genre) {
         return genre.getGenreName();
     }
@@ -95,6 +99,7 @@ public interface MediaMapper {
                 .map(this::fromStringToMediaOtt)
                 .collect(Collectors.toList());
     }
+
 }
 
 
