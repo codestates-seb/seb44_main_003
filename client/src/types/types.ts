@@ -41,4 +41,8 @@ export type Comment = {
   content: string;
   createdAt: string;
   lastModifiedAt: string;
+  member: {
+    avatarUri: string;
+    nickname: string;
+  };
 };

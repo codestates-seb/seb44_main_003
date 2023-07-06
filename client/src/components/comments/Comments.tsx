@@ -8,16 +8,26 @@ import { useState } from 'react';
 function Comments() {
   const [page, setPage] = useState(0);
   const { id } = useParams() as { id: string };
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['content'],
+  const {
+    isLoading,
+    data,
+    isError,
+    error,
+    isSuccess,
+    isFetching,
+    isPreviousData,
+  } = useQuery({
+    queryKey: ['content', page],
     queryFn: () => GetComments({ id, page, size: CommentsPerPage }),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 5000,
+    keepPreviousData: true,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
   if (isSuccess) {
     return (
       <div>
+        <div>후기 {data.length}</div>
         {data.map((review) => (
           <S_Wrapper>
             <div>
@@ -28,6 +38,23 @@ function Comments() {
               <p>{review.content}</p>
               <div>{review.createdAt}</div>
             </div>
+            <button
+              onClick={() => setPage((old) => Math.max(old - 1, 0))}
+              disabled={page === 0}
+            >
+              Previous Page
+            </button>
+            <button
+              onClick={() => {
+                if (!isPreviousData && data.hasMore) {
+                  setPage((old) => old + 1);
+                }
+              }}
+              // Disable the Next Page button until we know a next page is available
+              disabled={isPreviousData || !data?.hasMore}
+            >
+              Next Page
+            </button>
           </S_Wrapper>
         ))}
       </div>
