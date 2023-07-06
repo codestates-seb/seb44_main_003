@@ -28,7 +28,7 @@ const Search = () => {
         <S_Text>'{keyword}' 검색 결과가 ??개 있습니다.</S_Text>
         <S_FlexWrap>
           {data.map((data: any) => (
-            <InfinityScroll key={data.id} data={data} />
+            <InfinityScroll key={data.id} item={data} />
           ))}
         </S_FlexWrap>
       </S_Wrapper>
