@@ -45,6 +45,12 @@ public class MediaController {
     public ResponseEntity<MediaDto.Response> getMedia(@PathVariable Long mediaId) {
         return new ResponseEntity<>(mediaService.getMedia(mediaId), HttpStatus.OK);
     }
+    //대분류
+    //localhost:8080/medias?page={page}&size={size}&genre={genre}
+
+
+
+    //소분류
 
     @GetMapping("/all")
     public ResponseEntity<List<MediaDto.Response2>> getAllMedia() {

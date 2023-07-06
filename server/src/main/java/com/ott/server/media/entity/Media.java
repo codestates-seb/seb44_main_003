@@ -24,7 +24,7 @@ public class Media extends Auditable {
     @Column(length = 50, nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(length = 1000, nullable = false)
     private String content;
 
     @Column(nullable = false)
@@ -36,10 +36,10 @@ public class Media extends Auditable {
     @Column(nullable = false)
     private String cast;
 
-    @Column(nullable = true)
+    @Column(length = 500, nullable = true)
     private String mainPoster;
 
-    @Column(nullable = true)
+    @Column(length = 500, nullable = true)
     private String titlePoster;
 
     @Column(nullable = false)

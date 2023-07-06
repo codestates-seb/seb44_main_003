@@ -1,5 +1,6 @@
 package com.ott.server.crawling;
 
+import com.ott.server.media.dto.MediaDto;
 import com.ott.server.media.service.MediaService;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -70,7 +71,7 @@ public class CrawlingController {
     private List<String> getDataList() throws InterruptedException{
         List<String> list = new ArrayList<>();
 
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
 
         driver.get(url);
@@ -84,9 +85,9 @@ public class CrawlingController {
         log.info("동의 성공");
         Thread.sleep(500);
 
-        int location = 1;
+        int location = 1; //default = 1
         //for(WebElement element: elements){
-        while(location != 100){
+        outer: while(location != 100){
             try {
                 WebElement element = driver.findElement(
                          By.xpath("/html/body/div[1]/div[4]/div[4]/div/div[2]/div[1]/div/div[" + (location++) + "]"));
@@ -103,9 +104,12 @@ public class CrawlingController {
 
             Thread.sleep(1000);
             System.out.println(location-1+") 데이터 수집");
+            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[1]")));
+
             List<WebElement> otts = driver.findElements(By.className("price-comparison__grid__row__holder"));
             List<String> mediaOtts = new ArrayList<>();
             List<Integer> ottNumber = new ArrayList<>();
+
 
             //Disney Plus, wavve, Netflix, Watcha
             for(int i = 1; i <= otts.size(); i++) {
@@ -117,7 +121,6 @@ public class CrawlingController {
                     try {
                         ott = otts.get(i - 1).findElement(
                                 By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[3]/div[2]/div["+i+"]/div/a/picture/img")).getAttribute("title");
-                        System.out.println(ott + i);
                     }catch (RuntimeException re) {
                         try{
                         ott = otts.get(i - 1).findElement(
@@ -125,7 +128,6 @@ public class CrawlingController {
                         }catch (RuntimeException rre){}
                     }
                 }
-                System.out.println(ott + i);
 
                 if (ott.equals("wavve") || ott.equals("Watcha") || ott.equals("Netflix") || ott.equals("Disney Plus")) {
                     mediaOtts.add(ott);
@@ -146,9 +148,9 @@ public class CrawlingController {
 
             String content = new String();
             try{
-                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[5]/div[2]/p/span")).getText();
+                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[5]/div[2]/p/span")).getText().replaceAll("\n", " ");
             }catch (RuntimeException e){
-                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[4]/p/span")).getText();
+                content = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[4]/p/span")).getText().replaceAll("\n", " ");
             }
 
             List<String> genres = List.of(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[3]/div[2]/div[2]")).getText().split(", "));
@@ -160,13 +162,17 @@ public class CrawlingController {
             }catch (RuntimeException e){
                 category = "영화";
             }
-
+            if(category.equals("")) category = "영화";
             Boolean recent = false;
 
-            //제목,  감독, 출연진, 연령등급
+            //감독, 출연진, 연령등급
 
             String title = new String();
             String titlePoster = new String();
+            String ageRate = new String();
+            String creator = new String();
+            String cast = new String();
+
 
             for(int i = 0; i < mediaOtts.size(); i++){
                 String ott = mediaOtts.get(i);
@@ -190,19 +196,33 @@ public class CrawlingController {
                             webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[3]/div/div[1]/p/div/div[1]/img")));
                             title = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[4]/h1")).getText();
                             titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[2]/img")).getAttribute("src");
+
                         }catch (RuntimeException e){                        }
                         break;
                     case "wavve":
-                        webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")));
-
-                        title = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("art");
-                        titlePoster = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("src");
-                        try {
+                        try {                                                                                      //
                             webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")));
-
+                            Thread.sleep(1000);
                             title = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("art");
                             titlePoster = driver.findElement(By.xpath("/html/body/div/div[1]/div[2]/main/section/div/div/div[2]/h1/em/img")).getAttribute("src");
-                        }catch (RuntimeException e){                        }
+
+                        }catch (RuntimeException e){
+                            //로그인 화면 구성 -> ott가 아니라 필요없음
+//                            System.out.println("로그인 진행");
+//                            driver.findElement(By.xpath("/html/body/div[1]/div[1]/main/div/div[1]/form/fieldset/ul[1]/li[1]/label/input")).sendKeys("snu970814@naver.com");
+//                            driver.findElement(By.xpath("/html/body/div[1]/div[1]/main/div/div[1]/form/fieldset/ul[1]/li[2]/label/input")).sendKeys("!joying003");
+//                            driver.findElement(By.xpath("/html/body/div[1]/div[1]/main/div/div[1]/form/fieldset/div/a")).click();
+//                            Thread.sleep(2000);
+//                            i = i-1; //다시 순회
+//                            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//
+//                            System.out.println("로그인 완료");
+                            System.out.println("OTT 정보 없음");
+                            driver.close();
+                            driver.switchTo().window(originalWindow);
+                            driver.navigate().back();
+                            continue outer;
+                        }
                         break;
                     case "Netflix":
                         try {
@@ -215,9 +235,13 @@ public class CrawlingController {
 
                 driver.close();
                 driver.switchTo().window(originalWindow);
-                if(!(title == null)&&!(titlePoster==null)) break;
+                if(title == null) {
+                    driver.navigate().back();
+                    continue outer;
+                }
+                if(!(title.equals(""))&&!(titlePoster.equals(""))) break;
             }
-            if(title.equals("")&&titlePoster.equals("")) {
+            if(title.equals("") && titlePoster.equals("")) {
                 title = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div/h1")).getText();
                 titlePoster = title;
             }
@@ -229,9 +253,13 @@ public class CrawlingController {
             System.out.println("내용    : " + content);
             System.out.println("OTT : "+ mediaOtts);
             System.out.println("출시일    : "+ releaseDate);
-            System.out.println("장르 : "+genres);
-            System.out.println("카테고리 : "+category);
+            System.out.println("장르  : "+genres);
+            System.out.println("카테고리    : "+category);
             System.out.println("최신작 : "+recent);
+            System.out.println("이용가 : ");
+            System.out.println("감독  : ");
+            System.out.println("출연진 : ");
+
 
             /*
             private String title;
@@ -247,8 +275,9 @@ public class CrawlingController {
             private List<String> genre;
             private List<String> mediaOtt;
 //             */
-//            CreateOrUpdateMediaDto createData = new Create(title, content, category, "감독", "출연진", mainPoster, "제목 이미지", releaseDate, "전체이용가", recent ,genres, mediaOtts);
-//            mediaService.createMedia(createData);
+            MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, titlePoster, releaseDate, "전체이용가", recent ,genres, mediaOtts);
+
+            mediaService.createMedia(createData);
 
             System.out.println();
             driver.navigate().back();
