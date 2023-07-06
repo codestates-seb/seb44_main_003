@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
+import { ItemData } from '../../types/types';
 
-const InfinityScroll = ({ data }: any) => {
+interface ItemProps {
+  item: ItemData;
+}
+
+const InfinityScroll: React.FC<ItemProps> = ({ item }) => {
   return (
     <S_Item>
-      <ItemCard data={data} />
+      <ItemCard item={item} />
     </S_Item>
   );
 };
