@@ -36,7 +36,7 @@ public class ReviewService {
     }
 
 
-    public Review save(ReviewCreateDto reviewDto, Authentication authentication) {
+    public void save(ReviewCreateDto reviewDto, Authentication authentication) {
         if (reviewDto.getMediaId() == null || reviewDto.getContent() == null || reviewDto.getContent().isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REVIEW_FORMAT);
         }
@@ -50,7 +50,7 @@ public class ReviewService {
         review.setMedia(media);
         review.setContent(reviewDto.getContent());
 
-        return reviewRepository.save(review);
+        reviewRepository.save(review);
     }
 
     public Optional<ReviewDetailDto> findById(Long id) {
@@ -74,20 +74,28 @@ public class ReviewService {
         String email = authentication.getPrincipal().toString();
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
         Pageable pageable = PageRequest.of(page, size);
         return reviewRepository.findAll(pageable).stream()
                 .map(review -> {
                     ReviewListDto reviewListDto = new ReviewListDto();
-                    reviewListDto.setMediaId(review.getMedia().getMediaId());
                     reviewListDto.setContent(review.getContent());
                     reviewListDto.setCreatedAt(review.getCreatedAt());
                     reviewListDto.setLastModifiedAt(review.getLastModifiedAt());
+
+                    MemberDetailDto memberDetailDto = new MemberDetailDto();
+                    memberDetailDto.setNickname(member.getNickname());
+                    memberDetailDto.setAvatarUri(member.getAvatarUri());
+
+                    // Set the MemberDetailDto field in the ReviewListDto
+                    reviewListDto.setMemberDetailDto(memberDetailDto);
+
                     return reviewListDto;
                 })
                 .collect(Collectors.toList());
     }
 
-    public Review update(Long id, ReviewUpdateDto newReviewData, Authentication authentication) {
+    public void update(Long id, ReviewUpdateDto newReviewData, Authentication authentication) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
         String email = authentication.getPrincipal().toString();
@@ -97,8 +105,7 @@ public class ReviewService {
             throw new BusinessLogicException(ExceptionCode.INVALID_AUTHORIZATION);
         }
         review.setContent(newReviewData.getContent());
-
-        return reviewRepository.save(review);
+        reviewRepository.save(review);
     }
 
     public void delete(Long id, Authentication authentication) {

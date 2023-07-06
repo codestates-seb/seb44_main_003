@@ -31,7 +31,8 @@ public class ReviewController {
     @PostMapping
     public ResponseEntity createReview(@RequestBody ReviewCreateDto request, Authentication authentication) {
         try {
-            return new ResponseEntity<>(reviewService.save(request, authentication), HttpStatus.CREATED);
+            reviewService.save(request, authentication);
+            return new ResponseEntity( HttpStatus.CREATED);
         } catch (BusinessLogicException e) {
             if (e.getMessage().equals(ExceptionCode.INVALID_REVIEW_FORMAT.getMessage())) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(ExceptionCode.INVALID_REVIEW_FORMAT.getStatus()));
@@ -39,8 +40,7 @@ public class ReviewController {
             if (e.getMessage().equals(ExceptionCode.INVALID_AUTHORIZATION.getMessage())) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.valueOf(ExceptionCode.INVALID_AUTHORIZATION.getStatus()));
             }
-            // 여기서 더 많은 예외를 처리할 수 있습니다...
-            // 마지막으로, 알 수 없는 예외는 기본적으로 500 Internal Server Error로 처리합니다.
+
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -55,16 +55,17 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "0") int page,
+    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
                                                          @RequestParam(required = false, defaultValue = "10") int size,
                                                          Authentication authentication) {
-        return new ResponseEntity(reviewService.findAll(page, size, authentication), HttpStatus.OK);
+        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDto newReviewData,
                                                Authentication authentication) {
-        return new ResponseEntity(reviewService.update(id, newReviewData, authentication), HttpStatus.OK);
+        reviewService.update(id, newReviewData, authentication);
+        return new ResponseEntity( HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

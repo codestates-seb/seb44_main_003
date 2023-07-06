@@ -1,5 +1,6 @@
 package com.ott.server.bookmark.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ott.server.audit.Auditable;
 import com.ott.server.media.entity.Media;
 import com.ott.server.member.entity.Member;
@@ -26,5 +27,6 @@ public class Bookmark extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "MEDIA_ID")
+    @JsonBackReference
     private Media media;
 }
