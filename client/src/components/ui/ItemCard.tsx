@@ -21,16 +21,21 @@ const ItemCard: React.FC<ItemProps> = ({ item }) => {
 
 export default ItemCard;
 
-const S_Wrapper = styled.div``;
+const S_Wrapper = styled.div`
+  transition: transform 0.3s ease;
+    &:hover {
+    transform: translateY(-15px);
+  }
+`
 
 const S_ItemBox = styled.div`
-  aspect-ratio: 3/4.2;
-  border-radius: 10px;
 `;
 
 const S_ItemImg = styled.img`
   object-fit: cover;
   aspect-ratio: 3/4.2;
+  border-radius: 10px;
+  filter: var(--shadow-l-40);
 `;
 
 const S_ItemTitle = styled.p`
