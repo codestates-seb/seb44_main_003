@@ -12,7 +12,9 @@ import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,19 +160,29 @@ public class MediaService {
     }
 
 
-    public MediaDto.Response getMedia(Long mediaId) {
+    public MediaDto.Response3 getMedia(Long mediaId) {
+
         return mediaRepository.findById(mediaId)
-                .map(mediaMapper::toResponseDto)
+                .map(mediaMapper::toResponse3Dto)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
     } //todo mapper고치기
 
 
-    public Page<MediaDto.Response> getMedias(String category, List<String> genre, List<String> ott, Pageable pageable) {
-//        Page<Media> medias = mediaRepository.findByCategoryAndGenreAndOtt(category, genre, ott, pageable);
-//
-//        Page<MediaDto.Response> mediasResponseDto = medias.map(mediaMapper::toResponseDto);
+    public List<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
+        Page<Media> mediasPage = mediaRepository.findByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
+        List<Media> medias = mediasPage.getContent();
 
-        return null;//mediasResponseDto;
+        List<MediaDto.Response2> responses = new ArrayList<>();
+
+        for (Media media : medias){
+            MediaDto.Response2 response = new MediaDto.Response2();
+            response.setId(media.getMediaId());
+            response.setTitle(media.getTitle());
+            response.setMainPoster(media.getMainPoster());
+            responses.add(response);
+        }
+
+        return responses;
     }
 
 
@@ -185,6 +197,21 @@ public class MediaService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
 
         mediaRepository.delete(media);
+    }
+
+    @Transactional(readOnly = true)
+    public Integer countRecommendByMedia(Long mediaId) {
+        return mediaRepository.findRecommendCountByMediaId(mediaId);
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean checkBookmarkByMedia(Long mediaId) {
+        Integer check = mediaRepository.checkBookmarkByMediaId(mediaId);
+        if(check > 0)
+            return true;
+        else{
+            return false;
+        }
     }
 
     //todo 컨텐츠 검색 search 엔드포인트는 search에서 만들어서 처리
