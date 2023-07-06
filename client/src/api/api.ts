@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { Member, NewMember, LoginInfo, ItemData } from '../types/types';
+import {
+  Member,
+  NewMember,
+  LoginInfo,
+  ItemData,
+  Comment,
+} from '../types/types';
 
 const accessToken = localStorage.getItem('token');
 
@@ -55,6 +61,24 @@ export const GetMediaDetail = (mediaId: number): Promise<ItemData[]> =>
 export const GetSearchedData = (keyword: string | null) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
+    .then((res) => res.data);
+
+/* 후기 데이터 */
+export const GetComments = ({
+  id,
+  page,
+  size,
+}: {
+  id: string;
+  page: number;
+  size: number;
+}): Promise<Comment[]> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/reviews?mediaId=${id}&page=${page}&size=${size}`
+    )
     .then((res) => res.data);
 
 /* 리스트 필터 가져오기 */

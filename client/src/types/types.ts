@@ -36,3 +36,9 @@ export type ItemData = {
   title: string;
   mainPoster: string;
 };
+
+export type Comment = {
+  content: string;
+  createdAt: string;
+  lastModifiedAt: string;
+};
