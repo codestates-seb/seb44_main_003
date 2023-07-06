@@ -67,7 +67,7 @@ public class MediaController {
         return new ResponseEntity<>(allMedia, HttpStatus.OK);
     }
 
-    @GetMapping("/TV")
+    @GetMapping("/tv")
     public ResponseEntity<List<MediaDto.Response2>> getMediasByTv(
             @RequestParam(required = true, defaultValue = "1") int page,
             @RequestParam(required = true, defaultValue = "10") int size,
