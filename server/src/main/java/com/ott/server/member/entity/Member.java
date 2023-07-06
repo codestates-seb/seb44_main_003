@@ -35,6 +35,9 @@ public class Member extends Auditable {
     @Column(length = 100, nullable = true)
     private String avatarUri;
 
+    @Column(length = 100, nullable = true)
+    private String category;
+
 //    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 //    private List<Review> reviews = new ArrayList<>();
 //
@@ -53,12 +56,13 @@ public class Member extends Auditable {
     private List<String> roles = new ArrayList<>();
 
     @Builder
-    public Member(Long memberId, String nickname, String email, String password, String avatarUri, List<String> roles) {
+    public Member(Long memberId, String nickname, String email, String password, String avatarUri, String category, List<String> roles) {
         this.memberId = memberId;
         this.nickname = nickname;
         this.email = email;
         this.password = password;
         this.avatarUri = avatarUri;
+        this.category = category;
         this.roles = roles;
     }
     public Member(String email) {
