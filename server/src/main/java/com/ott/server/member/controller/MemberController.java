@@ -115,7 +115,7 @@ public class MemberController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/detail")
+    @GetMapping
     public ResponseEntity getMember(
             Authentication authentication) {
         String email = authentication.getPrincipal().toString();
