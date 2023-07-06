@@ -13,6 +13,7 @@ import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
+import Recommend from './pages/Recommend';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <Search />,
+      },
+      {
+        path: 'recommend',
+        element: <Recommend />,
       },
     ],
   },
