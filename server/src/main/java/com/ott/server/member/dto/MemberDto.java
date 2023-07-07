@@ -41,7 +41,6 @@ public class MemberDto {
     public static class Patch {
         private long memberId;
 
-        @NotBlank
         private String nickname;
 
         private String avatarUri;
@@ -63,7 +62,7 @@ public class MemberDto {
         private String nickname;
         private String avatarUri;
         private LocalDateTime createdAt;
-        private List<MemberOttDto.Response> memberOtts;
-        private List<InterestDto.Response> interests;
+        private List<MemberOttDto.Response> Ott;
+        private List<InterestDto.Response> interest;
     }
 }
