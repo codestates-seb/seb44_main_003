@@ -172,7 +172,7 @@ public class MediaService {
     } //todo mapper고치기
 
     public List<MediaDto.Response2> getMediasAll(List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
-        Page<Media> mediasPage = mediaRepository.findByGenresInAndMediaOttsIn(genres, otts, pageable);
+        Page<Media> mediasPage = mediaRepository.findDistinctByGenresInAndMediaOttsIn(genres, otts, pageable);
         List<Media> medias = mediasPage.getContent();
         List<MediaDto.Response2> responses = new ArrayList<>();
         for (Media media : medias){
