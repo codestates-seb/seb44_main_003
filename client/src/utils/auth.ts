@@ -36,7 +36,7 @@ export function checkAuthLoader() {
   const token = getAuthToken();
 
   if (!token) {
-    return redirect('/users/login');
+    return redirect('/login');
   }
   return null;
 }

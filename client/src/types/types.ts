@@ -10,8 +10,8 @@ export type NewMember = {
   nickname: String;
   avatarUri?: String;
   category?: String;
-  ott?: String[];
-  interest?: String[];
+  memberOtts?: String[];
+  interests?: String[];
 };
 
 export type LoginInfo = {
@@ -21,8 +21,8 @@ export type LoginInfo = {
 
 export type MemberLikes = {
   category: String;
-  ott: String[];
-  interest: String[];
+  memberOtts: String[];
+  interests: String[];
 };
 
 export type AuthData = {

@@ -2,10 +2,18 @@ import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
-import { PostUser } from '../../api/api';
+import { PostUser, Login } from '../../api/api';
 import { AxiosError } from 'axios';
-import { NewMember } from '../../types/types';
-import { useNavigate } from 'react-router-dom';
+import { NewMember, LoginInfo } from '../../types/types';
+
+export const profileImgs = [
+  'kongdami',
+  'kuroming',
+  'bee_happy',
+  'padakmon',
+  'mukgoja',
+  'metamong',
+];
 
 function SignupForm() {
   const [nickname, setNickname] = useState('');
@@ -20,7 +28,7 @@ function SignupForm() {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [signupError, setSignupError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  const randomNum = Math.floor(Math.random() * 6);
 
   const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -94,14 +102,27 @@ function SignupForm() {
     return checknickname() && checkEmail() && checkPassword() && checkConfirm();
   }
 
-  const login = () => {};
+  const LoginMutation = useMutation({
+    mutationFn: (member: LoginInfo) => Login(member),
+    onSuccess(data) {
+      if (data.status === 200) {
+        const accessToken = data.headers.authorization;
+        if (accessToken) {
+          localStorage.setItem('token', accessToken);
+          const expiration = new Date();
+          expiration.setMinutes(expiration.getMinutes() + 30);
+          localStorage.setItem('expiration', expiration.toISOString());
+        }
+        window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
+      }
+    },
+  });
 
-  const mutation = useMutation({
+  const SignupMutation = useMutation({
     mutationFn: (newMember: NewMember) => PostUser(newMember),
     onSuccess(data) {
       if (data.status === 201) {
-        login();
-        navigate('/');
+        LoginMutation.mutate({ email, password });
       }
     },
     onError(error: AxiosError) {
@@ -113,20 +134,19 @@ function SignupForm() {
       }
     },
   });
-
+  const randomProfileUrl = `https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profileImgs[randomNum]}.png`;
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSignupError(null);
     if (validate()) {
-      mutation.mutate({
+      SignupMutation.mutate({
         nickname,
         email,
         password,
-        avatarUri:
-          'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/248/988c9527e85c5b2f7e13a974ae6714c0_res.jpeg',
-        //category: '',
-        ott: [],
-        interest: [],
+        avatarUri: randomProfileUrl,
+        category: '',
+        memberOtts: [],
+        interests: [],
       });
     }
   };

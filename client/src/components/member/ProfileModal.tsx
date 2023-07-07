@@ -1,57 +1,25 @@
 import { styled } from 'styled-components';
 import { BiX } from 'react-icons/bi';
-import bee_happy from '../../assets/profiles/bee_happy.png';
-import kongdami from '../../assets/profiles/kongdami.png';
-import kuroming from '../../assets/profiles/kuroming.png';
-import metamong from '../../assets/profiles/metamong.png';
-import padakmon from '../../assets/profiles/padakmon.png';
-import mukgoja from '../../assets/profiles/mukgoja.png';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../recoil/atoms/Atoms';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { PatchUser } from '../../api/api';
-
-const defaultProfiles = [
-  {
-    id: 1,
-    name: 'bee_happy',
-    url: bee_happy,
-  },
-  {
-    id: 2,
-    name: 'kongdami',
-    url: kongdami,
-  },
-  {
-    id: 3,
-    name: 'kuroming',
-    url: kuroming,
-  },
-  {
-    id: 4,
-    name: 'metamong',
-    url: metamong,
-  },
-  {
-    id: 5,
-    name: 'padakmon',
-    url: padakmon,
-  },
-  {
-    id: 6,
-    name: 'mukgoja',
-    url: mukgoja,
-  },
-];
+import { profileImgs } from '../authentication/SignupForm';
+import { NewMember } from '../../types/types';
 
 function ProfileModal() {
   const setShowModal = useSetRecoilState(profileModalState);
-  const mutationPatch = useMutation({
-    mutationFn: PatchUser,
+  const queryClient = useQueryClient();
+  const user = useQuery(['user']).data as NewMember;
+  const mutationPatch = useMutation(PatchUser, {
+    onSuccess: () => {
+      setShowModal(false);
+      queryClient.invalidateQueries(['user']);
+    },
   });
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLImageElement;
-    mutationPatch.mutate({ avatarUri: target.src });
+    mutationPatch.mutate({ ...user, avatarUri: target.src });
   };
 
   return (
@@ -64,11 +32,11 @@ function ProfileModal() {
       <h1>프로필 선택</h1>
       <h2>사용할 프로필을 선택해주세요.</h2>
       <div>
-        {defaultProfiles.map((profile) => (
+        {profileImgs.map((profile, index) => (
           <img
-            id={profile.id.toString()}
-            src={profile.url}
-            alt={profile.name}
+            key={index}
+            src={`https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profile}.png`}
+            alt={profile}
             onClick={handleClick}
           />
         ))}

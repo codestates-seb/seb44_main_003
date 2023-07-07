@@ -5,8 +5,11 @@ import { HiPencil } from 'react-icons/hi';
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
+import { useQueryClient } from '@tanstack/react-query';
+import { logout } from '../../header/Dropdown';
 
 function Information() {
+  const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
@@ -19,21 +22,25 @@ function Information() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutationPatch.mutate({ nickname: userInput });
+    mutationPatch.mutate({
+      ...data,
+      nickname: userInput,
+    });
   };
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
 
-  const mutationPatch = useMutation({
-    mutationFn: PatchUser,
+  const mutationPatch = useMutation(PatchUser, {
+    onSuccess: () => queryClient.invalidateQueries(['user']),
   });
-  const mutationDelete = useMutation({
-    mutationFn: DeleteUser,
+
+  const mutationDelete = useMutation(DeleteUser, {
+    onSuccess: () => logout(),
   });
 
   const handleDelete = () => {
