@@ -65,7 +65,7 @@ function Comments() {
             </button>
           </S_Wrapper>
         ))}
-        {Array.from({ length: 10 }).map((e, i) => (
+        {Array.from({ length: 10 }).map((_, i) => (
           <button key={i} onClick={() => setPage(i + 1)}>
             {i + 1}
           </button>
