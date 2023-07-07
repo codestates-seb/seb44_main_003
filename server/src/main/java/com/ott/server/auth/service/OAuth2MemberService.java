@@ -43,22 +43,10 @@ public class OAuth2MemberService extends DefaultOAuth2UserService {
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oauthMember.getAttributes());
 
-        String email = oauthMember.getAttribute("email");
+        Member member = saveOrUpdate(attributes);
 
-        Member dbMember = memberRepository.findByEmail(email).orElseGet(() -> {
-            System.out.println("Member not found in database, creating new member");
+        httpSession.setAttribute("member", new SessionMember(member));
 
-            Member savedMember = memberRepository.save(attributes.toEntity());
-            System.out.println("New member saved: " + savedMember);
-            return savedMember;
-        });
-
-        httpSession.setAttribute("member", new SessionMember(dbMember));
-
-        System.out.println("-----------------------------------------");
-        System.out.println(attributes.getAttributes());
-
-        System.out.println("-----------------------------------------");
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority("USER")),
                 attributes.getAttributes(),
@@ -68,5 +56,11 @@ public class OAuth2MemberService extends DefaultOAuth2UserService {
 
     }
 
+    private Member saveOrUpdate(OAuthAttributes attributes) {
+        Member member = memberRepository.findByEmail(attributes.getEmail())
+                .map(entity -> entity.update(attributes.getName()))
+                .orElse(attributes.toEntity());
 
+        return memberRepository.save(member);
+    }
 }
