@@ -63,6 +63,12 @@ public class MemberService {
                 .ifPresent(nickname -> findMember.setNickname(nickname));
         Optional.ofNullable(member.getAvatarUri())
                 .ifPresent(avatarUri -> findMember.setAvatarUri(avatarUri));
+        Optional.ofNullable(member.getCategory())
+                .ifPresent(category -> findMember.setCategory(category));
+        Optional.ofNullable(member.getInterests())
+                .ifPresent(interests -> findMember.setInterests(interests));
+        Optional.ofNullable(member.getMemberOtts())
+                .ifPresent(memberOtts -> findMember.setMemberOtts(memberOtts));
 
         return memberRepository.save(findMember);
     }
