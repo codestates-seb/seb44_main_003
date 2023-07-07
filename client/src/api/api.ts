@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { Member, NewMember, LoginInfo, ItemData } from '../types/types';
+import {
+  Member,
+  NewMember,
+  LoginInfo,
+  ItemData,
+  SelectedData,
+} from '../types/types';
 
 const accessToken = localStorage.getItem('token');
 
@@ -52,7 +58,7 @@ export const GetMovieData = (genre: string): Promise<ItemData[]> =>
     )
     .then((res) => res.data);
 
-export const GetMediaDetail = (mediaId: number): Promise<ItemData[]> =>
+export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/medias/${mediaId}`)
     .then((res) => res.data);
@@ -68,3 +74,11 @@ export const GetFilterdData = (queryString: string | null) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}${queryString}`)
     .then((res) => res.data);
+
+/* 북마크 조회 */
+export const GetIsBookmark = (mediaId: string | null) =>
+  instance.get(`/bookmarks/${mediaId}`).then((res) => res.data);
+
+/* 북마크 생성 */
+export const PostBookmark = (mediaId: string | null) =>
+  instance.post(`/bookmarks`, { mediaId });
