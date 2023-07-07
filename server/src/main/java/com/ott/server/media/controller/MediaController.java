@@ -78,7 +78,7 @@ public class MediaController {
     @GetMapping
     public ResponseEntity<List<MediaDto.Response2>> getMedias(
             @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false, defaultValue = "1000") int size,
             @RequestParam(required = false) List<String> genre,
             @RequestParam(required = false) List<String> ott) {
 
@@ -103,7 +103,7 @@ public class MediaController {
     @GetMapping("/tv")
     public ResponseEntity<List<MediaDto.Response2>> getMediasByTv(
             @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false, defaultValue = "1000") int size,
             @RequestParam(required = false) List<String> genre,
             @RequestParam(required = false) List<String> ott) {
 
@@ -128,7 +128,7 @@ public class MediaController {
     @GetMapping("/movie")
     public ResponseEntity<List<MediaDto.Response2>> getMediasByMovie(
             @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false, defaultValue = "1000") int size,
             @RequestParam(required = false) List<String> genre,
             @RequestParam(required = false) List<String> ott) {
 
