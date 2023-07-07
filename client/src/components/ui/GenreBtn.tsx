@@ -7,20 +7,27 @@ const GenreBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const path = useLocation().pathname;
-  const ott = new URLSearchParams(location.search).get('ott');
+  const ott = new URLSearchParams(location.search).get('ottNames');
   const genres = [
-    { type: '애니' },
-    { type: '코미디' },
-    { type: '로맨스' },
-    { type: '드라마' },
     { type: '액션' },
+    { type: '드라마' },
+    { type: '애니메이션' },
+    { type: '코미디' },
     { type: '스릴러' },
+    { type: '로맨스' },
     { type: '판타지' },
-    { type: '호러' },
     { type: '다큐멘터리' },
-    { type: '사극' },
     { type: '스포츠' },
     { type: '음악' },
+    { type: 'SF' },
+    { type: '가족' },
+    { type: '공포' },
+    { type: '범죄' },
+    { type: '역사' },
+    { type: '전쟁' },
+    { type: '서부' },
+    { type: 'Reality TV' },
+    { type: 'Made in Europe' },
   ];
   const genreBtnRef = useRef(null);
 
@@ -29,12 +36,12 @@ const GenreBtn = () => {
     setSelectedGenre(e.target.value);
 
     if (path === '/tv' || path === '/movie') {
-      return navigate(`${path}/list?genre=${selected}`);
+      return navigate(`/medias${path}/?genreNames=${selected}`);
     }
 
-    let navigateUrl = `${path}?genre=${selected}`;
+    let navigateUrl = `${path}?genreNames=${selected}`;
     if (ott) {
-      navigateUrl = `${path}?genre=${selected}&ott=${ott}`;
+      navigateUrl = `${path}?genreNames=${selected}&ottNames=${ott}`;
     }
     navigate(navigateUrl);
   };
@@ -59,15 +66,21 @@ const GenreBtn = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const genreParam = new URLSearchParams(location.search).get('genreNames');
+    setSelectedGenre(genreParam || '');
+    setIsOpen(true);
+  }, [location.search]);
+
   return (
     <GenreBtnContainer ref={genreBtnRef}>
       <S_GenreBtn onClick={handleGenreClick}>장르 ▼</S_GenreBtn>
       {isOpen && (
         <S_LabelWrapper>
-          {Array.from({ length: Math.ceil(genres.length / 4) }).map(
+          {Array.from({ length: Math.ceil(genres.length / 5) }).map(
             (_, index) => (
               <S_LabelRow key={index}>
-                {genres.slice(index * 4, (index + 1) * 4).map((genre) => (
+                {genres.slice(index * 5, (index + 1) * 5).map((genre) => (
                   <S_Label key={genre.type}>
                     <S_Input
                       type="checkbox"
@@ -92,6 +105,7 @@ export default GenreBtn;
 const GenreBtnContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
+  z-index: 1000;
 `;
 
 const S_GenreBtn = styled.div`
@@ -101,6 +115,7 @@ const S_GenreBtn = styled.div`
 `;
 
 const S_LabelWrapper = styled.div`
+  background-color: var(--color-bg-80);
   position: absolute;
   display: flex;
   flex-direction: column;

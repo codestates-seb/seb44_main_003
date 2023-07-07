@@ -51,11 +51,11 @@ const router = createBrowserRouter([
         element: <Content />,
       },
       {
-        path: 'tv/list',
+        path: 'medias/tv',
         element: <List />,
       },
       {
-        path: 'movie/list',
+        path: 'medias/movie',
         element: <List />,
       },
       {

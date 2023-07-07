@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import netflix from '../../assets/ott/netflix.svg';
+import Netflix from '../../assets/ott/netflix.svg';
 import tving from '../../assets/ott/tving.svg';
-import disney from '../../assets/ott/disney.svg';
-import watcha from '../../assets/ott/watcha.svg';
+import DisneyPlus from '../../assets/ott/disney.svg';
+import Watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 
 const OttBtn = () => {
   const path = useLocation().pathname;
-  const ott = new URLSearchParams(location.search).get('ott');
-  const genre = new URLSearchParams(location.search).get('genre');
+  const ott = new URLSearchParams(location.search).get('ottNames');
+  const genre = new URLSearchParams(location.search).get('genreNames');
 
   const urlData = {
-    netflix: ott?.includes('netflix') ? 'netflix' : '',
-    disney: ott?.includes('disney') ? 'disney' : '',
-    watcha: ott?.includes('watcha') ? 'watcha' : '',
+    Netflix: ott?.includes('Netflix') ? 'Netflix' : '',
+    'Disney Plus': ott?.includes('Disney Plus') ? 'Disney Plus' : '',
+    Watcha: ott?.includes('Watcha') ? 'Watcha' : '',
     wavve: ott?.includes('wavve') ? 'wavve' : '',
     tving: ott?.includes('tving') ? 'tving' : '',
   };
@@ -25,9 +25,9 @@ const OttBtn = () => {
   const handleBtnClick = (e: React.MouseEvent<EventTarget>) => {
     const ott = (e.target as HTMLImageElement).alt;
     if (
-      ott === 'netflix' ||
-      ott === 'disney' ||
-      ott === 'watcha' ||
+      ott === 'Netflix' ||
+      ott === 'Disney Plus' ||
+      ott === 'Watcha' ||
       ott === 'wavve' ||
       ott === 'tving'
     ) {
@@ -40,43 +40,46 @@ const OttBtn = () => {
   };
 
   useEffect(() => {
-    const genreValue = genre ? `genre=${genre}&` : '';
-    const ottValue = Object.values(selectedOtt);
-    if (ottValue.every((str) => str === '')) {
-      navigate(`${path}?${genreValue}`);
-    } else {
-      const selectedOtt = ottValue.filter((str) => str !== '').join(',');
-      navigate(`${path}?${genreValue}ott=${selectedOtt}`);
+    if (path === '/medias/tv' || path === '/medias/movie') {
+      const genreValue = genre ? `genreNames=${genre}&` : '';
+      const ottValue = Object.values(selectedOtt);
+      if (ottValue.every((str) => str === '')) {
+        navigate(`/medias${path}?${genreValue}`);
+      } else {
+        const selectedOtt = ottValue.filter((str) => str !== '').join(',');
+        navigate(`${path}?${genreValue}ottNames=${selectedOtt}`);
+      }
     }
   }, [selectedOtt]);
 
   if (path === '/tv' || path === '/movie') {
+    let test = '?genreNames=로맨스&';
     return (
       <>
         <S_Ott
-          src={netflix}
-          alt="netflix"
-          onClick={() => navigate(`${path}/list?ott=netflix`)}
+          src={Netflix}
+          alt="Netflix"
+          onClick={() => navigate(`/medias${path}${test}ottNames=Netflix`)}
         />
         <S_Ott
-          src={disney}
-          alt="disney"
-          onClick={() => navigate(`${path}/list?ott=disney`)}
+          src={DisneyPlus}
+          alt="Disney Plus"
+          onClick={() => navigate(`/medias${path}${test}ottNames=Disney Plus`)}
         />
         <S_Ott
-          src={watcha}
-          alt="watcha"
-          onClick={() => navigate(`${path}/list?ott=watcha`)}
+          src={Watcha}
+          alt="Watcha"
+          onClick={() => navigate(`/medias${path}${test}ottNames=Watcha`)}
         />
         <S_Ott
           src={wavve}
           alt="wavve"
-          onClick={() => navigate(`${path}/list?ott=wavve`)}
+          onClick={() => navigate(`/medias${path}${test}ottNames=wavve`)}
         />
         <S_Ott
           src={tving}
           alt="tving"
-          onClick={() => navigate(`${path}/list?ott=netflix`)}
+          onClick={() => navigate(`/medias${path}${test}ottNames=Netflix`)}
         />
       </>
     );
@@ -85,25 +88,25 @@ const OttBtn = () => {
   return (
     <>
       <S_Ott
-        src={netflix}
-        alt="netflix"
-        className={selectedOtt.netflix ? '' : 'dark'}
+        src={Netflix}
+        alt="Netflix"
+        className={selectedOtt.Netflix ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
       />
       <S_Ott
-        src={disney}
-        alt="disney"
-        className={selectedOtt.disney ? '' : 'dark'}
+        src={DisneyPlus}
+        alt="Disney Plus"
+        className={selectedOtt['Disney Plus'] ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
       />
       <S_Ott
-        src={watcha}
-        alt="watcha"
-        className={selectedOtt.watcha ? '' : 'dark'}
+        src={Watcha}
+        alt="Watcha"
+        className={selectedOtt.Watcha ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
