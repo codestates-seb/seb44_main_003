@@ -16,10 +16,10 @@ const ottServices = [
   { name: '웨이브', icon: wavve },
 ]
 
-const RecommendModel = () => {
+const RecommendModal = () => {
   return (
     <S_Wrapper>
-      <S_ModelBox>
+      <S_ModalBox>
         <S_QuestionImage src={questionImage} alt='kuroming'/>
         <S_Question src={question} alt='어떤 OTT 서비스를 이용하고 계신가요?'/>
         <S_SelectionBox>
@@ -40,13 +40,13 @@ const RecommendModel = () => {
             </S_Button>
           </S_ButtonBox>
         </S_SelectionBox>
-        <S_ModelBoxOverlay/>
-      </S_ModelBox>
+        <S_ModalBackground/>
+      </S_ModalBox>
     </S_Wrapper>
   )
 }
 
-export default RecommendModel
+export default RecommendModal
 
 const S_Wrapper = styled.div`
   display: flex;
@@ -56,10 +56,8 @@ const S_Wrapper = styled.div`
   padding: 100px 0;
 `
 
-const S_ModelBoxOverlay = styled.div`
+const S_ModalBackground = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: #362C6D;
@@ -68,7 +66,7 @@ const S_ModelBoxOverlay = styled.div`
   z-index: -1;
 `
 
-const S_ModelBox = styled.div`
+const S_ModalBox = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
