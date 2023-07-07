@@ -1,4 +1,4 @@
-import RecommendModel from '../components/model/RecommendModel';
+import RecommendModel from '../components/modal/RecommendModal';
 import styled from 'styled-components';
 
 const Recommend = () => {
