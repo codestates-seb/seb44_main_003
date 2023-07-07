@@ -6,6 +6,8 @@ import ListBtns from '../components/ui/ListBtns';
 
 const Movie = () => {
   const genres: string[] = [
+    '액션',
+    '드라마',
     'SF',
     '스릴러',
     '애니메이션',
