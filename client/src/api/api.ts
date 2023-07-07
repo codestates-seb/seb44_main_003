@@ -38,7 +38,7 @@ export const GetTVData = (genre: string): Promise<ItemData[]> =>
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?page=1&size=300&genreNames=${genre}&ottNames=netfilx,tving,watcha,disney,wavve`
+      }/medias/tv?page=1&size=300&genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
     )
     .then((res) => res.data);
 
@@ -48,7 +48,7 @@ export const GetMovieData = (genre: string): Promise<ItemData[]> =>
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?page=1&size=300&genreNames=${genre}&ottNames=netfilx,tving,watcha,disney,wavve`
+      }/medias/movie?page=1&size=300&genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
     )
     .then((res) => res.data);
 
