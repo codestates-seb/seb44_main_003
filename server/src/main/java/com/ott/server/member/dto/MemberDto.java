@@ -32,9 +32,9 @@ public class MemberDto {
 
         private String category;
 
-        private String[] ott;
+        private String[] memberOtts;
 
-        private String[] interest;
+        private String[] interests;
     }
 
     @Getter
@@ -47,9 +47,9 @@ public class MemberDto {
 
         private String category;
 
-        private String[] ott;
+        private String[] memberOtts;
 
-        private String[] interest;
+        private String[] interests;
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
@@ -62,7 +62,7 @@ public class MemberDto {
         private String nickname;
         private String avatarUri;
         private LocalDateTime createdAt;
-        private List<MemberOttDto.Response> Ott;
-        private List<InterestDto.Response> interest;
+        private List<MemberOttDto.Response> memberOtts;
+        private List<InterestDto.Response> interests;
     }
 }
