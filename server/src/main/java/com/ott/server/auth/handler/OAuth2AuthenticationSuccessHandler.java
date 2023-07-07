@@ -56,7 +56,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private String delegateAccessToken(String username, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
+        claims.put("email", username);
         claims.put("roles", authorities);
 
         String subject = username;

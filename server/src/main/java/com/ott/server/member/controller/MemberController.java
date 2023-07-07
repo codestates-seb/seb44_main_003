@@ -111,7 +111,7 @@ public class MemberController {
         }
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(memberMapper.memberToMemberResponse(updatedMember)),
+                memberMapper.memberToMemberResponse(updatedMember),
                 HttpStatus.OK);
     }
 
@@ -121,7 +121,7 @@ public class MemberController {
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
         return new ResponseEntity<>(
-                new SingleResponseDto<>(memberMapper.memberToMemberResponse(member))
+                memberMapper.memberToMemberResponse(member)
                 , HttpStatus.OK);
     }
 
