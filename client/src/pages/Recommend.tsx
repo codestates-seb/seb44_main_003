@@ -1,10 +1,14 @@
-import RecommendModel from '../components/modal/RecommendModal';
 import styled from 'styled-components';
+import FirstQuestion from '../components/modal/questions/FirstQuestion';
+import SecondQuestion from '../components/modal/questions/SecondQuestion';
+import ThirdQuestion from '../components/modal/questions/ThirdQuestion';
 
 const Recommend = () => {
   return (
     <S_Wrapper>
-      <RecommendModel/>
+      <FirstQuestion/>
+      <SecondQuestion/>
+      <ThirdQuestion/>
     </S_Wrapper>
   )
 }
