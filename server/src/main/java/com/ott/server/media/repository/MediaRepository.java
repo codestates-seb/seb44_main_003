@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface MediaRepository extends JpaRepository<Media, Long> {
 
     Optional<Media> findByMediaId(Long mediaId);
-    Page<Media> findByCategoryAndGenresInAndMediaOttsIn(String category, List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
+    Page<Media> findDistinctByCategoryAndGenresInAndMediaOttsIn(String category, List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
     @Query("SELECT COUNT(a) FROM Recommendation a WHERE a.media.id = :mediaId")
     Integer findRecommendCountByMediaId(@Param("mediaId") Long mediaId);
     Page<Media> findByGenresInAndMediaOttsIn(List<Genre> genre, List<MediaOtt> ott, Pageable pageable);

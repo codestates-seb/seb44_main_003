@@ -188,7 +188,7 @@ public class MediaService {
 
 
     public List<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
-        Page<Media> mediasPage = mediaRepository.findByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
+        Page<Media> mediasPage = mediaRepository.findDistinctByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
         List<Media> medias = mediasPage.getContent();
 
         List<MediaDto.Response2> responses = new ArrayList<>();
