@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class ReviewDetailDto {
+    private Long id;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime lastModifiedAt;

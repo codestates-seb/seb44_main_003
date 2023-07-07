@@ -3,9 +3,7 @@ package com.ott.server.review.controller;
 
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.exception.ExceptionCode;
-import com.ott.server.review.dto.ReviewCreateDto;
-import com.ott.server.review.dto.ReviewDto;
-import com.ott.server.review.dto.ReviewUpdateDto;
+import com.ott.server.review.dto.*;
 import com.ott.server.review.entity.Review;
 import com.ott.server.review.service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,12 +52,12 @@ public class ReviewController {
                 .orElseGet(() -> new ResponseEntity("후기를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
-                                                         @RequestParam(required = false, defaultValue = "10") int size,
-                                                         Authentication authentication) {
-        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
+//                                                         @RequestParam(required = false, defaultValue = "10") int size,
+//                                                         Authentication authentication) {
+//        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
+//    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDto newReviewData,
@@ -73,5 +71,14 @@ public class ReviewController {
         reviewService.delete(id, authentication);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping //todo 추가됨, 마지막 엔드포인트
+    public ResponseEntity<List<ReviewDetailDto>> getReviewsByMediaId(@RequestParam Long mediaId,
+                                                                     @RequestParam(required = false, defaultValue = "0") int page,
+                                                                     @RequestParam(required = false, defaultValue = "10") int size) {
+        List<ReviewDetailDto> reviews = reviewService.findByMediaId(mediaId, page, size);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
 }
 

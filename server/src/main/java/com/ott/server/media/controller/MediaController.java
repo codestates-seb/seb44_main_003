@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -41,9 +42,10 @@ public class MediaController {
         return new ResponseEntity<>(mediaService.createMedia(createMediaDto), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{mediaId}")
-    public ResponseEntity<MediaDto.Response> updateMedia(@PathVariable Long mediaId, @RequestBody MediaDto.Update updateMediaDto) {
-        return new ResponseEntity<>(mediaService.updateMedia(mediaId, updateMediaDto), HttpStatus.OK);
+    @PatchMapping("/{mediaId}") //todo 완료
+    public ResponseEntity updateMedia(@PathVariable Long mediaId, @RequestBody(required = false) MediaDto.Update updateMediaDto) {
+        mediaService.updateMedia(mediaId, updateMediaDto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 
@@ -75,51 +77,78 @@ public class MediaController {
 
     @GetMapping
     public ResponseEntity<List<MediaDto.Response2>> getMedias(
-            @RequestParam(required = true, defaultValue = "1") int page,
-            @RequestParam(required = true, defaultValue = "10") int size,
-            @RequestParam(required = true) List<String> genreNames,
-            @RequestParam List<String> ottNames) {
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false) List<String> genre,
+            @RequestParam(required = false) List<String> ott) {
+
+        if (genre == null || genre.isEmpty()) {
+            genre = Arrays.asList("액션","드라마","SF","스릴러","애니메이션","코미디","가족","판타지","로맨스","공포","범죄","스포츠","음악","Made in Europe","Reality TV","역사","다큐멘터리","전쟁","서부");
+        }
+
+        if (ott == null || ott.isEmpty()) {
+            ott = Arrays.asList("Disney Plus","Watcha","Netflix","wavve");
+        }
 
         Pageable pageable = PageRequest.of(page - 1, size);
-        List<Genre> genres = genreRepository.findByGenreNameIn(genreNames);
-        List<MediaOtt> otts = ottRepository.findByOttNameIn(ottNames);
-        List<MediaDto.Response2> medias = mediaService.getMediasAll(genres, otts, pageable);
+        List<Genre> genres = genreRepository.findByGenreNameIn(genre);
+        List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
+        List<MediaDto.Response2> medias = mediaService.getMediasAll(genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
+
     @GetMapping("/tv")
     public ResponseEntity<List<MediaDto.Response2>> getMediasByTv(
-            @RequestParam(required = true, defaultValue = "1") int page,
-            @RequestParam(required = true, defaultValue = "10") int size,
-            @RequestParam(required = true) List<String> genreNames,
-            @RequestParam List<String> ottNames) {
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false) List<String> genre,
+            @RequestParam(required = false) List<String> ott) {
+
+        if (genre == null || genre.isEmpty()) {
+            genre = Arrays.asList("액션","드라마","SF","스릴러","애니메이션","코미디","가족","판타지","로맨스","공포","범죄","스포츠","음악","Made in Europe","Reality TV","역사","다큐멘터리","전쟁","서부");
+        }
+
+        if (ott == null || ott.isEmpty()) {
+            ott = Arrays.asList("Disney Plus","Watcha","Netflix","wavve");
+        }
 
         Pageable pageable = PageRequest.of(page - 1, size);
-        List<Genre> genres = genreRepository.findByGenreNameIn(genreNames);
-        List<MediaOtt> otts = ottRepository.findByOttNameIn(ottNames);
+        List<Genre> genres = genreRepository.findByGenreNameIn(genre);
+        List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
         List<MediaDto.Response2> medias = mediaService.getMedias("TV", genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
+
     @GetMapping("/movie")
     public ResponseEntity<List<MediaDto.Response2>> getMediasByMovie(
-            @RequestParam(required = true, defaultValue = "1") int page,
-            @RequestParam(required = true, defaultValue = "10") int size,
-            @RequestParam(required = true) List<String> genreNames,
-            @RequestParam List<String> ottNames) {
+            @RequestParam(required = false, defaultValue = "1") int page,
+            @RequestParam(required = false, defaultValue = "10") int size,
+            @RequestParam(required = false) List<String> genre,
+            @RequestParam(required = false) List<String> ott) {
+
+        if (genre == null || genre.isEmpty()) {
+            genre = Arrays.asList("액션","드라마","SF","스릴러","애니메이션","코미디","가족","판타지","로맨스","공포","범죄","스포츠","음악","Made in Europe","Reality TV","역사","다큐멘터리","전쟁","서부");
+        }
+
+        if (ott == null || ott.isEmpty()) {
+            ott = Arrays.asList("Disney Plus","Watcha","Netflix","wavve");
+        }
 
         Pageable pageable = PageRequest.of(page - 1, size);
-        List<Genre> genres = genreRepository.findByGenreNameIn(genreNames);
-        List<MediaOtt> otts = ottRepository.findByOttNameIn(ottNames);
+        List<Genre> genres = genreRepository.findByGenreNameIn(genre);
+        List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
-        List<MediaDto.Response2> medias = mediaService.getMedias("movie", genres, otts, pageable);
+        List<MediaDto.Response2> medias = mediaService.getMedias("영화", genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
+
 
 
     @DeleteMapping("/{mediaId}")
