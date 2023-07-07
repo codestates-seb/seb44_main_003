@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
+import CloseBtn from '../../ui/CloseBtn';
 import { questionList } from '../QuestionData'
 import { ottServices } from '../QuestionData'
 
@@ -8,6 +9,7 @@ const FirstQuestion = () => {
   return (
     <S_Wrapper>
       <S_ModalBox>
+        <CloseBtn/>
         <QuestionCard question={questionList[0]}/>
         <S_SelectionBox>
           <S_TextBox>
