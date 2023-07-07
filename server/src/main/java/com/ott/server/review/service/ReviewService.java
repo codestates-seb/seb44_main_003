@@ -57,6 +57,7 @@ public class ReviewService {
         return reviewRepository.findById(id)
                 .map(review -> {
                     ReviewDetailDto reviewDetailDto = new ReviewDetailDto();
+                    reviewDetailDto.setId(review.getId());
                     reviewDetailDto.setContent(review.getContent());
                     reviewDetailDto.setCreatedAt(review.getCreatedAt());
                     reviewDetailDto.setLastModifiedAt(review.getLastModifiedAt());
@@ -87,7 +88,6 @@ public class ReviewService {
                     memberDetailDto.setNickname(member.getNickname());
                     memberDetailDto.setAvatarUri(member.getAvatarUri());
 
-                    // Set the MemberDetailDto field in the ReviewListDto
                     reviewListDto.setMemberDetailDto(memberDetailDto);
 
                     return reviewListDto;
@@ -119,4 +119,29 @@ public class ReviewService {
         }
         reviewRepository.delete(review);
     }
+
+    public List<ReviewDetailDto> findByMediaId(Long mediaId, int page, int size) {
+        Media media = mediaRepository.findById(mediaId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
+
+        Pageable pageable = PageRequest.of(page, size);
+        return reviewRepository.findByMedia(media, pageable).stream()
+                .map(review -> {
+                    ReviewDetailDto reviewDetailDto = new ReviewDetailDto();
+                    reviewDetailDto.setId(review.getId());
+                    reviewDetailDto.setContent(review.getContent());
+                    reviewDetailDto.setCreatedAt(review.getCreatedAt());
+                    reviewDetailDto.setLastModifiedAt(review.getLastModifiedAt());
+
+                    MemberDetailDto memberDetailDto = new MemberDetailDto();
+                    memberDetailDto.setNickname(review.getMember().getNickname());
+                    memberDetailDto.setAvatarUri(review.getMember().getAvatarUri());
+
+                    reviewDetailDto.setMember(memberDetailDto);
+
+                    return reviewDetailDto;
+                })
+                .collect(Collectors.toList());
+    }
+
 }

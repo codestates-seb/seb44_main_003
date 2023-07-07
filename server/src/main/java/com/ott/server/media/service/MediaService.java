@@ -97,49 +97,53 @@ public class MediaService {
 
 
 
-    public MediaDto.Response updateMedia(Long mediaId, MediaDto.Update updateDto) {
-        return mediaRepository.findById(mediaId)
+
+    public void updateMedia(Long mediaId, MediaDto.Update updateDto) {
+        mediaRepository.findByMediaId(mediaId)
                 .map(media -> {
-                    // Update the media based on updateDto...
-                    media.setTitle(updateDto.getTitle());
-                    media.setContent(updateDto.getContent());
-                    media.setCategory(updateDto.getCategory());
-                    media.setCreator(updateDto.getCreator());
-                    media.setCast(updateDto.getCast());
-                    media.setMainPoster(updateDto.getMainPoster());
-                    media.setTitlePoster(updateDto.getTitlePoster());
-                    media.setReleaseDate(updateDto.getReleaseDate());
-                    media.setAgeRate(updateDto.getAgeRate());
-                    media.setRecent(updateDto.getRecent());
+                    updateDto.getId().ifPresent(media::setId);
+                    updateDto.getTitle().ifPresent(media::setTitle);
+                    updateDto.getContent().ifPresent(media::setContent);
+                    updateDto.getCategory().ifPresent(media::setCategory);
+                    updateDto.getCreator().ifPresent(media::setCreator);
+                    updateDto.getCast().ifPresent(media::setCast);
+                    updateDto.getMainPoster().ifPresent(media::setMainPoster);
+                    updateDto.getTitlePoster().ifPresent(media::setTitlePoster);
+                    updateDto.getReleaseDate().ifPresent(media::setReleaseDate);
+                    updateDto.getAgeRate().ifPresent(media::setAgeRate);
+                    updateDto.getRecent().ifPresent(media::setRecent);
 
-                    List<Genre> genres = updateDto.getGenre().stream()
-                            .map(genreName -> {
-                                Genre genre = new Genre();
-                                genre.setMedia(media);
-                                genre.setGenreName(genreName);
-                                return genre;
-                            })
-                            .collect(Collectors.toList());
-                    media.setGenres(genres);
+                    updateDto.getGenre().ifPresent(newGenre -> {
+                        List<Genre> genres = newGenre.stream()
+                                .map(genreName -> {
+                                    Genre genre = new Genre();
+                                    genre.setMedia(media);
+                                    genre.setGenreName(genreName);
+                                    return genre;
+                                })
+                                .collect(Collectors.toList());
+                        media.setGenres(genres);
+                    });
 
-                    List<MediaOtt> mediaOtts = updateDto.getMediaOtt().stream()
-                            .map(ottName -> {
-                                MediaOtt mediaOtt = new MediaOtt();
-                                mediaOtt.setMedia(media);
-                                mediaOtt.setOttName(ottName);
-                                return mediaOtt;
-                            })
-                            .collect(Collectors.toList());
-                    media.setMediaOtts(mediaOtts);
+                    updateDto.getMediaOtt().ifPresent(newMediaOtt -> {
+                        List<MediaOtt> mediaOtts = newMediaOtt.stream()
+                                .map(ottName -> {
+                                    MediaOtt mediaOtt = new MediaOtt();
+                                    mediaOtt.setMedia(media);
+                                    mediaOtt.setOttName(ottName);
+                                    return mediaOtt;
+                                })
+                                .collect(Collectors.toList());
+                        media.setMediaOtts(mediaOtts);
+                    });
 
-                    Media updatedMedia = mediaRepository.save(media);
-                    updatedMedia.getGenres().forEach(genreRepository::save);
-                    updatedMedia.getMediaOtts().forEach(mediaOttRepository::save);
+                    mediaRepository.save(media);
+                    return mediaRepository.save(media);
 
-                    return mapMediaToResponseDto(updatedMedia);
                 })
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
     }
+
 
     private MediaDto.Response mapMediaToResponseDto(Media media) {
         List<String> genreNames = media.getGenres().stream()

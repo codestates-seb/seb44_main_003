@@ -10,8 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MediaRepository extends JpaRepository<Media, Long> {
+
+    Optional<Media> findByMediaId(Long mediaId);
     Page<Media> findByCategoryAndGenresInAndMediaOttsIn(String category, List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
     @Query("SELECT COUNT(a) FROM Recommendation a WHERE a.media.id = :mediaId")
     Integer findRecommendCountByMediaId(@Param("mediaId") Long mediaId);
