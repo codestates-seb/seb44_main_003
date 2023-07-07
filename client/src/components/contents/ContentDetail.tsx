@@ -7,6 +7,7 @@ import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 import Bookmark from './Bookmark';
+import Tag from '../ui/Tag';
 import { GetDataDetail } from './../../api/api';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
@@ -53,9 +54,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
               </div>
               <S_TitleFont>
                 <h1>장르</h1>
-                <div className="genre">
-                  <p>{data.genre.join(', ')}</p>
-                </div>
+                <Tag genre={data.genre} />
                 <h1>OTT</h1>
                 <div className="ott">
                   <img
@@ -206,9 +205,6 @@ const S_Title = styled.div`
 const S_TitleFont = styled.div`
   width: 60%;
 
-  .genre {
-    margin: 30px 0 45px 0;
-  }
   .ott {
     margin: 30px 0 45px 0;
   }

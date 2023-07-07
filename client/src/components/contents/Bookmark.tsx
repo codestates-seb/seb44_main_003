@@ -3,17 +3,35 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { AiFillHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
+import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 
 const Bookmark = ({ contentId }: { contentId: string }) => {
   const queryClient = useQueryClient();
+  const isLoggedIn = useIsLoggedIn();
+
+  if (!isLoggedIn) {
+    return (
+      <S_IconFont>
+        <div>
+          <AiOutlineHeart
+            color="white"
+            size="40"
+            onClick={() => alert('로그인 후 이용 가능합니다')}
+          />
+          <p>찜</p>
+        </div>
+      </S_IconFont>
+    );
+  }
 
   const { isLoading, data, error, isSuccess } = useQuery(
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
-      staleTime: 5 * 60 * 1000,
+      staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
+      enabled: isLoggedIn,
     }
   );
 
