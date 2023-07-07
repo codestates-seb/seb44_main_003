@@ -53,3 +53,9 @@ export type SelectedData = {
   releaseDate: number;
   titlePoster: string;
 };
+
+export type Comment = {
+  content: string;
+  createdAt: string;
+  lastModifiedAt: string;
+};

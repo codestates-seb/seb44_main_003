@@ -4,6 +4,7 @@ import {
   NewMember,
   LoginInfo,
   ItemData,
+  Comment,
   SelectedData,
 } from '../types/types';
 
@@ -67,6 +68,24 @@ export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
 export const GetSearchedData = (keyword: string | null) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
+    .then((res) => res.data);
+
+/* 후기 데이터 */
+export const GetComments = ({
+  id,
+  page,
+  size,
+}: {
+  id: string;
+  page: number;
+  size: number;
+}): Promise<Comment[]> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/reviews?mediaId=${id}&page=${page}&size=${size}`
+    )
     .then((res) => res.data);
 
 /* 리스트 필터 가져오기 */
