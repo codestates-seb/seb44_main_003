@@ -54,17 +54,12 @@ function LoginForm() {
       if (data.status === 200) {
         /* todo: refreshToken 구현되면 accessToken은 변수로만 저장 */
         const accessToken = data.headers.authorization;
-        const refreshToken = data.headers.refresh;
-        console.log('refresh: ' + refreshToken);
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           const expiration = new Date();
           expiration.setMinutes(expiration.getMinutes() + 30);
           localStorage.setItem('expiration', expiration.toISOString());
         }
-        // if (refreshToken) {
-        //   document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
-        // }
         window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
       }
     },

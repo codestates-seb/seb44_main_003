@@ -4,6 +4,12 @@ import { FiLogOut } from 'react-icons/fi';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+export const logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('expiration');
+  location.reload();
+};
+
 function Dropdown({
   avatarUri,
   nickname,
@@ -13,11 +19,6 @@ function Dropdown({
 }) {
   const navigate = useNavigate();
   const goToMemberInfo = () => navigate('/member');
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-    location.reload();
-  };
 
   return (
     <S_Wrapper>
@@ -33,7 +34,7 @@ function Dropdown({
         <div onClick={goToMemberInfo}>
           <AiFillHeart />찜 목록
         </div>
-        <div onClick={handleLogout}>
+        <div onClick={logout}>
           <FiLogOut />
           로그아웃
         </div>

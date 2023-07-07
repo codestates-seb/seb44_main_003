@@ -7,11 +7,10 @@ function MemberProfile() {
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
-
   if (isLoading)
     return (
       <S_ProfileWrapper>
