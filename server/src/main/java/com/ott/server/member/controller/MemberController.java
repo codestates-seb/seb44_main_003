@@ -2,6 +2,7 @@ package com.ott.server.member.controller;
 
 import com.ott.server.dto.SingleResponseDto;
 import com.ott.server.exception.BusinessLogicException;
+import com.ott.server.exception.ExceptionCode;
 import com.ott.server.interest.entity.Interest;
 import com.ott.server.interest.repository.InterestRepository;
 import com.ott.server.member.dto.MemberDto;
@@ -72,7 +73,7 @@ public class MemberController {
 
     @PatchMapping
     public ResponseEntity patchMember(
-            @Valid @RequestBody MemberDto.Patch requestBody,
+            @Valid @RequestBody(required = false) MemberDto.Patch requestBody,
             Authentication authentication) {
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
@@ -83,36 +84,38 @@ public class MemberController {
                 memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
         List<MemberOtt> memberOtts = memberOttRepository.findByMember(member);
-        for(int i = 0; i < memberOtts.size(); i++){
-            memberOttRepository.delete(memberOtts.get(i));
-        }
+        if(requestBody.getOtt().length != 0){
+            for(int i = 0; i < memberOtts.size(); i++){
+                memberOttRepository.delete(memberOtts.get(i));
+            }
 
-        String[] otts = requestBody.getOtt();
-        for(int i = 0; i < otts.length; i++){
-            MemberOtt memberOtt = new MemberOtt();
-            memberOtt.setMember(member);
-            memberOtt.setMemberOttName(otts[i]);
+            String[] otts = requestBody.getOtt();
+            for(int i = 0; i < otts.length; i++){
+                MemberOtt memberOtt = new MemberOtt();
+                memberOtt.setMember(member);
+                memberOtt.setMemberOttName(otts[i]);
 
-            memberOttRepository.save(memberOtt);
+                memberOttRepository.save(memberOtt);
+            }
         }
 
         List<Interest> memberInterests = interestRepository.findByMember(member);
-        for(int i = 0; i < memberInterests.size(); i++){
-            interestRepository.delete(memberInterests.get(i));
+        if(requestBody.getInterest().length != 0){
+            for(int i = 0; i < memberInterests.size(); i++){
+                interestRepository.delete(memberInterests.get(i));
+            }
+
+            String[] interests = requestBody.getInterest();
+            for(int i = 0; i < interests.length; i++){
+                Interest interest = new Interest();
+                interest.setMember(member);
+                interest.setInterestName(interests[i]);
+
+                interestRepository.save(interest);
+            }
         }
 
-        String[] interests = requestBody.getInterest();
-        for(int i = 0; i < interests.length; i++){
-            Interest interest = new Interest();
-            interest.setMember(member);
-            interest.setInterestName(interests[i]);
-
-            interestRepository.save(interest);
-        }
-
-        return new ResponseEntity<>(
-                memberMapper.memberToMemberResponse(updatedMember),
-                HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
