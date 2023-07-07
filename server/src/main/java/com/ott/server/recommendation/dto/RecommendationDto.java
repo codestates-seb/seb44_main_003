@@ -8,9 +8,6 @@ public class RecommendationDto {
     @Getter
     public static class Post {
         private Long mediaId;
-        private Long memberId;
-        public void setMemberId(Long memberId){
-            this.memberId = memberId;
-        }
     }
 }
+

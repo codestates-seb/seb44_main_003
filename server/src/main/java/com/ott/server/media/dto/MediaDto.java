@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class MediaDto {
     @Setter
     @Getter
