@@ -7,6 +7,7 @@ import {
   Comment,
   SelectedData,
 } from '../types/types';
+import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
 const accessToken = localStorage.getItem('token');
 
@@ -74,19 +75,38 @@ export const GetSearchedData = (keyword: string | null) =>
 export const GetComments = ({
   id,
   page,
-  size,
 }: {
   id: string;
   page: number;
-  size: number;
 }): Promise<Comment[]> =>
   axios
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/reviews?mediaId=${id}&page=${page}&size=${size}`
+      }/reviews?mediaId=${id}&page=${page}&size=${COMMENTS_PER_PAGE}`
     )
     .then((res) => res.data);
+
+/* 후기 추가 */
+export const PostComment = ({
+  mediaId,
+  content,
+}: {
+  mediaId: string;
+  content: string;
+}) => instance.post('/reviews', { mediaId: parseInt(mediaId), content });
+
+/* 후기 삭제 */
+export const DeleteComment = (id: string) => instance.delete(`/reviews/${id}`);
+
+/* 후기 업데이트 */
+export const PatchComment = ({
+  id,
+  content,
+}: {
+  id: string;
+  content: string;
+}) => instance.patch(`/reviews/${id}`, content);
 
 /* 리스트 필터 가져오기 */
 export const GetFilterdData = (queryString: string | null) =>

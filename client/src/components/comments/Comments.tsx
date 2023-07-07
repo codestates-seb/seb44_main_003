@@ -1,34 +1,74 @@
-import { useQuery } from '@tanstack/react-query';
-import { GetComments } from '../../api/api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { DeleteComment, GetComments, PatchComment } from '../../api/api';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { CommentsPerPage } from '../../constant/constantValue';
 import { useState } from 'react';
 
 function Comments() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const { id } = useParams() as { id: string };
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['content'],
-    queryFn: () => GetComments({ id, page, size: CommentsPerPage }),
-    staleTime: 5 * 60 * 1000,
+  const queryClient = useQueryClient();
+  const {
+    data,
+
+    isSuccess,
+  } = useQuery({
+    queryKey: ['comments', page],
+    queryFn: () => GetComments({ id, page }),
+    staleTime: 5000,
+    keepPreviousData: true,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
+  const PatchMutation = useMutation(PatchComment, {
+    onSuccess: () => queryClient.invalidateQueries(['comments']),
+  });
+  const DeleteMutation = useMutation(DeleteComment, {
+    onSuccess: () => queryClient.invalidateQueries(['comments']),
+  });
+  const handlePatch = (e: React.MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    PatchMutation.mutate({ id: target.id, content: '' });
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    DeleteMutation.mutate(target.id);
+  };
+
   if (isSuccess) {
     return (
       <div>
         {data.map((review) => (
-          <S_Wrapper>
+          <S_Wrapper key={review.id}>
             <div>
-              <img src={review.member.avatarUri} alt="member profile" />{' '}
+              <img src={review.member.avatarUri} alt="member profile" />
             </div>
             <div>
               <div>{review.member.nickname}</div>
               <p>{review.content}</p>
               <div>{review.createdAt}</div>
             </div>
+            <button
+              type="button"
+              onClick={handlePatch}
+              id={review.id.toString()}
+            >
+              수정
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              id={review.id.toString()}
+            >
+              지우기
+            </button>
           </S_Wrapper>
+        ))}
+        {Array.from({ length: 10 }).map((e, i) => (
+          <button key={i} onClick={() => setPage(i + 1)}>
+            {i + 1}
+          </button>
         ))}
       </div>
     );

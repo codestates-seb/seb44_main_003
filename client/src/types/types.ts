@@ -55,7 +55,9 @@ export type SelectedData = {
 };
 
 export type Comment = {
+  id: number;
   content: string;
   createdAt: string;
   lastModifiedAt: string;
+  member: { nickname: string; avatarUri: string };
 };
