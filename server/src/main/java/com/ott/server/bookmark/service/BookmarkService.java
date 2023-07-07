@@ -12,7 +12,9 @@ import com.ott.server.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -27,17 +29,15 @@ public class BookmarkService {
         this.mediaRepository = mediaRepository;
     }
 
-    public void createOrDeleteBookmark(BookmarkDto.Post bookmarkDto){
-        Member member = memberRepository.findById(bookmarkDto.getMemberId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    public void createOrDeleteBookmark(BookmarkDto.Post bookmarkDto, String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow();
         Media media = mediaRepository.findById(bookmarkDto.getMediaId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
         Bookmark existingBookmark = bookmarkRepository.findByMemberAndMedia(member, media);
 
         if(existingBookmark != null) {
             bookmarkRepository.delete(existingBookmark);
-        }
-        else{
+        } else {
             Bookmark bookmark = new Bookmark();
             bookmark.setMember(member);
             bookmark.setMedia(media);
@@ -45,23 +45,21 @@ public class BookmarkService {
         }
     }
 
-    @Transactional
-    public Bookmark findBookmark(long bookmarkId){
-        Bookmark findBookmark = findVerifiedBookmark(bookmarkId);
-        return findBookmark;
+    public List<Media> getBookmarksForUser(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return bookmarkRepository.findAllByMember(member)
+                .stream()
+                .map(Bookmark::getMedia)
+                .collect(Collectors.toList());
     }
 
-    public void deleteBookmark(long bookmarkId) {
-        Bookmark findBookmark = findVerifiedBookmark(bookmarkId);
-        bookmarkRepository.delete(findBookmark);
-    }
-
-    @Transactional
-    private Bookmark findVerifiedBookmark(long bookmarkId) {
-        Optional<Bookmark> optionalBookmark = bookmarkRepository.findById(bookmarkId);
-        Bookmark findBookmark =
-                optionalBookmark.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.BOOKMARK_NOT_FOUND));
-        return findBookmark;
+    public boolean isMediaBookmarkedForUser(Long mediaId, String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Media media = mediaRepository.findById(mediaId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
+        Bookmark bookmark = bookmarkRepository.findByMemberAndMedia(member, media);
+        return bookmark != null;
     }
 }

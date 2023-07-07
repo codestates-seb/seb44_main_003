@@ -13,7 +13,9 @@ import com.ott.server.recommendation.repository.RecommendationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -28,9 +30,8 @@ public class RecommendationService {
         this.mediaRepository = mediaRepository;
     }
 
-    public void createOrDeleteRecommendation(RecommendationDto.Post recommendationDto){
-        Member member = memberRepository.findById(recommendationDto.getMemberId())
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+    public void createOrDeleteRecommendation(RecommendationDto.Post recommendationDto, String email) {
+        Member member = memberRepository.findByEmail(email).orElseThrow();
         Media media = mediaRepository.findById(recommendationDto.getMediaId())
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
         Recommendation existingRecommendation = recommendationRepository.findByMemberAndMedia(member, media);
@@ -65,4 +66,24 @@ public class RecommendationService {
                         new BusinessLogicException(ExceptionCode.BOOKMARK_NOT_FOUND));
         return findRecommendation;
     }
+
+    public List<Media> getRecommendationsForUser(String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return recommendationRepository.findAllByMember(member)
+                .stream()
+                .map(Recommendation::getMedia)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isMediaRecommendedForUser(Long mediaId, String email) {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Media media = mediaRepository.findById(mediaId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
+        Recommendation recommendation = recommendationRepository.findByMemberAndMedia(member, media);
+        return recommendation != null;
+    }
+
+
 }
