@@ -74,9 +74,9 @@ public class ReviewController {
 
     @GetMapping //todo 추가됨, 마지막 엔드포인트
     public ResponseEntity<List<ReviewDetailDto>> getReviewsByMediaId(@RequestParam Long mediaId,
-                                                                     @RequestParam(required = false, defaultValue = "0") int page,
+                                                                     @RequestParam(required = false, defaultValue = "1") int page,
                                                                      @RequestParam(required = false, defaultValue = "10") int size) {
-        List<ReviewDetailDto> reviews = reviewService.findByMediaId(mediaId, page, size);
+        List<ReviewDetailDto> reviews = reviewService.findByMediaId(mediaId, page - 1, size);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 

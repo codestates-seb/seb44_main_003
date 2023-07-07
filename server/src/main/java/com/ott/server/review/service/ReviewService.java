@@ -1,6 +1,7 @@
 package com.ott.server.review.service;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.review.dto.*;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 import com.ott.server.exception.BusinessLogicException;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -124,7 +126,7 @@ public class ReviewService {
         Media media = mediaRepository.findById(mediaId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         return reviewRepository.findByMedia(media, pageable).stream()
                 .map(review -> {
                     ReviewDetailDto reviewDetailDto = new ReviewDetailDto();
