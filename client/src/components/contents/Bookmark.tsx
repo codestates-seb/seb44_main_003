@@ -36,10 +36,8 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
 
   const BookmarkMutation = useMutation({
     mutationFn: (contentId: string) => PostBookmark(contentId),
-    onSuccess(data) {
-      if (data.status === 200) {
-        queryClient.invalidateQueries(['isBookmarked', contentId]);
-      }
+    onSuccess: () => {
+      queryClient.invalidateQueries(['isBookmarked', contentId]);
     },
     onError(error) {
       console.error('로그인 안한 상태', error);
