@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 import ContentDetail from '../components/contents/ContentDetail';
 import CommentSection from '../components/comments/CommentSection';
-import useScrollToTop from './../hooks/useScrollToTop';
+import { scrollToTop } from './../utils/useScrollToTop';
 
 const Content = () => {
   const { id = '' } = useParams<{ id?: string }>();
-  useScrollToTop();
+  scrollToTop();
   return (
     <>
       <ContentDetail contentId={id} />
