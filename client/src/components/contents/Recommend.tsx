@@ -43,9 +43,11 @@ const Recommend = ({
 
   const RecommendMutation = useMutation({
     mutationFn: (contentId: string) => PostRecommend(contentId),
-    onSuccess() {
-      queryClient.invalidateQueries(['isRecommend', contentId]);
-      queryClient.invalidateQueries(['selectedContent', contentId]);
+    onSuccess(data) {
+      if (data.status === 201) {
+        queryClient.invalidateQueries(['isRecommend', contentId]);
+        queryClient.invalidateQueries(['selectedContent', contentId]);
+      }
     },
     onError(error) {
       console.error('로그인 안한 상태', error);
