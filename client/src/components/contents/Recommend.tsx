@@ -3,6 +3,7 @@ import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
+import { RecommendLoading, RecommendError } from '../exceptions/recommend';
 
 const Recommend = ({
   countRecommend,
@@ -53,31 +54,11 @@ const Recommend = ({
   });
 
   if (isLoading) {
-    return (
-      <S_IconWrapper>
-        <div>
-          <FaRegThumbsUp color="white" size="40" />
-          <p>추천</p>
-        </div>
-        <p>{countRecommend}</p>
-      </S_IconWrapper>
-    );
+    return <RecommendLoading countRecommend={countRecommend} />;
   }
 
   if (error) {
-    return (
-      <S_IconWrapper>
-        <div>
-          <FaRegThumbsUp
-            color="white"
-            size="40"
-            onClick={() => alert('네트워크 에러')}
-          />
-          <p>추천</p>
-        </div>
-        <p>{countRecommend}</p>
-      </S_IconWrapper>
-    );
+    return <RecommendError countRecommend={countRecommend} />;
   }
 
   if (isSuccess) {

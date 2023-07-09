@@ -3,6 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
+import { BookmarkLoading, BookmarkError } from '../exceptions/bookmark';
 
 const Bookmark = ({ contentId }: { contentId: string }) => {
   const queryClient = useQueryClient();
@@ -45,29 +46,11 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
   });
 
   if (isLoading) {
-    return (
-      <S_IconWrapper>
-        <div>
-          <AiOutlineHeart color="white" size="40" />
-          <p>찜</p>
-        </div>
-      </S_IconWrapper>
-    );
+    return <BookmarkLoading />;
   }
 
   if (error) {
-    return (
-      <S_IconWrapper>
-        <div>
-          <AiOutlineHeart
-            color="white"
-            size="40"
-            onClick={() => alert('네트워크 에러')}
-          />
-          <p>찜</p>
-        </div>
-      </S_IconWrapper>
-    );
+    return <BookmarkError />;
   }
 
   if (isSuccess) {
