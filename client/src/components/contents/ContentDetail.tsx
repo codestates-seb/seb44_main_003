@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { FaRegThumbsUp } from 'react-icons/fa';
 import styled from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
 import tving from '../../assets/ott/tving.svg';
@@ -9,6 +8,7 @@ import wavve from '../../assets/ott/wavve.svg';
 import Bookmark from './Bookmark';
 import Tag from '../ui/Tag';
 import { GetDataDetail } from './../../api/api';
+import Recommend from './Recommend';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
   const { isLoading, data, error, isSuccess } = useQuery(
@@ -43,13 +43,10 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 </S_Poster>
                 <div className="icon-flex">
                   <Bookmark contentId={contentId} />
-                  <S_IconFont>
-                    <div>
-                      <FaRegThumbsUp color="white" size="40" />
-                      <p>추천</p>
-                    </div>
-                    <p>{data.countRecommend}</p>
-                  </S_IconFont>
+                  <Recommend
+                    countRecommend={data.countRecommend}
+                    contentId={contentId}
+                  />
                 </div>
               </div>
               <S_TitleFont>
@@ -272,24 +269,5 @@ const S_Poster = styled.div`
 
   @media only screen and (max-width: 620px) {
     align-self: center;
-  }
-`;
-
-const S_IconFont = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--color-white-100);
-  font-weight: bold;
-  margin: 12px 24px;
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    opacity: 0.8;
-  }
-  p {
-    margin-top: 6px;
   }
 `;
