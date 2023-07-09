@@ -118,6 +118,14 @@ export const GetFilterdData = (queryString: string | null) =>
 export const GetIsBookmark = (mediaId: string | null) =>
   instance.get(`/bookmarks/${mediaId}`).then((res) => res.data);
 
-/* 북마크 생성 */
+/* 북마크 생성/삭제 */
 export const PostBookmark = (mediaId: string | null) =>
   instance.post(`/bookmarks`, { mediaId });
+
+/* 추천 조회 */
+export const GetIsRecommend = (mediaId: string | null) =>
+  instance.get(`/recommend/${mediaId}`).then((res) => res.data);
+
+/* 추천 생성/삭제 */
+export const PostRecommend = (mediaId: string | null) =>
+  instance.post(`/recommend`, { mediaId });

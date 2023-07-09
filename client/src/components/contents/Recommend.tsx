@@ -1,10 +1,16 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { GetIsBookmark, PostBookmark } from '../../api/api';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
 
-const Bookmark = ({ contentId }: { contentId: string }) => {
+const Recommend = ({
+  countRecommend,
+  contentId,
+}: {
+  countRecommend: number;
+  contentId: string;
+}) => {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
 
@@ -12,20 +18,21 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
     return (
       <S_IconWrapper>
         <div>
-          <AiOutlineHeart
+          <FaRegThumbsUp
             color="white"
             size="40"
             onClick={() => alert('로그인 후 이용 가능합니다')}
           />
-          <p>찜</p>
+          <p>추천</p>
         </div>
+        <p>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
 
   const { isLoading, data, error, isSuccess } = useQuery(
-    ['isBookmarked', contentId],
-    () => GetIsBookmark(contentId),
+    ['isRecommend', contentId],
+    () => GetIsRecommend(contentId),
     {
       staleTime: Infinity,
       cacheTime: Infinity,
@@ -34,10 +41,11 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
     }
   );
 
-  const BookmarkMutation = useMutation({
-    mutationFn: (contentId: string) => PostBookmark(contentId),
+  const RecommendMutation = useMutation({
+    mutationFn: (contentId: string) => PostRecommend(contentId),
     onSuccess: () => {
-      queryClient.invalidateQueries(['isBookmarked', contentId]);
+      queryClient.invalidateQueries(['isRecommend', contentId]);
+      queryClient.invalidateQueries(['selectedContent', contentId]);
     },
     onError(error) {
       console.error('로그인 안한 상태', error);
@@ -48,9 +56,10 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
     return (
       <S_IconWrapper>
         <div>
-          <AiOutlineHeart color="white" size="40" />
-          <p>찜</p>
+          <FaRegThumbsUp color="white" size="40" />
+          <p>추천</p>
         </div>
+        <p>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
@@ -59,13 +68,14 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
     return (
       <S_IconWrapper>
         <div>
-          <AiOutlineHeart
+          <FaRegThumbsUp
             color="white"
             size="40"
             onClick={() => alert('네트워크 에러')}
           />
-          <p>찜</p>
+          <p>추천</p>
         </div>
+        <p>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
@@ -75,24 +85,25 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
       <S_IconWrapper>
         <div>
           {data ? (
-            <AiFillHeart
+            <FaThumbsUp
               color="white"
               size="40"
               className="isTrue"
-              onClick={() => BookmarkMutation.mutate(contentId)}
+              onClick={() => RecommendMutation.mutate(contentId)}
             />
           ) : (
-            <AiOutlineHeart
+            <FaRegThumbsUp
               color="white"
               size="40"
-              onClick={() => BookmarkMutation.mutate(contentId)}
+              onClick={() => RecommendMutation.mutate(contentId)}
             />
           )}
-          <p className={data ? 'isTrue' : ''}>찜</p>
+          <p>추천</p>
         </div>
+        <p className={data ? 'isTrue' : ''}>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
 };
 
-export default Bookmark;
+export default Recommend;

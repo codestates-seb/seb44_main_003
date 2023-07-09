@@ -9,18 +9,25 @@ const GenreBtn = () => {
   const path = useLocation().pathname;
   const ott = new URLSearchParams(location.search).get('ott');
   const genres = [
-    { type: '애니' },
-    { type: '코미디' },
-    { type: '로맨스' },
-    { type: '드라마' },
-    { type: '액션' },
-    { type: '스릴러' },
-    { type: '판타지' },
-    { type: '호러' },
-    { type: '다큐멘터리' },
-    { type: '사극' },
-    { type: '스포츠' },
-    { type: '음악' },
+    '액션',
+    '드라마',
+    'SF',
+    '스릴러',
+    '애니메이션',
+    '코미디',
+    '가족',
+    '판타지',
+    '로맨스',
+    '공포',
+    '범죄',
+    '스포츠',
+    '음악',
+    '역사',
+    '전쟁',
+    '서부',
+    '다큐멘터리',
+    'Reality TV',
+    'Made in Europe',
   ];
   const genreBtnRef = useRef(null);
 
@@ -65,17 +72,20 @@ const GenreBtn = () => {
       {isOpen && (
         <S_LabelWrapper>
           {Array.from({ length: Math.ceil(genres.length / 4) }).map(
-            (_, index) => (
-              <S_LabelRow key={index}>
-                {genres.slice(index * 4, (index + 1) * 4).map((genre) => (
-                  <S_Label key={genre.type}>
+            (_text, index) => (
+              <S_LabelRow>
+                {genres.slice(index * 4, (index + 1) * 4).map((text) => (
+                  <S_Label
+                    key={text}
+                    flexGrow={text === 'Made in Europe' ? '1' : '0'}
+                  >
                     <S_Input
                       type="checkbox"
-                      value={genre.type}
-                      checked={selectedGenre === genre.type}
+                      value={text}
+                      checked={selectedGenre === text}
                       onChange={handleGenreChange}
                     />
-                    <S_Text>{genre.type}</S_Text>
+                    <S_Text>{text}</S_Text>
                   </S_Label>
                 ))}
               </S_LabelRow>
@@ -106,19 +116,22 @@ const S_LabelWrapper = styled.div`
   flex-direction: column;
   border: 1px solid gainsboro;
   border-radius: 5px;
-  padding: 4px;
+  padding: 8px;
   top: 100%;
   left: 10;
+  z-index: 10;
+  background-color: var(--color-bg-80);
 `;
 
 const S_LabelRow = styled.div`
   display: flex;
 `;
 
-const S_Label = styled.label`
+const S_Label = styled.label<{ flexGrow: string }>`
   width: 125px;
   display: flex;
   align-items: center;
+  flex-grow: ${(props) => props.flexGrow};
 `;
 
 const S_Text = styled.div`
@@ -130,7 +143,7 @@ const S_Text = styled.div`
   cursor: pointer;
   transition: color 0.3s ease-out;
   &:hover {
-    color: var(--color-white-80);
+    color: var(--color-white-100);
   }
   input[type='checkbox']:checked + & {
     color: var(--color-primary-gold);
