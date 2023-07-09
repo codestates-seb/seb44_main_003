@@ -9,6 +9,10 @@ import Bookmark from './Bookmark';
 import Tag from '../ui/Tag';
 import { GetDataDetail } from './../../api/api';
 import Recommend from './Recommend';
+import {
+  ContentDetailLoading,
+  RecommendError,
+} from '../exceptions/contentDetail';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
   const { isLoading, data, error, isSuccess } = useQuery(
@@ -21,9 +25,9 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
     }
   );
 
-  if (isLoading) return <div>로딩</div>;
+  if (isLoading) return <ContentDetailLoading />;
 
-  if (error instanceof Error) return <a href="/">에러</a>;
+  if (error instanceof Error) return <RecommendError />;
 
   if (isSuccess) {
     const findOtt = (ottName: string) => {
@@ -94,7 +98,6 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
             </S_Content>
           </div>
         </div>
-        <span />
       </S_Wrapper>
     );
   }
@@ -107,7 +110,7 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin: 100px 0 50px 0;
   padding: 0 30px;
   width: 100vw;
 
