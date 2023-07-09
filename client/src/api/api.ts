@@ -106,7 +106,7 @@ export const PatchComment = ({
 }: {
   id: string;
   content: string;
-}) => instance.patch(`/reviews/${id}`, content);
+}) => instance.patch(`/reviews/${id}`, { content: content });
 
 /* 리스트 필터 가져오기 */
 export const GetFilterdData = (queryString: string | null) =>
