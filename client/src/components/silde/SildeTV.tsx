@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query'
 import { GetTVData } from '../../api/api';
 import ItemCard from '../ui/ItemCard';
+import SkeletonItemCard from '../ui/SkeletonItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { useQuery } from '@tanstack/react-query'
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
@@ -19,7 +20,17 @@ const SildeTV = ({genre}: {genre: string}) => {
     queryFn: () => GetTVData(genre),
   })
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) {
+    return (
+      <S_Wrapper>
+        <S_SkeletonBox>
+        {Array.from({ length: 6 }, (_, index) => (
+          <SkeletonItemCard  key={index}/>
+        ))}
+        </S_SkeletonBox>
+      </S_Wrapper>
+    );
+  }
 
   if (error instanceof Error) return 'An error has occurred: ' + error.message
 
@@ -56,17 +67,6 @@ const S_Wrapper = styled.div`
   padding: 0px 3.75rem;
   width: 100%;
 `;
-
-// const S_Genrelist = styled.div`
-//   margin-bottom: 3.75rem;
-// `;
-
-// const S_GenreTitle = styled.h2`
-//   margin: 28px 0 10px 0;
-//   color: var(--color-white-100);
-//   font-size: 24px;
-//   font-weight: 700;
-// `;
 
 const S_Swiper = styled(Swiper)`
   display: flex;
@@ -110,6 +110,8 @@ const S_SwiperSlide = styled(SwiperSlide)`
   cursor: pointer;
 `;
 
-// const S_LoadingMessage = styled.div`
-//   color: var(--color-white-80);
-// `;
+const S_SkeletonBox = styled.div`
+  display: flex;
+  gap: 18px;
+  margin-bottom: 3.75rem;
+`;
