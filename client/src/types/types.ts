@@ -33,10 +33,16 @@ export type AuthData = {
   confirm?: string;
 };
 
-export type ItemData = {
+export type ContentData = {
   id: number;
   title: string;
   mainPoster: string;
+};
+
+export type ItemData = {
+  content: ContentData[];
+  currentPage: number;
+  totalPages: number;
 };
 
 export type SelectedData = {

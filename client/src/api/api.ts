@@ -40,7 +40,7 @@ export const PatchUser = (data: any) => instance.patch(`/members`, data);
 export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
-export const GetTVData = (genre: string): Promise<ItemData[]> =>
+export const GetTVData = (genre: string): Promise<ItemData> =>
   axios
     .get(
       `${
@@ -50,7 +50,7 @@ export const GetTVData = (genre: string): Promise<ItemData[]> =>
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
-export const GetMovieData = (genre: string): Promise<ItemData[]> =>
+export const GetMovieData = (genre: string): Promise<ItemData> =>
   axios
     .get(
       `${

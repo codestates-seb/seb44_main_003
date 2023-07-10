@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { GetMovieData } from '../../api/api';
-import ItemCard from '../ui/ItemCard';
-import SkeletonItemCard from '../ui/SkeletonItemCard';
+import { GetTVData } from '../../../api/api';
+import ItemCard from '../../ui/ItemCard';
+import SkeletonItemCard from '../../ui/SkeletonItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,12 +12,12 @@ import 'swiper/css/navigation';
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SlideMovie = ({ genre }: { genre: string }) => {
+const MainSlider = ({ genre }: { genre: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['movieData', genre],
-    queryFn: () => GetMovieData(genre),
+    queryKey: ['tvData', genre],
+    queryFn: () => GetTVData(genre),
   });
 
   if (isLoading) {
@@ -58,7 +58,7 @@ const SlideMovie = ({ genre }: { genre: string }) => {
   }
 };
 
-export default SlideMovie;
+export default MainSlider;
 
 const S_Wrapper = styled.div`
   position: relative;

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ItemData } from '../../types/types';
+import { ContentData } from '../../types/types';
 
 interface ItemProps {
-  item: ItemData;
+  item: ContentData;
 }
 
 const ItemCard: React.FC<ItemProps> = ({ item }) => {
