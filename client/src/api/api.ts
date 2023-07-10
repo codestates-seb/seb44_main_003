@@ -45,7 +45,7 @@ export const GetTVData = (genre: string): Promise<ItemData> =>
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?&genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
+      }/medias/tv?genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
     )
     .then((res) => res.data);
 
