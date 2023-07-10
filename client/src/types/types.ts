@@ -10,7 +10,7 @@ export type NewMember = {
   password: string;
   nickname: string;
   createdAt: string;
-  avatarUri?: string;
+  avatarUri: string;
   category?: string;
   memberOtts?: string[];
   interests?: string[];

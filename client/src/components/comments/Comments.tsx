@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetComments, GetUser } from '../../api/api';
+import { GetComments } from '../../api/api';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useState } from 'react';
