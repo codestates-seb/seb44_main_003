@@ -1,5 +1,5 @@
 import Banner from '../components/banner/Banner';
-import SildeTV from '../components/silde/SildeTV';
+import SlideTV from '../components/slide/SlideTV';
 import image from '../assets/이번생도잘부탁해.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
@@ -10,21 +10,21 @@ const TV = () => {
     '드라마',
     'SF',
     '스릴러',
-    '애니메이션',
-    '코미디',
-    '가족',
-    '판타지',
-    '로맨스',
-    '공포',
-    '범죄',
-    '스포츠',
-    '음악',
-    'Made in Europe',
-    'Reality TV',
-    '역사',
-    '다큐멘터리',
-    '전쟁',
-    '서부'
+    // '애니메이션',
+    // '코미디',
+    // '가족',
+    // '판타지',
+    // '로맨스',
+    // '공포',
+    // '범죄',
+    // '스포츠',
+    // '음악',
+    // 'Made in Europe',
+    // 'Reality TV',
+    // '역사',
+    // '다큐멘터리',
+    // '전쟁',
+    // '서부'
   ];
 
   return (
@@ -34,7 +34,7 @@ const TV = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SildeTV genre={genre}/>
+          <SlideTV genre={genre}/>
         </>
       ))}
     </S_Wrapper>
