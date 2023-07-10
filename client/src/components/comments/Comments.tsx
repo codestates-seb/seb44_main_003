@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetComments } from '../../api/api';
+import { GetComments, GetUser } from '../../api/api';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useState } from 'react';
@@ -31,7 +31,6 @@ function Comments() {
     const startNum = 1 + (pageSection - 1) * PAGES_PER_SECTION;
     const isFirstPageSection = pageSection === 1;
     const isLastPageSection = pageSection === lastPageSection;
-    console.log(data);
     return (
       <S_Wrapper>
         <h1>

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {
-  Member,
   NewMember,
   LoginInfo,
   ItemData,
@@ -27,7 +26,7 @@ instance.interceptors.request.use((config) => {
 });
 
 /* 유저 정보 가져오기 */
-export const GetUser = (): Promise<Member> =>
+export const GetUser = (): Promise<NewMember> =>
   instance.get('/members').then((res) => res.data);
 
 export const Login = (data: LoginInfo) =>

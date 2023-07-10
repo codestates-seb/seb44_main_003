@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { DeleteComment, PatchComment } from '../../api/api';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { DeleteComment, GetUser, PatchComment } from '../../api/api';
 import { convertDatetime } from '../../utils/datetime';
 import { Comment } from '../../types/types';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
@@ -12,6 +12,7 @@ function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
   const queryClient = useQueryClient();
+  const user = useQuery(['user'], GetUser);
 
   const PatchMutation = useMutation(PatchComment, {
     onSuccess: () => queryClient.invalidateQueries(['comments']),
@@ -51,12 +52,19 @@ function CommentContent({ comment }: { comment: Comment }) {
         )}
       </div>
       <div>
-        <button type="button" onClick={() => setIsEditing(true)}>
-          <HiOutlinePencilAlt />
-        </button>
-        <button type="button" onClick={() => DeleteMutation.mutate(comment.id)}>
-          <BsFillTrash3Fill />
-        </button>
+        {user.data && user.data.memberId === comment.member.memberId && (
+          <>
+            <button type="button" onClick={() => setIsEditing(true)}>
+              <HiOutlinePencilAlt />
+            </button>
+            <button
+              type="button"
+              onClick={() => DeleteMutation.mutate(comment.id)}
+            >
+              <BsFillTrash3Fill />
+            </button>
+          </>
+        )}
       </div>
     </S_Comment>
   );
