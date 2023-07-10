@@ -1,4 +1,5 @@
 import Carousel from '../components/carousel/Carousel';
+import MainSliderSection from '../components/slide/mainslider/MainSliderSection.tsx'
 import { useSearchParams, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
@@ -30,6 +31,7 @@ const Main = () => {
   return (
     <>
       <Carousel />
+      <MainSliderSection />
     </>
   );
 };

@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SlideTV = ({genre}: {genre: string}) => {
+const SildeTV = ({genre}: {genre: string}) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -47,7 +47,7 @@ const SlideTV = ({genre}: {genre: string}) => {
           watchOverflow={true}
           virtual
         > 
-          {data.map((item) => (
+          {data.content.map((item) => (
           <S_SwiperSlide>
             <ItemCard item={item} />
           </S_SwiperSlide>
@@ -58,7 +58,7 @@ const SlideTV = ({genre}: {genre: string}) => {
   };
 };
 
-export default SlideTV;
+export default SildeTV;
 
 const S_Wrapper = styled.div`
   position: relative;
