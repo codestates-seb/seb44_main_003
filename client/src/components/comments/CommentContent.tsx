@@ -35,7 +35,6 @@ function CommentContent({ comment }: { comment: Comment }) {
         <img src={comment.member.avatarUri} alt="member profile" />
       </div>
       <div>
-        <div>{comment.id}</div>
         <h1>{comment.member.nickname}</h1>
         {isEditing ? (
           <S_Form onSubmit={handleSubmit} id={comment.id}>

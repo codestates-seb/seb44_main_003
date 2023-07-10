@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useState } from 'react';
 import CommentContent from './CommentContent';
-
+import { AiOutlineComment } from 'react-icons/ai';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import {
   COMMENTS_PER_PAGE,
@@ -24,18 +24,21 @@ function Comments() {
     refetchOnWindowFocus: false,
   });
 
-  const length = 30;
-  const pagesNum = Math.ceil(length / COMMENTS_PER_PAGE);
-  const lastPageSection = Math.ceil(pagesNum / PAGES_PER_SECTION);
-  const startNum = 1 + (pageSection - 1) * PAGES_PER_SECTION;
-  const isFirstPageSection = pageSection === 1;
-  const isLastPageSection = pageSection === lastPageSection;
-
   if (isSuccess) {
+    const length = data.totalReviews;
+    const pagesNum = Math.ceil(length / COMMENTS_PER_PAGE);
+    const lastPageSection = Math.ceil(pagesNum / PAGES_PER_SECTION);
+    const startNum = 1 + (pageSection - 1) * PAGES_PER_SECTION;
+    const isFirstPageSection = pageSection === 1;
+    const isLastPageSection = pageSection === lastPageSection;
+    console.log(data);
     return (
       <S_Wrapper>
+        <h1>
+          <AiOutlineComment /> 후기 {data.totalReviews}
+        </h1>
         <ul>
-          {data.map((comment) => (
+          {data.reviews.map((comment) => (
             <CommentContent comment={comment} />
           ))}
         </ul>
@@ -71,6 +74,11 @@ const S_Wrapper = styled.div`
     height: 26px;
     border-radius: 5px;
     margin-right: 10px;
+  }
+  > h1 {
+    margin: 20px;
+    display: flex;
+    align-items: center;
   }
   > div:last-child {
     display: flex;

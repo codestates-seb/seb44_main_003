@@ -61,3 +61,10 @@ export type Comment = {
   lastModifiedAt: string;
   member: { nickname: string; avatarUri: string };
 };
+
+export type CommentData = {
+  currentPage: number;
+  totalPage: number;
+  totalReviews: number;
+  reviews: Comment[];
+};

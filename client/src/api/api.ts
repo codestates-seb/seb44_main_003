@@ -4,7 +4,7 @@ import {
   NewMember,
   LoginInfo,
   ItemData,
-  Comment,
+  CommentData,
   SelectedData,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
@@ -78,7 +78,7 @@ export const GetComments = ({
 }: {
   id: string;
   page: number;
-}): Promise<Comment[]> =>
+}): Promise<CommentData> =>
   axios
     .get(
       `${
