@@ -1,5 +1,5 @@
 import Banner from '../components/banner/Banner';
-import SildeMovie from '../components/silde/SildeMovie';
+import SlideMovie from '../components/slide/SlideMovie';
 import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
@@ -34,7 +34,7 @@ const Movie = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SildeMovie genre={genre}/>
+          <SlideMovie genre={genre}/>
         </>
       ))}
     </S_Wrapper>

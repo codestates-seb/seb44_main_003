@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { GetSearchedData } from '../api/api';
-import InfinityScroll from '../components/silde/InfinityScroll';
+import InfinityScroll from '../components/slide/InfinityScroll';
 
 const Search = () => {
   const location = useLocation();

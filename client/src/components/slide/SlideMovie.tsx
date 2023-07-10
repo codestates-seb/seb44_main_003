@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SildeMovie = ({ genre }: { genre: string }) => {
+const SlideMovie = ({ genre }: { genre: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -58,7 +58,7 @@ const SildeMovie = ({ genre }: { genre: string }) => {
   }
 };
 
-export default SildeMovie;
+export default SlideMovie;
 
 const S_Wrapper = styled.div`
   position: relative;

@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SildeTV = ({genre}: {genre: string}) => {
+const SlideTV = ({genre}: {genre: string}) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -58,7 +58,7 @@ const SildeTV = ({genre}: {genre: string}) => {
   };
 };
 
-export default SildeTV;
+export default SlideTV;
 
 const S_Wrapper = styled.div`
   position: relative;

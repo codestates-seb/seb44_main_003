@@ -1,5 +1,5 @@
 import Banner from '../components/banner/Banner';
-import SildeTV from '../components/silde/SildeTV';
+import SlideTV from '../components/slide/SlideTV';
 import image from '../assets/이번생도잘부탁해.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
@@ -34,7 +34,7 @@ const TV = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SildeTV genre={genre}/>
+          <SlideTV genre={genre}/>
         </>
       ))}
     </S_Wrapper>
