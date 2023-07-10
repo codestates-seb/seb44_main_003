@@ -42,6 +42,8 @@ export default CommentForm;
 
 const S_Form = styled.form`
   position: relative;
+  padding: 0 30px;
+  margin-top: 50px;
   > textarea {
     background-color: transparent;
     border: 1px solid var(--color-white-80);
@@ -54,7 +56,7 @@ const S_Form = styled.form`
   }
   & svg {
     position: absolute;
-    right: 20px;
+    right: 50px;
     bottom: 20px;
     color: var(--color-white-80);
     font-size: 28px;

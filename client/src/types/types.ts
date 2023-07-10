@@ -5,13 +5,15 @@ export type Member = {
 };
 
 export type NewMember = {
-  email: String;
-  password: String;
-  nickname: String;
-  avatarUri?: String;
-  category?: String;
-  memberOtts?: String[];
-  interests?: String[];
+  memberId: number;
+  email: string;
+  password: string;
+  nickname: string;
+  createdAt: string;
+  avatarUri: string;
+  category?: string;
+  memberOtts?: string[];
+  interests?: string[];
 };
 
 export type LoginInfo = {
@@ -55,9 +57,16 @@ export type SelectedData = {
 };
 
 export type Comment = {
-  id: number;
+  id: string;
   content: string;
   createdAt: string;
   lastModifiedAt: string;
-  member: { nickname: string; avatarUri: string };
+  member: { memberId: number; nickname: string; avatarUri: string };
+};
+
+export type CommentData = {
+  currentPage: number;
+  totalPage: number;
+  totalReviews: number;
+  reviews: Comment[];
 };

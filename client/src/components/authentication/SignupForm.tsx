@@ -147,6 +147,8 @@ function SignupForm() {
         category: '',
         memberOtts: [],
         interests: [],
+        memberId: 0,
+        createdAt: '',
       });
     }
   };

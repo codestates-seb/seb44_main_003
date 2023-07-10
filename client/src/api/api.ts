@@ -1,10 +1,9 @@
 import axios from 'axios';
 import {
-  Member,
   NewMember,
   LoginInfo,
   ItemData,
-  Comment,
+  CommentData,
   SelectedData,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
@@ -27,7 +26,7 @@ instance.interceptors.request.use((config) => {
 });
 
 /* 유저 정보 가져오기 */
-export const GetUser = (): Promise<Member> =>
+export const GetUser = (): Promise<NewMember> =>
   instance.get('/members').then((res) => res.data);
 
 export const Login = (data: LoginInfo) =>
@@ -78,7 +77,7 @@ export const GetComments = ({
 }: {
   id: string;
   page: number;
-}): Promise<Comment[]> =>
+}): Promise<CommentData> =>
   axios
     .get(
       `${
@@ -106,7 +105,7 @@ export const PatchComment = ({
 }: {
   id: string;
   content: string;
-}) => instance.patch(`/reviews/${id}`, content);
+}) => instance.patch(`/reviews/${id}`, { content: content });
 
 /* 리스트 필터 가져오기 */
 export const GetFilterdData = (queryString: string | null) =>
