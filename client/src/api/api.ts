@@ -67,7 +67,7 @@ export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
 /* 검색결과 가져오기 */
 export const GetSearchedData = (keyword: string | null) =>
   axios
-    .get(`${import.meta.env.VITE_BASE_URL}/search?keyword=${keyword}`)
+    .get(`${import.meta.env.VITE_BASE_URL}/search?q=${keyword}`)
     .then((res) => res.data);
 
 /* 후기 데이터 */

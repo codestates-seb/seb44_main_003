@@ -16,14 +16,12 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   if (path.includes('movie')) {
     category = '/movie';
   }
-
+  console.log(query);
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
     path.includes('search') ? ['search', query] : ['selectedList', query],
     ({ pageParam = 1 }) =>
       path.includes('search')
-        ? GetSearchedData(
-            `/medias/search?page=${pageParam}&size=24&keyword=${query}`
-          )
+        ? GetSearchedData(`${query}&page=${pageParam}&size=24`)
         : GetFilterdData(
             `/medias${category}?page=${pageParam}&size=24&${query}`
           ),
@@ -67,10 +65,16 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   if (status === 'error') return <S_Error>검색 결과 없음</S_Error>;
 
   if (status === 'success') {
+    const totalLength = (data?.pages || []).reduce(
+      (acc, page) => acc + (page.content?.length || 0),
+      0
+    );
     return (
       <>
         {path.includes('search') && (
-          <S_Text>'{path}' 검색 결과가 ??개 있습니다.</S_Text>
+          <S_Text>
+            '{query}' 검색 결과가 {totalLength}개 있습니다.
+          </S_Text>
         )}
         <S_FlexWrap>
           {data.pages.map((page) => (
@@ -92,6 +96,7 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
 export default InfinityScroll;
 
 const S_FlexWrap = styled.div`
+  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

@@ -114,7 +114,7 @@ export default function Carousel() {
 
 const S_Wrapper = styled.div`
   margin-top: 130px;
-  width: 100%;
+  width: 100vw;
   height: 450px;
   background-color: var(--color-bg-100);
   background-position: center;
