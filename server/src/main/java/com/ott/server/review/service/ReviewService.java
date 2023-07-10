@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -129,6 +130,7 @@ public class ReviewService {
         Pageable pageable = PageRequest.of(page, size);
         Page<Review> reviewPage = reviewRepository.findByMedia(media, pageable);
         int totalPage = reviewPage.getTotalPages();
+
 
         List<ReviewDetailDto> reviews = reviewPage.stream()
                 .map(reviewMapper::reviewToReviewDetailDto)

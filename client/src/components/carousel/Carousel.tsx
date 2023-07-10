@@ -101,18 +101,35 @@ export default function Carousel() {
             );
           })}
         </S_Swiper>
+
+        {isModal && (
+          <ModalWrapper>
+            <ModalHover handleModalClose={handleModalClose} />
+          </ModalWrapper>
+        )}
       </S_Wrapper>
-      {isModal && <ModalHover handleModalClose={handleModalClose} />}
     </>
   );
 }
 
 const S_Wrapper = styled.div`
+  margin-top: 130px;
   width: 100%;
   height: 450px;
   background-color: var(--color-bg-100);
   background-position: center;
   background-size: cover;
+`;
+
+const ModalWrapper = styled.div`
+  position: relative;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const S_SwiperSlide = styled(SwiperSlide)`

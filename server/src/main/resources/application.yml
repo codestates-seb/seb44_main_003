@@ -10,7 +10,7 @@ spring:
       hibernates:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       format_sql: true
     show-sql: true
   security:

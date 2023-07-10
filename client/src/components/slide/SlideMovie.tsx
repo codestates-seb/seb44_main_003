@@ -1,27 +1,38 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { GetMovieData } from '../../api/api';
 import ItemCard from '../ui/ItemCard';
+import SkeletonItemCard from '../ui/SkeletonItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { useQuery } from '@tanstack/react-query'
 
 // install Virtual module
-SwiperCore.use([Virtual, Navigation]); 
+SwiperCore.use([Virtual, Navigation]);
 
-const SildeMovie = () => {
+const SlideMovie = ({ genre }: { genre: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['movieData'],
-    queryFn: () => GetMovieData(),
-  })
+    queryKey: ['movieData', genre],
+    queryFn: () => GetMovieData(genre),
+  });
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) {
+    return (
+      <S_Wrapper>
+        <S_SkeletonBox>
+        {Array.from({ length: 6 }, (_, index) => (
+          <SkeletonItemCard  key={index}/>
+        ))}
+        </S_SkeletonBox>
+      </S_Wrapper>
+    );
+  }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message
+  if (error instanceof Error) return 'An error has occurred: ' + error.message;
 
   if (isSuccess) {
     return (
@@ -29,24 +40,25 @@ const SildeMovie = () => {
         <S_Swiper
           onSwiper={setSwiperRef}
           slidesPerView={6} // 한 슬라이드에 보여줄 갯수
+          slidesPerGroup={5} // 한 번에 넘어가는 슬라이드 그룹의 개수
           centeredSlides={false} // 센터 모드
           spaceBetween={18} // 슬라이드 사이 여백
           navigation={true} // 버튼
           watchOverflow={true}
           virtual
-        > 
-          <S_SwiperSlide>
-            {data.map((item) => (
+        >
+          {data.map((item) => (
+            <S_SwiperSlide>
               <ItemCard item={item} />
-            ))}
-          </S_SwiperSlide>
+            </S_SwiperSlide>
+          ))}
         </S_Swiper>
       </S_Wrapper>
     );
-  };
+  }
 };
 
-export default SildeMovie;
+export default SlideMovie;
 
 const S_Wrapper = styled.div`
   position: relative;
@@ -56,21 +68,11 @@ const S_Wrapper = styled.div`
   width: 100%;
 `;
 
-// const S_Genrelist = styled.div`
-//   margin-bottom: 3.75rem;
-// `;
-
-// const S_GenreTitle = styled.h2`
-//   margin: 28px 0 10px 0;
-//   color: var(--color-white-100);
-//   font-size: 24px;
-//   font-weight: 700;
-// `;
-
 const S_Swiper = styled(Swiper)`
   display: flex;
   overflow: visible; // 요소의 내용이 요소의 크기를 넘어갈 경우에도 내용을 표시
-  margin: 20px auto;
+  margin-top: 1.25rem;
+  margin-bottom: 3.75rem;
 
   .swiper-button-prev,
   .swiper-button-next {
@@ -100,20 +102,16 @@ const S_Swiper = styled(Swiper)`
       opacity: 1;
       transition: opacity 0.3s ease;
     }
-  } 
-`
-
-const S_SwiperSlide = styled(SwiperSlide)`
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease;
-  filter: var(--shadow-l-40);
-  cursor: pointer;
-  &:hover {
-    transform: translateY(-15px);
   }
 `;
 
-// const S_LoadingMessage = styled.div`
-//   color: var(--color-white-80);
-// `;
+const S_SwiperSlide = styled(SwiperSlide)`
+  display: flex;
+  cursor: pointer;
+`;
+
+const S_SkeletonBox = styled.div`
+  display: flex;
+  gap: 18px;
+  margin-bottom: 3.75rem;
+`;

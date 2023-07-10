@@ -4,6 +4,8 @@ import com.ott.server.audit.Auditable;
 import com.ott.server.bookmark.entity.Bookmark;
 import com.ott.server.interest.entity.Interest;
 import com.ott.server.memberott.entity.MemberOtt;
+import com.ott.server.recommendation.entity.Recommendation;
+import com.ott.server.review.entity.Review;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,12 +41,12 @@ public class Member extends Auditable {
     @Column(length = 100, nullable = true)
     private String category;
 
-//    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<Review> reviews = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-//    private List<Recommend> recommends = new ArrayList<>();
-//
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Recommendation> recommendations = new ArrayList<>();
+
     @OneToMany(mappedBy = "member", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Bookmark> bookmarks = new ArrayList<>();
 
@@ -66,6 +68,11 @@ public class Member extends Auditable {
         this.category = category;
         this.roles = roles;
     }
+    public Member update(String nickname){
+        this.nickname = nickname;
+        return this;
+    }
+
     public Member(String email) {
         this.email = email;
     }

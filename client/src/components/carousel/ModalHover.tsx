@@ -27,20 +27,24 @@ export default ModalHover;
 const S_Modal = styled.div`
   display: flex;
   position: absolute;
+  aspect-ratio: 16 / 9;
+  width: 53%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 750px;
-  height: 500px;
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: 1;
   background-color: var(--color-bg-100);
 
+  img {
+    border-radius: 10px;
+  }
+
   div {
     position: absolute;
-    border-radius: 5px;
+    border-radius: 10px;
     bottom: 2%;
-    left: 2%;
+    left: 1%;
     background-color: var(--color-white-60);
     padding: 4px 8px;
     cursor: pointer;
@@ -54,7 +58,7 @@ const S_Modal = styled.div`
 const S_Close = styled(IoMdClose)`
   position: absolute;
   top: 2%;
-  right: 2%;
-  color: white;
+  right: 1%;
+  color: var(--color-white-100);
   cursor: pointer;
 `;

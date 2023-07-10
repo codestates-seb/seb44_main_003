@@ -10,8 +10,8 @@ export type NewMember = {
   nickname: String;
   avatarUri?: String;
   category?: String;
-  ott?: String[];
-  interest?: String[];
+  memberOtts?: String[];
+  interests?: String[];
 };
 
 export type LoginInfo = {
@@ -21,8 +21,8 @@ export type LoginInfo = {
 
 export type MemberLikes = {
   category: String;
-  ott: String[];
-  interest: String[];
+  memberOtts: String[];
+  interests: String[];
 };
 
 export type AuthData = {
@@ -35,4 +35,29 @@ export type ItemData = {
   id: number;
   title: string;
   mainPoster: string;
+};
+
+export type SelectedData = {
+  title: string;
+  content: string;
+  category: string;
+  creator: string;
+  cast: string;
+  ageRate: string;
+  checkBookmark: boolean;
+  countRecommend: number;
+  genre: string[];
+  mainPoster: string;
+  mediaOtt: string[];
+  recent: boolean;
+  releaseDate: number;
+  titlePoster: string;
+};
+
+export type Comment = {
+  id: number;
+  content: string;
+  createdAt: string;
+  lastModifiedAt: string;
+  member: { nickname: string; avatarUri: string };
 };

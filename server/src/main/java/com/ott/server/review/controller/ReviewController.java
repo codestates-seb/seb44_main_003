@@ -74,6 +74,7 @@ public class ReviewController {
                                                                 @RequestParam(required = false, defaultValue = "10") int size) {
         MultiResponseDto response = reviewService.findByMediaId(mediaId, page-1, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
+
     }
 
 }

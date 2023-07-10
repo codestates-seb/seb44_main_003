@@ -32,25 +32,24 @@ public class MemberDto {
 
         private String category;
 
-        private String[] ott;
+        private String[] memberOtts;
 
-        private String[] interest;
+        private String[] interests;
     }
 
     @Getter
     public static class Patch {
         private long memberId;
 
-        @NotBlank
         private String nickname;
 
         private String avatarUri;
 
         private String category;
 
-        private String[] ott;
+        private String[] memberOtts;
 
-        private String[] interest;
+        private String[] interests;
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
