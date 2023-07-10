@@ -5,6 +5,7 @@ import com.ott.server.exception.ExceptionCode;
 import com.ott.server.genre.entity.Genre;
 import com.ott.server.genre.repository.GenreRepository;
 import com.ott.server.media.dto.MediaDto;
+import com.ott.server.media.dto.MultiResponseDto;
 import com.ott.server.media.entity.Media;
 import com.ott.server.media.mapper.MediaMapper;
 import com.ott.server.media.repository.MediaRepository;
@@ -12,7 +13,6 @@ import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -170,12 +170,16 @@ public class MediaService {
                 .map(mediaMapper::toResponse3Dto)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
     } //todo mapper고치기
+    public MultiResponseDto<MediaDto.Response2> getMediasAll(List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
 
-    public List<MediaDto.Response2> getMediasAll(List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
-        Page<Media> mediasPage = mediaRepository.findDistinctByGenresInAndMediaOttsIn(genres, otts, pageable);
+
+        Page<Media> mediasPage = mediaRepository.findByGenresInAndMediaOttsIn(genres, otts, pageable);
+
+
         List<Media> medias = mediasPage.getContent();
+
         List<MediaDto.Response2> responses = new ArrayList<>();
-        for (Media media : medias){
+        for (Media media : medias) {
             MediaDto.Response2 response = new MediaDto.Response2();
             response.setId(media.getMediaId());
             response.setTitle(media.getTitle());
@@ -183,17 +187,18 @@ public class MediaService {
             responses.add(response);
         }
 
-        return responses;
+        return new MultiResponseDto<>(responses, mediasPage.getNumber() + 1, mediasPage.getTotalPages());
     }
 
 
-    public List<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
-        Page<Media> mediasPage = mediaRepository.findDistinctByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
+
+    public MultiResponseDto<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
+        Page<Media> mediasPage = mediaRepository.findByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
+
         List<Media> medias = mediasPage.getContent();
 
         List<MediaDto.Response2> responses = new ArrayList<>();
-
-        for (Media media : medias){
+        for (Media media : medias) {
             MediaDto.Response2 response = new MediaDto.Response2();
             response.setId(media.getMediaId());
             response.setTitle(media.getTitle());
@@ -201,8 +206,10 @@ public class MediaService {
             responses.add(response);
         }
 
-        return responses;
+        return new MultiResponseDto<>(responses, mediasPage.getNumber() + 1, mediasPage.getTotalPages());
     }
+
+
 
 
     public void deleteMedia(Long mediaId) {
