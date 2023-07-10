@@ -1,8 +1,8 @@
 package com.ott.server.review.service;
-import com.ott.server.member.dto.MemberDto;
 import com.ott.server.review.dto.*;
+import com.ott.server.review.mapper.ReviewMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
-import org.springframework.util.StringUtils;
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.exception.ExceptionCode;
 import com.ott.server.media.entity.Media;
@@ -16,7 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,12 +26,14 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
     private final MediaRepository mediaRepository;
+    private final ReviewMapper reviewMapper;
 
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, MemberRepository memberRepository, MediaRepository mediaRepository) {
+    public ReviewService(ReviewRepository reviewRepository, MemberRepository memberRepository, MediaRepository mediaRepository, ReviewMapper reviewMapper) {
         this.reviewRepository = reviewRepository;
         this.memberRepository = memberRepository;
         this.mediaRepository = mediaRepository;
+        this.reviewMapper = reviewMapper;
     }
 
 
@@ -63,6 +64,7 @@ public class ReviewService {
                     reviewDetailDto.setLastModifiedAt(review.getLastModifiedAt());
 
                     MemberDetailDto memberDetailDto = new MemberDetailDto();
+                    memberDetailDto.setMemberId(review.getMember().getMemberId());
                     memberDetailDto.setNickname(review.getMember().getNickname());
                     memberDetailDto.setAvatarUri(review.getMember().getAvatarUri());
 
@@ -120,28 +122,27 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-    public List<ReviewDetailDto> findByMediaId(Long mediaId, int page, int size) {
+    public MultiResponseDto findByMediaId(Long mediaId, int page, int size) {
         Media media = mediaRepository.findById(mediaId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
 
         Pageable pageable = PageRequest.of(page, size);
-        return reviewRepository.findByMedia(media, pageable).stream()
-                .map(review -> {
-                    ReviewDetailDto reviewDetailDto = new ReviewDetailDto();
-                    reviewDetailDto.setId(review.getId());
-                    reviewDetailDto.setContent(review.getContent());
-                    reviewDetailDto.setCreatedAt(review.getCreatedAt());
-                    reviewDetailDto.setLastModifiedAt(review.getLastModifiedAt());
+        Page<Review> reviewPage = reviewRepository.findByMedia(media, pageable);
+        int totalPage = reviewPage.getTotalPages();
 
-                    MemberDetailDto memberDetailDto = new MemberDetailDto();
-                    memberDetailDto.setNickname(review.getMember().getNickname());
-                    memberDetailDto.setAvatarUri(review.getMember().getAvatarUri());
-
-                    reviewDetailDto.setMember(memberDetailDto);
-
-                    return reviewDetailDto;
-                })
+        List<ReviewDetailDto> reviews = reviewPage.stream()
+                .map(reviewMapper::reviewToReviewDetailDto)
                 .collect(Collectors.toList());
+
+        MultiResponseDto response = new MultiResponseDto();
+        response.setReviews(reviews);
+        response.setTotalReviews(reviewPage.getTotalElements());
+        response.setCurrentPage(page+1);
+        response.setTotalPage(totalPage);
+
+        return response;
     }
+
+
 
 }

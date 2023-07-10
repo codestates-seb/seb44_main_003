@@ -5,19 +5,17 @@ import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.genre.entity.Genre;
 import com.ott.server.genre.repository.GenreRepository;
 import com.ott.server.media.dto.MediaDto;
-import com.ott.server.media.entity.Media;
+import com.ott.server.media.dto.MultiResponseDto;
 import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.media.service.MediaService;
 import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -76,7 +74,7 @@ public class MediaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MediaDto.Response2>> getMedias(
+    public ResponseEntity<MultiResponseDto> getMedias(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam(required = false) List<String> genre,
@@ -94,14 +92,14 @@ public class MediaController {
         List<Genre> genres = genreRepository.findByGenreNameIn(genre);
         List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
-        List<MediaDto.Response2> medias = mediaService.getMediasAll(genres, otts, pageable);
+        MultiResponseDto medias = mediaService.getMediasAll(genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
 
     @GetMapping("/tv")
-    public ResponseEntity<List<MediaDto.Response2>> getMediasByTv(
+    public ResponseEntity<MultiResponseDto> getMediasByTv(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam(required = false) List<String> genre,
@@ -119,14 +117,14 @@ public class MediaController {
         List<Genre> genres = genreRepository.findByGenreNameIn(genre);
         List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
-        List<MediaDto.Response2> medias = mediaService.getMedias("TV", genres, otts, pageable);
+        MultiResponseDto medias = mediaService.getMedias("TV", genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
 
     @GetMapping("/movie")
-    public ResponseEntity<List<MediaDto.Response2>> getMediasByMovie(
+    public ResponseEntity<MultiResponseDto> getMediasByMovie(
             @RequestParam(required = false, defaultValue = "1") int page,
             @RequestParam(required = false, defaultValue = "10") int size,
             @RequestParam(required = false) List<String> genre,
@@ -144,7 +142,7 @@ public class MediaController {
         List<Genre> genres = genreRepository.findByGenreNameIn(genre);
         List<MediaOtt> otts = ottRepository.findByOttNameIn(ott);
 
-        List<MediaDto.Response2> medias = mediaService.getMedias("영화", genres, otts, pageable);
+        MultiResponseDto medias = mediaService.getMedias("영화", genres, otts, pageable);
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }

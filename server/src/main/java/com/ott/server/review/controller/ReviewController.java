@@ -6,15 +6,11 @@ import com.ott.server.exception.ExceptionCode;
 import com.ott.server.review.dto.*;
 import com.ott.server.review.entity.Review;
 import com.ott.server.review.service.ReviewService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/reviews")
@@ -72,12 +68,12 @@ public class ReviewController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping //todo 추가됨, 마지막 엔드포인트
-    public ResponseEntity<List<ReviewDetailDto>> getReviewsByMediaId(@RequestParam Long mediaId,
-                                                                     @RequestParam(required = false, defaultValue = "0") int page,
-                                                                     @RequestParam(required = false, defaultValue = "10") int size) {
-        List<ReviewDetailDto> reviews = reviewService.findByMediaId(mediaId, page, size);
-        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<MultiResponseDto> getReviewsByMediaId(@RequestParam Long mediaId,
+                                                                @RequestParam(required = false, defaultValue = "1") int page,
+                                                                @RequestParam(required = false, defaultValue = "10") int size) {
+        MultiResponseDto response = reviewService.findByMediaId(mediaId, page-1, size);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }
