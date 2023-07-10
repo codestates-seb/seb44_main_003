@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { GetFilterdData } from '../api/api';
-import InfinityScroll from '../components/silde/InfinityScroll';
+import InfinityScroll from '../components/slide/InfinityScroll';
 
 const List = () => {
   const path = useLocation().pathname;
