@@ -24,4 +24,8 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 
     @Query("SELECT m FROM Media m where m.title LIKE CONCAT('%', :query, '%') OR m.cast LIKE CONCAT('%', :query, '%') OR m.creator LIKE CONCAT('%', :query, '%')")
     Page<Media> findByTitle(@Param("query")String query, Pageable pageable);
+
+    Page<Media> findByGenresInAndMediaOttsIn(List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
+
+    Page<Media> findByCategoryAndGenresInAndMediaOttsIn(String category, List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
 }
