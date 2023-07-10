@@ -85,19 +85,26 @@ public class MemberController {
                 memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
         List<MemberOtt> memberOtts = memberOttRepository.findByMember(member);
+        log.info("List memberOtts 생성");
         if(requestBody.getMemberOtts().length != 0){
+            log.info("requestBody ott 순회");
             for(int i = 0; i < memberOtts.size(); i++){
+                log.info("ott 삭제");
                 memberOttRepository.delete(memberOtts.get(i));
             }
-
+            log.info("ott 삭제 종료");
+            log.info("신규 ott 생성");
             String[] otts = requestBody.getMemberOtts();
             for(int i = 0; i < otts.length; i++){
+
                 MemberOtt memberOtt = new MemberOtt();
                 memberOtt.setMember(member);
                 memberOtt.setMemberOttName(otts[i]);
 
                 memberOttRepository.save(memberOtt);
+
             }
+            log.info("ott 생성");
         }
 
         List<Interest> memberInterests = interestRepository.findByMember(member);

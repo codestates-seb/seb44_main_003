@@ -21,4 +21,7 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
     Page<Media> findDistinctByGenresInAndMediaOttsIn(List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
     @Query("SELECT COUNT(a) FROM Bookmark a WHERE a.media.id = :mediaId")
     Integer checkBookmarkByMediaId(@Param("mediaId") Long mediaId);
+
+    @Query("SELECT m FROM Media m where m.title LIKE CONCAT('%', :query, '%') OR m.cast LIKE CONCAT('%', :query, '%') OR m.creator LIKE CONCAT('%', :query, '%')")
+    Page<Media> findByTitle(@Param("query")String query, Pageable pageable);
 }
