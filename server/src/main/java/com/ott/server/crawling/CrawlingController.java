@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.element.Element;
 import javax.validation.constraints.Positive;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -184,6 +185,8 @@ public class CrawlingController {
             String cast = new String();
 
 
+
+
             for(int i = 0; i < mediaOtts.size(); i++){
                 String ott = mediaOtts.get(i);
                 if(ott.equals("Watcha")) continue; //||ott.equals("wavve")
@@ -203,9 +206,14 @@ public class CrawlingController {
                 switch (ott){
                     case "Disney Plus":
                         try {
-                            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[3]/div/div[1]/p/div/div[1]/img")));
+                            webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[2]/img")));
+                            Thread.sleep(1000);
                             title = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[4]/h1")).getText();
                             titlePoster = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[2]/img")).getAttribute("src");
+                            List<WebElement> castList = driver.findElements(By.xpath("/html/body/div[1]/div/div[4]/div/main/div/article/div[4]/div/div[2]/div[2]/div"));
+                            for(WebElement element : castList)
+                                cast += element.getText();
+                            cast = cast.substring(4, cast.length()-1).replaceAll("\n", ",");
 
                         }catch (RuntimeException e){                        }
                         break;
@@ -266,25 +274,11 @@ public class CrawlingController {
             System.out.println("장르  : "+genres);
             System.out.println("카테고리    : "+category);
             System.out.println("최신작 : "+recent);
-            System.out.println("이용가 : ");
-            System.out.println("감독  : ");
-            System.out.println("출연진 : ");
+            System.out.println("이용가 : "+ageRate);
+            System.out.println("감독  : "+creator);
+            System.out.println("출연진 : "+cast);
 
 
-            /*
-            private String title;
-            private String content;
-            private String category;
-            private String creator;
-            private String cast;
-            private String mainPoster;
-            private String titlePoster;
-            private int releaseDate;
-            private String ageRate;
-            private Boolean recent;
-            private List<String> genre;
-            private List<String> mediaOtt;
-//             */
             MediaDto.Create createData = new MediaDto.Create(title, content, category, "감독", "출연진", mainPoster, titlePoster, releaseDate, "전체이용가", recent ,genres, mediaOtts);
 
             MediaDto.Response media = mediaService.createMedia(createData);
