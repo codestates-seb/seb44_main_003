@@ -108,7 +108,7 @@ export const PatchComment = ({
 }) => instance.patch(`/reviews/${id}`, { content: content });
 
 /* 리스트 필터 가져오기 */
-export const GetFilterdData = (queryString: string | null) =>
+export const GetFilterdData = (queryString: string | null): Promise<ItemData> =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}${queryString}`)
     .then((res) => res.data);
