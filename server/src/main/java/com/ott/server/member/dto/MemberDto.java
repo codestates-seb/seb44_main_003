@@ -59,6 +59,7 @@ public class MemberDto {
     @AllArgsConstructor
     @Getter
     public static class Response {
+        private Long memberId;
         private String nickname;
         private String avatarUri;
         private LocalDateTime createdAt;
