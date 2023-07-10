@@ -8,6 +8,7 @@ const GenreBtn = () => {
   const navigate = useNavigate();
   const path = useLocation().pathname;
   const ott = new URLSearchParams(location.search).get('ott');
+  const genre = new URLSearchParams(location.search).get('genre');
   const genres = [
     '액션',
     '드라마',
@@ -38,11 +39,9 @@ const GenreBtn = () => {
     if (path === '/tv' || path === '/movie') {
       return navigate(`${path}/list?genre=${selected}`);
     }
-
-    let navigateUrl = `${path}?genre=${selected}`;
-    if (ott) {
-      navigateUrl = `${path}?genre=${selected}&ott=${ott}`;
-    }
+    let navigateUrl = `${path}?genre=${selected}${
+      ott !== null ? `&ott=${ott}` : ''
+    }`;
     navigate(navigateUrl);
   };
 
@@ -66,6 +65,12 @@ const GenreBtn = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (genre) {
+      setIsOpen(true);
+    }
+  }, [selectedGenre]);
+
   return (
     <GenreBtnContainer ref={genreBtnRef}>
       <S_GenreBtn onClick={handleGenreClick}>장르 ▼</S_GenreBtn>
@@ -77,7 +82,7 @@ const GenreBtn = () => {
                 {genres.slice(index * 4, (index + 1) * 4).map((text) => (
                   <S_Label
                     key={text}
-                    flexGrow={text === 'Made in Europe' ? '1' : '0'}
+                    flexgrow={text === 'Made in Europe' ? '1' : '0'}
                   >
                     <S_Input
                       type="checkbox"
@@ -127,11 +132,11 @@ const S_LabelRow = styled.div`
   display: flex;
 `;
 
-const S_Label = styled.label<{ flexGrow: string }>`
+const S_Label = styled.label<{ flexgrow: string }>`
   width: 125px;
   display: flex;
   align-items: center;
-  flex-grow: ${(props) => props.flexGrow};
+  flex-grow: ${(props) => props.flexgrow};
 `;
 
 const S_Text = styled.div`

@@ -3,6 +3,7 @@ import SlideMovie from '../components/slide/SlideMovie';
 import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
+import { scrollToTop } from '../utils/scrollToTop';
 
 const Movie = () => {
   const genres: string[] = [
@@ -27,6 +28,8 @@ const Movie = () => {
     // '서부'
   ];
 
+  scrollToTop();
+
   return (
     <S_Wrapper>
       <Banner image={image} />
@@ -34,7 +37,7 @@ const Movie = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SlideMovie genre={genre}/>
+          <SlideMovie genre={genre} />
         </>
       ))}
     </S_Wrapper>

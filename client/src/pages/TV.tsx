@@ -3,6 +3,7 @@ import SlideTV from '../components/slide/SlideTV';
 import image from '../assets/이번생도잘부탁해.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
+import { scrollToTop } from '../utils/scrollToTop';
 
 const TV = () => {
   const genres: string[] = [
@@ -27,6 +28,8 @@ const TV = () => {
     // '서부'
   ];
 
+  scrollToTop();
+
   return (
     <S_Wrapper>
       <Banner image={image} />
@@ -34,7 +37,7 @@ const TV = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SlideTV genre={genre}/>
+          <SlideTV genre={genre} />
         </>
       ))}
     </S_Wrapper>
