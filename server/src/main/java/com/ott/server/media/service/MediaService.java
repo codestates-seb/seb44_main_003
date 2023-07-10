@@ -173,7 +173,7 @@ public class MediaService {
     public MultiResponseDto<MediaDto.Response2> getMediasAll(List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
 
 
-        Page<Media> mediasPage = mediaRepository.findByGenresInAndMediaOttsIn(genres, otts, pageable);
+        Page<Media> mediasPage = mediaRepository.findDistinctByGenresInAndMediaOttsIn(genres, otts, pageable);
 
 
         List<Media> medias = mediasPage.getContent();
@@ -193,7 +193,7 @@ public class MediaService {
 
 
     public MultiResponseDto<MediaDto.Response2> getMedias(String category, List<Genre> genres, List<MediaOtt> otts, Pageable pageable) {
-        Page<Media> mediasPage = mediaRepository.findByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
+        Page<Media> mediasPage = mediaRepository.findDistinctByCategoryAndGenresInAndMediaOttsIn(category, genres, otts, pageable);
 
         List<Media> medias = mediasPage.getContent();
 

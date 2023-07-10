@@ -2,6 +2,7 @@ package com.ott.server.review.service;
 import com.ott.server.review.dto.*;
 import com.ott.server.review.mapper.ReviewMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import com.ott.server.exception.BusinessLogicException;
 import com.ott.server.exception.ExceptionCode;
@@ -127,7 +128,7 @@ public class ReviewService {
         Media media = mediaRepository.findById(mediaId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEDIA_NOT_FOUND));
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Review> reviewPage = reviewRepository.findByMedia(media, pageable);
         int totalPage = reviewPage.getTotalPages();
 
@@ -144,6 +145,8 @@ public class ReviewService {
 
         return response;
     }
+
+
 
 
 
