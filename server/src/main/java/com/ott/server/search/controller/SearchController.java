@@ -1,7 +1,6 @@
 package com.ott.server.search.controller;
 
-import com.ott.server.dto.MultiResponseDto;
-import com.ott.server.media.dto.MediaResponseDto;
+import com.ott.server.media.dto.MultiResponseDto;
 import com.ott.server.media.entity.Media;
 import com.ott.server.search.mapper.SearchMapper;
 import com.ott.server.search.service.SearchService;
@@ -31,7 +30,8 @@ public class SearchController {
         Page<Media> pageMedias = searchService.search(q, page-1, size);
         List<Media> medias = pageMedias.getContent();
 
-        return new ResponseEntity<>(new MultiResponseDto(searchMapper.mediasToMediaResponseDtos(medias), pageMedias), HttpStatus.OK);
+
+        return new ResponseEntity<>(new MultiResponseDto(searchMapper.mediasToMediaResponseDtos(medias), page, pageMedias.getTotalPages()), HttpStatus.OK);
     }
 
 }
