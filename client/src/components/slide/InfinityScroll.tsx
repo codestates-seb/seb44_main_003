@@ -68,11 +68,11 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
         {path.includes('search') ? (
           totalLength !== 0 ? (
             <S_Text>
-              `'${query}' 검색 결과가 ${totalLength}개 있습니다.`
+              {`'${query}' 검색 결과가 ${totalLength}개 있습니다.`}
             </S_Text>
           ) : (
             <S_NoContents>
-              <S_Text>'${query}' 검색 결과가 없습니다.</S_Text>
+              <S_Text>{`${query} 검색 결과가 없습니다.`}</S_Text>
               <img src={noContents} alt="noContents" />
             </S_NoContents>
           )

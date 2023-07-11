@@ -18,7 +18,12 @@ const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 30px 0 30px 0;
+  margin: 30px 0;
+
+  @media only screen and (max-width: 620px) {
+    justify-content: center;
+    margin: 15px 0;
+  }
 `;
 
 const S_Tag = styled.li`
@@ -35,5 +40,10 @@ const S_Tag = styled.li`
 
   .gold {
     color: var(--color-primary-gold);
+  }
+
+  @media only screen and (max-width: 620px) {
+    margin: 5px;
+    padding: 0;
   }
 `;
