@@ -5,7 +5,7 @@ const Tag = ({ genre }: { genre: string[] }) => {
     <S_Wrapper>
       {genre.map((text) => (
         <S_Tag key={text}>
-          <h1>{text}</h1>
+          <h1 className="gold">{text}</h1>
         </S_Tag>
       ))}
     </S_Wrapper>
@@ -33,7 +33,7 @@ const S_Tag = styled.li`
   border-radius: 50px;
   background-color: var(--color-bg-100);
 
-  h1 {
+  .gold {
     color: var(--color-primary-gold);
   }
 `;

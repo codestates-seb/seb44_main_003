@@ -18,6 +18,7 @@ const S_Wrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  padding-left: 20px;
 
   p {
     font-size: 20px;

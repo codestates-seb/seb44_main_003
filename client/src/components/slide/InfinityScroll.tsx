@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
-import SkeletonItemCard from '../ui/SkeletonItemCard';
 import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { useInView } from 'react-intersection-observer';
 import { ContentData } from '../../types/types';
+import noContents from '../../assets/exception/nocontents.svg';
+import { InfinityScrollLoading } from '../exceptions/infinityScroll';
 
 const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   let category = '';
@@ -16,7 +17,7 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   if (path.includes('movie')) {
     category = '/movie';
   }
-  console.log(query);
+
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
     path.includes('search') ? ['search', query] : ['selectedList', query],
     ({ pageParam = 1 }) =>
@@ -51,30 +52,37 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   }, [inView, hasNextPage]);
 
   if (status === 'loading') {
-    return (
-      <S_FlexWrap>
-        {Array.from({ length: 24 }, (_, index) => (
-          <S_Item key={index}>
-            <SkeletonItemCard />
-          </S_Item>
-        ))}
-      </S_FlexWrap>
-    );
+    return <InfinityScrollLoading />;
   }
 
-  if (status === 'error') return <S_Error>검색 결과 없음</S_Error>;
+  if (status === 'error') return <div>Error</div>;
+
+  const totalLength = (data?.pages || []).reduce(
+    (acc, page) => acc + (page.content?.length || 0),
+    0
+  );
 
   if (status === 'success') {
-    const totalLength = (data?.pages || []).reduce(
-      (acc, page) => acc + (page.content?.length || 0),
-      0
-    );
     return (
       <>
-        {path.includes('search') && (
-          <S_Text>
-            '{query}' 검색 결과가 {totalLength}개 있습니다.
-          </S_Text>
+        {path.includes('search') ? (
+          totalLength !== 0 ? (
+            <S_Text>
+              `'${query}' 검색 결과가 ${totalLength}개 있습니다.`
+            </S_Text>
+          ) : (
+            <S_NoContents>
+              <S_Text>'${query}' 검색 결과가 없습니다.</S_Text>
+              <img src={noContents} alt="noContents" />
+            </S_NoContents>
+          )
+        ) : (
+          totalLength === 0 && (
+            <S_NoContents>
+              <p className="noContents">해당 컨텐츠가 없습니다.</p>
+              <img src={noContents} alt="noContents" />
+            </S_NoContents>
+          )
         )}
         <S_FlexWrap>
           {data.pages.map((page) => (
@@ -113,14 +121,22 @@ const S_Item = styled.div`
 `;
 
 const S_Text = styled.p`
-  padding: 160px 0 70px 0;
+  padding: 390px 0 70px 0;
   font-size: 30px;
   font-weight: bold;
   color: var(--color-white-80);
 `;
 
-const S_Error = styled.div`
+const S_NoContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100vw;
-  height: 400px;
-  color: white;
+
+  .noContents {
+    padding: 160px 0 70px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--color-white-80);
+  }
 `;
