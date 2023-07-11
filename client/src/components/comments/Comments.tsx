@@ -35,7 +35,7 @@ function Comments() {
         </h1>
         <ul>
           {data.reviews.map((comment) => (
-            <CommentContent comment={comment} />
+            <CommentContent key={comment.id} comment={comment} />
           ))}
         </ul>
         <div>
