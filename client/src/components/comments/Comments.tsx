@@ -16,18 +16,15 @@ function Comments() {
   const [pageSection, setPageSection] = useState(1);
   const { id } = useParams() as { id: string };
   const { data, isSuccess } = useQuery({
-    queryKey: ['comments', page],
+    queryKey: ['comments', id, page],
     queryFn: () => GetComments({ id, page }),
-    staleTime: 5000,
-    keepPreviousData: true,
-    cacheTime: Infinity,
     refetchOnWindowFocus: false,
   });
 
   if (isSuccess) {
     const length = data.totalReviews;
     const pagesNum = Math.ceil(length / COMMENTS_PER_PAGE);
-    const lastPageSection = Math.ceil(pagesNum / PAGES_PER_SECTION);
+    const lastPageSection = Math.ceil(pagesNum / PAGES_PER_SECTION) || 1;
     const startNum = 1 + (pageSection - 1) * PAGES_PER_SECTION;
     const isFirstPageSection = pageSection === 1;
     const isLastPageSection = pageSection === lastPageSection;
@@ -38,7 +35,7 @@ function Comments() {
         </h1>
         <ul>
           {data.reviews.map((comment) => (
-            <CommentContent comment={comment} />
+            <CommentContent key={comment.id} comment={comment} />
           ))}
         </ul>
         <div>

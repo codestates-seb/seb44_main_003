@@ -26,6 +26,6 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: hidden;
+  overflow: hidden;
   justify-content: center;
 `;

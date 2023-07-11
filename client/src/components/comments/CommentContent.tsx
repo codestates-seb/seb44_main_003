@@ -6,7 +6,7 @@ import { Comment } from '../../types/types';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { BiPaperPlane } from 'react-icons/bi';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -24,12 +24,17 @@ function CommentContent({ comment }: { comment: Comment }) {
     const target = e.target as HTMLTextAreaElement;
     setContent(target.value);
   };
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
+    setContent(comment.content);
+  };
   const handleSubmit = (e: React.FormEvent) => {
     const target = e.target as HTMLButtonElement;
     PatchMutation.mutate({ id: target.id, content });
     setContent('');
     setIsEditing(false);
   };
+
   return (
     <S_Comment key={comment.id}>
       <div>
@@ -51,21 +56,19 @@ function CommentContent({ comment }: { comment: Comment }) {
           </>
         )}
       </div>
-      <div>
-        {user.data && user.data.memberId === comment.member.memberId && (
-          <>
-            <button type="button" onClick={() => setIsEditing(true)}>
-              <HiOutlinePencilAlt />
-            </button>
-            <button
-              type="button"
-              onClick={() => DeleteMutation.mutate(comment.id)}
-            >
-              <BsFillTrash3Fill />
-            </button>
-          </>
-        )}
-      </div>
+      {user.data && user.data.memberId === comment.member.memberId && (
+        <div>
+          <button type="button" onClick={handleEdit}>
+            <HiOutlinePencilAlt />
+          </button>
+          <button
+            type="button"
+            onClick={() => DeleteMutation.mutate(comment.id)}
+          >
+            <BsFillTrash3Fill />
+          </button>
+        </div>
+      )}
     </S_Comment>
   );
 }
@@ -77,14 +80,18 @@ const S_Comment = styled.li`
   border-bottom: 1px solid white;
   padding: 10px 30px;
   > div:nth-child(2) {
-    flex-grow: 11;
+    flex-grow: 1;
     > p {
       margin: 10px 0;
+      word-break: break-all;
     }
     > span {
       color: var(--color-white-80);
       font-size: 13px;
     }
+  }
+  > div:nth-child(3) {
+    min-width: 60px;
   }
 `;
 
@@ -95,14 +102,14 @@ const S_Form = styled.form`
     background-color: transparent;
     border: 1px solid var(--color-white-80);
     border-radius: 10px;
-    width: 80%;
+    width: 90%;
     font-size: 16px;
     color: var(--color-white-80);
     padding: 20px 20px;
   }
   & svg {
     position: absolute;
-    left: 75%;
+    left: 83%;
     bottom: 20px;
     color: var(--color-white-80);
     font-size: 28px;

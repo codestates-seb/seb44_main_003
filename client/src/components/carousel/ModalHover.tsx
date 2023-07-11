@@ -29,6 +29,7 @@ const S_Modal = styled.div`
   position: absolute;
   aspect-ratio: 16 / 9;
   width: 53%;
+  min-height: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -52,6 +53,14 @@ const S_Modal = styled.div`
   div:hover {
     background-color: var(--color-white-100);
     transition: background-color 0.5s ease-in-out;
+  }
+
+  @media only screen and (max-width: 940px) {
+    width: 43%;
+  }
+
+  @media only screen and (max-width: 670px) {
+    width: 100vw;
   }
 `;
 

@@ -5,7 +5,7 @@ const Tag = ({ genre }: { genre: string[] }) => {
     <S_Wrapper>
       {genre.map((text) => (
         <S_Tag key={text}>
-          <h1>{text}</h1>
+          <h1 className="gold">{text}</h1>
         </S_Tag>
       ))}
     </S_Wrapper>
@@ -18,7 +18,12 @@ const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 30px 0 30px 0;
+  margin: 30px 0;
+
+  @media only screen and (max-width: 620px) {
+    justify-content: center;
+    margin: 15px 0;
+  }
 `;
 
 const S_Tag = styled.li`
@@ -33,7 +38,12 @@ const S_Tag = styled.li`
   border-radius: 50px;
   background-color: var(--color-bg-100);
 
-  h1 {
+  .gold {
     color: var(--color-primary-gold);
+  }
+
+  @media only screen and (max-width: 620px) {
+    margin: 5px;
+    padding: 0;
   }
 `;
