@@ -1,26 +1,26 @@
 package com.ott.server.member.controller;
 
-import com.ott.server.dto.SingleResponseDto;
-import com.ott.server.exception.BusinessLogicException;
-import com.ott.server.exception.ExceptionCode;
 import com.ott.server.interest.entity.Interest;
 import com.ott.server.interest.repository.InterestRepository;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.member.entity.Member;
 import com.ott.server.member.mapper.MemberMapper;
 import com.ott.server.member.service.MemberService;
+import com.ott.server.member.service.S3Uploader;
 import com.ott.server.memberott.entity.MemberOtt;
 import com.ott.server.memberott.repository.MemberOttRepository;
 import com.ott.server.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -34,6 +34,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberOttRepository memberOttRepository;
     private final InterestRepository interestRepository;
+    private S3Uploader s3Uploader;
 
     public MemberController(MemberService memberService, MemberMapper memberMapper,
                             MemberOttRepository memberOttRepository,
@@ -138,5 +139,22 @@ public class MemberController {
         memberService.deleteMember(member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(value="/upload",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity uploadImage(Authentication authentication, @RequestParam(value = "file") MultipartFile file) throws IOException {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberService.findMemberByEmail(email);
+        System.out.println(file.getOriginalFilename());
+        if(!file.isEmpty()) {
+            String storedFileName = s3Uploader.upload(file,"images");
+            member.setAvatarUri(storedFileName);
+        }
+
+        memberService.updateMember(member);
+
+        return new ResponseEntity<>(
+                memberMapper.memberToMemberResponse(member)
+                , HttpStatus.OK);
     }
 }
