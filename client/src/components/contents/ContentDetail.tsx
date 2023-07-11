@@ -158,9 +158,6 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
     margin-top: 140px;
   }
 
-  @media only screen and (max-width: 768px) {
-  }
-
   @media only screen and (max-width: 620px) {
     padding: 0 40px;
     .main-flex {

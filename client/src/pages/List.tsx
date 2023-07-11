@@ -31,11 +31,10 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: hidden;
-  justify-content: center;
+  overflow: hidden;
 `;
 
 const S_BtnWrapper = styled.div`
   width: 100%;
-  padding: 130px 20px;
+  padding: 130px 0px 60px;
 `;

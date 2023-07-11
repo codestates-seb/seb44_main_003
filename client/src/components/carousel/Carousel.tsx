@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
 import 'swiper/css';
@@ -40,6 +40,7 @@ export default function Carousel() {
   const [hoverTimeout, setHoverTimeout] = useState<number | undefined>(
     undefined
   );
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleModalOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     const slide = (e.target as Element).closest('.swiper-slide');
@@ -61,47 +62,97 @@ export default function Carousel() {
     clearTimeout(hoverTimeout);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <>
       <S_Wrapper>
-        <S_Swiper
-          slidesPerView={3}
-          centeredSlides={true}
-          initialSlide={2}
-          effect={'coverflow'}
-          coverflowEffect={{
-            rotate: 12,
-            stretch: -40,
-            depth: 200,
-            modifier: 3,
-            slideShadows: true,
-          }}
-          pagination={{
-            clickable: true,
-            type: 'bullets',
-            bulletClass: 'swiper-pagination-bullet',
-            bulletActiveClass: 'swiper-pagination-bullet-active',
-            renderBullet: (_: any, className: string) => {
-              return `<span class="${className}"></span>`;
-            },
-          }}
-          mousewheel={true}
-          modules={[Pagination, Mousewheel, EffectCoverflow]}
-          className="mySwiper"
-        >
-          {items.map((item, idx) => {
-            return (
-              <S_SwiperSlide key={idx}>
-                <S_Image
-                  src={item.image}
-                  onMouseEnter={handleModalOpen}
-                  onMouseLeave={handleMouseLeave}
-                />
-              </S_SwiperSlide>
-            );
-          })}
-        </S_Swiper>
-
+        {windowWidth < 620 ? (
+          <S_Swiper
+            slidesPerView={1}
+            initialSlide={2}
+            effect={'coverflow'}
+            coverflowEffect={{
+              rotate: 12,
+              stretch: -40,
+              depth: 200,
+              modifier: 3,
+              slideShadows: true,
+            }}
+            pagination={{
+              clickable: true,
+              type: 'bullets',
+              bulletClass: 'swiper-pagination-bullet',
+              bulletActiveClass: 'swiper-pagination-bullet-active',
+              renderBullet: (_: any, className: string) => {
+                return `<span class="${className}"></span>`;
+              },
+            }}
+            mousewheel={true}
+            modules={[Pagination, Mousewheel, EffectCoverflow]}
+            className="mySwiper"
+          >
+            {items.map((item, idx) => {
+              return (
+                <S_SwiperSlide key={idx}>
+                  <S_Image
+                    src={item.image}
+                    onMouseEnter={handleModalOpen}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                </S_SwiperSlide>
+              );
+            })}
+          </S_Swiper>
+        ) : (
+          <S_Swiper
+            slidesPerView={3}
+            centeredSlides={true}
+            initialSlide={2}
+            effect={'coverflow'}
+            coverflowEffect={{
+              rotate: 12,
+              stretch: -40,
+              depth: 200,
+              modifier: 3,
+              slideShadows: true,
+            }}
+            pagination={{
+              clickable: true,
+              type: 'bullets',
+              bulletClass: 'swiper-pagination-bullet',
+              bulletActiveClass: 'swiper-pagination-bullet-active',
+              renderBullet: (_: any, className: string) => {
+                return `<span class="${className}"></span>`;
+              },
+            }}
+            mousewheel={true}
+            modules={[Pagination, Mousewheel, EffectCoverflow]}
+            className="mySwiper"
+          >
+            {items.map((item, idx) => {
+              return (
+                <S_SwiperSlide key={idx}>
+                  <S_Image
+                    src={item.image}
+                    onMouseEnter={handleModalOpen}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                </S_SwiperSlide>
+              );
+            })}
+          </S_Swiper>
+        )}
         {isModal && (
           <ModalWrapper>
             <ModalHover handleModalClose={handleModalClose} />
@@ -113,12 +164,22 @@ export default function Carousel() {
 }
 
 const S_Wrapper = styled.div`
-  margin-top: 130px;
+  margin-top: 60px;
   width: 100vw;
-  height: 450px;
+  height: 500px;
   background-color: var(--color-bg-100);
   background-position: center;
   background-size: cover;
+
+  @media only screen and (max-width: 940px) {
+    width: 100%;
+    margin-top: 100px;
+  }
+
+  @media only screen and (max-width: 620px) {
+    width: 100vw;
+    margin-top: 12px;
+  }
 `;
 
 const ModalWrapper = styled.div`
@@ -174,5 +235,8 @@ const S_Swiper = styled(Swiper)`
   }
   .swiper-pagination-bullet-active {
     opacity: 1;
+  }
+  .swiper-pagination-horizontal {
+    bottom: 0;
   }
 `;
