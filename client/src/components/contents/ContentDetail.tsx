@@ -38,7 +38,11 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
         <div className="main-flex">
           <div className="title-flex">
             <S_Title>
-              <img src={data.titlePoster} alt="title" />
+              {data.titlePoster ? (
+                <img src={data.titlePoster} alt="title" />
+              ) : (
+                <S_TextTitle>{data.title}</S_TextTitle>
+              )}
             </S_Title>
             <S_Content>
               <div className="poster-flex">
@@ -84,16 +88,11 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                     className={findOtt('Tving') ? '' : 'dark'}
                   />
                 </div>
+                <p className="bold-white">출시일: {data.releaseDate}</p>
                 <p className="bold-white">
-                  크리에이터 &nbsp;&nbsp;&nbsp;{data.creator}
-                </p>
-                <p className="bold-white margin">
-                  출연 &nbsp;&nbsp;&nbsp;{data.cast}
+                  {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
                 </p>
                 <p className="text">{data.content}</p>
-                <p className="date">
-                  {data.releaseDate}, {data.ageRate}
-                </p>
               </S_TitleFont>
             </S_Content>
           </div>
@@ -211,16 +210,11 @@ const S_TitleFont = styled.div`
   .bold-white {
     color: var(--color-white-80);
     font-weight: bold;
-  }
-  .margin {
     margin-top: 10px;
   }
   .text {
     color: var(--color-white-80);
     margin: 45px 0;
-  }
-  .date {
-    color: var(--color-white-80);
   }
   img {
     box-shadow: var(--shadow-box-m-25);
@@ -269,5 +263,21 @@ const S_Poster = styled.div`
 
   @media only screen and (max-width: 620px) {
     align-self: center;
+  }
+`;
+
+const S_TextTitle = styled.h1`
+  display: flex;
+  align-items: center;
+  font-size: 50px !important;
+  font-weight: bold;
+  color: var(--color-white-100);
+  width: 400px;
+  height: 90px;
+  align-self: flex-end;
+  position: relative;
+
+  @media only screen and (max-width: 620px) {
+    justify-content: center;
   }
 `;
