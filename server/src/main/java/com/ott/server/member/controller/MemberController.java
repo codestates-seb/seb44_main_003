@@ -142,7 +142,7 @@ public class MemberController {
     }
 
     @PostMapping(value="/upload",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity uploadImage(Authentication authentication, @RequestParam(value = "file") MultipartFile file) throws IOException {
+    public ResponseEntity uploadImage(Authentication authentication, @RequestPart(value = "file") MultipartFile file) throws IOException {
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
         System.out.println(file.getOriginalFilename());
