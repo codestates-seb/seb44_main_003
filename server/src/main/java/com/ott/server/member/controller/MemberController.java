@@ -34,15 +34,17 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberOttRepository memberOttRepository;
     private final InterestRepository interestRepository;
-    private S3Uploader s3Uploader;
+    private final S3Uploader s3Uploader;
 
     public MemberController(MemberService memberService, MemberMapper memberMapper,
                             MemberOttRepository memberOttRepository,
-                            InterestRepository interestRepository) {
+                            InterestRepository interestRepository,
+                            S3Uploader s3Uploader) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.memberOttRepository = memberOttRepository;
         this.interestRepository = interestRepository;
+        this.s3Uploader = s3Uploader;
     }
 
     @PostMapping
