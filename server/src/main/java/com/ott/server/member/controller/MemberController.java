@@ -5,6 +5,7 @@ import com.ott.server.interest.repository.InterestRepository;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.member.entity.Member;
 import com.ott.server.member.mapper.MemberMapper;
+import com.ott.server.member.service.AwsS3Uploader;
 import com.ott.server.member.service.MemberService;
 import com.ott.server.member.service.S3Uploader;
 import com.ott.server.memberott.entity.MemberOtt;
@@ -35,16 +36,19 @@ public class MemberController {
     private final MemberOttRepository memberOttRepository;
     private final InterestRepository interestRepository;
     private final S3Uploader s3Uploader;
+    private final AwsS3Uploader awsS3Uploader;
 
     public MemberController(MemberService memberService, MemberMapper memberMapper,
                             MemberOttRepository memberOttRepository,
                             InterestRepository interestRepository,
-                            S3Uploader s3Uploader) {
+                            S3Uploader s3Uploader,
+                            AwsS3Uploader awsS3Uploader) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.memberOttRepository = memberOttRepository;
         this.interestRepository = interestRepository;
         this.s3Uploader = s3Uploader;
+        this.awsS3Uploader = awsS3Uploader;
     }
 
     @PostMapping
@@ -144,12 +148,13 @@ public class MemberController {
     }
 
     @PostMapping(value="/upload",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity uploadImage(Authentication authentication, @RequestPart(value = "file") MultipartFile file) throws IOException {
+    public ResponseEntity uploadImage(Authentication authentication, @RequestParam(value = "file") MultipartFile file) throws IOException {
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
         System.out.println(file.getOriginalFilename());
         if(!file.isEmpty()) {
-            String storedFileName = s3Uploader.upload(file,"images");
+            String storedFileName = awsS3Uploader.uploadImage(file);
+//            String storedFileName = s3Uploader.upload(file,"images");
             member.setAvatarUri(storedFileName);
         }
 

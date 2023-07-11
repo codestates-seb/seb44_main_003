@@ -61,12 +61,18 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws  IOException {
         File convertFile = new File(file.getOriginalFilename());
+        System.out.println("----------------------");
+        System.out.println(convertFile);
+        System.out.println(file.getOriginalFilename());
         if(convertFile.createNewFile()) {
+            System.out.println("11111111111111111");
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
+                System.out.println("222222222222222222222222");
                 fos.write(file.getBytes());
             }
             return Optional.of(convertFile);
         }
+        System.out.println("333333333333333333333");
         return Optional.empty();
     }
 
