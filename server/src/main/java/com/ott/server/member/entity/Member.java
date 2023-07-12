@@ -35,7 +35,7 @@ public class Member extends Auditable {
     @Size(min = 2)
     private String nickname;
 
-    @Column(length = 100, nullable = true)
+    @Column(length = 200, nullable = true)
     private String avatarUri;
 
     @Column(length = 100, nullable = true)
