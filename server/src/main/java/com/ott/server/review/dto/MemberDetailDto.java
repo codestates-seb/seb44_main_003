@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MemberDetailDto {
+    private Long memberId;
     private String nickname;
     private String avatarUri;
 

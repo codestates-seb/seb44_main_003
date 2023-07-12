@@ -1,27 +1,38 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { GetMovieData } from '../../api/api';
 import ItemCard from '../ui/ItemCard';
+import SkeletonItemCard from '../ui/SkeletonItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { useQuery } from '@tanstack/react-query'
 
 // install Virtual module
-SwiperCore.use([Virtual, Navigation]); 
+SwiperCore.use([Virtual, Navigation]);
 
-const SildeMovie = ({genre}: {genre: string}) => {
+const SlideMovie = ({ genre }: { genre: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
     queryKey: ['movieData', genre],
     queryFn: () => GetMovieData(genre),
-  })
+  });
 
-  if (isLoading) return 'Loading...'
+  if (isLoading) {
+    return (
+      <S_Wrapper>
+        <S_SkeletonBox>
+        {Array.from({ length: 6 }, (_, index) => (
+          <SkeletonItemCard  key={index}/>
+        ))}
+        </S_SkeletonBox>
+      </S_Wrapper>
+    );
+  }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message
+  if (error instanceof Error) return 'An error has occurred: ' + error.message;
 
   if (isSuccess) {
     return (
@@ -35,8 +46,8 @@ const SildeMovie = ({genre}: {genre: string}) => {
           navigation={true} // 버튼
           watchOverflow={true}
           virtual
-        > 
-          {data.map((item) => (
+        >
+          {data.content.map((item) => (
             <S_SwiperSlide>
               <ItemCard item={item} />
             </S_SwiperSlide>
@@ -44,10 +55,10 @@ const SildeMovie = ({genre}: {genre: string}) => {
         </S_Swiper>
       </S_Wrapper>
     );
-  };
+  }
 };
 
-export default SildeMovie;
+export default SlideMovie;
 
 const S_Wrapper = styled.div`
   position: relative;
@@ -91,14 +102,16 @@ const S_Swiper = styled(Swiper)`
       opacity: 1;
       transition: opacity 0.3s ease;
     }
-  } 
-`
+  }
+`;
 
 const S_SwiperSlide = styled(SwiperSlide)`
   display: flex;
   cursor: pointer;
 `;
 
-// const S_LoadingMessage = styled.div`
-//   color: var(--color-white-80);
-// `;
+const S_SkeletonBox = styled.div`
+  display: flex;
+  gap: 18px;
+  margin-bottom: 3.75rem;
+`;

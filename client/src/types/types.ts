@@ -5,13 +5,15 @@ export type Member = {
 };
 
 export type NewMember = {
-  email: String;
-  password: String;
-  nickname: String;
-  avatarUri?: String;
-  category?: String;
-  memberOtts?: String[];
-  interests?: String[];
+  memberId: number;
+  email: string;
+  password: string;
+  nickname: string;
+  createdAt: string;
+  avatarUri: string;
+  category?: string;
+  memberOtts?: string[];
+  interests?: string[];
 };
 
 export type LoginInfo = {
@@ -31,8 +33,46 @@ export type AuthData = {
   confirm?: string;
 };
 
-export type ItemData = {
+export type ContentData = {
   id: number;
   title: string;
   mainPoster: string;
+};
+
+export type ItemData = {
+  content: ContentData[];
+  currentPage: number;
+  totalPages: number;
+};
+
+export type SelectedData = {
+  title: string;
+  content: string;
+  category: string;
+  creator: string;
+  cast: string;
+  ageRate: string;
+  checkBookmark: boolean;
+  countRecommend: number;
+  genre: string[];
+  mainPoster: string;
+  mediaOtt: string[];
+  recent: boolean;
+  releaseDate: number;
+  titlePoster: string;
+};
+
+export type Comment = {
+  id: string;
+  content: string;
+  createdAt: string;
+  lastModifiedAt: string;
+  member: { memberId: number; nickname: string; avatarUri: string };
+};
+
+export type CommentData = {
+  currentPage: number;
+  totalPage: number;
+  totalReviews: number;
+  reviews: Comment[];
 };

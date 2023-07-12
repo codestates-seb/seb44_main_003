@@ -12,57 +12,24 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MediaMapper {
-//
-//    @Mapping(source = "mediaId", target = "id")
-//    @Mapping(source = "genres", target = "genre")
-//    @Mapping(source = "mediaOtts", target = "mediaOtt")
-//    MediaDto.Create toCreateDto(Media media);
-//
-//    @Mapping(source = "id", target = "mediaId")
-//    @Mapping(source = "genre", target = "genres")
-//    @Mapping(source = "mediaOtt", target = "mediaOtts")
-//    Media toEntityFromCreateDto(MediaDto.Create createDto);
-//
-//    @Mapping(source = "mediaId", target = "id")
-//    @Mapping(source = "genres", target = "genre")
-//    @Mapping(source = "mediaOtts", target = "mediaOtt")
-//    MediaDto.Update toUpdateDto(Media media);
-//
-//    @Mapping(source = "id", target = "mediaId")
-//    @Mapping(source = "genre", target = "genres")
-//    @Mapping(source = "mediaOtt", target = "mediaOtts")
-//    void updateFromDto(MediaDto.Update updateDto, @MappingTarget Media media);
 
-    @Mapping(source = "mediaId", target = "id")
-    @Mapping(source = "genres", target = "genre")
-    @Mapping(source = "mediaOtts", target = "mediaOtt")
-    MediaDto.Response toResponseDto(Media media);
 
-    @Mapping(source = "mediaId", target = "title")
+
     @Mapping(source = "genres", target = "genre")
     @Mapping(source = "mediaOtts", target = "mediaOtt")
     MediaDto.Response3 toResponse3Dto(Media media);
+
     default String fromGenre(Genre genre) {
         return genre.getGenreName();
     }
 
-    default Genre fromStringToGenre(String genreName) {
-        Genre genre = new Genre();
-        genre.setMedia(null); // You need to set Media object here
-        genre.setGenreName(genreName);
-        return genre;
-    }
+
 
     default String fromMediaOtt(MediaOtt mediaOtt) {
         return mediaOtt.getOttName();
     }
 
-    default MediaOtt fromStringToMediaOtt(String ottName) {
-        MediaOtt mediaOtt = new MediaOtt();
-        mediaOtt.setMedia(null); // You need to set Media object here
-        mediaOtt.setOttName(ottName);
-        return mediaOtt;
-    }
+
 
     default List<String> fromGenreList(List<Genre> genres) {
         if (genres == null) {
@@ -73,14 +40,7 @@ public interface MediaMapper {
                 .collect(Collectors.toList());
     }
 
-    default List<Genre> fromStringListToGenreList(List<String> genreNames) {
-        if (genreNames == null) {
-            return null;
-        }
-        return genreNames.stream()
-                .map(this::fromStringToGenre)
-                .collect(Collectors.toList());
-    }
+
 
     default List<String> fromMediaOttList(List<MediaOtt> mediaOtts) {
         if (mediaOtts == null) {
@@ -91,14 +51,7 @@ public interface MediaMapper {
                 .collect(Collectors.toList());
     }
 
-    default List<MediaOtt> fromStringListToMediaOttList(List<String> ottNames) {
-        if (ottNames == null) {
-            return null;
-        }
-        return ottNames.stream()
-                .map(this::fromStringToMediaOtt)
-                .collect(Collectors.toList());
-    }
+
 
 }
 

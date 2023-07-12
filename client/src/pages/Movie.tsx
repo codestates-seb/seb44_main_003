@@ -1,29 +1,34 @@
 import Banner from '../components/banner/Banner';
-import SildeMovie from '../components/silde/SildeMovie';
+import SlideMovie from '../components/slide/SlideMovie';
 import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
+import { scrollToTop } from '../utils/scrollToTop';
 
 const Movie = () => {
   const genres: string[] = [
+    '액션',
+    '드라마',
     'SF',
     '스릴러',
-    '애니메이션',
-    '코미디',
-    '가족',
-    '판타지',
-    '로맨스',
-    '공포',
-    '범죄',
-    '스포츠',
-    '음악',
-    'Made in Europe',
-    'Reality TV',
-    '역사',
-    '다큐멘터리',
-    '전쟁',
-    '서부'
+    // '애니메이션',
+    // '코미디',
+    // '가족',
+    // '판타지',
+    // '로맨스',
+    // '공포',
+    // '범죄',
+    // '스포츠',
+    // '음악',
+    // 'Made in Europe',
+    // 'Reality TV',
+    // '역사',
+    // '다큐멘터리',
+    // '전쟁',
+    // '서부'
   ];
+
+  scrollToTop();
 
   return (
     <S_Wrapper>
@@ -32,7 +37,7 @@ const Movie = () => {
       {genres.map((genre) => (
         <>
           <S_GenreTitle>{genre}</S_GenreTitle>
-          <SildeMovie genre={genre}/>
+          <SlideMovie genre={genre} />
         </>
       ))}
     </S_Wrapper>

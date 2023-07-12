@@ -31,6 +31,7 @@ function SearchBar() {
       <S_Input
         $show={showSearchBar}
         type="text"
+        value={userInput}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
       />

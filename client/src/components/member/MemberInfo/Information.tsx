@@ -26,6 +26,7 @@ function Information() {
       ...data,
       nickname: userInput,
     });
+    setIsEditing(false);
   };
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],

@@ -13,11 +13,11 @@ const OttBtn = () => {
   const genre = new URLSearchParams(location.search).get('genre');
 
   const urlData = {
-    netflix: ott?.includes('netflix') ? 'netflix' : '',
-    disney: ott?.includes('disney') ? 'disney' : '',
-    watcha: ott?.includes('watcha') ? 'watcha' : '',
+    Netflix: ott?.includes('Netflix') ? 'Netflix' : '',
+    'Disney Plus': ott?.includes('Disney Plus') ? 'Disney Plus' : '',
+    Watcha: ott?.includes('Watcha') ? 'Watcha' : '',
     wavve: ott?.includes('wavve') ? 'wavve' : '',
-    tving: ott?.includes('tving') ? 'tving' : '',
+    Tving: ott?.includes('Tving') ? 'Tving' : '',
   };
   const [selectedOtt, setSelectedOtt] = useState(urlData);
   const navigate = useNavigate();
@@ -25,11 +25,11 @@ const OttBtn = () => {
   const handleBtnClick = (e: React.MouseEvent<EventTarget>) => {
     const ott = (e.target as HTMLImageElement).alt;
     if (
-      ott === 'netflix' ||
-      ott === 'disney' ||
-      ott === 'watcha' ||
+      ott === 'Netflix' ||
+      ott === 'Disney Plus' ||
+      ott === 'Watcha' ||
       ott === 'wavve' ||
-      ott === 'tving'
+      ott === 'Tving'
     ) {
       if (selectedOtt[ott] === '') {
         setSelectedOtt((prev) => ({ ...prev, [ott]: ott }));
@@ -40,13 +40,13 @@ const OttBtn = () => {
   };
 
   useEffect(() => {
-    const genreValue = genre ? `genre=${genre}&` : '';
+    const genreValue = genre ? `genre=${genre}` : '';
     const ottValue = Object.values(selectedOtt);
     if (ottValue.every((str) => str === '')) {
       navigate(`${path}?${genreValue}`);
     } else {
       const selectedOtt = ottValue.filter((str) => str !== '').join(',');
-      navigate(`${path}?${genreValue}ott=${selectedOtt}`);
+      navigate(`${path}?${genreValue}&ott=${selectedOtt}`);
     }
   }, [selectedOtt]);
 
@@ -55,18 +55,18 @@ const OttBtn = () => {
       <>
         <S_Ott
           src={netflix}
-          alt="netflix"
-          onClick={() => navigate(`${path}/list?ott=netflix`)}
+          alt="Netflix"
+          onClick={() => navigate(`${path}/list?ott=Netflix`)}
         />
         <S_Ott
           src={disney}
-          alt="disney"
-          onClick={() => navigate(`${path}/list?ott=disney`)}
+          alt="Disney Plus"
+          onClick={() => navigate(`${path}/list?ott=Disney Plus`)}
         />
         <S_Ott
           src={watcha}
-          alt="watcha"
-          onClick={() => navigate(`${path}/list?ott=watcha`)}
+          alt="Watcha"
+          onClick={() => navigate(`${path}/list?ott=Watcha`)}
         />
         <S_Ott
           src={wavve}
@@ -75,8 +75,8 @@ const OttBtn = () => {
         />
         <S_Ott
           src={tving}
-          alt="tving"
-          onClick={() => navigate(`${path}/list?ott=netflix`)}
+          alt="Tving"
+          onClick={() => navigate(`${path}/list?ott=Tving`)}
         />
       </>
     );
@@ -86,24 +86,24 @@ const OttBtn = () => {
     <>
       <S_Ott
         src={netflix}
-        alt="netflix"
-        className={selectedOtt.netflix ? '' : 'dark'}
+        alt="Netflix"
+        className={selectedOtt.Netflix ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
       />
       <S_Ott
         src={disney}
-        alt="disney"
-        className={selectedOtt.disney ? '' : 'dark'}
+        alt="Disney Plus"
+        className={selectedOtt['Disney Plus'] ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
       />
       <S_Ott
         src={watcha}
-        alt="watcha"
-        className={selectedOtt.watcha ? '' : 'dark'}
+        alt="Watcha"
+        className={selectedOtt.Watcha ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
@@ -118,8 +118,8 @@ const OttBtn = () => {
       />
       <S_Ott
         src={tving}
-        alt="tving"
-        className={selectedOtt.tving ? '' : 'dark'}
+        alt="Tving"
+        className={selectedOtt.Tving ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}

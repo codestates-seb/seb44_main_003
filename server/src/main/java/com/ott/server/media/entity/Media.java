@@ -32,22 +32,22 @@ public class Media extends Auditable {
     @Column(nullable = false)
     private String category;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String creator;
 
     @Column(nullable = false)
     private String cast;
 
-    @Column(length = 500, nullable = true)
+    @Column(length = 1000, nullable = false)
     private String mainPoster;
 
-    @Column(length = 500, nullable = true)
+    @Column(length = 1000, nullable = false)
     private String titlePoster;
 
     @Column(nullable = false)
     private int releaseDate;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String ageRate;
 
     @Column(nullable = false, columnDefinition = "boolean default false")

@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ItemData } from '../../types/types';
+import { ContentData } from '../../types/types';
 
 interface ItemProps {
-  item: ItemData;
+  item: ContentData;
 }
 
 const ItemCard: React.FC<ItemProps> = ({ item }) => {
@@ -23,13 +23,12 @@ export default ItemCard;
 
 const S_Wrapper = styled.div`
   transition: transform 0.3s ease;
-    &:hover {
+  &:hover {
     transform: translateY(-15px);
   }
-`
-
-const S_ItemBox = styled.div`
 `;
+
+const S_ItemBox = styled.div``;
 
 const S_ItemImg = styled.img`
   object-fit: cover;

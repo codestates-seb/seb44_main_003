@@ -33,3 +33,36 @@ export const S_Container = styled.main`
   max-width: 1500px;
   flex-grow: 1;
 `;
+
+/* ----- Bookmark, Recommend ----- */
+export const S_IconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-white-100);
+  font-weight: bold;
+  margin: 12px 24px;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  p {
+    margin-top: 6px;
+    opacity: 0.8;
+  }
+  .isTrue {
+    opacity: 1;
+  }
+  svg {
+    transition: transform 0.3s ease-out;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  svg:hover {
+    transform: scale(1.1);
+  }
+  svg:not(:hover) {
+    transform: scale(1);
+  }
+`;

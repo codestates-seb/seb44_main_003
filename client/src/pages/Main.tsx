@@ -1,7 +1,9 @@
 import Carousel from '../components/carousel/Carousel';
+import MainSliderSection from '../components/slide/mainslider/MainSliderSection.tsx';
 import { useSearchParams, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
+import { scrollToTop } from '../utils/scrollToTop.ts';
 
 const Main = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -19,6 +21,8 @@ const Main = () => {
     window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
   }
 
+  scrollToTop();
+
   useEffect(() => {
     if (currentToken === 'EXPIRED') {
       localStorage.removeItem('token');
@@ -30,6 +34,7 @@ const Main = () => {
   return (
     <>
       <Carousel />
+      <MainSliderSection />
     </>
   );
 };
