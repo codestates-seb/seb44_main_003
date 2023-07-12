@@ -118,10 +118,9 @@ public class CrawlingController {
             System.out.println(location-1+") 데이터 수집");
             webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[1]")));
 
-            List<WebElement> otts = driver.findElements(By.className("price-comparison__grid__row__holder"));
+            List<WebElement> otts = driver.findElements(By.className("price-comparison__grid__row__element"));
             List<MediaOtt> mediaOtts = new ArrayList<>();
             List<Integer> ottNumber = new ArrayList<>();
-
 
             //Disney Plus, wavve, Netflix, Watcha
             for(int i = 1; i <= otts.size(); i++) {
@@ -140,12 +139,12 @@ public class CrawlingController {
                         }catch (RuntimeException rre){}
                     }
                 }
-
                 if (ott.equals("wavve") || ott.equals("Watcha") || ott.equals("Netflix") || ott.equals("Disney Plus")) {
                     MediaOtt mediaOtt = new MediaOtt();
                     mediaOtt.setOttName(ott);
                     mediaOtts.add(mediaOtt);
                     ottNumber.add(i);
+                    System.out.println(ott);
                 }
             }
             if(mediaOtts.size() == 0) {
@@ -156,9 +155,11 @@ public class CrawlingController {
 
 
 
-            String mainPoster = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[1]/picture/source[1]")).getAttribute("data-srcset").split(",")[0];
+            String mainPoster = driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[1]/div/aside/div[1]/div[1]/picture/source[1]"))
+                    .getAttribute("data-srcset").split(",")[0];
 
-            int releaseDate = Integer.valueOf(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div/span")).getText().substring(1, 5));
+            int releaseDate = Integer.valueOf(driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[1]/div[1]/div/span"))
+                    .getText().substring(1, 5));
 
             String content = new String();
             try{
@@ -188,21 +189,18 @@ public class CrawlingController {
             String cast = new String();
 
 
-
-
             inner:for(int i = 0; i < mediaOtts.size(); i++){
                 String ott = mediaOtts.get(i).getOttName();
-
                 try{
                     WebElement element =  driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div["+ottNumber.get(i)+"]/div/a"));
                     mediaOtts.get(i).setOttAddress(element.getAttribute("href"));
-                    //if(!title.equals("") && !titlePoster.equals("") && !cast.equals("")) continue inner;
+                    if(!title.equals("") && !titlePoster.equals("") && !cast.equals("")) continue inner;
                     element.click();
                 }catch (RuntimeException e){
                     try{
                     WebElement element =  driver.findElement(By.xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div[2]/div[2]/div[2]/div[1]/div[2]/div[2]/div["+ottNumber.get(i)+"]/div/a"));
                     mediaOtts.get(i).setOttAddress(element.getAttribute("href"));
-                    //if(!title.equals("") && !titlePoster.equals("") && !cast.equals("")) continue inner;
+                    if(!title.equals("") && !titlePoster.equals("") && !cast.equals("")) continue inner;
                     element.click();
                 }catch (RuntimeException re){ continue inner;}}
                 System.out.println(mediaOtts.get(i).getOttAddress());
