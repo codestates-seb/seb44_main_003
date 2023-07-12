@@ -18,13 +18,11 @@ const Content = () => {
     scrollToTop();
   }, [id]);
 
-  const genre: string = '판타지';
-
   return (
     <>
       <ContentDetail contentId={id} />
       <CommentSection />
-      <RecommendContent genre={genre} />
+      <RecommendContent contentId={id}/>
     </>
   );
 };

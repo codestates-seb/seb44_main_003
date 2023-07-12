@@ -1,49 +1,54 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetTVData } from '../../api/api';
+import { GetDataDetail, GetFilterdData } from '../../api/api';
 import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
 import SkeletonItemCard from '../ui/SkeletonItemCard';
 import { ContentData } from '../../types/types';
 
-const RecommendContent = ({ genre }: { genre: string }) => {
-
-  const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['tvData', genre],
-    queryFn: () => GetTVData(genre),
+const RecommendContent = ({ contentId }: { contentId: string }) => {
+  const { isLoading: detailLoading, error: detailError, data: detailData, isSuccess: detailSuccess } = useQuery({
+    queryKey: ['selectedContent', contentId],
+    queryFn: () => GetDataDetail(contentId),
   });
 
-  if (isLoading) {
+  let category = detailData?.category === 'TV' ? 'tv' : 'movie';
+
+  const { isLoading: filteredLoading, error: filteredError, data: filteredData, isSuccess: filteredSuccess } = useQuery({
+    queryKey: ['filteredContent', contentId],
+    queryFn: () => GetFilterdData(
+      `/medias/${category}?size=6&genre=${detailData?.genre.join(',')}`
+    ),
+    enabled: !!detailData // true가 되면 filteredData를 실행한다
+  });
+
+  if (detailLoading || filteredLoading) {
     return (
       <>
-        <S_Text>
-        이런 컨텐츠는 어떠세요?
-        </S_Text>
+        <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
         <S_Wrapper>
           <S_SkeletonBox>
-          {Array.from({ length: 6 }, (_, index) => (
-            <S_Item key={index}>
-              <SkeletonItemCard />
-            </S_Item>
-          ))}
+            {Array.from({ length: 6 }, (_, index) => (
+              <S_Item key={index}>
+                <SkeletonItemCard />
+              </S_Item>
+            ))}
           </S_SkeletonBox>
         </S_Wrapper>
       </>
     );
   }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message;
+  if (detailError instanceof Error) return 'An error has occurred: ' + detailError.message;
 
-  if (isSuccess) {
-    const itemsToShow = data.content.slice(0, 6);
-
+  if (filteredError instanceof Error) return 'An error has occurred: ' + filteredError.message;
+  
+  if (detailSuccess && filteredSuccess) {
     return (
       <>
-        <S_Text>
-        이런 컨텐츠는 어떠세요?
-        </S_Text>
+        <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
         <S_Wrapper>
-          {itemsToShow.map((item: ContentData) => (
-            <S_Item>
+          {filteredData?.content.map((item: ContentData) => (
+            <S_Item key={item.id}>
               <ItemCard item={item} />
             </S_Item>
           ))}
@@ -51,15 +56,15 @@ const RecommendContent = ({ genre }: { genre: string }) => {
       </>
     );
   }
+
+  return null;
 };
 
 export default RecommendContent;
 
 const S_Wrapper = styled.div`
   display: flex;
-  /* flex-wrap: wrap; */
   width: 100vw;
-  /* justify-content: space-between; */
   padding: 0px 30px;
 `;
 
@@ -74,10 +79,10 @@ const S_Text = styled.p`
 const S_Item = styled.div`
   width: 225px;
   margin: 0 7.5px 50px;
+  margin-top: 10px;
 `;
 
 const S_SkeletonBox = styled.div`
   display: flex;
-  /* gap: 18px; */
   margin-bottom: 3.75rem;
 `;
