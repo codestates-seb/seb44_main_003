@@ -28,4 +28,7 @@ public class MediaOtt extends Auditable {
     @Column(name = "ott_name")
     private String ottName;
 
+    @Column(length = 1000)
+    private String ottAddress;
+
 }

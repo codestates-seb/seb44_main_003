@@ -27,7 +27,7 @@ public class MediaDto {
         private String ageRate;
         private Boolean recent;
         private List<String> genre;
-        private List<String> mediaOtt;
+        private List<MediaOtt> mediaOtt;
     }
 
     @Getter
@@ -77,7 +77,7 @@ public class MediaDto {
         private String ageRate;
         private Boolean recent;
         private List<String> genre;
-        private List<String> mediaOtt;
+        private List<MediaOtt> mediaOtt;
         private Integer countRecommend;
         private Boolean checkBookmark;
     }

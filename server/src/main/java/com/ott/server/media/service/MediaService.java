@@ -60,10 +60,11 @@ public class MediaService {
         media.setGenres(genres);
 
         List<MediaOtt> mediaOtts = createDto.getMediaOtt().stream()
-                .map(ottName -> {
+                .map(ottName -> { //"Netflix: www.nadnf.com/cvxcvxczv"
                     MediaOtt mediaOtt = new MediaOtt();
                     mediaOtt.setMedia(media);
-                    mediaOtt.setOttName(ottName);
+                    mediaOtt.setOttName(ottName.getOttName());
+                    mediaOtt.setOttAddress(ottName.getOttAddress());
                     return mediaOtt;
                 })
                 .collect(Collectors.toList());
