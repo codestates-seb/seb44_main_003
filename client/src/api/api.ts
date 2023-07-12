@@ -134,3 +134,12 @@ export const PostRecommend = (mediaId: string | null) =>
 /* 유저 찜, 좋아요 조회 */
 export const GetUserContents = (path: string): Promise<ContentData[]> =>
   instance.get(`/${path}`).then((res) => res.data);
+
+/* 유저 프로필 사진 업로드 */
+export const PostUserProfile = (data: FormData) =>
+  axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
+    headers: {
+      Authorization: accessToken,
+      'Content-Type': 'multipart/form-data',
+    },
+  });

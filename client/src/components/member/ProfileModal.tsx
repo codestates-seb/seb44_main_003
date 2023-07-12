@@ -6,8 +6,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { PatchUser } from '../../api/api';
 import { profileImgs } from '../authentication/SignupForm';
 import { NewMember } from '../../types/types';
+import profileAdd from '../../assets/profiles/profileAdd.svg';
+import ImgUpload from './MemberInfo/ImgUpload';
+import { useState } from 'react';
 
 function ProfileModal() {
+  const [isUploading, setIsUploading] = useState(false);
   const setShowModal = useSetRecoilState(profileModalState);
   const queryClient = useQueryClient();
   const user = useQuery(['user']).data as NewMember;
@@ -31,15 +35,26 @@ function ProfileModal() {
       />
       <h1>프로필 선택</h1>
       <h2>사용할 프로필을 선택해주세요.</h2>
+
       <div>
-        {profileImgs.map((profile, index) => (
-          <img
-            key={index}
-            src={`https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profile}.png`}
-            alt={profile}
-            onClick={handleClick}
-          />
-        ))}
+        {isUploading ? (
+          <ImgUpload />
+        ) : (
+          <div className="imgDiv">
+            {profileImgs.map((profile, index) => (
+              <img
+                key={index}
+                src={`https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profile}.png`}
+                alt={profile}
+                onClick={handleClick}
+              />
+            ))}
+          </div>
+        )}
+        <div className="add">
+          <img src={profileAdd} onClick={() => setIsUploading(true)} />
+          <p>프로필 추가</p>
+        </div>
       </div>
     </S_Modal>
   );
@@ -50,7 +65,6 @@ export default ProfileModal;
 const S_Modal = styled.div`
   display: flex;
   flex-direction: column;
-
   align-items: center;
   position: fixed;
   top: 50%;
@@ -79,18 +93,38 @@ const S_Modal = styled.div`
     color: var(--color-white-80);
   }
   > div {
+    display: flex;
+    align-items: center;
+    & p {
+      font-size: 16px;
+    }
+  }
+  & div.add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 130px;
+    overflow: hidden;
+  }
+  & div.imgDiv {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     width: 420px;
-
-    > img {
-      width: 140px;
-      height: 140px;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
+  }
+  & img {
+    width: 140px;
+    height: 140px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  & img:hover {
+    filter: brightness(110%);
+  }
+  & img:active {
+    filter: brightness(90%);
   }
 `;
