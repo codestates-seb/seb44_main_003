@@ -15,24 +15,57 @@ import {
 } from '../exceptions/contentDetail';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
+  const ottList = [
+    { name: 'Netflix', img: netflix },
+    { name: 'Disney Plus', img: disney },
+    { name: 'Watcha', img: watcha },
+    { name: 'wavve', img: wavve },
+    { name: 'Tving', img: tving },
+  ];
+
   const { isLoading, data, error, isSuccess } = useQuery(
     ['selectedContent', contentId],
     () => GetDataDetail(contentId),
     {
-      staleTime: 5 * 60 * 1000,
+      staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
     }
   );
+
+  const findOtt = (ottName: string) => {
+    return data?.mediaOtt.some((ott) => ott.ottName === ottName);
+  };
+
+  const renderOtt = (ott: { name: string; img: string }) => {
+    const hasOtt = findOtt(ott.name);
+    const ottAddress = data?.mediaOtt.find(
+      (item) => item.ottName === ott.name
+    )?.ottAddress;
+
+    if (hasOtt && ottAddress) {
+      return (
+        <a
+          href={ottAddress}
+          target="_blank"
+          rel="noopener noreferrer"
+          key={ott.name}
+        >
+          <img src={ott.img} alt={ott.name} className="" />
+        </a>
+      );
+    } else {
+      return (
+        <img src={ott.img} alt={ott.name} className="dark" key={ott.name} />
+      );
+    }
+  };
 
   if (isLoading) return <ContentDetailLoading />;
 
   if (error instanceof Error) return <RecommendError />;
 
   if (isSuccess) {
-    const findOtt = (ottName: string) => {
-      return data.mediaOtt.includes(ottName);
-    };
     return (
       <S_Wrapper backgroundimage={data.mainPoster}>
         <div className="main-flex">
@@ -62,31 +95,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 <Tag genre={data.genre} />
                 <h1>OTT</h1>
                 <div className="ott">
-                  <img
-                    src={netflix}
-                    alt="Netflix"
-                    className={findOtt('Netflix') ? '' : 'dark'}
-                  />
-                  <img
-                    src={disney}
-                    alt="Disney Plus"
-                    className={findOtt('Disney Plus') ? '' : 'dark'}
-                  />
-                  <img
-                    src={watcha}
-                    alt="Watcha"
-                    className={findOtt('Watcha') ? '' : 'dark'}
-                  />
-                  <img
-                    src={wavve}
-                    alt="wavve"
-                    className={findOtt('wavve') ? '' : 'dark'}
-                  />
-                  <img
-                    src={tving}
-                    alt="Tving"
-                    className={findOtt('Tving') ? '' : 'dark'}
-                  />
+                  {ottList.map((ott) => renderOtt(ott))}
                 </div>
                 <p className="bold-white">출시일: {data.releaseDate}</p>
                 <p className="bold-white">
