@@ -1,5 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { tokenLoader, checkAuthLoader } from './utils/auth';
 import GlobalStyle from './styles/global-styles';
@@ -82,6 +86,9 @@ const queryClient = new QueryClient({
       refetchOnMount: false,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) => console.log(error),
+  }),
 });
 
 function App() {
