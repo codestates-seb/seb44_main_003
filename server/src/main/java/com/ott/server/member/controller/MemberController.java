@@ -92,35 +92,31 @@ public class MemberController {
                 memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
         List<MemberOtt> memberOtts = memberOttRepository.findByMember(member);
-        if(requestBody.getMemberOtts().length != 0){
-            for(int i = 0; i < memberOtts.size(); i++){
-                memberOttRepository.delete(memberOtts.get(i));
-            }
+        for(int i = 0; i < memberOtts.size(); i++){
+            memberOttRepository.delete(memberOtts.get(i));
+        }
 
-            String[] otts = requestBody.getMemberOtts();
-            for(int i = 0; i < otts.length; i++){
-                MemberOtt memberOtt = new MemberOtt();
-                memberOtt.setMember(member);
-                memberOtt.setMemberOttName(otts[i]);
+        String[] otts = requestBody.getMemberOtts();
+        for(int i = 0; i < otts.length; i++){
+            MemberOtt memberOtt = new MemberOtt();
+            memberOtt.setMember(member);
+            memberOtt.setMemberOttName(otts[i]);
 
-                memberOttRepository.save(memberOtt);
-            }
+            memberOttRepository.save(memberOtt);
         }
 
         List<Interest> memberInterests = interestRepository.findByMember(member);
-        if(requestBody.getInterests().length != 0){
-            for(int i = 0; i < memberInterests.size(); i++){
-                interestRepository.delete(memberInterests.get(i));
-            }
+        for(int i = 0; i < memberInterests.size(); i++){
+            interestRepository.delete(memberInterests.get(i));
+        }
 
-            String[] interests = requestBody.getInterests();
-            for(int i = 0; i < interests.length; i++){
-                Interest interest = new Interest();
-                interest.setMember(member);
-                interest.setInterestName(interests[i]);
+        String[] interests = requestBody.getInterests();
+        for(int i = 0; i < interests.length; i++){
+            Interest interest = new Interest();
+            interest.setMember(member);
+            interest.setInterestName(interests[i]);
 
-                interestRepository.save(interest);
-            }
+            interestRepository.save(interest);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -156,12 +152,11 @@ public class MemberController {
             String storedFileName = awsS3Uploader.uploadImage(file);
 //            String storedFileName = s3Uploader.upload(file,"images");
             member.setAvatarUri(storedFileName);
+            System.out.println(storedFileName);
         }
 
         memberService.updateMember(member);
 
-        return new ResponseEntity<>(
-                memberMapper.memberToMemberResponse(member)
-                , HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

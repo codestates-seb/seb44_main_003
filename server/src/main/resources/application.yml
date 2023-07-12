@@ -10,7 +10,7 @@ spring:
       hibernates:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       format_sql: true
     show-sql: true
   security:
@@ -84,7 +84,7 @@ jwt:
 cloud:
   aws:
     s3:
-      bucket: arn:aws:s3:::ott-main-project
+      bucket: ott-main-project
     credentials:
       accessKey: ${AWS_ACCESS_KEY}
       secretKey: ${AWS_ACCESS_SECRET_KEY}
