@@ -1,28 +1,43 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
+import ContentsList from './ContentsList';
+import { useNavigate } from 'react-router-dom';
 
-const contentsLists = ['찜한 컨텐츠', '추천한 컨텐츠', '작성한 후기'];
+const contentsLists = [
+  { id: 1, text: '찜한 컨텐츠', searchParam: 'bookmark' },
+  { id: 2, text: '추천한 컨텐츠', searchParam: 'recommend' },
+  { id: 3, text: '작성한 후기', searchParam: 'review' },
+];
 
 function MemberContents() {
-  const [selectedList, setSelectedList] = useState(contentsLists[0]);
+  const navigate = useNavigate();
+  const [selectedList, setSelectedList] = useState('찜한 컨텐츠');
+  const findSearchParam = (id: string) => {
+    const selectedItem = contentsLists.find((el) => el.text === id);
+    return selectedItem?.searchParam;
+  };
   const handleSelected = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     setSelectedList(target.id);
+    navigate(`/member?content=${findSearchParam(target.id)}`);
   };
   return (
     <S_Wrapper>
       <ul>
         {contentsLists.map((list) => (
           <S_list
-            id={list}
+            id={list.text}
+            key={list.id}
             onClick={handleSelected}
-            $isSelected={selectedList === list}
+            $isSelected={selectedList === list.text}
           >
-            {list}
+            {list.text}
           </S_list>
         ))}
       </ul>
-      <div></div>
+      <div>
+        <ContentsList />
+      </div>
     </S_Wrapper>
   );
 }

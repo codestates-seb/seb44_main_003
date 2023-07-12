@@ -128,3 +128,7 @@ export const GetIsRecommend = (mediaId: string | null) =>
 /* 추천 생성/삭제 */
 export const PostRecommend = (mediaId: string | null) =>
   instance.post(`/recommend`, { mediaId });
+
+/* 유저 찜, 좋아요, 댓글 조회 */
+export const GetUserContents = (endpoint: string) =>
+  instance.get(`/${endpoint}`).then((res) => res.data);
