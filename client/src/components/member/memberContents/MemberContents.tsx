@@ -1,42 +1,38 @@
-import { useState } from 'react';
 import { styled } from 'styled-components';
 import ContentsList from './ContentsList';
 import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const contentsLists = [
-  { id: 1, text: '찜한 컨텐츠', searchParam: 'bookmark' },
+  { id: 1, text: '찜한 컨텐츠', searchParam: 'bookmarks' },
   { id: 2, text: '추천한 컨텐츠', searchParam: 'recommend' },
-  { id: 3, text: '작성한 후기', searchParam: 'review' },
+  { id: 3, text: '작성한 후기', searchParam: 'reviews' },
 ];
 
 function MemberContents() {
+  const [searchParam] = useSearchParams();
+  const path = searchParam.get('content') || 'bookmarks';
   const navigate = useNavigate();
-  const [selectedList, setSelectedList] = useState('찜한 컨텐츠');
-  const findSearchParam = (id: string) => {
-    const selectedItem = contentsLists.find((el) => el.text === id);
-    return selectedItem?.searchParam;
-  };
   const handleSelected = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
-    setSelectedList(target.id);
-    navigate(`/member?content=${findSearchParam(target.id)}`);
+    navigate(`/member?content=${target.id}`);
   };
   return (
     <S_Wrapper>
       <ul>
         {contentsLists.map((list) => (
           <S_list
-            id={list.text}
+            id={list.searchParam}
             key={list.id}
             onClick={handleSelected}
-            $isSelected={selectedList === list.text}
+            $isSelected={path === list.searchParam}
           >
             {list.text}
           </S_list>
         ))}
       </ul>
       <div>
-        <ContentsList />
+        {path === 'reviews' ? <div>댓글</div> : <ContentsList path={path} />}
       </div>
     </S_Wrapper>
   );

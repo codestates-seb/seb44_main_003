@@ -5,6 +5,8 @@ import {
   ItemData,
   CommentData,
   SelectedData,
+  ContentData,
+  Comment,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
@@ -129,6 +131,6 @@ export const GetIsRecommend = (mediaId: string | null) =>
 export const PostRecommend = (mediaId: string | null) =>
   instance.post(`/recommend`, { mediaId });
 
-/* 유저 찜, 좋아요, 댓글 조회 */
-export const GetUserContents = (endpoint: string) =>
-  instance.get(`/${endpoint}`).then((res) => res.data);
+/* 유저 찜, 좋아요 조회 */
+export const GetUserContents = (path: string): Promise<ContentData[]> =>
+  instance.get(`/${path}`).then((res) => res.data);
