@@ -7,6 +7,7 @@ import com.ott.server.memberott.entity.MemberOtt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.query.Param;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -32,9 +33,9 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts;
+        private String[] memberOtts = new String[0];
 
-        private String[] interests;
+        private String[] interests = new String[0];
     }
 
     @Getter
@@ -47,9 +48,9 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts;
+        private String[] memberOtts = new String[0];
 
-        private String[] interests;
+        private String[] interests = new String[0];
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;

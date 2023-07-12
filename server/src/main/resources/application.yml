@@ -56,6 +56,10 @@ spring:
             tokenUri: https://kauth.kakao.com/oauth/token
             userInfoUri: https://kapi.kakao.com/v2/user/me
             userNameAttribute: id
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 
 
 
@@ -76,3 +80,15 @@ jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
+cloud:
+  aws:
+    s3:
+      bucket: ott-main-project
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_ACCESS_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
