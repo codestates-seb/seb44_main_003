@@ -44,7 +44,7 @@ public class MediaDto {
         private Optional<String> ageRate = Optional.empty();
         private Optional<Boolean> recent = Optional.empty();
         private Optional<List<String>> genre = Optional.empty();
-        private Optional<List<String>> mediaOtt = Optional.empty();
+        private Optional<List<MediaOtt>> mediaOtt = Optional.empty();
 
 
 

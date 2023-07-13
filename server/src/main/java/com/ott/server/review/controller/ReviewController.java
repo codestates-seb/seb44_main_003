@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
@@ -48,12 +50,12 @@ public class ReviewController {
                 .orElseGet(() -> new ResponseEntity("후기를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
-//                                                         @RequestParam(required = false, defaultValue = "10") int size,
-//                                                         Authentication authentication) {
-//        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
-//    }
+    @GetMapping("/all")
+    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
+                                                         @RequestParam(required = false, defaultValue = "10") int size,
+                                                         Authentication authentication) {
+        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDto newReviewData,

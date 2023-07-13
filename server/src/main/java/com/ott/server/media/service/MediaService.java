@@ -99,8 +99,9 @@ public class MediaService {
 
 
 
+    @Transactional
     public void updateMedia(Long mediaId, MediaDto.Update updateDto) {
-        mediaRepository.findByMediaId(mediaId)
+        Media updatedMedia = mediaRepository.findByMediaId(mediaId)
                 .map(media -> {
                     updateDto.getId().ifPresent(media::setId);
                     updateDto.getTitle().ifPresent(media::setTitle);
@@ -115,12 +116,14 @@ public class MediaService {
                     updateDto.getRecent().ifPresent(media::setRecent);
 
                     updateDto.getGenre().ifPresent(newGenre -> {
-                        List<Genre> genres = newGenre.stream()
+                        List<Genre> genres =
+                                newGenre.stream()
                                 .map(genreName -> {
                                     Genre genre = new Genre();
                                     genre.setMedia(media);
                                     genre.setGenreName(genreName);
-                                    return genre;
+                                    genreRepository.deleteByMedia(media);
+                                    return genreRepository.save(genre);
                                 })
                                 .collect(Collectors.toList());
                         media.setGenres(genres);
@@ -128,17 +131,24 @@ public class MediaService {
 
                     updateDto.getMediaOtt().ifPresent(newMediaOtt -> {
                         List<MediaOtt> mediaOtts = newMediaOtt.stream()
-                                .map(ottName -> {
+                                .map(ott -> {
                                     MediaOtt mediaOtt = new MediaOtt();
                                     mediaOtt.setMedia(media);
-                                    mediaOtt.setOttName(ottName);
-                                    return mediaOtt;
+                                    mediaOtt.setOttName(ott.getOttName());
+                                    mediaOtt.setOttAddress(ott.getOttAddress());
+                                    mediaOttRepository.deleteByMedia(media);
+                                    return mediaOttRepository.save(mediaOtt);
                                 })
                                 .collect(Collectors.toList());
                         media.setMediaOtts(mediaOtts);
                     });
 
-                    mediaRepository.save(media);
+
+//                            mediaRepository.save(media);
+////
+//                    updatedMedia.getGenres().forEach(genreRepository::save);
+//                    updatedMedia.getMediaOtts().forEach(mediaOttRepository::save);
+//
                     return mediaRepository.save(media);
 
                 })
