@@ -66,5 +66,6 @@ public class MemberDto {
         private LocalDateTime createdAt;
         private List<MemberOttDto.Response> memberOtts;
         private List<InterestDto.Response> interests;
+        private List<String> roles;
     }
 }
