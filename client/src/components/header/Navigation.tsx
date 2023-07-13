@@ -35,10 +35,9 @@ const StyledNav = styled.nav`
   width: 250px;
   @media only screen and (max-width: 940px) {
     position: absolute;
-    top: 90px;
+    top: 70px;
     left: 40px;
   }
-
   > h1 {
     font-weight: 700;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
