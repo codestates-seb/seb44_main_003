@@ -15,6 +15,7 @@ function ImgUpload() {
   const mutation = useMutation(PostUserProfile, {
     onSuccess: () => {
       queryClient.invalidateQueries(['user']);
+      setShowModal(false);
     },
   });
   const checkFileVaildity = (file: File) => {
@@ -58,7 +59,7 @@ function ImgUpload() {
       data.append('file', imgState);
       mutation.mutate(data);
     }
-    setError('파일이 업로드되지 않았습니다.');
+    if (!imgState) setError('파일이 업로드되지 않았습니다.');
   };
 
   return (

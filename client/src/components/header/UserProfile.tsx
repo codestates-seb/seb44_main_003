@@ -79,5 +79,7 @@ const S_ProfileWrapper = styled.div`
   }
   > img {
     border-radius: 5px;
+    width: 30px;
+    height: 30px;
   }
 `;
