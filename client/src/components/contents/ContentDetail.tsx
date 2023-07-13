@@ -7,12 +7,13 @@ import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 import Bookmark from './Bookmark';
 import Tag from '../ui/Tag';
-import { GetDataDetail } from './../../api/api';
+import { GetDataDetail, GetUser } from './../../api/api';
 import Recommend from './Recommend';
 import {
   ContentDetailLoading,
   RecommendError,
 } from '../exceptions/contentDetail';
+import DeleteMedia from '../admin/DeleteMedia';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
   const ottList = [
@@ -61,6 +62,8 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
     }
   };
 
+  const admin = useQuery(['user'], GetUser, { enabled: false });
+
   if (isLoading) return <ContentDetailLoading />;
 
   if (error instanceof Error) return <RecommendError />;
@@ -68,6 +71,9 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
   if (isSuccess) {
     return (
       <S_Wrapper backgroundimage={data.mainPoster}>
+        {admin?.data?.roles[0] === 'ADMIN' && (
+          <DeleteMedia contentId={contentId} />
+        )}
         <div className="main-flex">
           <div className="title-flex">
             <S_Title>

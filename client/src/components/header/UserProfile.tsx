@@ -5,10 +5,12 @@ import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Dropdown from './Dropdown';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
+  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
     setShowDropdown(false);
@@ -20,6 +22,7 @@ function UserProfile() {
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: isLoggedIn,
   });
 
   if (isLoading)

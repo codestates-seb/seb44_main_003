@@ -14,6 +14,7 @@ export type NewMember = {
   category?: string;
   memberOtts?: string[];
   interests?: string[];
+  roles: string[];
 };
 
 export type LoginInfo = {
@@ -87,4 +88,22 @@ export type Question = {
   isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
+};
+
+export type AddData = {
+  title: string;
+  content: string;
+  category: string;
+  creator: string;
+  cast: string;
+  mainPoster: string;
+  titlePoster: string;
+  releaseDate: number;
+  ageRate: string;
+  recent: boolean;
+  genre: string[];
+  mediaOtt: {
+    ottName: string;
+    ottAddress: string;
+  }[];
 };
