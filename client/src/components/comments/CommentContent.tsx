@@ -6,6 +6,7 @@ import { Comment } from '../../types/types';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { BiPaperPlane } from 'react-icons/bi';
+import { ADMIN_MEMBERID } from '../../constant/constantValue';
 import React, { useState } from 'react';
 
 function CommentContent({ comment }: { comment: Comment }) {
@@ -34,14 +35,16 @@ function CommentContent({ comment }: { comment: Comment }) {
     setContent('');
     setIsEditing(false);
   };
-
+  const isAdmin = comment.member.memberId === ADMIN_MEMBERID;
   return (
     <S_Comment key={comment.id}>
       <div>
         <img src={comment.member.avatarUri} alt="member profile" />
       </div>
       <div>
-        <h1>{comment.member.nickname}</h1>
+        <h1 className={isAdmin ? 'admin' : undefined}>
+          {comment.member.nickname}
+        </h1>
         {isEditing ? (
           <S_Form onSubmit={handleSubmit} id={comment.id}>
             <textarea onChange={handleChange} value={content} />
@@ -79,6 +82,24 @@ const S_Comment = styled.li`
   display: flex;
   border-bottom: 1px solid white;
   padding: 10px 30px;
+  & h1.admin {
+    display: inline;
+    background: linear-gradient(to right, #667eea, #764ba2, #6b8dd6, #8e37d7);
+    background-size: 300% 300%;
+    color: white;
+    animation: gradient 0.5s infinite normal;
+    animation-timing-function: linear;
+    padding: 3px;
+    border-radius: 5px;
+  }
+  @keyframes gradient {
+    from {
+      background-position-x: 0%;
+    }
+    to {
+      background-position-x: 100%;
+    }
+  }
   > div:nth-child(2) {
     flex-grow: 1;
     > p {
