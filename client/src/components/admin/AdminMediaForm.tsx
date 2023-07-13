@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -19,13 +18,12 @@ const AdminMediaForm = ({
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-  const navigate = useNavigate();
 
   const AddMediaMutation = useMutation({
     mutationFn: (convertedData: AddData) => AdminPostData(convertedData),
     onSuccess: () => {
       alert('등록 완료');
-      navigate('/');
+      window.location.reload();
     },
   });
 
