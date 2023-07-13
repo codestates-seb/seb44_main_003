@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import FirstQuestion from '../components/modal/questions/FirstQuestion';
 import SecondQuestion from '../components/modal/questions/SecondQuestion';
 import ThirdQuestion from '../components/modal/questions/ThirdQuestion';
-import { Question } from '../types/types'
 
 const Recommend = () => {
   const [isModal, setIsModal] = useState(false);
