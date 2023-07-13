@@ -14,6 +14,7 @@ import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
 import Recommend from './pages/Recommend';
+import Admin from './pages/Admin';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
       {
         path: 'recommend',
         element: <Recommend />,
+      },
+      {
+        path: 'admin',
+        element: <Admin />,
       },
     ],
   },

@@ -5,6 +5,7 @@ import {
   ItemData,
   CommentData,
   SelectedData,
+  AddData,
   ContentData,
   Comment,
 } from '../types/types';
@@ -147,3 +148,7 @@ export const PostUserProfile = (data: FormData) =>
       'Content-Type': 'multipart/form-data',
     },
   });
+
+/* 관리자 미디어 생성 */
+export const AdminPostData = (mediaData: AddData) =>
+  instance.post(`/medias`, mediaData);
