@@ -40,27 +40,23 @@ function UserProfile() {
   if (error instanceof Error)
     return (
       <S_ProfileWrapper>
-        <button
-          onClick={() => {
-            setShowDropdown(!showDropdown);
-          }}
-        />
-        <a href="/member">
-          <BiError />
-        </a>
+        <BiError />
       </S_ProfileWrapper>
     );
 
   if (isSuccess)
     return (
-      <S_ProfileWrapper>
-        <img
-          src={data.avatarUri}
-          alt="user"
-          onClick={() => setShowDropdown(!showDropdown)}
-        />
+      <S_ProfileWrapper
+        onMouseOver={() => setShowDropdown(true)}
+        onMouseOut={() => setShowDropdown(false)}
+      >
+        <img src={data.avatarUri} alt="user" />
         {showDropdown && (
-          <Dropdown avatarUri={data.avatarUri} nickname={data.nickname} />
+          <Dropdown
+            avatarUri={data.avatarUri}
+            nickname={data.nickname}
+            setShowDropdown={setShowDropdown}
+          />
         )}
       </S_ProfileWrapper>
     );
@@ -72,11 +68,11 @@ const S_ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  margin-left: 40px;
-
-  > a {
+  min-width: 50px;
+  margin-left: 30px;
+  padding: 10px;
+  height: 100%;
+  > svg {
     color: var(--color-white-60);
     font-size: 25px;
   }

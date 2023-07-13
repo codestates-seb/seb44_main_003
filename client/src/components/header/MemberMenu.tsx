@@ -13,4 +13,5 @@ export default MemberMenu;
 const S_Nav = styled.nav`
   display: flex;
   align-items: center;
+  height: 100%;
 `;
