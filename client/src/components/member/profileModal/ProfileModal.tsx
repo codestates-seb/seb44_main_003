@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 import { BiX } from 'react-icons/bi';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
-import DefaultImgs from './defaultImgs';
+import DefaultImgs from './DefaultImgs';
 
 import ImgUpload from './ImgUpload';
 import { useState } from 'react';
