@@ -1,29 +1,49 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList } from '../QuestionData'
 import { category } from '../QuestionData'
+import { Question } from '../../../types/types'
 
-const SecondQuestion = () => {
+const SecondQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
+  const [selectedIconIndex, setSelectedIconIndex] = useState<number | null>(null);
+
+  const handleIconClick = (index: number) => {
+    if (selectedIconIndex === index) {
+      setSelectedIconIndex(null);
+    } else {
+      setSelectedIconIndex(index);
+    }
+  };
+
   return (
-    <S_Wrapper>
+    <S_Wrapper style={{display: isOpen ? 'flex' : 'none'}}>
       <S_ModalBox>
-        <CloseBtn/>
+        <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[1]}/>
         <S_SelectionBox>
           <S_TextBox>
             <S_Text></S_Text>
           </S_TextBox>
           <S_CategoryList>
-            {category.map((cate) => (
-              <S_CategoryBox>
-                <S_CategoryIcon src={cate.icon} alt={cate.name}/>
+            {category.map((cate, index) => (
+              <S_CategoryBox key={cate.name} onClick={() => handleIconClick(index)}>
+                <S_CategoryIcon
+                  src={cate.icon}
+                  alt={cate.name}
+                  className={selectedIconIndex === index ? 'select' : ''}
+                />
                 <div>{cate.name}</div>
               </S_CategoryBox>
             ))}
           </S_CategoryList>
-          <RecommendBtn bgColor={'#F67CB3'} bgShadow={'#C53C79'}/>
+          <RecommendBtn 
+            bgColor={'#F67CB3'} 
+            bgShadow={'#C53C79'} 
+            onClick={onNextClick}
+          />
         </S_SelectionBox>
         <S_ModalBackground/>
       </S_ModalBox>
@@ -113,7 +133,12 @@ const S_CategoryIcon = styled.img`
   height: 130px;
   background: var(--color-white-100);
   object-fit: cover;
-  /* border: 2px solid var(--color-bg-100);
-  border-radius: 10px; */
-  /* filter: var(--shadow-modal-m-b); */
+  filter: saturate(0);
+  opacity: 0.8;
+  transition: filter 0.2s, opacity 0.2s; 
+
+  &.select {
+    filter: none;
+    opacity: 1;
+  }
 `

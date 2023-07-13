@@ -12,8 +12,8 @@ import disney from '../../assets/recommendimage/disney.svg';
 import watcha from '../../assets/recommendimage/watcha.svg';
 import wavve from '../../assets/recommendimage/wavve.svg';
 
-import tv from '../../assets/recommendimage/tv.png';
-import movie from '../../assets/recommendimage/movie.png';
+import tv from '../../assets/recommendimage/tv.svg';
+import movie from '../../assets/recommendimage/movie.svg';
 
 export const questionList = [
   {

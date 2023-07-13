@@ -82,3 +82,9 @@ export type CommentData = {
   totalReviews: number;
   reviews: Comment[];
 };
+
+export type Question = {
+  isOpen: boolean;
+  closeModal: () => void;
+  onNextClick: () => void;
+};
