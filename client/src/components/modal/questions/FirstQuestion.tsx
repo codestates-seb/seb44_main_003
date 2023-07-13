@@ -1,29 +1,47 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList } from '../QuestionData'
 import { ottServices } from '../QuestionData'
+import { Question } from '../../../types/types'
 
-const FirstQuestion = () => {
+const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
+  const [selectedIcons, setSelectedIcons] = useState<boolean[]>(Array(ottServices.length).fill(false));
+
+  const handleIconClick = (index: number) => {
+    setSelectedIcons((prevSelectedIcons) => {
+      return prevSelectedIcons.map((selected, i) => (i === index ? !selected : selected));
+    });
+  };
+
   return (
-    <S_Wrapper>
-      <S_ModalBox>
-        <CloseBtn/>
+    <S_Wrapper style={{display: isOpen ? 'flex' : 'none'}}>
+      <S_ModalBox> 
+        <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[0]}/>
         <S_SelectionBox>
           <S_TextBox>
             <S_Text>* 중복 선택 가능</S_Text>
           </S_TextBox>
           <S_OttList>
-            {ottServices.map((ott) => (
-              <S_OttBox>
-                <S_OttIcon src={ott.icon} alt={ott.name}/>
+            {ottServices.map((ott, index) => (
+              <S_OttBox key={ott.name} onClick={() => handleIconClick(index)}>
+                <S_OttIcon 
+                  src={ott.icon}
+                  alt={ott.name}
+                  className={selectedIcons[index] ? 'select' : ''}
+                />
                 <div>{ott.name}</div>
               </S_OttBox>
             ))}
           </S_OttList>
-          <RecommendBtn bgColor={'#A59BDC'} bgShadow={'#6659B2'}/>
+          <RecommendBtn 
+            bgColor={'#A59BDC'}
+            bgShadow={'#6659B2'}
+            onClick={onNextClick}
+          />
         </S_SelectionBox>
         <S_ModalBackground/>
       </S_ModalBox>
@@ -35,6 +53,7 @@ export default FirstQuestion
 
 const S_Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -114,5 +133,12 @@ const S_OttIcon = styled.img`
   object-fit: cover;
   border: 2px solid var(--color-bg-100);
   border-radius: 10px;
-  filter: var(--shadow-modal-m-b);
+  filter: saturate(0);
+  opacity: 0.8;
+  transition: filter 0.2s, opacity 0.2s; 
+
+  &.select {
+    filter: none;
+    opacity: 1;
+  }
 `

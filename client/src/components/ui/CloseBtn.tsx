@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { IoClose } from 'react-icons/io5';
 
-const CloseBtn = () => {
+interface CloseBtnProps {
+  onClick: () => void;
+}
+
+const CloseBtn: React.FC<CloseBtnProps> = ({ onClick }) => {
   return (
     <>
-      <S_Close/>
+      <S_Close onClick={onClick}/>
     </>
   )
 }

@@ -5,6 +5,9 @@ import {
   ItemData,
   CommentData,
   SelectedData,
+  AddData,
+  ContentData,
+  Comment,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
@@ -65,7 +68,7 @@ export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
     .then((res) => res.data);
 
 /* 검색결과 가져오기 */
-export const GetSearchedData = (keyword: string | null) =>
+export const GetSearchedData = (keyword: string) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?q=${keyword}`)
     .then((res) => res.data);
@@ -108,23 +111,48 @@ export const PatchComment = ({
 }) => instance.patch(`/reviews/${id}`, { content: content });
 
 /* 리스트 필터 가져오기 */
-export const GetFilterdData = (queryString: string | null): Promise<ItemData> =>
+export const GetFilterdData = (queryString: string): Promise<ItemData> =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}${queryString}`)
     .then((res) => res.data);
 
 /* 북마크 조회 */
-export const GetIsBookmark = (mediaId: string | null) =>
+export const GetIsBookmark = (mediaId: string) =>
   instance.get(`/bookmarks/${mediaId}`).then((res) => res.data);
 
 /* 북마크 생성/삭제 */
-export const PostBookmark = (mediaId: string | null) =>
+export const PostBookmark = (mediaId: string) =>
   instance.post(`/bookmarks`, { mediaId });
 
 /* 추천 조회 */
-export const GetIsRecommend = (mediaId: string | null) =>
+export const GetIsRecommend = (mediaId: string) =>
   instance.get(`/recommend/${mediaId}`).then((res) => res.data);
 
 /* 추천 생성/삭제 */
-export const PostRecommend = (mediaId: string | null) =>
+export const PostRecommend = (mediaId: string) =>
   instance.post(`/recommend`, { mediaId });
+
+/* 유저 찜, 좋아요 조회 */
+export const GetUserContents = (path: string): Promise<ContentData[]> =>
+  instance.get(`/${path}`).then((res) => res.data);
+
+/* 유저 후기 목록 조회 */
+export const GetUserReviews = (): Promise<Comment[]> =>
+  instance.get('/reviews/all').then((res) => res.data);
+
+/* 유저 프로필 사진 업로드 */
+export const PostUserProfile = (data: FormData) =>
+  axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
+    headers: {
+      Authorization: accessToken,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+/* 관리자 미디어 생성 */
+export const AdminPostData = (mediaData: AddData) =>
+  instance.post(`/medias`, mediaData);
+
+/* 관리자 미디어 제거 */
+export const AdminDeleteData = (mediaId: string) =>
+  instance.delete(`/medias/${mediaId}`);

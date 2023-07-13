@@ -149,6 +149,7 @@ function SignupForm() {
         interests: [],
         memberId: 0,
         createdAt: '',
+        roles: [],
       });
     }
   };

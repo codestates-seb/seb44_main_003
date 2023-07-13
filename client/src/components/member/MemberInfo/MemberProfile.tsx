@@ -53,5 +53,7 @@ const S_ProfileWrapper = styled.div`
   }
   > img {
     border-radius: 10px;
+    width: 160px;
+    height: 160px;
   }
 `;
