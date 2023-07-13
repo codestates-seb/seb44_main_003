@@ -18,9 +18,15 @@ function ImgUpload() {
     },
   });
   const checkFileVaildity = (file: File) => {
-    const maxSize = 1024 * 1024 * 20; //최대 용량 확인 필요(현재 20mb)
+    const maxSize = 1024 * 1024 * 20;
+    const fileType = 'image';
+    const submittedType = file.type.substring(0, 5);
     if (file.size > maxSize) {
-      setError('최대 용량을 초과했습니다.');
+      setError('최대 용량을 초과했습니다(20MB).');
+      return false;
+    }
+    if (submittedType !== fileType) {
+      setError('이미지 파일만 업로드할 수 있습니다');
       return false;
     }
     return true;
@@ -50,7 +56,6 @@ function ImgUpload() {
     if (imgState) {
       const data = new FormData();
       data.append('file', imgState);
-      console.log('제출');
       mutation.mutate(data);
     }
     setError('파일이 업로드되지 않았습니다.');
@@ -123,6 +128,7 @@ const S_Wrapper = styled.form`
   }
   & div.error {
     color: var(--color-primary-yellow);
+    height: 40px;
   }
   & div.previewBox {
     display: flex;
