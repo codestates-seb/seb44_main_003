@@ -56,7 +56,13 @@ export type SelectedData = {
   countRecommend: number;
   genre: string[];
   mainPoster: string;
-  mediaOtt: string[];
+  mediaOtt: Array<{
+    createdAt: string;
+    lastModifiedAt: string;
+    mediaOttId: number;
+    ottAddress: string;
+    ottName: string;
+  }>;
   recent: boolean;
   releaseDate: number;
   titlePoster: string;
