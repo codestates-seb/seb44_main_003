@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import ContentsList from './ContentsList';
+import ReviewList from './ReviewList';
 import { useNavigate } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
@@ -32,7 +33,7 @@ function MemberContents() {
         ))}
       </ul>
       <div>
-        {path === 'reviews' ? <div>댓글</div> : <ContentsList path={path} />}
+        {path === 'reviews' ? <ReviewList /> : <ContentsList path={path} />}
       </div>
     </S_Wrapper>
   );
@@ -52,6 +53,8 @@ const S_Wrapper = styled.div`
   > div {
     border-top: 1px solid var(--color-white-60);
     min-height: 100px;
+    display: flex;
+    justify-content: center;
   }
 `;
 
