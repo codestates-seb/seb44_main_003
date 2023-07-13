@@ -1,10 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { AdminDeleteData } from '../../api/api';
 
-const DeleteMedia = ({ contentId }: { contentId: string }) => {
+const DeleteMediaBtn = ({ contentId }: { contentId: string }) => {
+  const navigate = useNavigate();
   const DeleteMediaMutation = useMutation(() => AdminDeleteData(contentId), {
-    onSuccess: () => alert('삭제 완료'),
+    onSuccess: () => {
+      alert('삭제 완료');
+      navigate('/');
+    },
   });
 
   const handledelete = () => {
@@ -23,15 +28,16 @@ const DeleteMedia = ({ contentId }: { contentId: string }) => {
   );
 };
 
-export default DeleteMedia;
+export default DeleteMediaBtn;
 
 const S_DeleteBtn = styled.button`
   position: absolute;
   top: 10%;
-  right: 10%;
+  right: 50px;
   width: 50px;
   height: 50px;
   background-color: white;
   border: 2px solid #000000;
   border-radius: 10px;
+  z-index: 9999;
 `;

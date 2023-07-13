@@ -156,3 +156,12 @@ export const AdminPostData = (mediaData: AddData) =>
 /* 관리자 미디어 제거 */
 export const AdminDeleteData = (mediaId: string) =>
   instance.delete(`/medias/${mediaId}`);
+
+/* 관리자 미디어 수정 */
+export const AdminPatchData = ({
+  mediaId,
+  mediaData,
+}: {
+  mediaId: string | null;
+  mediaData: AddData;
+}) => instance.patch(`/medias/${mediaId}`, mediaData);
