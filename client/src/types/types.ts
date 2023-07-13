@@ -84,12 +84,12 @@ export type CommentData = {
   reviews: Comment[];
 };
 
-<<<<<<< Updated upstream
 export type Question = {
   isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
-=======
+};
+
 export type AddData = {
   title: string;
   content: string;
@@ -106,5 +106,4 @@ export type AddData = {
     ottName: string;
     ottAddress: string;
   }[];
->>>>>>> Stashed changes
 };
