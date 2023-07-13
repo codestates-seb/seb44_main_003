@@ -5,6 +5,8 @@ import {
   ItemData,
   CommentData,
   SelectedData,
+  ContentData,
+  Comment,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
@@ -128,3 +130,20 @@ export const GetIsRecommend = (mediaId: string | null) =>
 /* 추천 생성/삭제 */
 export const PostRecommend = (mediaId: string | null) =>
   instance.post(`/recommend`, { mediaId });
+
+/* 유저 찜, 좋아요 조회 */
+export const GetUserContents = (path: string): Promise<ContentData[]> =>
+  instance.get(`/${path}`).then((res) => res.data);
+
+/* 유저 후기 목록 조회 */
+export const GetUserReviews = (): Promise<Comment[]> =>
+  instance.get('/reviews/all').then((res) => res.data);
+
+/* 유저 프로필 사진 업로드 */
+export const PostUserProfile = (data: FormData) =>
+  axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
+    headers: {
+      Authorization: accessToken,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
