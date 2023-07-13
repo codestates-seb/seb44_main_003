@@ -21,7 +21,9 @@ public enum ExceptionCode {
     BOOKMARK_NOT_FOUND(404, "찜을 찾을 수 없습니다"),
     RECOMMEND_NOT_FOUND(404, "추천을 찾을 수 없습니다"),
     MEDIA_NOT_FOUND(404, "컨텐츠를 찾을 수 없습니다"),
-    INVALID_AUTHORIZATION(401, "권한이 없습니다");
+    INVALID_AUTHORIZATION(401, "권한이 없습니다"),
+
+    REPORT_NOT_FOUND(404, "제보를 찾을 수 없습니다");
 
     @Getter
     private int status;
