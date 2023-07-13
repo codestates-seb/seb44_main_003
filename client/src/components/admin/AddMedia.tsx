@@ -123,10 +123,20 @@ const AddMedia = () => {
       <input id="recent" type="checkbox" value="true" {...register('recent')} />
 
       <label htmlFor="genre">장르</label>
-      <input id="genre" type="text" {...register('genre')} />
+      <input
+        id="genre"
+        type="text"
+        placeholder="액션,드라마,SF,스릴러,애니메이션,코미디,가족,판타지..."
+        {...register('genre')}
+      />
 
       <label htmlFor="ottName">OTT 이름</label>
-      <input id="ottName" type="text" {...register('ottName')} />
+      <input
+        id="ottName"
+        type="text"
+        placeholder="Netflix,Disney Plus,Watcha,wavve,Tving"
+        {...register('ottName')}
+      />
 
       <label htmlFor="ottAddress">OTT 주소</label>
       <input id="ottAddress" type="text" {...register('ottAddress')} />

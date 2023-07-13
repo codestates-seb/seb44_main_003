@@ -9,7 +9,7 @@ import AddMedia from '../components/admin/AddMedia';
 const Admin = () => {
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
-  const admin = useQuery(['user'], GetUser);
+  const admin = useQuery(['user'], GetUser, { enabled: false });
 
   useEffect(() => {
     if (!isLoggedIn || admin?.data?.roles[0] === 'USER') {
@@ -27,6 +27,7 @@ const Admin = () => {
 export default Admin;
 
 const S_Wrapeer = styled.div`
+  display: flex;
   width: 100%;
   padding: 130px 0px 60px;
 `;

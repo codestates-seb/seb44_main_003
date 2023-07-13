@@ -12,7 +12,7 @@ function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
   const queryClient = useQueryClient();
-  const user = useQuery(['user'], GetUser);
+  const user = useQuery(['user'], GetUser, { enabled: false });
 
   const PatchMutation = useMutation(PatchComment, {
     onSuccess: () => queryClient.invalidateQueries(['comments']),
