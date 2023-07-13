@@ -4,12 +4,13 @@ import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList } from '../QuestionData'
 import { genres } from '../QuestionData'
+import { Question } from '../../../types/types'
 
-const ThirdQuestion = () => {
+const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
   return (
-    <S_Wrapper>
+    <S_Wrapper style={{display: isOpen ? 'flex' : 'none'}}>
       <S_ModalBox>
-        <CloseBtn/>
+        <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[2]}/>
         <S_SelectionBox>
           <S_TextBox>
@@ -17,13 +18,13 @@ const ThirdQuestion = () => {
           </S_TextBox>
           <S_GenreList>
             {genres.map((genre) => (
-              <S_GenreBox>
+              <S_GenreBox key={genre}>
                 <S_CheckBox/>
                 <div>{genre}</div>
               </S_GenreBox>
             ))}
           </S_GenreList>
-          <RecommendBtn bgColor={'#F7CD40'} bgShadow={'#C17932'}/>
+          <RecommendBtn bgColor={'#F7CD40'} bgShadow={'#C17932'} onClick={onNextClick}/>
         </S_SelectionBox>
         <S_ModalBackground/>
       </S_ModalBox>

@@ -4,12 +4,13 @@ import next from '../../assets/recommendimage/next.png';
 interface BtnColor {
   bgColor: string;
   bgShadow: string;
+  onClick: () => void;
 }
 
-const RecommendBtn = ({ bgColor, bgShadow }: BtnColor) => {
+const RecommendBtn: React.FC<BtnColor> = ({ bgColor, bgShadow, onClick }) => {
   return (
     <S_ButtonBox> 
-      <S_Button bgColor={bgColor} bgShadow={bgShadow}>
+      <S_Button bgColor={bgColor} bgShadow={bgShadow} onClick={onClick}>
         <S_ButtonText src={next} alt='next'></S_ButtonText>
       </S_Button>
     </S_ButtonBox>
