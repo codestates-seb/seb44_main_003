@@ -1,14 +1,30 @@
+import { useRecoilState } from 'recoil';
+import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
+import { ChangeEvent } from 'react';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList } from '../QuestionData'
-import { genres } from '../QuestionData'
+import { questionList, genres } from '../QuestionData'
 import { Question } from '../../../types/types'
+import btnText from '../../../assets/recommendimage/next.png';
 
 const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
+  const [recommendedContents, setRecommendedContents] = useRecoilState(recommendedContentsState);
+
+  const handleGenreCheckboxClick = (isChecked: boolean, genre: string) => {
+    if (isChecked && recommendedContents.interests.length < 3) {
+      setRecommendedContents({ ...recommendedContents, interests: [...recommendedContents.interests, genre] });
+    } else if (!isChecked) {
+      setRecommendedContents({
+        ...recommendedContents,
+        interests: recommendedContents.interests.filter((interest) => interest !== genre),
+      });
+    }
+  };
+
   return (
-    <S_Wrapper style={{display: isOpen ? 'flex' : 'none'}}>
+    <S_Wrapper isOpen={isOpen}>
       <S_ModalBox>
         <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[2]}/>
@@ -19,12 +35,20 @@ const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
           <S_GenreList>
             {genres.map((genre) => (
               <S_GenreBox key={genre}>
-                <S_CheckBox/>
+                <S_CheckBox
+                  checked={recommendedContents.interests.includes(genre)}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleGenreCheckboxClick(e.target.checked,genre)}
+                />
                 <div>{genre}</div>
               </S_GenreBox>
             ))}
           </S_GenreList>
-          <RecommendBtn bgColor={'#F7CD40'} bgShadow={'#C17932'} onClick={onNextClick}/>
+          <RecommendBtn
+            bgColor={'#F7CD40'}
+            bgShadow={'#C17932'}
+            btnText={btnText}
+            onClick={onNextClick}
+          />
         </S_SelectionBox>
         <S_ModalBackground/>
       </S_ModalBox>
@@ -34,8 +58,8 @@ const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
 
 export default ThirdQuestion
 
-const S_Wrapper = styled.div`
-  display: flex;
+const S_Wrapper = styled.div<{ isOpen: boolean }>`
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -43,8 +67,6 @@ const S_Wrapper = styled.div`
 
 const S_ModalBackground = styled.div`
   position: absolute;
-  /* width: 100%;
-  height: 100%; */
   width: 840px;
   height: 700px;
   background: #775720;
@@ -59,17 +81,14 @@ const S_ModalBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 840px;
+  width: 60%;
   height: 700px;
-  /* border: 1px solid red; */
 `
 
 const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  /* width: 820px; */
-  /* height: 360px; */
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
@@ -91,12 +110,11 @@ const S_Text = styled.p`
 const S_GenreList = styled.div`
   display: flex;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  margin: 50px 80px;
-  gap: 40px;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 50px 40px;
+  gap: 30px 20px;
   justify-content: center;
   align-items: center;
-  /* padding: 50px 100px 40px 100px; */
 `
 
 const S_GenreBox = styled.div`
@@ -116,7 +134,6 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   object-fit: cover;
   border: 2px solid var(--color-bg-100);
   border-radius: 5px;
-  /* filter: var(--shadow-modal-m-b); */
   &:checked {
     background-color: #F7CD40;
   }

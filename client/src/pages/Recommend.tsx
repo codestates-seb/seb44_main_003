@@ -3,10 +3,40 @@ import styled from 'styled-components';
 import FirstQuestion from '../components/modal/questions/FirstQuestion';
 import SecondQuestion from '../components/modal/questions/SecondQuestion';
 import ThirdQuestion from '../components/modal/questions/ThirdQuestion';
+import QuestionResult from '../components/modal/questions/QuestionResult'
 
 const Recommend = () => {
   const [isModal, setIsModal] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(1);
+
+  // console.log(`/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`)
+  // const { isLoading, error, data, isSuccess } = useQuery({
+  //   queryKey: ['recommendedContents'],
+  //   queryFn: () => GetFilterdData(
+  //     `/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`
+  //   )
+  // });
+
+  // if (isLoading) {
+  //   return (
+  //     <S_Wrapper>
+  //       로딩중
+  //     </S_Wrapper>
+  //   );
+  // }
+
+  // if (error instanceof Error) return 'An error has occurred: ' + error.message;
+
+  // if (isSuccess) {
+  //   return (data)
+  // }
+
+  const questionComponents = [
+    FirstQuestion,
+    SecondQuestion,
+    ThirdQuestion,
+    QuestionResult,
+  ];
 
   const openModal = () => {
     setIsModal(true);
@@ -22,16 +52,18 @@ const Recommend = () => {
   return (
     <S_Wrapper>
       <Button onClick={openModal}>버튼</Button>
-      {isModal && currentQuestion === 1 && (
-        <FirstQuestion isOpen={isModal} closeModal={closeModal} onNextClick={handleNextClick} />
-      )}
-      {isModal && currentQuestion === 2 && (
-        <SecondQuestion isOpen={isModal} closeModal={closeModal} onNextClick={handleNextClick} />
-      )}
-      {isModal && currentQuestion === 3 && (
-        <ThirdQuestion isOpen={isModal} closeModal={closeModal} onNextClick={handleNextClick} />
-      )}
-    </S_Wrapper>
+      {isModal &&
+          questionComponents.map((Question, index) => (
+            currentQuestion === index + 1 && (
+              <Question
+                key={index}
+                isOpen={isModal}
+                closeModal={closeModal}
+                onNextClick={handleNextClick}
+              />
+            )
+          ))}
+  </S_Wrapper>
   )
 }
 
