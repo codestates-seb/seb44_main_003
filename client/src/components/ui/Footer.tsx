@@ -5,7 +5,7 @@ import { TfiGithub } from 'react-icons/tfi';
 import kuhub from '../../assets/profiles/kuhub.svg';
 import logo from '../../assets/logo/overthetop.svg';
 
-const Footer = () => {
+function Footer() {
   const location = useLocation();
   const path = location.pathname;
 
@@ -81,7 +81,7 @@ const Footer = () => {
       </section>
     </S_Footer>
   );
-};
+}
 
 export default Footer;
 

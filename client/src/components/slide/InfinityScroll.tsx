@@ -9,7 +9,7 @@ import { InfinityScrollLoading } from '../ui/exceptions/infinityScroll';
 import noContents from '../../assets/exception/nocontents.svg';
 import loadmore from '../../assets/exception/loadmore.svg';
 
-const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
+function InfinityScroll({ path, query }: { path: string; query: string }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   let category = '';
 
@@ -118,7 +118,7 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
       </>
     );
   }
-};
+}
 
 export default InfinityScroll;
 

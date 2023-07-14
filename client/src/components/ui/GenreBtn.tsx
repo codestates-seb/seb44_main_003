@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-const GenreBtn = () => {
+function GenreBtn() {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -100,7 +100,7 @@ const GenreBtn = () => {
       )}
     </GenreBtnContainer>
   );
-};
+}
 
 export default GenreBtn;
 

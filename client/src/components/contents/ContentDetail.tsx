@@ -17,7 +17,7 @@ import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
 
-const ContentDetail = ({ contentId }: { contentId: string }) => {
+function ContentDetail({ contentId }: { contentId: string }) {
   const ottList = [
     { name: 'Netflix', img: netflix },
     { name: 'Disney Plus', img: disney },
@@ -121,7 +121,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
       </S_Wrapper>
     );
   }
-};
+}
 
 export default ContentDetail;
 

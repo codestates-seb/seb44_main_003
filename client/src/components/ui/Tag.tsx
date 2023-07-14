@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Tag = ({ genre }: { genre: string[] }) => {
+function Tag({ genre }: { genre: string[] }) {
   return (
     <S_Wrapper>
       {genre.map((text) => (
@@ -10,7 +10,7 @@ const Tag = ({ genre }: { genre: string[] }) => {
       ))}
     </S_Wrapper>
   );
-};
+}
 
 export default Tag;
 
