@@ -1,5 +1,5 @@
 import { AiOutlineHeart } from 'react-icons/ai';
-import { S_IconWrapper } from '../../styles/style';
+import { S_IconWrapper } from '../../../styles/style';
 
 export const BookmarkLoading = () => (
   <S_IconWrapper>

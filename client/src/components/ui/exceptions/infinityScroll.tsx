@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SkeletonItemCard from '../ui/SkeletonItemCard';
+import SkeletonItemCard from '../SkeletonItemCard';
 
 export const InfinityScrollLoading = () => (
   <S_LoadingWrap>

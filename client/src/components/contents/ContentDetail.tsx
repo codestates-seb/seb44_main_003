@@ -12,7 +12,7 @@ import Recommend from './Recommend';
 import {
   ContentDetailLoading,
   RecommendError,
-} from '../exceptions/contentDetail';
+} from '../ui/exceptions/contentDetail';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 

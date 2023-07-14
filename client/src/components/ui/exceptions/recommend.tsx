@@ -1,5 +1,5 @@
 import { FaRegThumbsUp } from 'react-icons/fa';
-import { S_IconWrapper } from '../../styles/style';
+import { S_IconWrapper } from '../../../styles/style';
 
 export const RecommendLoading = ({
   countRecommend,

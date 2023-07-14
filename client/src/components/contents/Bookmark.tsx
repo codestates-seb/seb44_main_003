@@ -3,7 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
-import { BookmarkLoading, BookmarkError } from '../exceptions/bookmark';
+import { BookmarkLoading, BookmarkError } from '../ui/exceptions/bookmark';
 
 const Bookmark = ({ contentId }: { contentId: string }) => {
   const queryClient = useQueryClient();
