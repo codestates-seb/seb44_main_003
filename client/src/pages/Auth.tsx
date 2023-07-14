@@ -1,14 +1,14 @@
 import { styled } from 'styled-components';
 import Authentication from '../components/authentication/FormContainer';
 
-const Auth = () => {
+function Auth() {
   return (
     <S_main>
       <Authentication />
       <img src="https://ott-main-project.s3.ap-northeast-2.amazonaws.com/main_background.webp" />
     </S_main>
   );
-};
+}
 
 export default Auth;
 

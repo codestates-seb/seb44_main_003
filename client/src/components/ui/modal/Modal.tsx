@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useModal } from '../../../hooks/useModal';
 
-const Modal = () => {
+function Modal() {
   const { modalDataState, closeModal } = useModal();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Modal = () => {
       )}
     </>
   );
-};
+}
 
 export default Modal;
 

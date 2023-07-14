@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import InfinityScroll from '../components/slide/InfinityScroll';
 
-const Search = () => {
+function Search() {
   const [keyword, setKeyword] = useState('');
   const location = useLocation();
 
@@ -18,7 +18,7 @@ const Search = () => {
       <InfinityScroll path="/search" query={keyword} />
     </S_Wrapper>
   );
-};
+}
 
 export default Search;
 

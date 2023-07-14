@@ -4,7 +4,7 @@ import ListBtns from '../components/ui/ListBtns';
 import InfinityScroll from '../components/slide/InfinityScroll';
 import { scrollToTop } from '../utils/scrollToTop';
 
-const List = () => {
+function List() {
   const path = useLocation().pathname;
   const ott = new URLSearchParams(location.search).get('ott');
   const genre = new URLSearchParams(location.search).get('genre');
@@ -22,7 +22,7 @@ const List = () => {
       <InfinityScroll path={path} query={selectedList} />
     </S_Wrapper>
   );
-};
+}
 
 export default List;
 

@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 import { PostReport } from '../../../api/api';
 import { useModal } from '../../../hooks/useModal';
 
-const ReportModal = ({ contentId }: { contentId: string }) => {
+function ReportModal({ contentId }: { contentId: string }) {
   const { closeModal } = useModal();
   const {
     register,
@@ -70,7 +70,7 @@ const ReportModal = ({ contentId }: { contentId: string }) => {
       </div>
     </S_Form>
   );
-};
+}
 
 export default ReportModal;
 

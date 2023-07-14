@@ -5,7 +5,7 @@ import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
 import { BookmarkLoading, BookmarkError } from '../ui/exceptions/bookmark';
 
-const Bookmark = ({ contentId }: { contentId: string }) => {
+function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
 
@@ -76,6 +76,6 @@ const Bookmark = ({ contentId }: { contentId: string }) => {
       </S_IconWrapper>
     );
   }
-};
+}
 
 export default Bookmark;

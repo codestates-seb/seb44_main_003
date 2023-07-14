@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 import SkeletonItemCard from '../SkeletonItemCard';
 
-export const InfinityScrollLoading = () => (
-  <S_LoadingWrap>
-    {Array.from({ length: 24 }, (_, index) => (
-      <S_Item key={index}>
-        <SkeletonItemCard />
-      </S_Item>
-    ))}
-  </S_LoadingWrap>
-);
+export function InfinityScrollLoading() {
+  return (
+    <S_LoadingWrap>
+      {Array.from({ length: 24 }, (_, index) => (
+        <S_Item key={index}>
+          <SkeletonItemCard />
+        </S_Item>
+      ))}
+    </S_LoadingWrap>
+  );
+}
 
 const S_Item = styled.div`
   width: 225px;
