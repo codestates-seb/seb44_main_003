@@ -12,7 +12,7 @@ import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
-import Recommend from './pages/Recommend';
+import Recommend from './components/modal/Recommend';
 import Admin from './pages/Admin';
 import './App.css';
 

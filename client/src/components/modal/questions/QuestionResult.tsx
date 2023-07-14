@@ -1,6 +1,7 @@
-// import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { GetFilterdData } from '../../../api/api';
+import useIsLoggedIn from '../../../hooks/useIsLoggedIn';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import CloseBtn from '../../ui/CloseBtn';
@@ -13,9 +14,13 @@ import { useRecoilValue } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 
 const QuestionResult: React.FC<Question> = ({ isOpen, closeModal }) => {
+  const navigate = useNavigate();
+  const isLoggedIn = useIsLoggedIn();
+  console.log(isLoggedIn)
+
   const recommendedContents = useRecoilValue(recommendedContentsState);
 
-  // console.log(`/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`)
+  console.log(`/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`)
 
   const { isLoading, error, data, isSuccess } = useQuery({
     queryKey: ['recommendedContents'],
@@ -56,11 +61,21 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal }) => {
                     bgColor={'#F7CD40'}
                     bgShadow={'#C17932'}
                     btnText={btnSignup}
+                    onClick={() => {
+                      if (!isLoggedIn) {
+                        navigate('/signup');
+                      }
+                      closeModal();
+                    }}
                   />
                   <RecommendBtn 
                     bgColor={'#F7CD40'}
                     bgShadow={'#C17932'}
                     btnText={btnRecommend}
+                    onClick={() => {
+                      navigate(`/content/${randomItem.id}`)
+                      closeModal();
+                    }}
                   />
                 </S_BtnsBox>
               </S_RecommendBox>
@@ -102,7 +117,6 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal }) => {
   }
 }
 
-
 export default QuestionResult
 
 const S_Wrapper = styled.div<{ isOpen: boolean }>`
@@ -114,8 +128,6 @@ const S_Wrapper = styled.div<{ isOpen: boolean }>`
 
 const S_ModalBackground = styled.div`
   position: absolute;
-  /* width: 100%;
-  height: 100%; */
   width: 840px;
   height: 700px;
   background: #212121;
@@ -132,7 +144,6 @@ const S_ModalBox = styled.div`
   flex-direction: column;
   width: 840px;
   height: 700px;
-  /* border: 1px solid red; */
 `
 const S_Result = styled.img`
 `
@@ -157,9 +168,6 @@ const S_SelectionBox = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 40px;
-  /* width: 80%; */
-  /* width: 820px; */
-  /* height: 360px; */
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
