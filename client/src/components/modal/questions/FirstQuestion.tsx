@@ -23,7 +23,10 @@ const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
   };
 
   return (
-    <S_Wrapper isOpen={isOpen}>
+    <S_Wrapper
+      isOpen={isOpen}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+    >
       <S_ModalBox>
         <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[0]}/>

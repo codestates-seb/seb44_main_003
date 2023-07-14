@@ -6,6 +6,11 @@ export const profileModalState = atom<boolean>({
   default: false,
 });
 
+export const recommendModalState = atom<boolean>({
+  key: 'recommendModal',
+  default: false,
+});
+
 export const recommendedContentsState = atom<MemberLikes>({
   key: 'recommendedContents',
   default: {
