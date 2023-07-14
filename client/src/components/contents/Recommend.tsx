@@ -3,7 +3,7 @@ import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
-import { RecommendLoading, RecommendError } from '../exceptions/recommend';
+import { RecommendLoading, RecommendError } from '../ui/exceptions/recommend';
 
 const Recommend = ({
   countRecommend,
