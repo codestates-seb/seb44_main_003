@@ -8,7 +8,6 @@ const ReportBtn = ({ contentId }: { contentId: string }) => {
 
   const modalData = {
     content: <ReportModal contentId={contentId} />,
-    callback: () => alert('Modal Callback()'),
   };
 
   return (
