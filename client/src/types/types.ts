@@ -108,7 +108,7 @@ export type AddData = {
   }[];
 };
 
-export type Discription = {
+export type Description = {
   mediaId: number;
   title: string;
   content: string;
