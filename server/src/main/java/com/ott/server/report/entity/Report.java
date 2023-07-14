@@ -26,7 +26,7 @@ public class Report extends Auditable {
     @Column()
     private Boolean completion;
     @JoinColumn(name = "MEMBER_ID")
-    @OneToOne
+    @ManyToOne
     @JsonBackReference
     private Member member;
     @JoinColumn(name = "MEDIA_ID")
