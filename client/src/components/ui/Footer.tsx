@@ -116,7 +116,6 @@ const S_Footer = styled.footer`
     height: 40px;
     opacity: 0.8;
   }
-
   @media only screen and (max-width: 670px) {
     section {
       flex-direction: column;
