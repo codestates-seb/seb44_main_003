@@ -67,7 +67,6 @@ public class Media extends Auditable {
     private List<Bookmark> bookmarks = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = {CascadeType.REMOVE})
-    @JsonManagedReference
     private List<Report> Reports = new ArrayList<>();
 
     public void setId(Long aLong) {

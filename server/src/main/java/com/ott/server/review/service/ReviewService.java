@@ -146,7 +146,28 @@ public class ReviewService {
         return response;
     }
 
+    public MultiResponseDto findByMemberId(Authentication authentication, int page, int size) {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Review> reviewPage = reviewRepository.findByMember(member, pageable);
+        int totalPage = reviewPage.getTotalPages();
+
+
+        List<ReviewDetailDto> reviews = reviewPage.stream()
+                .map(reviewMapper::reviewToReviewDetailDto)
+                .collect(Collectors.toList());
+
+        MultiResponseDto response = new MultiResponseDto();
+        response.setReviews(reviews);
+        response.setTotalReviews(reviewPage.getTotalElements());
+        response.setCurrentPage(page+1);
+        response.setTotalPage(totalPage);
+
+        return response;
+    }
 
 
 
