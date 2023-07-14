@@ -12,7 +12,7 @@ function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const moving = window.scrollY;
-      setVisible(position > moving);
+      setVisible(position < 400 || position > moving);
       setPosition(moving);
     };
     window.addEventListener('scroll', handleScroll);
