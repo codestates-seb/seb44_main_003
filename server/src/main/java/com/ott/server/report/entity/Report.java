@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.ott.server.audit.Auditable;
 import com.ott.server.media.entity.Media;
 import com.ott.server.member.entity.Member;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Report extends Auditable {
@@ -23,7 +25,7 @@ public class Report extends Auditable {
     private String title;
     @Column(nullable = false)
     private String content;
-    @Column()
+    @Column
     private Boolean completion;
     @JoinColumn(name = "MEMBER_ID")
     @ManyToOne
@@ -31,6 +33,5 @@ public class Report extends Auditable {
     private Member member;
     @JoinColumn(name = "MEDIA_ID")
     @ManyToOne
-    @JsonBackReference
     private Media media;
 }
