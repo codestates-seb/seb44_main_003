@@ -48,6 +48,10 @@ function SignupForm() {
       setNicknameError('닉네임을 입력해주세요.');
       return false;
     }
+    if (nickname.length < 2 || nickname.length > 10) {
+      setNicknameError('닉네임은 2~10자여야 합니다.');
+      return false;
+    }
     setNicknameError(null);
     return true;
   }
