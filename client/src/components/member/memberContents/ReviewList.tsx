@@ -5,9 +5,8 @@ import noContent from '../../../assets/exception/nocontents.svg';
 import { styled } from 'styled-components';
 
 function ReviewList() {
-  const { data, isSuccess } = useQuery(['userComments'], GetUserReviews);
+  const { data, isSuccess } = useQuery(['comments'], GetUserReviews);
   if (isSuccess) {
-    console.log(data.reviews);
     if (!data.reviews.length)
       return (
         <S_Error>
