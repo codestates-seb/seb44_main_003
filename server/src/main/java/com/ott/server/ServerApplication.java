@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @OpenAPIDefinition(info = @Info(title = "My API", version = "v1"),
 		security = @SecurityRequirement(name = "bearerAuth"))
@@ -18,6 +19,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 )
 @SpringBootApplication
 @EnableJpaAuditing
+@EnableCaching
 public class ServerApplication {
 
 	public static void main(String[] args) {

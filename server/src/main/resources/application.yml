@@ -60,6 +60,9 @@ spring:
     multipart:
       max-file-size: 20MB
       max-request-size: 20MB
+  cache:
+    type: simple #redis
+    cache-names: myCache
 
 
 
@@ -92,3 +95,4 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
+
