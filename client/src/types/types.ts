@@ -107,3 +107,18 @@ export type AddData = {
     ottAddress: string;
   }[];
 };
+
+export type Discription = {
+  mediaId: number;
+  title: string;
+  content: string;
+};
+
+export type ModalType = {
+  isOpen: boolean;
+  content: JSX.Element | string;
+};
+
+export type OpenModalType = {
+  content: JSX.Element | string;
+};

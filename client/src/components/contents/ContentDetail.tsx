@@ -15,6 +15,7 @@ import {
 } from '../ui/exceptions/contentDetail';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
+import ReportBtn from './ReportBtn';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
   const ottList = [
@@ -92,6 +93,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 <S_Poster>
                   <img src={data.mainPoster} alt="poster" />
                 </S_Poster>
+                <ReportBtn contentId={contentId} />
                 <div className="icon-flex">
                   <Bookmark contentId={contentId} />
                   <Recommend
