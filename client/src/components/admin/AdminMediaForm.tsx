@@ -65,6 +65,7 @@ const AdminMediaForm = ({
       onSubmit={handleSubmit(async (data) => {
         await new Promise((r) => setTimeout(r, 1000));
         const convertedData = convertData(data);
+        console.log(convertData);
         if (type === 'add') {
           return AddMediaMutation.mutate(convertedData);
         }
@@ -176,9 +177,8 @@ const AdminMediaForm = ({
         {...register('ottName', { required: true })}
       />
       <label htmlFor="ottAddress">OTT 주소</label>
-      <input
+      <textarea
         id="ottAddress"
-        type="text"
         defaultValue={
           type === 'edit'
             ? editData?.mediaOtt.map((ott) => ott.ottAddress).join(',')
@@ -218,6 +218,10 @@ const S_Form = styled.form`
     color: black;
     font-size: 18px;
     height: 30px;
+  }
+
+  textarea {
+    height: 100px;
   }
 
   button {
