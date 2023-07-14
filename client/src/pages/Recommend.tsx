@@ -9,28 +9,6 @@ const Recommend = () => {
   const [isModal, setIsModal] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(1);
 
-  // console.log(`/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`)
-  // const { isLoading, error, data, isSuccess } = useQuery({
-  //   queryKey: ['recommendedContents'],
-  //   queryFn: () => GetFilterdData(
-  //     `/medias/${recommendedContents.category}?size=6&genre=${recommendedContents.interests.join(',')}&ott=${recommendedContents.memberOtts.join(',')}`
-  //   )
-  // });
-
-  // if (isLoading) {
-  //   return (
-  //     <S_Wrapper>
-  //       로딩중
-  //     </S_Wrapper>
-  //   );
-  // }
-
-  // if (error instanceof Error) return 'An error has occurred: ' + error.message;
-
-  // if (isSuccess) {
-  //   return (data)
-  // }
-
   const questionComponents = [
     FirstQuestion,
     SecondQuestion,
