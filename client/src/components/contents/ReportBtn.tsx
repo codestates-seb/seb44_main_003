@@ -1,6 +1,5 @@
 import { styled } from 'styled-components';
 import { useModal } from '../../hooks/useModal';
-import Modal from '../ui/modal/Modal';
 import ReportModal from '../ui/modal/ReportModal';
 
 const ReportBtn = ({ contentId }: { contentId: string }) => {
@@ -13,7 +12,6 @@ const ReportBtn = ({ contentId }: { contentId: string }) => {
   return (
     <>
       <S_Button onClick={() => openModal(modalData)}>오류 제보하기</S_Button>
-      <Modal />
     </>
   );
 };
