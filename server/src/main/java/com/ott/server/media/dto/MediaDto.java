@@ -92,4 +92,14 @@ public class MediaDto {
         private String mainPoster;
 
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Count {
+        private Long mediaId;
+        private Long count;
+
+    }
 }
