@@ -101,9 +101,9 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 </div>
               </div>
               <S_TitleFont>
-                <h1>장르</h1>
+                <h1 className="h1">장르</h1>
                 <Tag genre={data.genre} />
-                <h1>OTT</h1>
+                <h1 className="h1">컨텐츠 보러가기</h1>
                 <div className="ott">
                   {ottList.map((ott) => renderOtt(ott))}
                 </div>
@@ -219,11 +219,14 @@ const S_Title = styled.div`
 
 const S_TitleFont = styled.div`
   width: 60%;
-
-  .ott {
-    margin: 30px 0 45px 0;
+  p {
+    font-size: 20px;
   }
-  h1 {
+  .ott {
+    margin: 20px 0 45px 0;
+  }
+  .h1 {
+    font-size: 24px;
     color: var(--color-white-100);
   }
   .bold-white {
@@ -252,10 +255,12 @@ const S_TitleFont = styled.div`
     }
   }
   @media only screen and (max-width: 620px) {
-    font-size: 13px;
     width: 100%;
-    h1 {
-      font-size: 14px;
+    p {
+      font-size: 16px;
+    }
+    .h1 {
+      font-size: 20px;
     }
     .margin {
       width: 100%;
@@ -292,7 +297,7 @@ const S_TextTitle = styled.h1`
   font-weight: bold;
   color: var(--color-white-100);
   width: 400px;
-  height: 90px;
+  height: 180px;
   align-self: flex-end;
   position: relative;
 

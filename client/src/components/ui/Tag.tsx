@@ -18,7 +18,7 @@ const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 30px 0;
+  margin: 20px 0;
 
   @media only screen and (max-width: 620px) {
     justify-content: center;
