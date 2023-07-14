@@ -13,7 +13,8 @@ import {
   ContentDetailLoading,
   RecommendError,
 } from '../exceptions/contentDetail';
-import DeleteMedia from '../admin/DeleteMedia';
+import DeleteMediaBtn from '../admin/DeleteMediaBtn';
+import PatchMediaBtn from '../admin/PatchMediaBtn';
 
 const ContentDetail = ({ contentId }: { contentId: string }) => {
   const ottList = [
@@ -72,7 +73,10 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
     return (
       <S_Wrapper backgroundimage={data.mainPoster}>
         {admin?.data?.roles[0] === 'ADMIN' && (
-          <DeleteMedia contentId={contentId} />
+          <>
+            <PatchMediaBtn editData={data} contentId={contentId} />
+            <DeleteMediaBtn contentId={contentId} />
+          </>
         )}
         <div className="main-flex">
           <div className="title-flex">

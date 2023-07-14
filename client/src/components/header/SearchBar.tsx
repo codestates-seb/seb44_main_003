@@ -55,6 +55,7 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
 const S_Input = styled.input<{ $show: boolean }>`
   width: ${(props) => (props.$show ? '100%' : '0')};
   min-width: 40px;
+  max-width: 300px;
   opacity: ${(props) => (props.$show ? 1 : 0)};
   visibility: ${(props) => (props.$show ? 'visible' : 'hidden')};
   height: 42px;
@@ -73,6 +74,10 @@ const S_Logo = styled.button`
   color: var(--color-white-60);
   font-size: 20px;
   right: 8px;
-  margin-top: 8.5px;
+  margin-top: 10px;
   z-index: 9998;
+  transition: color 0.3s ease;
+  &:hover {
+    color: white;
+  }
 `;

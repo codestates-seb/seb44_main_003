@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GetUser } from '../api/api';
 import useIsLoggedIn from './../hooks/useIsLoggedIn';
-import AddMedia from '../components/admin/AddMedia';
+import AdminMediaForm from '../components/admin/AdminMediaForm';
 
 const Admin = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -19,7 +19,7 @@ const Admin = () => {
 
   return (
     <S_Wrapeer>
-      <AddMedia />
+      <AdminMediaForm type={'add'} editData={null} contentId="" />
     </S_Wrapeer>
   );
 };
