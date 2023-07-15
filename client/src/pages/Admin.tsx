@@ -6,7 +6,7 @@ import { GetUser } from '../api/api';
 import useIsLoggedIn from './../hooks/useIsLoggedIn';
 import AdminMediaForm from '../components/admin/AdminMediaForm';
 
-const Admin = () => {
+function Admin() {
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
   const admin = useQuery(['user'], GetUser, { enabled: false });
@@ -22,7 +22,7 @@ const Admin = () => {
       <AdminMediaForm type={'add'} editData={null} contentId="" />
     </S_Wrapeer>
   );
-};
+}
 
 export default Admin;
 

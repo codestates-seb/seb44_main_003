@@ -6,14 +6,13 @@ import GlobalStyle from './styles/global-styles';
 import Root from './pages/Root';
 import Main from './pages/Main';
 import Member from './pages/Member';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Auth from './pages/Auth';
 import TV from './pages/TV';
 import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
-import Recommend from './pages/Recommend';
+import Recommend from './components/modal/Recommend';
 import Admin from './pages/Admin';
 import './App.css';
 
@@ -34,11 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />,
+        element: <Auth />,
       },
       {
         path: 'signup',
-        element: <Signup />,
+        element: <Auth />,
       },
       {
         path: 'tv',

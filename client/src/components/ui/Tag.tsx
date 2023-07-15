@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Tag = ({ genre }: { genre: string[] }) => {
+function Tag({ genre }: { genre: string[] }) {
   return (
     <S_Wrapper>
       {genre.map((text) => (
@@ -10,7 +10,7 @@ const Tag = ({ genre }: { genre: string[] }) => {
       ))}
     </S_Wrapper>
   );
-};
+}
 
 export default Tag;
 
@@ -18,7 +18,7 @@ const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 30px 0;
+  margin: 20px 0;
 
   @media only screen and (max-width: 620px) {
     justify-content: center;

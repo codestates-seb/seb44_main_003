@@ -1,24 +1,33 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList } from '../QuestionData'
-import { ottServices } from '../QuestionData'
+import { questionList, ottServices } from '../QuestionData'
 import { Question } from '../../../types/types'
+import btnText from '../../../assets/recommendimage/next.png';
 
 const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
-  const [selectedIcons, setSelectedIcons] = useState<boolean[]>(Array(ottServices.length).fill(false));
+  const [recommendedContents, setRecommendedContents] = useRecoilState(recommendedContentsState);
 
-  const handleIconClick = (index: number) => {
-    setSelectedIcons((prevSelectedIcons) => {
-      return prevSelectedIcons.map((selected, i) => (i === index ? !selected : selected));
+  const handleIconClick = (clickedName: string) => {
+    const isSelected = recommendedContents.memberOtts.indexOf(clickedName) > -1;
+
+    setRecommendedContents({
+      ...recommendedContents,
+      memberOtts: isSelected
+        ? recommendedContents.memberOtts.filter(name => name !== clickedName)
+        : [...recommendedContents.memberOtts, clickedName],
     });
   };
 
   return (
-    <S_Wrapper style={{display: isOpen ? 'flex' : 'none'}}>
-      <S_ModalBox> 
+    <S_Wrapper
+      isOpen={isOpen}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+    >
+      <S_ModalBox>
         <CloseBtn onClick={closeModal}/>
         <QuestionCard question={questionList[0]}/>
         <S_SelectionBox>
@@ -26,20 +35,24 @@ const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
             <S_Text>* 중복 선택 가능</S_Text>
           </S_TextBox>
           <S_OttList>
-            {ottServices.map((ott, index) => (
-              <S_OttBox key={ott.name} onClick={() => handleIconClick(index)}>
-                <S_OttIcon 
-                  src={ott.icon}
-                  alt={ott.name}
-                  className={selectedIcons[index] ? 'select' : ''}
-                />
-                <div>{ott.name}</div>
-              </S_OttBox>
-            ))}
+            {Object.values(ottServices).map((ott) => {
+              const isSelected = recommendedContents.memberOtts.includes(ott.ottname);
+              return (
+                <S_OttBox key={ott.name} onClick={() => handleIconClick(ott.ottname)}>
+                  <S_OttIcon
+                    src={ott.icon}
+                    alt={ott.name}
+                    className={isSelected ? 'select' : ''}
+                  />
+                  <div>{ott.name}</div>
+                </S_OttBox>
+              );
+            })}
           </S_OttList>
-          <RecommendBtn 
+          <RecommendBtn
             bgColor={'#A59BDC'}
             bgShadow={'#6659B2'}
+            btnText={btnText}
             onClick={onNextClick}
           />
         </S_SelectionBox>
@@ -51,8 +64,8 @@ const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
 
 export default FirstQuestion
 
-const S_Wrapper = styled.div`
-  display: flex;
+const S_Wrapper = styled.div<{ isOpen: boolean }>`
+  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -61,8 +74,6 @@ const S_Wrapper = styled.div`
 
 const S_ModalBackground = styled.div`
   position: absolute;
-  /* width: 100%;
-  height: 100%; */
   width: 840px;
   height: 700px;
   background: #362C6D;
@@ -79,15 +90,12 @@ const S_ModalBox = styled.div`
   flex-direction: column;
   width: 840px;
   height: 700px;
-  /* border: 1px solid red; */
 `
 
 const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  /* width: 820px; */
-  /* height: 360px; */
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
@@ -112,7 +120,6 @@ const S_OttList = styled.div`
   gap: 40px;
   justify-content: center;
   align-items: center;
-  /* padding: 50px 100px 40px 100px; */
 `
 
 const S_OttBox = styled.div`

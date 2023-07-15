@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import GenreBtn from './GenreBtn';
 import OttBtn from './OttBtn';
 
-const ListBtns = () => {
+function ListBtns() {
   return (
     <S_Wrapper>
       <OttBtn />
@@ -10,7 +10,7 @@ const ListBtns = () => {
       <GenreBtn />
     </S_Wrapper>
   );
-};
+}
 
 export default ListBtns;
 

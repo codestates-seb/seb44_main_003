@@ -51,7 +51,7 @@ public class ReportController {
         report.setMedia(media);
         Report response = reportService.createReport(report);
 
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{report-id}")
@@ -67,7 +67,7 @@ public class ReportController {
         report.setId(id);
         Report response = reportService.updateReport(report, member);
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity(reportMapper.reportToReportResponse(report), HttpStatus.OK);
     }
 
     @GetMapping("/{report-id}")
@@ -83,7 +83,7 @@ public class ReportController {
         Page<Report> reports = reportService.getReports(page - 1, size);
         Pageable pageable = reports.getPageable();
 
-        return new ResponseEntity(new MultiResponseDto(reports.getContent(), reports), HttpStatus.OK);
+        return new ResponseEntity(new MultiResponseDto(reportMapper.reportsToReportResponses(reports.getContent()), reports), HttpStatus.OK);
     }
 
     @DeleteMapping("/{report-id}")

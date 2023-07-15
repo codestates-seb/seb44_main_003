@@ -7,7 +7,7 @@ import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 
-const OttBtn = () => {
+function OttBtn() {
   const path = useLocation().pathname;
   const ott = new URLSearchParams(location.search).get('ott');
   const genre = new URLSearchParams(location.search).get('genre');
@@ -126,7 +126,7 @@ const OttBtn = () => {
       />
     </>
   );
-};
+}
 
 export default OttBtn;
 

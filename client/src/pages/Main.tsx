@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { scrollToTop } from '../utils/scrollToTop.ts';
 
-const Main = () => {
+function Main() {
   const isLoggedIn = useIsLoggedIn();
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get('access_token');
@@ -37,6 +37,6 @@ const Main = () => {
       <MainSliderSection />
     </>
   );
-};
+}
 
 export default Main;

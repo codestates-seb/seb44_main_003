@@ -5,7 +5,7 @@ import ProfileModal from '../components/member/profileModal/ProfileModal';
 import { useRecoilValue } from 'recoil';
 import { profileModalState } from '../recoil/atoms/Atoms';
 
-const Member = () => {
+function Member() {
   const showModal = useRecoilValue(profileModalState);
   return (
     <>
@@ -15,6 +15,6 @@ const Member = () => {
       {showModal && <ProfileModal />}
     </>
   );
-};
+}
 
 export default Member;

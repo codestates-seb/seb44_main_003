@@ -4,7 +4,7 @@ import ContentDetail from '../components/contents/ContentDetail';
 import CommentSection from '../components/comments/CommentSection';
 import RecommendContent from '../components/contents/RecommendContent';
 
-const Content = () => {
+function Content() {
   const { id = '' } = useParams<{ id?: string }>();
 
   useEffect(() => {
@@ -22,9 +22,9 @@ const Content = () => {
     <>
       <ContentDetail contentId={id} />
       <CommentSection />
-      <RecommendContent contentId={id}/>
+      <RecommendContent contentId={id} />
     </>
   );
-};
+}
 
 export default Content;

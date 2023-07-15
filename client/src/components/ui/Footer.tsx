@@ -3,8 +3,9 @@ import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
 import kuhub from '../../assets/profiles/kuhub.svg';
+import logo from '../../assets/logo/overthetop.svg';
 
-const Footer = () => {
+function Footer() {
   const location = useLocation();
   const path = location.pathname;
 
@@ -15,9 +16,11 @@ const Footer = () => {
   return (
     <S_Footer>
       <span />
-      <h1>Over-The-Top</h1>
+      <S_Logo>
+        <img src={logo} alt="logo" />
+      </S_Logo>
       <section>
-        <div>
+        <div className="team">
           <S_Team
             onClick={() => {
               window.open('https://github.com/JeanneLee57', '_blank');
@@ -46,7 +49,7 @@ const Footer = () => {
             <DiGithubFull size={30} />
           </S_Team>
         </div>
-        <div>
+        <div className="team">
           <S_Team
             onClick={() => {
               window.open('https://github.com/Snu97', '_blank');
@@ -78,7 +81,7 @@ const Footer = () => {
       </section>
     </S_Footer>
   );
-};
+}
 
 export default Footer;
 
@@ -97,8 +100,8 @@ const S_Footer = styled.footer`
     display: flex;
     justify-content: center;
   }
-  div {
-    padding: 8px;
+  .team {
+    padding: 0 10px;
     display: flex;
   }
   h1 {
@@ -113,7 +116,6 @@ const S_Footer = styled.footer`
     height: 40px;
     opacity: 0.8;
   }
-
   @media only screen and (max-width: 670px) {
     section {
       flex-direction: column;
@@ -128,6 +130,17 @@ const S_Footer = styled.footer`
   }
 `;
 
+const S_Logo = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin: 20px 0;
+  img {
+    object-fit: cover;
+    height: 30px;
+  }
+`;
+
 const linearGradientMove = keyframes`
   100% {
     background-position: 6px 0, -6px 100%, 0 -6px, 100% 6px;
@@ -135,7 +148,7 @@ const linearGradientMove = keyframes`
 `;
 
 const S_Team = styled.footer`
-  width: 90px;
+  width: 94px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -181,7 +194,7 @@ const S_Team = styled.footer`
     height: 40px;
     flex-direction: row;
     justify-content: space-evenly;
-    margin: 1vh 1vw;
+    margin: 1vh 0.5vw;
     padding: 1px;
     & > svg {
       height: 27px;

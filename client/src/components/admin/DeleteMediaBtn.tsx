@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { AdminDeleteData } from '../../api/api';
 
-const DeleteMediaBtn = ({ contentId }: { contentId: string }) => {
+function DeleteMediaBtn({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
   const DeleteMediaMutation = useMutation(() => AdminDeleteData(contentId), {
     onSuccess: () => {
@@ -26,7 +26,7 @@ const DeleteMediaBtn = ({ contentId }: { contentId: string }) => {
       <S_DeleteBtn onClick={handledelete}>삭제</S_DeleteBtn>
     </>
   );
-};
+}
 
 export default DeleteMediaBtn;
 

@@ -1,14 +1,16 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import ItemCard from '../ui/ItemCard';
 import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { useInView } from 'react-intersection-observer';
 import { ContentData } from '../../types/types';
+import { InfinityScrollLoading } from '../ui/exceptions/infinityScroll';
 import noContents from '../../assets/exception/nocontents.svg';
-import { InfinityScrollLoading } from '../exceptions/infinityScroll';
+import loadmore from '../../assets/exception/loadmore.svg';
 
-const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
+function InfinityScroll({ path, query }: { path: string; query: string }) {
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   let category = '';
 
   if (path.includes('tv')) {
@@ -41,20 +43,31 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
   );
 
   const { ref, inView } = useInView({
-    threshold: 0.1,
+    threshold: 1,
     triggerOnce: false,
   });
 
   useEffect(() => {
+    let timeoutId: number;
+
     if (inView && hasNextPage) {
-      fetchNextPage();
+      setIsLoadingMore(true);
+
+      timeoutId = setTimeout(() => {
+        fetchNextPage().then(() => {
+          setIsLoadingMore(false);
+        });
+      }, 100);
     }
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [inView, hasNextPage]);
 
   if (status === 'loading') {
     return <InfinityScrollLoading />;
   }
-
   if (status === 'error') return <div>Error</div>;
 
   const totalLength = (data?.pages || []).reduce(
@@ -94,12 +107,18 @@ const InfinityScroll = ({ path, query }: { path: string; query: string }) => {
               ))}
             </>
           ))}
+          {isLoadingMore ? (
+            <S_LoadMore>
+              <p className="loadmore">Loading . . .</p>
+              <img src={loadmore} alt="loadmore" />
+            </S_LoadMore>
+          ) : null}
           <div ref={ref} className="target"></div>
         </S_FlexWrap>
       </>
     );
   }
-};
+}
 
 export default InfinityScroll;
 
@@ -138,5 +157,36 @@ const S_NoContents = styled.div`
     font-size: 30px;
     font-weight: bold;
     color: var(--color-white-80);
+  }
+`;
+
+const opacityAnimation = keyframes`
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+`;
+
+const rotateAnimation = keyframes`
+  0% { transform: rotate(-15deg); }
+  50% { transform: rotate(30deg); }
+  100% { transform: rotate(-15deg); }
+`;
+
+const S_LoadMore = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+
+  .loadmore {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--color-white-80);
+    animation: ${opacityAnimation} 1s infinite;
+  }
+  img {
+    width: 60px;
+    padding: 20px 0 50px 0;
+    animation: ${rotateAnimation} 2s infinite;
   }
 `;

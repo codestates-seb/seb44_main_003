@@ -8,6 +8,7 @@ import {
   AddData,
   ContentData,
   Comment,
+  Description,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
@@ -23,8 +24,7 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
-  config.headers.Authorization = token || '';
+  config.headers.Authorization = accessToken || '';
   return config;
 });
 
@@ -165,3 +165,7 @@ export const AdminPatchData = ({
   mediaId: string | null;
   mediaData: AddData;
 }) => instance.patch(`/medias/${mediaId}`, mediaData);
+
+/* 오류제보 */
+export const PostReport = (discription: Description) =>
+  instance.post(`/reports`, discription);
