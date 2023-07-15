@@ -77,13 +77,14 @@ export const S_Modal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 700px;
-  height: 500px;
+  min-height: 500px;
   border-radius: 10px;
   border: 1px solid var(--color-white-80);
   background: #282f39;
   color: #fff;
   z-index: 9999;
-  > svg {
+  & svg {
+    font-size: 30px;
     align-self: flex-end;
     margin: 15px 15px 0 0;
     cursor: pointer;

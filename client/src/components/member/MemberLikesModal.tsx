@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useModal } from '../../hooks/useModal';
 import { S_Modal } from '../../styles/style';
 import { BiX } from 'react-icons/bi';
@@ -13,7 +13,7 @@ function MemberLikesModal() {
   const { closeModal } = useModal();
   const { data } = useQuery(['user'], GetUser);
   const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
-  /* todo: 메뉴별 이름 달기, 장르 최대 3개 선택 */
+  /* todo: 장르 최대 3개 선택 */
   const mutation = useMutation(PatchUser, {
     onSuccess: () => {
       closeModal();
@@ -21,10 +21,17 @@ function MemberLikesModal() {
     },
   });
   const {
+    control,
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      category: data?.category || '',
+      memberOtts: data?.memberOtts || [],
+      interests: data?.interests || [],
+    },
+  });
 
   const editData: MemberLikes = {
     category: data?.category || '',
@@ -32,7 +39,7 @@ function MemberLikesModal() {
     interests: data?.interests || [],
   };
   const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
-
+  console.log(data);
   return (
     <S_Modal>
       <BiX
@@ -42,15 +49,21 @@ function MemberLikesModal() {
       />
       <h1>선호도 변경</h1>
       <h2>추천을 원하는 카테고리를 선택해 주세요.</h2>
-      <S_Form onSubmit={handleSubmit((data) => console.log(data))}>
-        <div>
-          <label htmlFor="category">카테고리</label>
+      <S_Form
+        onSubmit={handleSubmit(
+          (formData) => console.log(formData)
+          // mutation.mutate({ ...data, ...formData })
+        )}
+      >
+        <fieldset>
+          <legend>카테고리</legend>
           <select id="category" placeholder="string" {...register('category')}>
             <option selected={data?.category === 'TV'}>TV</option>
             <option selected={data?.category === '영화'}>영화</option>
           </select>
-        </div>
-        <div className="ottDiv">
+        </fieldset>
+        <fieldset className="ottDiv">
+          <legend>OTT</legend>
           {ottList.map((ott) => (
             <div>
               <input
@@ -58,13 +71,14 @@ function MemberLikesModal() {
                 id={ott}
                 value={ott}
                 defaultChecked={data?.memberOtts?.includes(ott)}
-                {...register('memberOtt')}
+                {...register('memberOtts')}
               />
               <label htmlFor={ott}>{ott}</label>
             </div>
           ))}
-        </div>
-        <div>
+        </fieldset>
+        <fieldset>
+          <legend>장르</legend>
           {genres.map((genre) => (
             <div className={longName.includes(genre) ? 'except' : 'element'}>
               <input
@@ -77,7 +91,7 @@ function MemberLikesModal() {
               <label htmlFor={genre}>{genre}</label>
             </div>
           ))}
-        </div>
+        </fieldset>
         <button type="submit">제출</button>
       </S_Form>
     </S_Modal>
@@ -91,36 +105,47 @@ const S_Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 20px;
-  > div {
+  font-size: 15px;
+  margin: 0 20px;
+  > fieldset {
     border: 1px solid white;
     border-radius: 5px;
     padding: 10px 5px;
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     flex-wrap: wrap;
-    width: 80%;
+    width: 85%;
     word-break: keep-all;
     margin: 10px 0;
     > div {
       margin: 5px 10px;
     }
   }
+  & legend {
+    padding: 0 7px;
+  }
+  & select {
+    margin-left: 20px;
+    padding: 3px;
+    border-radius: 5px;
+  }
+  & fieldset.ottDiv {
+    display: flex;
+    justify-content: space-between;
+  }
   & div.element {
-    width: 85px;
+    width: 88px;
   }
   & label {
     margin-left: 6px;
-  }
-  & label:first-child {
-    margin-right: 15px;
+    cursor: pointer;
   }
   & button {
     color: var(--color-white-80);
     border: 1px solid var(--color-white-80);
     border-radius: 5px;
     padding: 5px 15px;
-    margin: 0 20px;
+    margin: 20px;
     background-color: var(--color-white-80);
     color: var(--color-bg-80);
   }
