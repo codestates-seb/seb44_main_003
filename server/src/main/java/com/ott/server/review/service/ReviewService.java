@@ -146,7 +146,7 @@ public class ReviewService {
         return response;
     }
 
-    public MediaMultiResponseDto findByMemberId(Authentication authentication, int page, int size) {
+    public MultiResponseDto findByMemberId(Authentication authentication, int page, int size) {
         String email = authentication.getPrincipal().toString();
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
@@ -156,11 +156,11 @@ public class ReviewService {
         int totalPage = reviewPage.getTotalPages();
 
 
-        List<ReviewDetailMediaDto> reviews = reviewPage.stream()
-                .map(reviewMapper::reviewToReviewDetailMediaDto)
+        List<ReviewDetailDto> reviews = reviewPage.stream()
+                .map(reviewMapper::reviewToReviewDetailDto)
                 .collect(Collectors.toList());
 
-        MediaMultiResponseDto response = new MediaMultiResponseDto();
+        MultiResponseDto response = new MultiResponseDto();
         response.setReviews(reviews);
         response.setTotalReviews(reviewPage.getTotalElements());
         response.setCurrentPage(page+1);
