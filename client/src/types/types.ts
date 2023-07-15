@@ -88,6 +88,7 @@ export type Question = {
   isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
+  onReset: () => void;
 };
 
 export type AddData = {

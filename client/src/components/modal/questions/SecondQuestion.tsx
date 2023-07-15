@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-// import { selectedCategoryState } from '../../../recoil/atoms/Atoms';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
@@ -7,10 +7,15 @@ import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList, category } from '../QuestionData'
 import { Question } from '../../../types/types'
-import btnText from '../../../assets/recommendimage/next.png';
+import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const SecondQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(recommendedContentsState);
+  const [isAnySelected, setIsAnySelected] = useState(false);
+
+  useEffect(() => {
+    setIsAnySelected(recommendedContents.category !== "");
+  }, [recommendedContents.category]);
 
   const handleIconClick = (clickedName: string) => {
     if (recommendedContents.category === clickedName) {
@@ -44,8 +49,9 @@ const SecondQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick })
           <RecommendBtn 
             bgColor={'#F67CB3'}
             bgShadow={'#C53C79'}
-            btnText={btnText}
+            btnText={btnNext}
             onClick={onNextClick}
+            disabled={!isAnySelected}
           />
         </S_SelectionBox>
         <S_ModalBackground/>
@@ -63,6 +69,16 @@ const S_Wrapper = styled.div<{ isOpen: boolean }>`
   height: 100vh;
 `
 
+const S_ModalBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
 const S_ModalBackground = styled.div`
   position: absolute;
   width: 840px;
@@ -73,21 +89,11 @@ const S_ModalBackground = styled.div`
   z-index: -1;
 `
 
-const S_ModalBox = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 840px;
-  height: 700px;
-`
-
 const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 80%;
+  width: 90%;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
@@ -97,10 +103,10 @@ const S_SelectionBox = styled.div`
 
 const S_CategoryList = styled.div`
   display: flex;
-  margin: 40px 80px;
-  gap: 40px;
-  justify-content: space-between;
+  margin: 40px 0px;
+  justify-content: center;
   align-items: center;
+  gap: 80px;
 `
 
 const S_CategoryBox = styled.div`

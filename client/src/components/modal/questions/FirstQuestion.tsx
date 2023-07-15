@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
@@ -6,10 +7,15 @@ import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList, ottServices } from '../QuestionData'
 import { Question } from '../../../types/types'
-import btnText from '../../../assets/recommendimage/next.png';
+import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(recommendedContentsState);
+  const [isAnySelected, setIsAnySelected] = useState(false);
+
+  useEffect(() => {
+    setIsAnySelected(recommendedContents.memberOtts.length > 0);
+  }, [recommendedContents.memberOtts]);
 
   const handleIconClick = (clickedName: string) => {
     const isSelected = recommendedContents.memberOtts.indexOf(clickedName) > -1;
@@ -44,7 +50,7 @@ const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
                     alt={ott.name}
                     className={isSelected ? 'select' : ''}
                   />
-                  <div>{ott.name}</div>
+                  <S_OttName>{ott.name}</S_OttName>
                 </S_OttBox>
               );
             })}
@@ -52,8 +58,9 @@ const FirstQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
           <RecommendBtn
             bgColor={'#A59BDC'}
             bgShadow={'#6659B2'}
-            btnText={btnText}
+            btnText={btnNext}
             onClick={onNextClick}
+            disabled={!isAnySelected}
           />
         </S_SelectionBox>
         <S_ModalBackground/>
@@ -72,6 +79,16 @@ const S_Wrapper = styled.div<{ isOpen: boolean }>`
   height: 100vh;
 `
 
+const S_ModalBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
 const S_ModalBackground = styled.div`
   position: absolute;
   width: 840px;
@@ -82,25 +99,17 @@ const S_ModalBackground = styled.div`
   z-index: -1;
 `
 
-const S_ModalBox = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 840px;
-  height: 700px;
-`
-
 const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  width: 100%;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.40);
   font-family: 'inter';
+
 `
 
 const S_TextBox = styled.div`
@@ -115,11 +124,11 @@ const S_Text = styled.p`
 `
 
 const S_OttList = styled.div`
-  display: flex;
-  margin: 50px 80px;
-  gap: 40px;
+  display: grid;
   justify-content: center;
   align-items: center;
+  margin: 50px 50px 30px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 `
 
 const S_OttBox = styled.div`
@@ -127,9 +136,11 @@ const S_OttBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 15px;
   color: var(--color-bg-100);
   font-size: 18px;
   font-weight: 700;
+  
 `
 
 const S_OttIcon = styled.img`
@@ -149,3 +160,5 @@ const S_OttIcon = styled.img`
     opacity: 1;
   }
 `
+
+const S_OttName = styled.div``
