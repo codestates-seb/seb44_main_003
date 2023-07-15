@@ -11,28 +11,41 @@ import com.ott.server.media.mapper.MediaMapper;
 import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class MediaService {
-
+    private final EntityManager entityManager;
     private final MediaRepository mediaRepository;
     private final MediaMapper mediaMapper;
     private final MediaOttRepository mediaOttRepository;
     private final GenreRepository genreRepository;
 
-    public MediaService(MediaRepository mediaRepository, MediaMapper mediaMapper, MediaOttRepository mediaOttRepository, GenreRepository genreRepository) {
+    public MediaService(MediaRepository mediaRepository, MediaMapper mediaMapper, MediaOttRepository mediaOttRepository, GenreRepository genreRepository,EntityManager entityManager) {
         this.mediaRepository = mediaRepository;
         this.mediaMapper = mediaMapper;
         this.mediaOttRepository = mediaOttRepository;
         this.genreRepository = genreRepository;
+        this.entityManager = entityManager;
+    }
+
+
+    @Transactional
+    public void indexAllMedia() throws InterruptedException {
+        SearchSession searchSession = Search.session(entityManager);
+
+        searchSession.massIndexer(Media.class)
+                .startAndWait();
     }
 
 

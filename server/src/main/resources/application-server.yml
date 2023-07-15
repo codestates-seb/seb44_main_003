@@ -9,9 +9,16 @@ spring:
     properties:
       hibernates:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-      format_sql: true
+      hibernate:
+        ddl-auto: update
+        format_sql: true
+        search:
+          backend:
+            analysis:
+              configurer: com.ott.server.elasticsearch.CustomElasticsearchAnalysisConfigurer
+            type: elasticsearch
+            hosts: http://localhost:9200
+            protocol: http
     show-sql: true
   security:
     oauth2:
@@ -45,7 +52,6 @@ spring:
               - profile_nickname
               - account_email
               - profile_image
-
         provider:
           naver:
             authorization-uri: https://nid.naver.com/oauth2.0/authorize
@@ -57,9 +63,9 @@ spring:
             tokenUri: https://kauth.kakao.com/oauth/token
             userInfoUri: https://kapi.kakao.com/v2/user/me
             userNameAttribute: id
-
-
-
+  elasticsearch:
+    rest:
+      uris: http://192.168.0.60:9200
 config:
   domain: ${AWS_S3_Endpoint}
 logging:
@@ -68,6 +74,8 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+    hibernate:
+      search: INFO
 server:
   servlet:
     encoding:

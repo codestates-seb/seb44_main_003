@@ -7,11 +7,19 @@ spring:
   jpa:
     database: mysql
     properties:
-      hibernates:
+      hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-      format_sql: true
+        ddl-auto: update
+        format_sql: true
+        search:
+          backend:
+            analysis:
+              configurer: com.ott.server.elasticsearch.CustomElasticsearchAnalysisConfigurer
+            type: elasticsearch
+            hosts: localhost:9200
+            protocol: http
+#          mapping:
+#            configurer: com.ott.server.media.MediaMappingConfigurer
     show-sql: true
   security:
     oauth2:
@@ -44,7 +52,6 @@ spring:
               - profile_nickname
               - account_email
               - profile_image
-
         provider:
           naver:
             authorization-uri: https://nid.naver.com/oauth2.0/authorize
@@ -56,15 +63,17 @@ spring:
             tokenUri: https://kauth.kakao.com/oauth/token
             userInfoUri: https://kapi.kakao.com/v2/user/me
             userNameAttribute: id
-
-
-
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
 logging:
   level:
     org:
       springframework:
         orm:
           jpa: DEBUG
+      hibernate:
+        search: DEBUG
 server:
   servlet:
     encoding:
