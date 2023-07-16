@@ -129,12 +129,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
           {data.pages.map((page) => (
             <>
               {page.content.map((item: ContentData, index: number) => (
-                <S_Item
-                  key={item.id}
-                  index={index + 1}
-                  totalLength={totalLength}
-                  size={size}
-                >
+                <S_Item key={item.id} index={index + 1} size={size}>
                   <ItemCard item={item} />
                 </S_Item>
               ))}
