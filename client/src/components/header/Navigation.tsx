@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { recommendModalState } from '../../recoil/atoms/Atoms';
+import { useSetRecoilState, useResetRecoilState } from 'recoil';
+import { recommendModalState, recommendedContentsState } from '../../recoil/atoms/Atoms';
 
 const navMenus = [
   { text: 'TV', route: '/tv' },
@@ -12,6 +12,7 @@ const navMenus = [
 
 function Navigation() {
   const setIsRecommendModal = useSetRecoilState(recommendModalState);
+  const resetRecommendedContents = useResetRecoilState(recommendedContentsState);
 
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -23,6 +24,7 @@ function Navigation() {
           onClick={() => {
             if (menu.text === "추천해조잉") {
               setIsRecommendModal(true);
+              resetRecommendedContents();
             } else {
               navigate(menu.route);
             }
