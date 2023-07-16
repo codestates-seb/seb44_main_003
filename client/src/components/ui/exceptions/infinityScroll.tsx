@@ -35,7 +35,7 @@ export function InfinityScrollLoading() {
   return (
     <S_LoadingWrap>
       {Array.from({ length: size }, (_, index) => (
-        <S_Item key={index} index={index + 1}>
+        <S_Item key={index} index={index + 1} size={size}>
           <SkeletonItemCard />
         </S_Item>
       ))}
