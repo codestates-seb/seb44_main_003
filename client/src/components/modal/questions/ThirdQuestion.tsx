@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
@@ -7,13 +8,18 @@ import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList, genres } from '../QuestionData'
 import { Question } from '../../../types/types'
-import btnText from '../../../assets/recommendimage/next.png';
+import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(recommendedContentsState);
+  const [isAnySelected, setIsAnySelected] = useState(false);
+
+  useEffect(() => {
+    setIsAnySelected(recommendedContents.interests.length > 0);
+  }, [recommendedContents.interests]);
 
   const handleGenreCheckboxClick = (isChecked: boolean, genre: string) => {
-    if (isChecked && recommendedContents.interests.length < 3) {
+    if (isChecked && recommendedContents.interests.length < 5) {
       setRecommendedContents({ ...recommendedContents, interests: [...recommendedContents.interests, genre] });
     } else if (!isChecked) {
       setRecommendedContents({
@@ -33,7 +39,7 @@ const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
         <QuestionCard question={questionList[2]}/>
         <S_SelectionBox>
           <S_TextBox>
-            <S_Text>* 최대 3개 선택 가능</S_Text>
+            <S_Text>* 최대 5개 선택 가능</S_Text>
           </S_TextBox>
           <S_GenreList>
             {genres.map((genre) => (
@@ -49,8 +55,9 @@ const ThirdQuestion: React.FC<Question> = ({ isOpen, closeModal, onNextClick }) 
           <RecommendBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
-            btnText={btnText}
+            btnText={btnNext}
             onClick={onNextClick}
+            disabled={!isAnySelected}
           />
         </S_SelectionBox>
         <S_ModalBackground/>
@@ -68,6 +75,16 @@ const S_Wrapper = styled.div<{ isOpen: boolean }>`
   height: 100vh;
 `
 
+const S_ModalBox = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
 const S_ModalBackground = styled.div`
   position: absolute;
   width: 840px;
@@ -78,25 +95,17 @@ const S_ModalBackground = styled.div`
   z-index: -1;
 `
 
-const S_ModalBox = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 60%;
-  height: 700px;
-`
-
 const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  width: 90%;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.40);
   font-family: 'inter';
+  overflow: auto;
 `
 
 const S_TextBox = styled.div`
@@ -111,14 +120,13 @@ const S_Text = styled.p`
 `
 
 const S_GenreList = styled.div`
-  display: flex;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  margin: 50px 40px;
-  gap: 30px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 35px 5px;
   justify-content: center;
   align-items: center;
-`
+  margin: 30px 40px;
+`;
 
 const S_GenreBox = styled.div`
   display: flex;
