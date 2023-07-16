@@ -129,7 +129,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
           {data.pages.map((page) => (
             <>
               {page.content.map((item: ContentData, index: number) => (
-                <S_Item key={item.id} index={index + 1}>
+                <S_Item key={item.id} index={index + 1} size={size}>
                   <ItemCard item={item} />
                 </S_Item>
               ))}
@@ -155,41 +155,41 @@ const S_FlexWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-left: 20px;
 
   .target {
     height: 10px;
   }
 
   @media only screen and (max-width: 1500px) {
-    padding: 0;
+    margin: 0;
   }
 `;
 
 const S_Item = styled.div<ItemProps>`
-  width: 225px;
+  width: calc(100% / ${({ size }) => size / 4} - 18px);
   margin: 0 0 50px 15px;
-  flex-grow: 1;
 
   @media only screen and (max-width: 1500px) {
-    width: 14vw;
+    width: calc(100% / ${({ size }) => size / 4} - 13px);
     margin: ${({ index }) =>
       index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
   }
 
   @media only screen and (max-width: 1024px) {
-    width: 17vw;
+    width: calc(100% / ${({ size }) => size / 4} - 12px);
     margin: ${({ index }) =>
       index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
   }
 
   @media only screen and (max-width: 770px) {
-    width: 18vw;
+    width: calc(100% / ${({ size }) => size / 4} - 8px);
     margin: ${({ index }) =>
       index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
 
   @media only screen and (max-width: 480px) {
-    width: 23vw;
+    width: calc(100% / ${({ size }) => size / 4} - 6.7px);
     margin: ${({ index }) =>
       index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }

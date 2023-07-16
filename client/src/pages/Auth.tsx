@@ -13,13 +13,14 @@ function Auth() {
 export default Auth;
 
 const S_main = styled.main`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   > img {
-    position: absolute;
+    position: fixed;
     transform: translate(-50%, 50%) scale(3.7);
     animation-delay: 0.1s;
     animation-direction: normal;

@@ -126,4 +126,5 @@ export type OpenModalType = {
 
 export type ItemProps = {
   index: number;
-};
+  size: number;
+} & React.HTMLAttributes<HTMLDivElement>;

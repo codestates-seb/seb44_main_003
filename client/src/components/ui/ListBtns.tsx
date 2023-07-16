@@ -1,10 +1,23 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GenreBtn from './GenreBtn';
 import OttBtn from './OttBtn';
 
 function ListBtns() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
   const genre = new URLSearchParams(location.search).get('genre');
-  const isMobile = window.innerWidth <= 500;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 500);
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <S_Wrapper>
       <S_flexBox>
@@ -21,11 +34,11 @@ function ListBtns() {
           </>
         ) : (
           <>
+            <h1 className="bar">OTT 검색</h1>
             <div className="flex">
               <OttBtn />
             </div>
             <S_FlexTextBox>
-              <h1 className="bar">OTT 검색</h1>
               <h1 className="bar">|</h1>
               <GenreBtn />
             </S_FlexTextBox>
