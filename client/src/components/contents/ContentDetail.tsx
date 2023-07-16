@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
-import tving from '../../assets/ott/tving.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
@@ -23,7 +22,6 @@ function ContentDetail({ contentId }: { contentId: string }) {
     { name: 'Disney Plus', img: disney },
     { name: 'Watcha', img: watcha },
     { name: 'wavve', img: wavve },
-    { name: 'Tving', img: tving },
   ];
 
   const { isLoading, data, error, isSuccess } = useQuery(

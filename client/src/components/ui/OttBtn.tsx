@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
-import tving from '../../assets/ott/tving.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
@@ -17,7 +16,6 @@ function OttBtn() {
     'Disney Plus': ott?.includes('Disney Plus') ? 'Disney Plus' : '',
     Watcha: ott?.includes('Watcha') ? 'Watcha' : '',
     wavve: ott?.includes('wavve') ? 'wavve' : '',
-    Tving: ott?.includes('Tving') ? 'Tving' : '',
   };
   const [selectedOtt, setSelectedOtt] = useState(urlData);
   const navigate = useNavigate();
@@ -28,8 +26,7 @@ function OttBtn() {
       ott === 'Netflix' ||
       ott === 'Disney Plus' ||
       ott === 'Watcha' ||
-      ott === 'wavve' ||
-      ott === 'Tving'
+      ott === 'wavve'
     ) {
       if (selectedOtt[ott] === '') {
         setSelectedOtt((prev) => ({ ...prev, [ott]: ott }));
@@ -73,11 +70,6 @@ function OttBtn() {
           alt="wavve"
           onClick={() => navigate(`${path}/list?ott=wavve`)}
         />
-        <S_Ott
-          src={tving}
-          alt="Tving"
-          onClick={() => navigate(`${path}/list?ott=Tving`)}
-        />
       </>
     );
   }
@@ -112,14 +104,6 @@ function OttBtn() {
         src={wavve}
         alt="wavve"
         className={selectedOtt.wavve ? '' : 'dark'}
-        onClick={(e: React.MouseEvent<EventTarget>) => {
-          handleBtnClick(e);
-        }}
-      />
-      <S_Ott
-        src={tving}
-        alt="Tving"
-        className={selectedOtt.Tving ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
           handleBtnClick(e);
         }}
