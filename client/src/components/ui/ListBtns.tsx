@@ -21,11 +21,11 @@ function ListBtns() {
           </>
         ) : (
           <>
-            <h1 className="bar">OTT 검색</h1>
             <div className="flex">
               <OttBtn />
             </div>
             <S_FlexTextBox>
+              <h1 className="bar">OTT 검색</h1>
               <h1 className="bar">|</h1>
               <GenreBtn />
             </S_FlexTextBox>
