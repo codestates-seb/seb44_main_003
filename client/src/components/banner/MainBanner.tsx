@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import mainImg from '../../assets/main_background (2).png';
+import mainImg from '../../assets/main_background.png';
 import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
 import { PiMagicWandFill } from 'react-icons/pi';
@@ -169,6 +169,44 @@ const S_Wrapper = styled.div`
     }
     @media only screen and (max-width: 900px) {
       width: 90vw;
+    }
+    > div:first-child {
+      animation: appear-side 1.5s linear -0.7s;
+      @media only screen and (max-width: 1095px) {
+        animation: appear-bottom 1.5s linear -0.7s;
+      }
+      @keyframes appear-side {
+        from {
+          filter: brightness(0);
+          transform: translate(80px, 0);
+        }
+        to {
+          filter: brightness(1);
+          transform: translate(0, 0);
+        }
+      }
+      @keyframes appear-bottom {
+        from {
+          filter: brightness(0);
+          transform: translate(0, 40px);
+        }
+        to {
+          filter: brightness(1);
+          transform: translate(0, 0);
+        }
+      }
+    }
+    > div:nth-child(2) {
+      animation: appear-side 1.5s linear -0.5s;
+      @media only screen and (max-width: 1095px) {
+        animation: appear-bottom 1.5s linear -0.7s;
+      }
+    }
+    > div:nth-child(3) {
+      animation: appear-side 1.5s linear -0.3s;
+      @media only screen and (max-width: 1095px) {
+        animation: appear-bottom 1.5s linear -0.7s;
+      }
     }
     > div {
       display: flex;
