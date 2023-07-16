@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -13,7 +13,7 @@ function Bookmark({ contentId }: { contentId: string }) {
     return (
       <S_IconWrapper>
         <div>
-          <AiOutlineHeart
+          <BsHeart
             color="white"
             size="40"
             onClick={() => alert('로그인 후 이용 가능합니다')}
@@ -58,14 +58,14 @@ function Bookmark({ contentId }: { contentId: string }) {
       <S_IconWrapper>
         <div>
           {data ? (
-            <AiFillHeart
+            <BsHeartFill
               color="white"
               size="40"
               className="isTrue"
               onClick={() => BookmarkMutation.mutate(contentId)}
             />
           ) : (
-            <AiOutlineHeart
+            <BsHeart
               color="white"
               size="40"
               onClick={() => BookmarkMutation.mutate(contentId)}

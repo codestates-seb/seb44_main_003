@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -19,7 +19,7 @@ function Recommend({
     return (
       <S_IconWrapper>
         <div>
-          <FaRegThumbsUp
+          <BsHandThumbsUp
             color="white"
             size="40"
             onClick={() => alert('로그인 후 이용 가능합니다')}
@@ -66,14 +66,14 @@ function Recommend({
       <S_IconWrapper>
         <div>
           {data ? (
-            <FaThumbsUp
+            <BsHandThumbsUpFill
               color="white"
               size="40"
               className="isTrue"
               onClick={() => RecommendMutation.mutate(contentId)}
             />
           ) : (
-            <FaRegThumbsUp
+            <BsHandThumbsUp
               color="white"
               size="40"
               onClick={() => RecommendMutation.mutate(contentId)}

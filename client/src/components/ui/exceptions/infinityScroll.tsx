@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import SkeletonItemCard from '../SkeletonItemCard';
 
 export function InfinityScrollLoading() {
+  const count = (import.meta.env.VITE_LOADING_INFINITY_ITEMS_COUNT = 24);
   return (
     <S_LoadingWrap>
-      {Array.from({ length: 24 }, (_, index) => (
+      {Array.from({ length: count }, (_, index) => (
         <S_Item key={index}>
           <SkeletonItemCard />
         </S_Item>

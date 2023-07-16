@@ -8,9 +8,11 @@ import { ContentData } from '../../types/types';
 import { InfinityScrollLoading } from '../ui/exceptions/infinityScroll';
 import noContents from '../../assets/exception/nocontents.svg';
 import loadmore from '../../assets/exception/loadmore.svg';
+import { ItemProps } from '../../types/types';
 
 function InfinityScroll({ path, query }: { path: string; query: string }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [size, setSize] = useState(getSize());
   let category = '';
 
   if (path.includes('tv')) {
@@ -20,13 +22,27 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
     category = '/movie';
   }
 
+  function getSize() {
+    const width = window.innerWidth;
+
+    if (width <= 480) {
+      return 12;
+    } else if (width <= 770) {
+      return 16;
+    } else if (width <= 1024) {
+      return 20;
+    } else {
+      return 24;
+    }
+  }
+
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
     path.includes('search') ? ['search', query] : ['selectedList', query],
     ({ pageParam = 1 }) =>
       path.includes('search')
-        ? GetSearchedData(`${query}&page=${pageParam}&size=24`)
+        ? GetSearchedData(`${query}&page=${pageParam}&size=${size}`)
         : GetFilterdData(
-            `/medias${category}?page=${pageParam}&size=24&${query}`
+            `/medias${category}?page=${pageParam}&size=${size}&${query}`
           ),
     {
       getNextPageParam: (lastPage) => {
@@ -65,6 +81,18 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
     };
   }, [inView, hasNextPage]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setSize(getSize());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   if (status === 'loading') {
     return <InfinityScrollLoading />;
   }
@@ -100,8 +128,8 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
         <S_FlexWrap>
           {data.pages.map((page) => (
             <>
-              {page.content.map((item: ContentData) => (
-                <S_Item key={item.id}>
+              {page.content.map((item: ContentData, index: number) => (
+                <S_Item key={item.id} index={index + 1}>
                   <ItemCard item={item} />
                 </S_Item>
               ))}
@@ -123,20 +151,48 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
 export default InfinityScroll;
 
 const S_FlexWrap = styled.div`
-  width: 100vw;
+  width: calc(100vw - 40px);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-right: 0.5vw;
 
   .target {
     height: 10px;
   }
+
+  @media only screen and (max-width: 1500px) {
+    padding: 0;
+  }
 `;
 
-const S_Item = styled.div`
+const S_Item = styled.div<ItemProps>`
   width: 225px;
-  margin: 0 7.5px 50px;
+  margin: 0 0 50px 15px;
+  flex-grow: 1;
+
+  @media only screen and (max-width: 1500px) {
+    width: 14vw;
+    margin: ${({ index }) =>
+      index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
+  }
+
+  @media only screen and (max-width: 1024px) {
+    width: 17vw;
+    margin: ${({ index }) =>
+      index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
+  }
+
+  @media only screen and (max-width: 770px) {
+    width: 18vw;
+    margin: ${({ index }) =>
+      index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 23vw;
+    margin: ${({ index }) =>
+      index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
+  }
 `;
 
 const S_Text = styled.p`

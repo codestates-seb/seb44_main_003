@@ -45,12 +45,14 @@ function ReportModal({ contentId }: { contentId: string }) {
         maxLength={20}
         {...register('title')}
       />
-      <label htmlFor="content">내용</label>
+      <label htmlFor="content" className="label">
+        내용
+      </label>
       <textarea
         required
         className="content"
         id="content"
-        placeholder="255글자까지 작성 가능합니다.   잘못된 정보가 있다면 적어주세요."
+        placeholder="255글자까지 작성 가능합니다.&#13;&#10;잘못된 정보를 적어주세요."
         maxLength={255}
         {...register('content')}
       />
@@ -78,13 +80,16 @@ const S_Form = styled.form`
   width: 350px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 20px;
   border-radius: 5px;
   border: 1px solid var(--color-white-100);
   background-color: var(--color-bg-80);
 
   label {
     color: white;
+  }
+  .label {
+    margin-top: 20px;
   }
   .title {
     padding: 10px;
@@ -108,7 +113,7 @@ const S_Form = styled.form`
 const S_Button = styled.button`
   width: 200px;
   height: 40px;
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius: 5px;
   border: 1px solid var(--color-white-80);
   color: var(--color-white-80);
@@ -124,6 +129,6 @@ const S_Button = styled.button`
 `;
 
 const S_ButtonClose = styled(S_Button)`
-  width: 100px;
+  width: 80px;
   margin-left: auto;
 `;

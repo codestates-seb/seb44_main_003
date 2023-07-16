@@ -123,3 +123,7 @@ export type ModalType = {
 export type OpenModalType = {
   content: JSX.Element | string;
 };
+
+export type ItemProps = {
+  index: number;
+};

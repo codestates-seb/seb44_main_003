@@ -110,7 +110,7 @@ const S_Footer = styled.footer`
     align-self: center;
   }
   p {
-    margin-bottom: 10px;
+    margin: 5px 0;
   }
   img {
     height: 40px;

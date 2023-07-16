@@ -20,8 +20,8 @@ export default ReportBtn;
 
 const S_Button = styled.button`
   width: 277px;
-  height: 30px;
-  margin-top: 5px;
+  height: 50px;
+  margin: 10px 0;
   border-radius: 5px;
   border: 1px solid var(--color-white-80);
   color: var(--color-white-80);
