@@ -4,17 +4,33 @@ import OttBtn from './OttBtn';
 
 function ListBtns() {
   const genre = new URLSearchParams(location.search).get('genre');
+  const isMobile = window.innerWidth <= 500;
   return (
     <S_Wrapper>
       <S_flexBox>
-        <div className="flex">
-          <OttBtn />
-        </div>
-        <S_FlexTextBox>
-          <p className="bar">OTT 검색</p>
-          <p className="bar">|</p>
-          <GenreBtn />
-        </S_FlexTextBox>
+        {isMobile ? (
+          <>
+            <div className="flex">
+              <OttBtn />
+            </div>
+            <S_FlexTextBox>
+              <h1 className="bar">OTT 검색</h1>
+              <h1 className="bar">|</h1>
+              <GenreBtn />
+            </S_FlexTextBox>
+          </>
+        ) : (
+          <>
+            <h1 className="bar">OTT 검색</h1>
+            <div className="flex">
+              <OttBtn />
+            </div>
+            <S_FlexTextBox>
+              <h1 className="bar">|</h1>
+              <GenreBtn />
+            </S_FlexTextBox>
+          </>
+        )}
       </S_flexBox>
       <S_genre>{genre}</S_genre>
     </S_Wrapper>

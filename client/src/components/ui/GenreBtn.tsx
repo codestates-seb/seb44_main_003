@@ -75,7 +75,7 @@ function GenreBtn() {
   return (
     <GenreBtnContainer ref={genreBtnRef}>
       <S_GenreBtn onClick={handleGenreClick}>
-        장르 검색
+        <h1>장르 검색</h1>
         <IoIosArrowDown size={30} />
       </S_GenreBtn>
       {isOpen && (
@@ -118,11 +118,13 @@ const GenreBtnContainer = styled.div`
 const S_GenreBtn = styled.div`
   display: flex;
   align-items: center;
-  font-size: 20px;
   color: var(--color-white-80);
   cursor: pointer;
   svg {
     margin: 4% 0 0 5px;
+  }
+  h1 {
+    font-size: 20px;
   }
 `;
 
@@ -133,7 +135,7 @@ const S_LabelWrapper = styled.div`
   border: 1px solid gainsboro;
   border-radius: 5px;
   padding: 15px 0px 15px 20px;
-  top: 100%;
+  top: 120%;
   left: 10;
   z-index: 10;
   background-color: var(--color-bg-100);
@@ -148,6 +150,7 @@ const S_LabelWrapper = styled.div`
   }
 
   @media only screen and (max-width: 500px) {
+    top: 110%;
     padding: 10px;
     left: 20px;
   }
