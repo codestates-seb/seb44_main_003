@@ -17,8 +17,7 @@ import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
 import Recommend from './components/modal/Recommend';
-import NotFound from './pages/404NotFound';
-import Error from './pages/500Error';
+import Error from './pages/Error';
 import Admin from './pages/Admin';
 import './App.css';
 
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     loader: tokenLoader,
-    errorElement: <NotFound />,
+    errorElement: <Error code="404" />,
     children: [
       {
         index: true,
@@ -80,7 +79,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'error',
-        element: <Error />,
+        element: <Error code="500" />,
       },
     ],
   },
