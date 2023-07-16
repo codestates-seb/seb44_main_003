@@ -12,7 +12,7 @@ function DeleteMediaBtn({ contentId }: { contentId: string }) {
     },
   });
 
-  const handledelete = () => {
+  const handleDelete = () => {
     const input = window.prompt(`삭제하려면 "${contentId} 삭제"를 입력하세요.`);
     if (input === `${contentId} 삭제`) {
       DeleteMediaMutation.mutate();
@@ -23,7 +23,7 @@ function DeleteMediaBtn({ contentId }: { contentId: string }) {
 
   return (
     <>
-      <S_DeleteBtn onClick={handledelete}>삭제</S_DeleteBtn>
+      <S_DeleteBtn onClick={handleDelete}>삭제</S_DeleteBtn>
     </>
   );
 }

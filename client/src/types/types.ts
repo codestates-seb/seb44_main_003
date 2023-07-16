@@ -128,3 +128,13 @@ export type ItemProps = {
   index: number;
   size: number;
 };
+
+export type Report = {
+  completion: boolean;
+  content: string;
+  createdAt: string;
+  id: number;
+  lastModifiedAt: string;
+  mediaId: number;
+  title: string;
+};
