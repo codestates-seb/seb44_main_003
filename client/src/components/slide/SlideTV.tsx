@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
 import { GetTVData } from '../../api/api';
 import ItemCard from '../ui/ItemCard';
 import SkeletonItemCard from '../ui/SkeletonItemCard';
@@ -8,31 +8,37 @@ import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { AxiosError } from 'axios';
+import { redirect } from 'react-router-dom';
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const SildeTV = ({genre}: {genre: string}) => {
+const SildeTV = ({ genre }: { genre: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
     queryKey: ['tvData', genre],
     queryFn: () => GetTVData(genre),
-  })
+    retry: false,
+  });
 
   if (isLoading) {
     return (
       <S_Wrapper>
         <S_SkeletonBox>
-        {Array.from({ length: 6 }, (_, index) => (
-          <SkeletonItemCard  key={index}/>
-        ))}
+          {Array.from({ length: 6 }, (_, index) => (
+            <SkeletonItemCard key={index} />
+          ))}
         </S_SkeletonBox>
       </S_Wrapper>
     );
   }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK')
+      return redirect('/error');
+  }
 
   if (isSuccess) {
     return (
@@ -46,16 +52,16 @@ const SildeTV = ({genre}: {genre: string}) => {
           navigation={true} // 버튼
           watchOverflow={true}
           virtual
-        > 
+        >
           {data.content.map((item) => (
-          <S_SwiperSlide>
-            <ItemCard item={item} />
-          </S_SwiperSlide>
+            <S_SwiperSlide>
+              <ItemCard item={item} />
+            </S_SwiperSlide>
           ))}
         </S_Swiper>
       </S_Wrapper>
     );
-  };
+  }
 };
 
 export default SildeTV;
@@ -102,8 +108,8 @@ const S_Swiper = styled(Swiper)`
       opacity: 1;
       transition: opacity 0.3s ease;
     }
-  } 
-`
+  }
+`;
 
 const S_SwiperSlide = styled(SwiperSlide)`
   display: flex;
