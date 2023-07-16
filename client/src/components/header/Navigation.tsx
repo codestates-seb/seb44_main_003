@@ -1,8 +1,10 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { useSetRecoilState, useResetRecoilState } from 'recoil';
-import { recommendModalState, recommendedContentsState } from '../../recoil/atoms/Atoms';
+import { useResetRecoilState } from 'recoil';
+import { recommendedContentsState } from '../../recoil/atoms/Atoms';
+import { useModal } from '../../hooks/useModal';
+import Recommend from '../modal/Recommend';
 
 const navMenus = [
   { text: 'TV', route: '/tv' },
@@ -11,9 +13,10 @@ const navMenus = [
 ];
 
 function Navigation() {
-  const setIsRecommendModal = useSetRecoilState(recommendModalState);
-  const resetRecommendedContents = useResetRecoilState(recommendedContentsState);
-
+  const resetRecommendedContents = useResetRecoilState(
+    recommendedContentsState
+  );
+  const { openModal } = useModal();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   return (
@@ -23,7 +26,7 @@ function Navigation() {
           key={menu.text}
           onClick={() => {
             if (menu.route === null) {
-              setIsRecommendModal(true);
+              openModal({ content: <Recommend /> });
               resetRecommendedContents();
             } else {
               navigate(menu.route);

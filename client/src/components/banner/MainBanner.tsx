@@ -47,7 +47,6 @@ function MainBanner() {
           </div>
           <PiCaretRightThin className="arrow" />
         </div>
-        {/* todo: Recommend 컴포넌트 외부로 조건부 렌더 로직 옮기기 */}
         <div onClick={() => openModal({ content: <Recommend /> })}>
           <div>
             <PiMagicWandFill />
