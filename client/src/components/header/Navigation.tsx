@@ -7,7 +7,7 @@ import { recommendModalState, recommendedContentsState } from '../../recoil/atom
 const navMenus = [
   { text: 'TV', route: '/tv' },
   { text: '영화', route: '/movie' },
-  { text: '추천해조잉', route: '/recommend' },
+  { text: '추천해조잉', route: null },
 ];
 
 function Navigation() {
@@ -22,7 +22,7 @@ function Navigation() {
         <S_Heading
           key={menu.text}
           onClick={() => {
-            if (menu.text === "추천해조잉") {
+            if (menu.route === null) {
               setIsRecommendModal(true);
               resetRecommendedContents();
             } else {
