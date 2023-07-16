@@ -126,4 +126,6 @@ export type OpenModalType = {
 
 export type ItemProps = {
   index: number;
+  totalLength: number;
+  size: number;
 };
