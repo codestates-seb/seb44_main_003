@@ -1,16 +1,23 @@
 import { useState } from 'react';
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { recommendModalState, recommendedContentsState } from "../../recoil/atoms/Atoms";
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import {
+  recommendModalState,
+  recommendedContentsState,
+} from '../../recoil/atoms/Atoms';
 import styled from 'styled-components';
 import FirstQuestion from './questions/FirstQuestion';
 import SecondQuestion from './questions/SecondQuestion';
 import ThirdQuestion from './questions/ThirdQuestion';
-import QuestionResult from './questions/QuestionResult'
+import QuestionResult from './questions/QuestionResult';
+import { useModal } from '../../hooks/useModal';
 
 const Recommend = () => {
-  const [isRecommendModal, setIsRecommendModal] = useRecoilState(recommendModalState);
-  const resetRecommendedContents = useResetRecoilState(recommendedContentsState);
+  const [isRecommendModal] = useRecoilState(recommendModalState);
+  const resetRecommendedContents = useResetRecoilState(
+    recommendedContentsState
+  );
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const { closeModal } = useModal();
 
   const questionComponents = [
     FirstQuestion,
@@ -19,15 +26,9 @@ const Recommend = () => {
     QuestionResult,
   ];
 
-  const closeModal = () => {
-    setIsRecommendModal(false);
+  const resetModal = () => {
+    closeModal();
     setCurrentQuestion(1);
-  };
-
-  const closeModalOnOutsideClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
   };
 
   const handleNextClick = () => {
@@ -35,30 +36,29 @@ const Recommend = () => {
   };
 
   const handleReset = () => {
-    setCurrentQuestion(1)
+    setCurrentQuestion(1);
     resetRecommendedContents();
   };
 
   return (
-    isRecommendModal && (
-      <S_Wrapper onClick={closeModalOnOutsideClick}>
-        {questionComponents.map((Question, index) => (
+    <S_Wrapper onClick={() => closeModal()}>
+      {questionComponents.map(
+        (Question, index) =>
           currentQuestion === index + 1 && (
             <Question
               key={index}
               isOpen={isRecommendModal}
-              closeModal={closeModal}
+              closeModal={resetModal}
               onNextClick={handleNextClick}
               onReset={handleReset}
             />
           )
-        ))}
-      </S_Wrapper>
-    )
+      )}
+    </S_Wrapper>
   );
-}
+};
 
-export default Recommend
+export default Recommend;
 
 const S_Wrapper = styled.div`
   display: flex;
