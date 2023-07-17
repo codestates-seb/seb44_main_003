@@ -11,12 +11,11 @@ import com.ott.server.media.mapper.MediaMapper;
 import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
-
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
-
 import com.ott.server.member.entity.Member;
 import com.ott.server.recommendation.repository.RecommendationRepository;
+import org.springframework.cache.annotation.Cacheable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -99,6 +98,7 @@ public class MediaService {
         return mapMediaToResponseDto(savedMedia);
     }
 
+    //@Cacheable("myCache")
     public List<MediaDto.Response2> getAllMedia() {
         List<Media> allMedia = mediaRepository.findAll();
 
