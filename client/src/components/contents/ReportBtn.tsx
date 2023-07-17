@@ -1,17 +1,27 @@
 import { styled } from 'styled-components';
 import { useModal } from '../../hooks/useModal';
 import ReportModal from '../ui/modal/ReportModal';
+import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 
 function ReportBtn({ contentId }: { contentId: string }) {
   const { openModal } = useModal();
+  const isLoggedIn = useIsLoggedIn();
 
   const modalData = {
     content: <ReportModal contentId={contentId} />,
   };
 
+  const handleModalOpen = () => {
+    if (isLoggedIn) {
+      openModal(modalData);
+    } else {
+      alert('로그인 후 이용 가능합니다');
+    }
+  };
+
   return (
     <>
-      <S_Button onClick={() => openModal(modalData)}>오류 제보하기</S_Button>
+      <S_Button onClick={handleModalOpen}>오류 제보하기</S_Button>
     </>
   );
 }
@@ -20,8 +30,8 @@ export default ReportBtn;
 
 const S_Button = styled.button`
   width: 277px;
-  height: 30px;
-  margin-top: 5px;
+  height: 50px;
+  margin: 10px 0;
   border-radius: 5px;
   border: 1px solid var(--color-white-80);
   color: var(--color-white-80);

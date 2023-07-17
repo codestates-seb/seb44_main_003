@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { GetUser } from '../api/api';
 import useIsLoggedIn from './../hooks/useIsLoggedIn';
 import AdminMediaForm from '../components/admin/AdminMediaForm';
+import AdminReport from '../components/admin/AdminReport';
 
 function Admin() {
   const isLoggedIn = useIsLoggedIn();
@@ -20,6 +21,7 @@ function Admin() {
   return (
     <S_Wrapeer>
       <AdminMediaForm type={'add'} editData={null} contentId="" />
+      <AdminReport />
     </S_Wrapeer>
   );
 }

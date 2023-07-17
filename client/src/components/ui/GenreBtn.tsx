@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { IoIosArrowDown } from 'react-icons/io';
 import styled from 'styled-components';
 
 function GenreBtn() {
@@ -73,26 +74,31 @@ function GenreBtn() {
 
   return (
     <GenreBtnContainer ref={genreBtnRef}>
-      <S_GenreBtn onClick={handleGenreClick}>장르 ▼</S_GenreBtn>
+      <S_GenreBtn onClick={handleGenreClick}>
+        <h1>장르 검색</h1>
+        <IoIosArrowDown size={30} />
+      </S_GenreBtn>
       {isOpen && (
         <S_LabelWrapper>
           {Array.from({ length: Math.ceil(genres.length / 4) }).map(
             (_text, index) => (
-              <S_LabelRow>
-                {genres.slice(index * 4, (index + 1) * 4).map((text) => (
-                  <S_Label
-                    key={text}
-                    flexgrow={text === 'Made in Europe' ? '1' : '0'}
-                  >
-                    <S_Input
-                      type="checkbox"
-                      value={text}
-                      checked={selectedGenre === text}
-                      onChange={handleGenreChange}
-                    />
-                    <S_Text>{text}</S_Text>
-                  </S_Label>
-                ))}
+              <S_LabelRow key={index}>
+                {genres
+                  .slice(index * 4, (index + 1) * 4)
+                  .map((text, innerIndex) => (
+                    <S_Label
+                      key={innerIndex}
+                      flexgrow={text === 'Made in Europe' ? '1' : '0'}
+                    >
+                      <S_Input
+                        type="checkbox"
+                        value={text}
+                        checked={selectedGenre === text}
+                        onChange={handleGenreChange}
+                      />
+                      <S_Text>{text}</S_Text>
+                    </S_Label>
+                  ))}
               </S_LabelRow>
             )
           )}
@@ -110,9 +116,16 @@ const GenreBtnContainer = styled.div`
 `;
 
 const S_GenreBtn = styled.div`
-  font-size: 20px;
+  display: flex;
+  align-items: center;
   color: var(--color-white-80);
   cursor: pointer;
+  svg {
+    margin: 4% 0 0 5px;
+  }
+  h1 {
+    font-size: 20px;
+  }
 `;
 
 const S_LabelWrapper = styled.div`
@@ -121,11 +134,26 @@ const S_LabelWrapper = styled.div`
   flex-direction: column;
   border: 1px solid gainsboro;
   border-radius: 5px;
-  padding: 8px;
-  top: 100%;
+  padding: 15px 0px 15px 20px;
+  top: 120%;
   left: 10;
   z-index: 10;
-  background-color: var(--color-bg-80);
+  background-color: var(--color-bg-100);
+
+  @media only screen and (max-width: 930px) {
+    left: 20px;
+  }
+
+  @media only screen and (max-width: 580px) {
+    padding: 10px;
+    left: 140px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    top: 110%;
+    padding: 10px;
+    left: 20px;
+  }
 `;
 
 const S_LabelRow = styled.div`
@@ -133,15 +161,19 @@ const S_LabelRow = styled.div`
 `;
 
 const S_Label = styled.label<{ flexgrow: string }>`
-  width: 125px;
+  width: 130px;
   display: flex;
   align-items: center;
   flex-grow: ${(props) => props.flexgrow};
+
+  @media only screen and (max-width: 580px) {
+    width: 80px;
+  }
 `;
 
 const S_Text = styled.div`
   color: var(--color-white-60);
-  padding: 4px;
+  padding: 5px 0 5px 15px;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
@@ -153,14 +185,18 @@ const S_Text = styled.div`
   input[type='checkbox']:checked + & {
     color: var(--color-primary-gold);
   }
+
+  @media only screen and (max-width: 580px) {
+    padding: 10px 10px;
+  }
 `;
 
 const S_Input = styled.input`
   appearance: none;
   border: 1.5px solid gainsboro;
   border-radius: 4px;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
 
   &:checked {
@@ -170,5 +206,9 @@ const S_Input = styled.input`
     background-position: 50%;
     background-repeat: no-repeat;
     background-color: var(--color-primary-gold);
+  }
+
+  @media only screen and (max-width: 580px) {
+    display: none;
   }
 `;
