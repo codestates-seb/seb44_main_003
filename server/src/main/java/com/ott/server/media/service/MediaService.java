@@ -144,7 +144,6 @@ public class MediaService {
                                     Genre genre = new Genre();
                                     genre.setMedia(media);
                                     genre.setGenreName(genreName);
-                                    genreRepository.deleteByMedia(media);
                                     return genreRepository.save(genre);
                                 })
                                 .collect(Collectors.toList());
@@ -158,7 +157,6 @@ public class MediaService {
                                     mediaOtt.setMedia(media);
                                     mediaOtt.setOttName(ott.getOttName());
                                     mediaOtt.setOttAddress(ott.getOttAddress());
-                                    mediaOttRepository.deleteByMedia(media);
                                     return mediaOttRepository.save(mediaOtt);
                                 })
                                 .collect(Collectors.toList());
