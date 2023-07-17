@@ -57,10 +57,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 
+	implementation 'org.hibernate.search:hibernate-search-backend-elasticsearch:6.0.0.Final'
+	implementation 'org.apache.lucene:lucene-analyzers-nori:8.11.2'
+	implementation 'org.hibernate.search:hibernate-search-mapper-orm:6.0.0.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.11'
+
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 }
 
 

@@ -9,7 +9,6 @@ import com.ott.server.media.entity.Media;
 import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.member.entity.Member;
 import com.ott.server.member.repository.MemberRepository;
-import com.ott.server.recommendation.repository.RecommendationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
