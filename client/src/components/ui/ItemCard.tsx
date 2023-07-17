@@ -43,4 +43,20 @@ const S_ItemTitle = styled.p`
   font-size: 18px;
   font-weight: 700;
   filter: var(--shadow-l-25);
+
+  @media only screen and (max-width: 1200px) {
+    font-size: 18px;
+  }
+
+  @media only screen and (max-width: 1024px) {
+    font-size: 16px;
+  }
+  
+  @media only screen and (max-width: 770px) {
+    font-size: 14px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 13px;
+  }
 `;

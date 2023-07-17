@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GetTVData } from '../../api/api';
 import ItemCard from '../ui/ItemCard';
-import SkeletonItemCard from '../ui/SkeletonItemCard';
+import SliderLoading from '../ui/exceptions/sliderLoading';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,6 +18,14 @@ const SildeTV = ({ genre }: { genre: string }) => {
   const navigate = useNavigate();
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
+  const breakpoints = {
+    0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
+    480: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
+    770: { slidesPerView: 4, slidesPerGroup: 3, spaceBetween: 14 },
+    1024: { slidesPerView: 5, slidesPerGroup: 4, spaceBetween: 16 },
+    1200: { slidesPerView: 6, slidesPerGroup: 5, spaceBetween: 18 }
+  };
+
   const { isLoading, error, data, isSuccess } = useQuery({
     queryKey: ['tvData', genre],
     queryFn: () => GetTVData(genre),
@@ -26,14 +34,10 @@ const SildeTV = ({ genre }: { genre: string }) => {
 
   if (isLoading) {
     return (
-      <S_Wrapper>
-        <S_SkeletonBox>
-          {Array.from({ length: 6 }, (_, index) => (
-            <SkeletonItemCard key={index} />
-          ))}
-        </S_SkeletonBox>
-      </S_Wrapper>
-    );
+      <S_LoadingBox>
+        <SliderLoading />
+      </S_LoadingBox>
+    )
   }
 
   if (error instanceof AxiosError) {
@@ -51,6 +55,7 @@ const SildeTV = ({ genre }: { genre: string }) => {
           spaceBetween={18} // 슬라이드 사이 여백
           navigation={true} // 버튼
           watchOverflow={true}
+          breakpoints={breakpoints}
           virtual
         >
           {data.content.map((item) => (
@@ -102,6 +107,10 @@ const S_Swiper = styled(Swiper)`
     right: -3.75rem;
   }
 
+  .swiper-button-disabled {
+    display: none; // 처음, 마지막 슬라이드에 도달하면 화살표 비활성화
+  }
+
   &:hover {
     .swiper-button-prev,
     .swiper-button-next {
@@ -116,8 +125,7 @@ const S_SwiperSlide = styled(SwiperSlide)`
   cursor: pointer;
 `;
 
-const S_SkeletonBox = styled.div`
-  display: flex;
-  gap: 18px;
-  margin-bottom: 3.75rem;
+const S_LoadingBox = styled.div`
+  margin-top: 15px;
+  padding: 0px 3.75rem;
 `;
