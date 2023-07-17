@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { AdminPatchData, AdminPostData } from '../../api/api';
 import { AddData, SelectedData } from '../../types/types';
 
-const AdminMediaForm = ({
+function AdminMediaForm({
   type,
   editData,
   contentId,
@@ -12,12 +12,20 @@ const AdminMediaForm = ({
   type: string;
   editData: SelectedData | null;
   contentId: string;
-}) => {
+}) {
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
+
+  const ottDefault = [
+    { ottName: 'Netflix', ottAddress: '' },
+    { ottName: 'Disney Plus', ottAddress: '' },
+    { ottName: 'Watcha', ottAddress: '' },
+    { ottName: 'wavve', ottAddress: '' },
+    { ottName: 'Tving', ottAddress: '' },
+  ];
 
   const AddMediaMutation = useMutation({
     mutationFn: (convertedData: AddData) => AdminPostData(convertedData),
@@ -36,10 +44,10 @@ const AdminMediaForm = ({
   });
 
   const convertData = (data: Record<string, any>) => {
-    const ottNames = data.ottName.split(',').map((ott: string) => ott.trim());
-    const ottAddresses = data.ottAddress
-      .split(',')
-      .map((address: string) => address.trim());
+    const filteredOtt = data.ott.filter(
+      (ott: any) => ott.ottName.trim() !== ''
+    );
+
     const convertedData: AddData = {
       title: data.title,
       content: data.content,
@@ -52,11 +60,12 @@ const AdminMediaForm = ({
       ageRate: data.ageRate,
       recent: data.recent,
       genre: data.genre.split(',').map((item: string) => item.trim()),
-      mediaOtt: ottNames.map((ottName: string, index: number) => ({
-        ottName: ottName,
-        ottAddress: ottAddresses[index],
+      mediaOtt: filteredOtt.map((ott: any) => ({
+        ottName: ott.ottName.trim(),
+        ottAddress: ott.ottAddress.trim(),
       })),
     };
+
     return convertedData;
   };
 
@@ -163,29 +172,24 @@ const AdminMediaForm = ({
         placeholder="액션,드라마,SF,스릴러,애니메이션,코미디,가족,판타지..."
         {...register('genre')}
       />
-      <label htmlFor="ottName">OTT 이름</label>
-      <input
-        id="ottName"
-        type="text"
-        defaultValue={
-          type === 'edit'
-            ? editData?.mediaOtt.map((ott) => ott.ottName).join(',')
-            : ''
-        }
-        placeholder="Netflix,Disney Plus,Watcha,wavve,Tving"
-        {...register('ottName', { required: true })}
-      />
-      <label htmlFor="ottAddress">OTT 주소</label>
-      <input
-        id="ottAddress"
-        type="text"
-        defaultValue={
-          type === 'edit'
-            ? editData?.mediaOtt.map((ott) => ott.ottAddress).join(',')
-            : ''
-        }
-        {...register('ottAddress', { required: true })}
-      />
+      <label htmlFor="ott">OTT 정보</label>
+      {ottDefault.map((ott, index) => (
+        <div key={index}>
+          <input
+            type="text"
+            defaultValue={editData?.mediaOtt[index]?.ottName || ''}
+            placeholder="Netflix, Disney Plus, Watcha, wavve, Tving"
+            {...register(`ott[${index}].ottName`)}
+          />
+          <textarea
+            defaultValue={
+              editData?.mediaOtt[index]?.ottAddress || ott.ottAddress
+            }
+            placeholder=""
+            {...register(`ott[${index}].ottAddress`)}
+          />
+        </div>
+      ))}
       {/* 이메일과 비밀번호 제거를 위한 주석 */}
       {/* <label htmlFor="email">이메일</label>
       <input id="email" type="email" {...register('email')} />
@@ -197,7 +201,7 @@ const AdminMediaForm = ({
       </button>
     </S_Form>
   );
-};
+}
 
 export default AdminMediaForm;
 
@@ -208,6 +212,7 @@ const S_Form = styled.form`
   border: 1px solid white;
   padding: 10px;
   margin: 0 20px;
+  border-radius: 10px;
 
   label {
     color: white;
@@ -220,6 +225,13 @@ const S_Form = styled.form`
     height: 30px;
   }
 
+  textarea {
+    height: 50px;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+  }
   button {
     height: 50px;
     margin: 20px 0 0;

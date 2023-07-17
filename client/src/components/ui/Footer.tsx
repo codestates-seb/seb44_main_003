@@ -5,7 +5,7 @@ import { TfiGithub } from 'react-icons/tfi';
 import kuhub from '../../assets/profiles/kuhub.svg';
 import logo from '../../assets/logo/overthetop.svg';
 
-const Footer = () => {
+function Footer() {
   const location = useLocation();
   const path = location.pathname;
 
@@ -81,7 +81,7 @@ const Footer = () => {
       </section>
     </S_Footer>
   );
-};
+}
 
 export default Footer;
 
@@ -110,7 +110,7 @@ const S_Footer = styled.footer`
     align-self: center;
   }
   p {
-    margin-bottom: 10px;
+    margin: 5px 0;
   }
   img {
     height: 40px;

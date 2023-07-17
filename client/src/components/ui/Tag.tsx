@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const Tag = ({ genre }: { genre: string[] }) => {
+function Tag({ genre }: { genre: string[] }) {
   return (
     <S_Wrapper>
       {genre.map((text) => (
@@ -10,19 +10,30 @@ const Tag = ({ genre }: { genre: string[] }) => {
       ))}
     </S_Wrapper>
   );
-};
+}
 
 export default Tag;
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+`;
 
 const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 20px 0;
-
-  @media only screen and (max-width: 620px) {
-    justify-content: center;
-    margin: 15px 0;
+  margin: 20px 0 45px;
+  animation: ${slideIn} 0.5s ease-out;
+  @media only screen and (max-width: 660px) {
+    width: calc(100% - 11vw);
+    margin: 20px 0 45px 11vw;
   }
 `;
 
@@ -42,7 +53,7 @@ const S_Tag = styled.li`
     color: var(--color-primary-gold);
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     margin: 5px;
     padding: 0;
   }

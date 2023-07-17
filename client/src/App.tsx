@@ -1,5 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import { tokenLoader, checkAuthLoader } from './utils/auth';
 import GlobalStyle from './styles/global-styles';
@@ -12,7 +16,8 @@ import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
-import Recommend from './pages/Recommend';
+import Recommend from './components/modal/Recommend';
+import Error from './pages/Error';
 import Admin from './pages/Admin';
 import './App.css';
 
@@ -21,6 +26,7 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     loader: tokenLoader,
+    errorElement: <Error code="404" />,
     children: [
       {
         index: true,
@@ -82,6 +88,9 @@ const queryClient = new QueryClient({
       refetchOnMount: false,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) => console.log(error),
+  }),
 });
 
 function App() {

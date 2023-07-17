@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import AdminMediaForm from './AdminMediaForm';
 import { SelectedData } from '../../types/types';
 
-const PatchMediaBtn = ({
+function PatchMediaBtn({
   editData,
   contentId,
 }: {
   editData: SelectedData;
   contentId: string;
-}) => {
+}) {
   const [isEdit, setIsEdit] = useState(false);
 
   const handleEdit = () => {
@@ -24,7 +24,7 @@ const PatchMediaBtn = ({
       <S_DeleteBtn onClick={handleEdit}>{isEdit ? '취소' : '수정'}</S_DeleteBtn>
     </>
   );
-};
+}
 
 export default PatchMediaBtn;
 

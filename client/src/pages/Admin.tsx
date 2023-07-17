@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { GetUser } from '../api/api';
 import useIsLoggedIn from './../hooks/useIsLoggedIn';
 import AdminMediaForm from '../components/admin/AdminMediaForm';
+import AdminReport from '../components/admin/AdminReport';
 
-const Admin = () => {
+function Admin() {
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
   const admin = useQuery(['user'], GetUser, { enabled: false });
@@ -20,9 +21,10 @@ const Admin = () => {
   return (
     <S_Wrapeer>
       <AdminMediaForm type={'add'} editData={null} contentId="" />
+      <AdminReport />
     </S_Wrapeer>
   );
-};
+}
 
 export default Admin;
 

@@ -4,6 +4,7 @@ import Footer from '../components/ui/Footer';
 import { S_Root, S_Wrapper, S_Container } from '../styles/style';
 import { useEffect } from 'react';
 import { logout } from '../components/header/Dropdown';
+import Modal from '../components/ui/modal/Modal';
 
 function Root() {
   const currentToken = useLoaderData();
@@ -18,6 +19,7 @@ function Root() {
       <S_Wrapper>
         <S_Container>
           <Outlet />
+          <Modal />
         </S_Container>
       </S_Wrapper>
       <Footer />

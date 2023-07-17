@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-export const ContentDetailLoading = () => <S_Wrapper></S_Wrapper>;
-export const RecommendError = () => <S_Wrapper></S_Wrapper>;
+export function ContentDetailLoading() {
+  return <S_Wrapper></S_Wrapper>;
+}
+export function RecommendError() {
+  return <S_Wrapper></S_Wrapper>;
+}
 
 const S_Wrapper = styled.div`
   position: relative;

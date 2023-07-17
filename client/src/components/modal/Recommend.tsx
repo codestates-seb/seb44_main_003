@@ -1,0 +1,76 @@
+import { useState } from 'react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import {
+  recommendModalState,
+  recommendedContentsState,
+} from '../../recoil/atoms/Atoms';
+import styled from 'styled-components';
+import FirstQuestion from './questions/FirstQuestion';
+import SecondQuestion from './questions/SecondQuestion';
+import ThirdQuestion from './questions/ThirdQuestion';
+import QuestionResult from './questions/QuestionResult';
+import { useModal } from '../../hooks/useModal';
+
+const Recommend = () => {
+  const [isRecommendModal] = useRecoilState(recommendModalState);
+  const resetRecommendedContents = useResetRecoilState(
+    recommendedContentsState
+  );
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const { closeModal } = useModal();
+
+  const questionComponents = [
+    FirstQuestion,
+    SecondQuestion,
+    ThirdQuestion,
+    QuestionResult,
+  ];
+
+  const resetModal = () => {
+    closeModal();
+    setCurrentQuestion(1);
+  };
+
+  const handleNextClick = () => {
+    setCurrentQuestion(currentQuestion + 1);
+  };
+
+  const handleReset = () => {
+    setCurrentQuestion(1);
+    resetRecommendedContents();
+  };
+
+  return (
+    <S_Wrapper onClick={() => closeModal()}>
+      {questionComponents.map(
+        (Question, index) =>
+          currentQuestion === index + 1 && (
+            <Question
+              key={index}
+              isOpen={isRecommendModal}
+              closeModal={resetModal}
+              onNextClick={handleNextClick}
+              onReset={handleReset}
+            />
+          )
+      )}
+    </S_Wrapper>
+  );
+};
+
+export default Recommend;
+
+const S_Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5); // 연한 검정색 반투명 배경
+  width: 100%;
+  height: 100%;
+`;

@@ -1,11 +1,11 @@
-import Carousel from '../components/carousel/Carousel';
+import MainBanner from '../components/banner/MainBanner.tsx';
 import MainSliderSection from '../components/slide/mainslider/MainSliderSection.tsx';
 import { useSearchParams, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { scrollToTop } from '../utils/scrollToTop.ts';
 
-const Main = () => {
+function Main() {
   const isLoggedIn = useIsLoggedIn();
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get('access_token');
@@ -33,10 +33,10 @@ const Main = () => {
 
   return (
     <>
-      <Carousel />
+      <MainBanner />
       <MainSliderSection />
     </>
   );
-};
+}
 
 export default Main;

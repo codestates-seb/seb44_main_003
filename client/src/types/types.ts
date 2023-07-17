@@ -88,6 +88,7 @@ export type Question = {
   isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
+  onReset: () => void;
 };
 
 export type AddData = {
@@ -106,4 +107,34 @@ export type AddData = {
     ottName: string;
     ottAddress: string;
   }[];
+};
+
+export type Description = {
+  mediaId: number;
+  title: string;
+  content: string;
+};
+
+export type ModalType = {
+  isOpen: boolean;
+  content: JSX.Element | string;
+};
+
+export type OpenModalType = {
+  content: JSX.Element | string;
+};
+
+export type ItemProps = {
+  index: number;
+  size: number;
+};
+
+export type Report = {
+  completion: boolean;
+  content: string;
+  createdAt: string;
+  id: number;
+  lastModifiedAt: string;
+  mediaId: number;
+  title: string;
 };

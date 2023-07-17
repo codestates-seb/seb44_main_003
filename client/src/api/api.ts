@@ -8,6 +8,7 @@ import {
   AddData,
   ContentData,
   Comment,
+  Description,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 
@@ -164,3 +165,14 @@ export const AdminPatchData = ({
   mediaId: string | null;
   mediaData: AddData;
 }) => instance.patch(`/medias/${mediaId}`, mediaData);
+
+/* 오류제보 */
+export const PostReport = (discription: Description) =>
+  instance.post(`/reports`, discription);
+
+/* 오류확인 */
+export const GetReport = () => instance.get(`/reports`).then((res) => res.data);
+
+/* 오류삭제 */
+export const DeleteReport = (reportId: string) =>
+  instance.delete(`/reports/${reportId}`).then((res) => res.data);

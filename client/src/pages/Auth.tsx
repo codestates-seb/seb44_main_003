@@ -1,25 +1,26 @@
 import { styled } from 'styled-components';
 import Authentication from '../components/authentication/FormContainer';
 
-const Auth = () => {
+function Auth() {
   return (
     <S_main>
       <Authentication />
       <img src="https://ott-main-project.s3.ap-northeast-2.amazonaws.com/main_background.webp" />
     </S_main>
   );
-};
+}
 
 export default Auth;
 
 const S_main = styled.main`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
   > img {
-    position: absolute;
+    position: fixed;
     transform: translate(-50%, 50%) scale(3.7);
     animation-delay: 0.1s;
     animation-direction: normal;

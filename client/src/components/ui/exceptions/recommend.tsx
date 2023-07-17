@@ -1,19 +1,21 @@
-import { FaRegThumbsUp } from 'react-icons/fa';
+import { BsHandThumbsUp } from 'react-icons/bs';
 import { S_IconWrapper } from '../../../styles/style';
 
-export const RecommendLoading = ({
+export function RecommendLoading({
   countRecommend,
 }: {
   countRecommend: number;
-}) => (
-  <S_IconWrapper>
-    <div>
-      <FaRegThumbsUp color="white" size="40" />
-      <p>추천</p>
-    </div>
-    <p>{countRecommend}</p>
-  </S_IconWrapper>
-);
+}) {
+  return (
+    <S_IconWrapper>
+      <div>
+        <BsHandThumbsUp color="white" size="40" />
+        <p>추천</p>
+      </div>
+      <p>{countRecommend}</p>
+    </S_IconWrapper>
+  );
+}
 
 export const RecommendError = ({
   countRecommend,
@@ -22,7 +24,7 @@ export const RecommendError = ({
 }) => (
   <S_IconWrapper>
     <div>
-      <FaRegThumbsUp
+      <BsHandThumbsUp
         color="white"
         size="40"
         onClick={() => alert('네트워크 에러')}

@@ -2,12 +2,12 @@ import kuroming from '../../assets/recommendimage/kuroming.svg';
 import kongdami from '../../assets/recommendimage/kongdami.svg';
 import beehappy from '../../assets/recommendimage/beehappy.svg';
 
-import firstQ from '../../assets/recommendimage/firstQ.png';
-import secondQ from '../../assets/recommendimage/secondQ.png';
-import thirdQ from '../../assets/recommendimage/thirdQ.png';
+import firstQ from '../../assets/recommendimage/firstQ.webp';
+import secondQ from '../../assets/recommendimage/secondQ.webp';
+import thirdQ from '../../assets/recommendimage/thirdQ.webp';
 
 import netflix from '../../assets/recommendimage/netflix.svg';
-import tving from '../../assets/recommendimage/tving.svg';
+// import tving from '../../assets/recommendimage/tving.svg';
 import disney from '../../assets/recommendimage/disney.svg';
 import watcha from '../../assets/recommendimage/watcha.svg';
 import wavve from '../../assets/recommendimage/wavve.svg';
@@ -42,11 +42,11 @@ export const ottServices = [
     ottname: 'netfilx',
     icon: netflix 
   },
-  { 
-    name: '티빙', 
-    ottname: 'tving',
-    icon: tving 
-  },
+  // { 
+  //   name: '티빙', 
+  //   ottname: 'tving',
+  //   icon: tving 
+  // },
   { name: '디즈니플러스',
     ottname: 'disney',
     icon: disney

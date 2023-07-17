@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
-import tving from '../../assets/ott/tving.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
@@ -15,14 +14,14 @@ import {
 } from '../ui/exceptions/contentDetail';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
+import ReportBtn from './ReportBtn';
 
-const ContentDetail = ({ contentId }: { contentId: string }) => {
+function ContentDetail({ contentId }: { contentId: string }) {
   const ottList = [
     { name: 'Netflix', img: netflix },
     { name: 'Disney Plus', img: disney },
     { name: 'Watcha', img: watcha },
     { name: 'wavve', img: wavve },
-    { name: 'Tving', img: tving },
   ];
 
   const { isLoading, data, error, isSuccess } = useQuery(
@@ -92,6 +91,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 <S_Poster>
                   <img src={data.mainPoster} alt="poster" />
                 </S_Poster>
+                <ReportBtn contentId={contentId} />
                 <div className="icon-flex">
                   <Bookmark contentId={contentId} />
                   <Recommend
@@ -108,7 +108,7 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                   {ottList.map((ott) => renderOtt(ott))}
                 </div>
                 <p className="bold-white">출시일: {data.releaseDate}</p>
-                <p className="bold-white">
+                <p className="bold-white margin">
                   {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
                 </p>
                 <p className="text">{data.content}</p>
@@ -119,9 +119,40 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
       </S_Wrapper>
     );
   }
-};
+}
 
 export default ContentDetail;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeInMoveDown = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+`;
 
 const S_Wrapper = styled.section<{ backgroundimage: string }>`
   position: relative;
@@ -176,7 +207,7 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
     margin-top: 140px;
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     padding: 0 40px;
     .main-flex {
       display: flex;
@@ -198,9 +229,9 @@ const S_Content = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 50px;
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     display: flex;
     flex-direction: column;
   }
@@ -210,20 +241,41 @@ const S_Title = styled.div`
   width: 420px;
   img {
     object-fit: cover;
+    animation: ${fadeInMoveDown} 0.5s ease-out;
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     margin-bottom: 20px;
+  }
+`;
+
+const S_TextTitle = styled.h1`
+  display: flex;
+  align-items: center;
+  font-size: 50px !important;
+  font-weight: bold;
+  color: var(--color-white-100);
+  width: 400px;
+  height: 180px;
+  align-self: flex-end;
+  position: relative;
+  animation: ${fadeInMoveDown} 0.5s ease-out;
+
+  @media only screen and (max-width: 660px) {
+    justify-content: center;
   }
 `;
 
 const S_TitleFont = styled.div`
   width: 60%;
+  animation: ${fadeIn} 1s ease-in;
+
   p {
     font-size: 20px;
   }
   .ott {
     margin: 20px 0 45px 0;
+    animation: ${slideIn} 0.5s ease-out;
   }
   .h1 {
     font-size: 24px;
@@ -232,13 +284,18 @@ const S_TitleFont = styled.div`
   .bold-white {
     color: var(--color-white-80);
     font-weight: bold;
-    margin-top: 10px;
+  }
+  .margin {
+    margin-top: 45px;
   }
   .text {
     color: var(--color-white-80);
     margin: 45px 0;
+    line-height: 1.6;
   }
   img {
+    width: 60px;
+    height: 60px;
     box-shadow: var(--shadow-box-m-25);
     margin-right: 15px;
   }
@@ -254,7 +311,7 @@ const S_TitleFont = styled.div`
       width: 60%;
     }
   }
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     width: 100%;
     p {
       font-size: 16px;
@@ -268,40 +325,34 @@ const S_TitleFont = styled.div`
     .text {
       width: 100%;
     }
+    .ott {
+      display: flex;
+      justify-content: center;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+    }
   }
 `;
 
 const S_Poster = styled.div`
-  width: 280px;
-  height: 410px;
+  width: 300px;
+  height: 450px;
   align-self: flex-end;
   position: relative;
+  z-index: 1;
+  animation: ${fadeInMoveDown} 0.5s ease-out;
+
   img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 10px;
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     align-self: center;
-  }
-`;
-
-const S_TextTitle = styled.h1`
-  display: flex;
-  align-items: center;
-  font-size: 50px !important;
-  font-weight: bold;
-  color: var(--color-white-100);
-  width: 400px;
-  height: 180px;
-  align-self: flex-end;
-  position: relative;
-
-  @media only screen and (max-width: 620px) {
-    justify-content: center;
   }
 `;
