@@ -74,7 +74,9 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
     const randomItem = filterData.content[randomNumber];
     if (filterData && filterData.content.length > 0) {
       return (
-        <S_Wrapper>
+        <S_Wrapper
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+        >
           <S_ModalBox>
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
@@ -135,7 +137,9 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
       );
     } else {
       return (
-        <S_Wrapper>
+        <S_Wrapper
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+        >
           <S_ModalBox>
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
