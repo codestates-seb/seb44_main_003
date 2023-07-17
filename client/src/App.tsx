@@ -77,6 +77,10 @@ const router = createBrowserRouter([
         path: 'admin',
         element: <Admin />,
       },
+      {
+        path: 'error',
+        element: <Error code="500" />,
+      },
     ],
   },
 ]);

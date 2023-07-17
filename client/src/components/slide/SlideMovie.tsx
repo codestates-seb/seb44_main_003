@@ -1,4 +1,3 @@
-import Error from '../../pages/Error';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GetMovieData } from '../../api/api';
@@ -10,11 +9,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
 const SlideMovie = ({ genre }: { genre: string }) => {
+  const navigate = useNavigate();
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -35,8 +36,7 @@ const SlideMovie = ({ genre }: { genre: string }) => {
   }
 
   if (error instanceof AxiosError) {
-    if (!error.status && error.code === 'ERR_NETWORK')
-      return <Error code="500" />;
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
 
   if (isSuccess) {
