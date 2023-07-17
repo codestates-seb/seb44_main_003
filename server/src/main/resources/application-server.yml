@@ -17,7 +17,7 @@ spring:
             analysis:
               configurer: com.ott.server.elasticsearch.CustomElasticsearchAnalysisConfigurer
             type: elasticsearch
-            hosts: http://localhost:9200
+            hosts: localhost:9200
             protocol: http
     show-sql: true
   security:

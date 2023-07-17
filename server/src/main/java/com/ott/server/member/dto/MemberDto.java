@@ -68,5 +68,6 @@ public class MemberDto {
         private List<MemberOttDto.Response> memberOtts;
         private List<InterestDto.Response> interests;
         private List<String> roles;
+        private String category;
     }
 }
