@@ -44,7 +44,6 @@ const S_Header = styled.header<{ $visible: boolean }>`
     props.$visible ? undefined : 'translate(0, -120px)'};
   display: flex;
   justify-content: center;
-  padding: 0 20px;
   width: 100%;
   top: 0;
   position: sticky;
@@ -64,7 +63,7 @@ const S_Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 60px 0 43px;
   width: 100%;
 
   > div {
@@ -79,5 +78,9 @@ const S_Wrapper = styled.div`
     @media only screen and (max-width: 940px) {
       margin-left: 0;
     }
+  }
+
+  @media only screen and (max-width: 540px) {
+    padding: 0 20px 0 3px;
   }
 `;
