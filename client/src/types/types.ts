@@ -85,7 +85,6 @@ export type CommentData = {
 };
 
 export type Question = {
-  isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
   onReset: () => void;
