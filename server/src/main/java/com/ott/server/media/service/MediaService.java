@@ -123,6 +123,10 @@ public class MediaService {
 
     @Transactional
     public void updateMedia(Long mediaId, MediaDto.Update updateDto) {
+
+
+
+
         Media updatedMedia = mediaRepository.findByMediaId(mediaId)
                 .map(media -> {
                     updateDto.getId().ifPresent(media::setId);
@@ -137,32 +141,41 @@ public class MediaService {
                     updateDto.getAgeRate().ifPresent(media::setAgeRate);
                     updateDto.getRecent().ifPresent(media::setRecent);
 
-                    updateDto.getGenre().ifPresent(newGenre -> {
-                        List<Genre> genres =
-                                newGenre.stream()
-                                .map(genreName -> {
-                                    Genre genre = new Genre();
-                                    genre.setMedia(media);
-                                    genre.setGenreName(genreName);
-                                    return genreRepository.save(genre);
-                                })
-                                .collect(Collectors.toList());
-                        media.setGenres(genres);
-                    });
+                    if(updateDto.getGenre().orElse(new ArrayList<>()).size()>=1){{
+                        List<Genre> genres = genreRepository.findByMedia(media);
+                        for(Genre genre : genres)
+                            genreRepository.delete(genre);
+                        updateDto.getGenre().ifPresent(newGenre -> {
+                            List<Genre> genreList =
+                                    newGenre.stream()
+                                            .map(genreName -> {
+                                                Genre genre = new Genre();
+                                                genre.setMedia(media);
+                                                genre.setGenreName(genreName);
+                                                return genreRepository.save(genre);
+                                            })
+                                            .collect(Collectors.toList());
+                            media.setGenres(genres);
+                        });
+                    }}
 
-                    updateDto.getMediaOtt().ifPresent(newMediaOtt -> {
-                        List<MediaOtt> mediaOtts = newMediaOtt.stream()
-                                .map(ott -> {
-                                    MediaOtt mediaOtt = new MediaOtt();
-                                    mediaOtt.setMedia(media);
-                                    mediaOtt.setOttName(ott.getOttName());
-                                    mediaOtt.setOttAddress(ott.getOttAddress());
-                                    return mediaOttRepository.save(mediaOtt);
-                                })
-                                .collect(Collectors.toList());
-                        media.setMediaOtts(mediaOtts);
-                    });
-
+                    if(updateDto.getMediaOtt().orElse(new ArrayList<>()).size()>=1){
+                        List<MediaOtt> mediaOtts = mediaOttRepository.findByMedia(media);
+                        for(MediaOtt mediaOtt : mediaOtts)
+                            mediaOttRepository.delete(mediaOtt);
+                        updateDto.getMediaOtt().ifPresent(newMediaOtt -> {
+                            List<MediaOtt> mediaOttList = newMediaOtt.stream()
+                                    .map(ott -> {
+                                        MediaOtt mediaOtt = new MediaOtt();
+                                        mediaOtt.setMedia(media);
+                                        mediaOtt.setOttName(ott.getOttName());
+                                        mediaOtt.setOttAddress(ott.getOttAddress());
+                                        return mediaOttRepository.save(mediaOtt);
+                                    })
+                                    .collect(Collectors.toList());
+                            media.setMediaOtts(mediaOtts);
+                        });
+                    }
 
 //                            mediaRepository.save(media);
 ////

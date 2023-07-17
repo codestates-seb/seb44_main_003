@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
     void deleteByMedia(Media media);
+
+    List<Genre> findByMedia(Media media);
     List<Genre> findByGenreNameIn(List<String> names);
 
 }
