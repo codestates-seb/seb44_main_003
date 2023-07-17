@@ -13,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -33,9 +34,10 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts = new String[0];
+//        private String[] memberOtts = new String[0];
 
-        private String[] interests = new String[0];
+        private List<MemberOtt> memberOtts = new ArrayList<>();
+        private List<Interest> interests = new ArrayList<>();
     }
 
     @Getter
@@ -48,9 +50,8 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts = new String[0];
-
-        private String[] interests = new String[0];
+        private List<MemberOtt> memberOtts = new ArrayList<>();
+        private List<Interest> interests = new ArrayList<>();
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;

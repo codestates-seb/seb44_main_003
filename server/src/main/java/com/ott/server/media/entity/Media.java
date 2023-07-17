@@ -75,7 +75,6 @@ public class Media extends Auditable {
     private List<Recommendation> recommendations = new ArrayList<>();
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Review> reviews = new ArrayList<>();
-
     public void setId(Long aLong) {
     }
 }
