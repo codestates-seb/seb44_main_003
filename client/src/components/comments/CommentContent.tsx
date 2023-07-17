@@ -40,9 +40,13 @@ function CommentContent({ comment }: { comment: Comment }) {
     : false;
   return (
     <S_Comment key={comment.id}>
-      {comment.member && (
+      {comment.member ? (
         <div>
           <img src={comment.member.avatarUri} alt="member profile" />
+        </div>
+      ) : (
+        <div>
+          <img src={comment.media.mainPoster} />
         </div>
       )}
       <div>

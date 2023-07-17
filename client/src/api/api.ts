@@ -136,8 +136,10 @@ export const GetUserContents = (path: string): Promise<ContentData[]> =>
   instance.get(`/${path}`).then((res) => res.data);
 
 /* 유저 후기 목록 조회 */
-export const GetUserReviews = (): Promise<CommentData> =>
-  instance.get('/reviews/me').then((res) => res.data);
+export const GetUserReviews = (page: number): Promise<CommentData> =>
+  instance
+    .get(`/reviews/me?page=${page}&size=${COMMENTS_PER_PAGE}`)
+    .then((res) => res.data);
 
 /* 유저 프로필 사진 업로드 */
 export const PostUserProfile = (data: FormData) =>

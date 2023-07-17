@@ -103,6 +103,10 @@ const S_Wrapper = styled.div`
     margin: 10px 5px;
     color: var(--color-white-80);
     cursor: pointer;
+    transition: color 0.3s ease;
+    &:hover {
+      color: white;
+    }
   }
 `;
 
@@ -110,6 +114,11 @@ const S_Button = styled.button<{ $isSelected: boolean }>`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  color: ${(props) => (props.$isSelected ? 'var(--color-bg-100)' : undefined)};
+  color: ${(props) =>
+    props.$isSelected ? 'var(--color-bg-100)' : 'var(--color-white-80)'};
   background-color: ${(props) => (props.$isSelected ? 'white' : undefined)};
+  transition: color 0.3s ease;
+  &:hover {
+    color: ${(props) => (props.$isSelected ? undefined : 'white')};
+  }
 `;

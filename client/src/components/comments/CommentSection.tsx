@@ -9,7 +9,7 @@ import { useState } from 'react';
 function CommentSection() {
   const [page, setPage] = useState(1);
   const { id } = useParams() as { id: string };
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isLoading, isFetching } = useQuery({
     queryKey: ['comments', id, page],
     queryFn: () => GetComments({ id, page }),
     refetchOnWindowFocus: false,
@@ -19,6 +19,7 @@ function CommentSection() {
     return (
       <S_Wrapper>
         <CommentForm />
+        {isLoading || (isFetching && <div className="loading-box" />)}
         <Comments data={data} page={page} setPage={setPage} />
       </S_Wrapper>
     );
@@ -31,4 +32,8 @@ const S_Wrapper = styled.section`
   margin: 50px 0;
   padding: 0 30px;
   min-width: 400px;
+  min-height: 300px;
+  & div.loading-box {
+    min-height: 800px;
+  }
 `;
