@@ -1,4 +1,3 @@
-import Error from '../../pages/Error';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GetTVData } from '../../api/api';
