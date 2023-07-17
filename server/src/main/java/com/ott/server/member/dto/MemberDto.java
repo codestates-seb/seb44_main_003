@@ -7,11 +7,13 @@ import com.ott.server.memberott.entity.MemberOtt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.query.Param;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -32,9 +34,10 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts;
+//        private String[] memberOtts = new String[0];
 
-        private String[] interests;
+        private List<MemberOtt> memberOtts = new ArrayList<>();
+        private List<Interest> interests = new ArrayList<>();
     }
 
     @Getter
@@ -47,9 +50,8 @@ public class MemberDto {
 
         private String category;
 
-        private String[] memberOtts;
-
-        private String[] interests;
+        private List<MemberOtt> memberOtts = new ArrayList<>();
+        private List<Interest> interests = new ArrayList<>();
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
@@ -65,5 +67,6 @@ public class MemberDto {
         private LocalDateTime createdAt;
         private List<MemberOttDto.Response> memberOtts;
         private List<InterestDto.Response> interests;
+        private List<String> roles;
     }
 }

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
 
-const Movie = () => {
+function Movie() {
   const genres: string[] = [
     '액션',
     '드라마',
@@ -42,7 +42,7 @@ const Movie = () => {
       ))}
     </S_Wrapper>
   );
-};
+}
 
 export default Movie;
 

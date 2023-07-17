@@ -1,16 +1,22 @@
 import styled from 'styled-components';
-import next from '../../assets/recommendimage/next.png';
 
 interface BtnColor {
   bgColor: string;
   bgShadow: string;
+  btnText: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
-const RecommendBtn = ({ bgColor, bgShadow }: BtnColor) => {
+const RecommendBtn: React.FC<BtnColor> = ({ bgColor, bgShadow, btnText, onClick = () => {}, disabled }) => {
   return (
     <S_ButtonBox> 
-      <S_Button bgColor={bgColor} bgShadow={bgShadow}>
-        <S_ButtonText src={next} alt='next'></S_ButtonText>
+      <S_Button
+        bgColor={bgColor}
+        bgShadow={bgShadow}
+        onClick={onClick}
+        disabled={disabled}>
+        <S_ButtonText src={btnText} alt='button'></S_ButtonText>
       </S_Button>
     </S_ButtonBox>
   )
@@ -23,23 +29,31 @@ const S_ButtonBox = styled.div`
   justify-content: center;
 `
 
-const S_Button = styled.button<BtnColor>`
-  border: 2px solid var(--color-bg-100);
-  background-color: ${(props) => props.bgColor};
-  box-shadow: 0 0 0 1px ${(props) => props.bgColor} inset,
-        0 0 0 2px rgba(255,255,255,0.15) inset,
-        0 8px 0 0 ${(props) => props.bgShadow},
-        0 8px 0 2px var(--color-bg-100),
-        0 8px 8px 2px var(--color-bg-60);
-        
+const S_Button = styled.button<{ bgColor: string, bgShadow: string, disabled?: boolean;}>`
   position: relative;
-  display: inline-block;
-  padding: 8px 60px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  border: 2px solid var(--color-bg-100);
   border-radius: 50px;
-  text-align: center;
   transition: top .01s linear;
   text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-  margin-bottom: 15px;
+
+  // 비활성화 상태에서의 스타일 추가
+  opacity: ${props => (props.disabled ? 0.5 : 1)};
+  pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
+  top: ${(props) => (props.disabled ? '9px' : '0')};
+  filter: ${(props) => (props.disabled ? 'saturate(0)' : 'none')};
+  background-color: ${(props) => (props.disabled ? props.bgShadow : props.bgColor)};
+  box-shadow: ${(props) =>
+    props.disabled
+      ? 'none'
+      : `0 0 0 1px ${props.bgColor} inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 ${props.bgShadow},
+        0 8px 0 2px var(--color-bg-100),
+        0 8px 8px 2px var(--color-bg-60)`};
 
   &:active {
     top: 9px;
@@ -51,4 +65,5 @@ const S_Button = styled.button<BtnColor>`
 `
 
 const S_ButtonText = styled.img`
+  margin: 0 15px;
 `

@@ -2,18 +2,18 @@ import kuroming from '../../assets/recommendimage/kuroming.svg';
 import kongdami from '../../assets/recommendimage/kongdami.svg';
 import beehappy from '../../assets/recommendimage/beehappy.svg';
 
-import firstQ from '../../assets/recommendimage/firstQ.png';
-import secondQ from '../../assets/recommendimage/secondQ.png';
-import thirdQ from '../../assets/recommendimage/thirdQ.png';
+import firstQ from '../../assets/recommendimage/firstQ.webp';
+import secondQ from '../../assets/recommendimage/secondQ.webp';
+import thirdQ from '../../assets/recommendimage/thirdQ.webp';
 
 import netflix from '../../assets/recommendimage/netflix.svg';
-import tving from '../../assets/recommendimage/tving.svg';
+// import tving from '../../assets/recommendimage/tving.svg';
 import disney from '../../assets/recommendimage/disney.svg';
 import watcha from '../../assets/recommendimage/watcha.svg';
 import wavve from '../../assets/recommendimage/wavve.svg';
 
-import tv from '../../assets/recommendimage/tv.png';
-import movie from '../../assets/recommendimage/movie.png';
+import tv from '../../assets/recommendimage/tv.svg';
+import movie from '../../assets/recommendimage/movie.svg';
 
 export const questionList = [
   {
@@ -38,46 +38,60 @@ export const questionList = [
 
 export const ottServices = [
   {
-    name: '넷플릭스', 
+    name: '넷플릭스',
+    ottname: 'netfilx',
     icon: netflix 
   },
-  { 
-    name: '티빙', 
-    icon: tving 
-  },
+  // { 
+  //   name: '티빙', 
+  //   ottname: 'tving',
+  //   icon: tving 
+  // },
   { name: '디즈니플러스',
+    ottname: 'disney',
     icon: disney
   },
   { name: '왓챠', 
+    ottname: 'watcha',
     icon: watcha 
   },
   { name: '웨이브', 
+    ottname: 'wavve',
     icon: wavve 
   },
 ]
 
 export const category = [
   { 
-    name: 'TV 프로그램', 
+    name: 'TV 프로그램',
+    categoryname: 'tv',
     icon: tv 
   },
   { 
-    name: '영화', 
+    name: '영화',
+    categoryname: 'movie',
     icon: movie 
   },
 ]
 
 export const genres = [
-  '드라마',
   '액션',
-  '로맨스',
-  '음악',
-  '코미디',
-  '애니',
+  '드라마',
+  'SF',
   '스릴러',
+  '애니메이션',
+  '코미디',
+  '가족',
   '판타지',
-  '호러',
+  '로맨스',
+  '공포',
+  '범죄',
+  '스포츠',
+  '음악',
+  'Made in Europe',
+  'Reality TV',
+  '역사',
   '다큐멘터리',
-  '사극',
-  '스포츠'
+  '전쟁',
+  '서부'
 ]

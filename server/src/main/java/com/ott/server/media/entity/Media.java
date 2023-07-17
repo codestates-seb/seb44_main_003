@@ -5,6 +5,9 @@ import com.ott.server.audit.Auditable;
 import com.ott.server.bookmark.entity.Bookmark;
 import com.ott.server.genre.entity.Genre;
 import com.ott.server.mediaott.entity.MediaOtt;
+import com.ott.server.recommendation.entity.Recommendation;
+import com.ott.server.report.entity.Report;
+import com.ott.server.review.entity.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,13 +53,13 @@ public class Media extends Auditable {
     @Column(nullable = true)
     private String creator;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String cast;
 
-    @Column(length = 500, nullable = true)
+    @Column(length = 1000, nullable = false)
     private String mainPoster;
 
-    @Column(length = 500, nullable = true)
+    @Column(length = 1000, nullable = false)
     private String titlePoster;
 
     @Column(nullable = false)
@@ -80,11 +83,15 @@ public class Media extends Auditable {
     @JsonManagedReference
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Report> Reports = new ArrayList<>();
 
-
-//    public void setId(Long aLong) {
-//    }
-    public void setId(Long id) {
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Recommendation> recommendations = new ArrayList<>();
+    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Review> reviews = new ArrayList<>();
+ 
+      public void setId(Long id) {
         this.mediaId = id;
     }
 }

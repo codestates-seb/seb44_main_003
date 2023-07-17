@@ -3,6 +3,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { Dispatch, SetStateAction } from 'react';
 
 export const logout = () => {
   localStorage.removeItem('token');
@@ -13,15 +14,20 @@ export const logout = () => {
 function Dropdown({
   avatarUri,
   nickname,
+  setShowDropdown,
 }: {
   avatarUri: string;
   nickname: string;
+  setShowDropdown: Dispatch<SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
   const goToMemberInfo = () => navigate('/member');
 
   return (
-    <S_Wrapper>
+    <S_Wrapper
+      onMouseOver={() => setShowDropdown(true)}
+      onMouseOut={() => setShowDropdown(false)}
+    >
       <div>
         <img src={avatarUri} alt="user image" />
         <h1>{nickname}</h1>

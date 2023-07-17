@@ -65,7 +65,14 @@ spring:
             userNameAttribute: id
   elasticsearch:
     rest:
-      uris: http://192.168.0.60:9200
+      uris: http://localhost:9200
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+
 config:
   domain: ${AWS_S3_Endpoint}
 logging:
@@ -87,3 +94,16 @@ jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
+
+cloud:
+  aws:
+    s3:
+      bucket: ott-main-project
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_ACCESS_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+

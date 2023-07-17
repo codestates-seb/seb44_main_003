@@ -5,10 +5,12 @@ import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Dropdown from './Dropdown';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
+  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
     setShowDropdown(false);
@@ -20,6 +22,7 @@ function UserProfile() {
     staleTime: Infinity,
     cacheTime: Infinity,
     refetchOnWindowFocus: false,
+    enabled: isLoggedIn,
   });
 
   if (isLoading)
@@ -37,27 +40,23 @@ function UserProfile() {
   if (error instanceof Error)
     return (
       <S_ProfileWrapper>
-        <button
-          onClick={() => {
-            setShowDropdown(!showDropdown);
-          }}
-        />
-        <a href="/member">
-          <BiError />
-        </a>
+        <BiError />
       </S_ProfileWrapper>
     );
 
   if (isSuccess)
     return (
-      <S_ProfileWrapper>
-        <img
-          src={data.avatarUri}
-          alt="user"
-          onClick={() => setShowDropdown(!showDropdown)}
-        />
+      <S_ProfileWrapper
+        onMouseOver={() => setShowDropdown(true)}
+        onMouseOut={() => setShowDropdown(false)}
+      >
+        <img src={data.avatarUri} alt="user" />
         {showDropdown && (
-          <Dropdown avatarUri={data.avatarUri} nickname={data.nickname} />
+          <Dropdown
+            avatarUri={data.avatarUri}
+            nickname={data.nickname}
+            setShowDropdown={setShowDropdown}
+          />
         )}
       </S_ProfileWrapper>
     );
@@ -69,15 +68,17 @@ const S_ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  margin-left: 40px;
-
-  > a {
+  min-width: 50px;
+  margin-left: 30px;
+  padding: 10px;
+  height: 100%;
+  > svg {
     color: var(--color-white-60);
     font-size: 25px;
   }
   > img {
     border-radius: 5px;
+    width: 30px;
+    height: 30px;
   }
 `;

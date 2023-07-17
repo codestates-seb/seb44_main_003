@@ -1,26 +1,27 @@
 package com.ott.server.member.controller;
 
-import com.ott.server.dto.SingleResponseDto;
-import com.ott.server.exception.BusinessLogicException;
-import com.ott.server.exception.ExceptionCode;
 import com.ott.server.interest.entity.Interest;
 import com.ott.server.interest.repository.InterestRepository;
 import com.ott.server.member.dto.MemberDto;
 import com.ott.server.member.entity.Member;
 import com.ott.server.member.mapper.MemberMapper;
+import com.ott.server.member.service.AwsS3Uploader;
 import com.ott.server.member.service.MemberService;
+import com.ott.server.member.service.S3Uploader;
 import com.ott.server.memberott.entity.MemberOtt;
 import com.ott.server.memberott.repository.MemberOttRepository;
 import com.ott.server.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -34,14 +35,20 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final MemberOttRepository memberOttRepository;
     private final InterestRepository interestRepository;
+    private final S3Uploader s3Uploader;
+    private final AwsS3Uploader awsS3Uploader;
 
     public MemberController(MemberService memberService, MemberMapper memberMapper,
                             MemberOttRepository memberOttRepository,
-                            InterestRepository interestRepository) {
+                            InterestRepository interestRepository,
+                            S3Uploader s3Uploader,
+                            AwsS3Uploader awsS3Uploader) {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
         this.memberOttRepository = memberOttRepository;
         this.interestRepository = interestRepository;
+        this.s3Uploader = s3Uploader;
+        this.awsS3Uploader = awsS3Uploader;
     }
 
     @PostMapping
@@ -51,19 +58,19 @@ public class MemberController {
         Member createdMember = memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
 
-        String[] otts = requestBody.getMemberOtts();
-        for(int i = 0; i < otts.length; i++){
+        List<MemberOtt> otts = requestBody.getMemberOtts();
+        for(int i = 0; i < otts.size(); i++){
             MemberOtt memberOtt = new MemberOtt();
             memberOtt.setMember(member);
-            memberOtt.setMemberOttName(otts[i]);
+            memberOtt.setMemberOttName(otts.get(i).getMemberOttName());
 
             memberOttRepository.save(memberOtt);
         }
-        String[] interests = requestBody.getInterests();
-        for(int i = 0; i < interests.length; i++){
+        List<Interest> interests = requestBody.getInterests();
+        for(int i = 0; i < interests.size(); i++){
             Interest interest = new Interest();
             interest.setMember(member);
-            interest.setInterestName(interests[i]);
+            interest.setInterestName(interests.get(i).getInterestName());
 
             interestRepository.save(interest);
         }
@@ -85,42 +92,31 @@ public class MemberController {
                 memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
         List<MemberOtt> memberOtts = memberOttRepository.findByMember(member);
-        log.info("List memberOtts 생성");
-        if(requestBody.getMemberOtts().length != 0){
-            log.info("requestBody ott 순회");
-            for(int i = 0; i < memberOtts.size(); i++){
-                log.info("ott 삭제");
-                memberOttRepository.delete(memberOtts.get(i));
-            }
-            log.info("ott 삭제 종료");
-            log.info("신규 ott 생성");
-            String[] otts = requestBody.getMemberOtts();
-            for(int i = 0; i < otts.length; i++){
+        for(int i = 0; i < memberOtts.size(); i++){
+            memberOttRepository.delete(memberOtts.get(i));
+        }
 
-                MemberOtt memberOtt = new MemberOtt();
-                memberOtt.setMember(member);
-                memberOtt.setMemberOttName(otts[i]);
+        List<MemberOtt> otts = requestBody.getMemberOtts();
+        for(int i = 0; i < otts.size(); i++){
+            MemberOtt memberOtt = new MemberOtt();
+            memberOtt.setMember(member);
+            memberOtt.setMemberOttName(otts.get(i).getMemberOttName());
 
-                memberOttRepository.save(memberOtt);
-
-            }
-            log.info("ott 생성");
+            memberOttRepository.save(memberOtt);
         }
 
         List<Interest> memberInterests = interestRepository.findByMember(member);
-        if(requestBody.getInterests().length != 0){
-            for(int i = 0; i < memberInterests.size(); i++){
-                interestRepository.delete(memberInterests.get(i));
-            }
+        for(int i = 0; i < memberInterests.size(); i++){
+            interestRepository.delete(memberInterests.get(i));
+        }
 
-            String[] interests = requestBody.getInterests();
-            for(int i = 0; i < interests.length; i++){
-                Interest interest = new Interest();
-                interest.setMember(member);
-                interest.setInterestName(interests[i]);
+        List<Interest> interests = requestBody.getInterests();
+        for(int i = 0; i < interests.size(); i++){
+            Interest interest = new Interest();
+            interest.setMember(member);
+            interest.setInterestName(interests.get(i).getInterestName());
 
-                interestRepository.save(interest);
-            }
+            interestRepository.save(interest);
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -145,5 +141,22 @@ public class MemberController {
         memberService.deleteMember(member.getMemberId());
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(value="/upload",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity uploadImage(Authentication authentication, @RequestParam(value = "file") MultipartFile file) throws IOException {
+        String email = authentication.getPrincipal().toString();
+        Member member = memberService.findMemberByEmail(email);
+        System.out.println(file.getOriginalFilename());
+        if(!file.isEmpty()) {
+            String storedFileName = awsS3Uploader.uploadImage(file);
+//            String storedFileName = s3Uploader.upload(file,"images");
+            member.setAvatarUri(storedFileName);
+            System.out.println(storedFileName);
+        }
+
+        memberService.updateMember(member);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

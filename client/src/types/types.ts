@@ -14,6 +14,7 @@ export type NewMember = {
   category?: string;
   memberOtts?: string[];
   interests?: string[];
+  roles: string[];
 };
 
 export type LoginInfo = {
@@ -56,7 +57,13 @@ export type SelectedData = {
   countRecommend: number;
   genre: string[];
   mainPoster: string;
-  mediaOtt: string[];
+  mediaOtt: Array<{
+    createdAt: string;
+    lastModifiedAt: string;
+    mediaOttId: number;
+    ottAddress: string;
+    ottName: string;
+  }>;
   recent: boolean;
   releaseDate: number;
   titlePoster: string;
@@ -75,4 +82,59 @@ export type CommentData = {
   totalPage: number;
   totalReviews: number;
   reviews: Comment[];
+};
+
+export type Question = {
+  isOpen: boolean;
+  closeModal: () => void;
+  onNextClick: () => void;
+  onReset: () => void;
+};
+
+export type AddData = {
+  title: string;
+  content: string;
+  category: string;
+  creator: string;
+  cast: string;
+  mainPoster: string;
+  titlePoster: string;
+  releaseDate: number;
+  ageRate: string;
+  recent: boolean;
+  genre: string[];
+  mediaOtt: {
+    ottName: string;
+    ottAddress: string;
+  }[];
+};
+
+export type Description = {
+  mediaId: number;
+  title: string;
+  content: string;
+};
+
+export type ModalType = {
+  isOpen: boolean;
+  content: JSX.Element | string;
+};
+
+export type OpenModalType = {
+  content: JSX.Element | string;
+};
+
+export type ItemProps = {
+  index: number;
+  size: number;
+};
+
+export type Report = {
+  completion: boolean;
+  content: string;
+  createdAt: string;
+  id: number;
+  lastModifiedAt: string;
+  mediaId: number;
+  title: string;
 };

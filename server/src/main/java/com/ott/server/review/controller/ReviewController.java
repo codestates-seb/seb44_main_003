@@ -50,12 +50,12 @@ public class ReviewController {
                 .orElseGet(() -> new ResponseEntity("후기를 찾을 수 없습니다.", HttpStatus.NOT_FOUND));
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
-//                                                         @RequestParam(required = false, defaultValue = "10") int size,
-//                                                         Authentication authentication) {
-//        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
-//    }
+    @GetMapping("/all")
+    public ResponseEntity<List<ReviewDto>> getAllReviews(@RequestParam(required = false, defaultValue = "1") int page,
+                                                         @RequestParam(required = false, defaultValue = "10") int size,
+                                                         Authentication authentication) {
+        return new ResponseEntity(reviewService.findAll(page-1, size, authentication), HttpStatus.OK);
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody ReviewUpdateDto newReviewData,
@@ -75,6 +75,16 @@ public class ReviewController {
                                                                 @RequestParam(required = false, defaultValue = "1") int page,
                                                                 @RequestParam(required = false, defaultValue = "10") int size) {
         MultiResponseDto response = reviewService.findByMediaId(mediaId, page-1, size);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<MultiResponseDto> getReviewsByMemberId(Authentication authentication,
+                                                                @RequestParam(required = false, defaultValue = "1") int page,
+                                                                @RequestParam(required = false, defaultValue = "10") int size) {
+
+        MultiResponseDto response = reviewService.findByMemberId(authentication, page-1, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }

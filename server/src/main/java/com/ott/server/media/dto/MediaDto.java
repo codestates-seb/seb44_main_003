@@ -27,7 +27,7 @@ public class MediaDto {
         private String ageRate;
         private Boolean recent;
         private List<String> genre;
-        private List<String> mediaOtt;
+        private List<MediaOtt> mediaOtt;
     }
 
     @Getter
@@ -44,7 +44,7 @@ public class MediaDto {
         private Optional<String> ageRate = Optional.empty();
         private Optional<Boolean> recent = Optional.empty();
         private Optional<List<String>> genre = Optional.empty();
-        private Optional<List<String>> mediaOtt = Optional.empty();
+        private Optional<List<MediaOtt>> mediaOtt = Optional.empty();
 
 
 
@@ -77,7 +77,7 @@ public class MediaDto {
         private String ageRate;
         private Boolean recent;
         private List<String> genre;
-        private List<String> mediaOtt;
+        private List<MediaOtt> mediaOtt;
         private Integer countRecommend;
         private Boolean checkBookmark;
     }

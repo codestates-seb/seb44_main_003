@@ -1,50 +1,97 @@
 import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import netflix from '../../assets/ott/netflix.svg';
-import tving from '../../assets/ott/tving.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
 import Bookmark from './Bookmark';
 import Tag from '../ui/Tag';
-import { GetDataDetail } from './../../api/api';
+import { GetDataDetail, GetUser } from './../../api/api';
 import Recommend from './Recommend';
 import {
   ContentDetailLoading,
   RecommendError,
-} from '../exceptions/contentDetail';
+} from '../ui/exceptions/contentDetail';
+import DeleteMediaBtn from '../admin/DeleteMediaBtn';
+import PatchMediaBtn from '../admin/PatchMediaBtn';
+import ReportBtn from './ReportBtn';
 
-const ContentDetail = ({ contentId }: { contentId: string }) => {
+function ContentDetail({ contentId }: { contentId: string }) {
+  const ottList = [
+    { name: 'Netflix', img: netflix },
+    { name: 'Disney Plus', img: disney },
+    { name: 'Watcha', img: watcha },
+    { name: 'wavve', img: wavve },
+  ];
+
   const { isLoading, data, error, isSuccess } = useQuery(
     ['selectedContent', contentId],
     () => GetDataDetail(contentId),
     {
-      staleTime: 5 * 60 * 1000,
+      staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
     }
   );
+
+  const findOtt = (ottName: string) => {
+    return data?.mediaOtt.some((ott) => ott.ottName === ottName);
+  };
+
+  const renderOtt = (ott: { name: string; img: string }) => {
+    const hasOtt = findOtt(ott.name);
+    const ottAddress = data?.mediaOtt.find(
+      (item) => item.ottName === ott.name
+    )?.ottAddress;
+
+    if (hasOtt && ottAddress) {
+      return (
+        <a
+          href={ottAddress}
+          target="_blank"
+          rel="noopener noreferrer"
+          key={ott.name}
+        >
+          <img src={ott.img} alt={ott.name} className="" />
+        </a>
+      );
+    } else {
+      return (
+        <img src={ott.img} alt={ott.name} className="dark" key={ott.name} />
+      );
+    }
+  };
+
+  const admin = useQuery(['user'], GetUser, { enabled: false });
 
   if (isLoading) return <ContentDetailLoading />;
 
   if (error instanceof Error) return <RecommendError />;
 
   if (isSuccess) {
-    const findOtt = (ottName: string) => {
-      return data.mediaOtt.includes(ottName);
-    };
     return (
       <S_Wrapper backgroundimage={data.mainPoster}>
+        {admin?.data?.roles[0] === 'ADMIN' && (
+          <>
+            <PatchMediaBtn editData={data} contentId={contentId} />
+            <DeleteMediaBtn contentId={contentId} />
+          </>
+        )}
         <div className="main-flex">
           <div className="title-flex">
             <S_Title>
-              <img src={data.titlePoster} alt="title" />
+              {data.titlePoster ? (
+                <img src={data.titlePoster} alt="title" />
+              ) : (
+                <S_TextTitle>{data.title}</S_TextTitle>
+              )}
             </S_Title>
             <S_Content>
               <div className="poster-flex">
                 <S_Poster>
                   <img src={data.mainPoster} alt="poster" />
                 </S_Poster>
+                <ReportBtn contentId={contentId} />
                 <div className="icon-flex">
                   <Bookmark contentId={contentId} />
                   <Recommend
@@ -54,46 +101,17 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
                 </div>
               </div>
               <S_TitleFont>
-                <h1>장르</h1>
+                <h1 className="h1">장르</h1>
                 <Tag genre={data.genre} />
-                <h1>OTT</h1>
+                <h1 className="h1">컨텐츠 보러가기</h1>
                 <div className="ott">
-                  <img
-                    src={netflix}
-                    alt="Netflix"
-                    className={findOtt('Netflix') ? '' : 'dark'}
-                  />
-                  <img
-                    src={disney}
-                    alt="Disney Plus"
-                    className={findOtt('Disney Plus') ? '' : 'dark'}
-                  />
-                  <img
-                    src={watcha}
-                    alt="Watcha"
-                    className={findOtt('Watcha') ? '' : 'dark'}
-                  />
-                  <img
-                    src={wavve}
-                    alt="wavve"
-                    className={findOtt('wavve') ? '' : 'dark'}
-                  />
-                  <img
-                    src={tving}
-                    alt="Tving"
-                    className={findOtt('Tving') ? '' : 'dark'}
-                  />
+                  {ottList.map((ott) => renderOtt(ott))}
                 </div>
-                <p className="bold-white">
-                  크리에이터 &nbsp;&nbsp;&nbsp;{data.creator}
-                </p>
+                <p className="bold-white">출시일: {data.releaseDate}</p>
                 <p className="bold-white margin">
-                  출연 &nbsp;&nbsp;&nbsp;{data.cast}
+                  {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
                 </p>
                 <p className="text">{data.content}</p>
-                <p className="date">
-                  {data.releaseDate}, {data.ageRate}
-                </p>
               </S_TitleFont>
             </S_Content>
           </div>
@@ -101,9 +119,40 @@ const ContentDetail = ({ contentId }: { contentId: string }) => {
       </S_Wrapper>
     );
   }
-};
+}
 
 export default ContentDetail;
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeInMoveDown = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+`;
+
+const slideIn = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+`;
 
 const S_Wrapper = styled.section<{ backgroundimage: string }>`
   position: relative;
@@ -158,10 +207,7 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
     margin-top: 140px;
   }
 
-  @media only screen and (max-width: 768px) {
-  }
-
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     padding: 0 40px;
     .main-flex {
       display: flex;
@@ -183,9 +229,9 @@ const S_Content = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 50px;
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     display: flex;
     flex-direction: column;
   }
@@ -195,20 +241,44 @@ const S_Title = styled.div`
   width: 420px;
   img {
     object-fit: cover;
+    animation: ${fadeInMoveDown} 0.5s ease-out;
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     margin-bottom: 20px;
+  }
+`;
+
+const S_TextTitle = styled.h1`
+  display: flex;
+  align-items: center;
+  font-size: 50px !important;
+  font-weight: bold;
+  color: var(--color-white-100);
+  width: 400px;
+  height: 180px;
+  align-self: flex-end;
+  position: relative;
+  animation: ${fadeInMoveDown} 0.5s ease-out;
+
+  @media only screen and (max-width: 660px) {
+    justify-content: center;
   }
 `;
 
 const S_TitleFont = styled.div`
   width: 60%;
+  animation: ${fadeIn} 1s ease-in;
 
-  .ott {
-    margin: 30px 0 45px 0;
+  p {
+    font-size: 20px;
   }
-  h1 {
+  .ott {
+    margin: 20px 0 45px 0;
+    animation: ${slideIn} 0.5s ease-out;
+  }
+  .h1 {
+    font-size: 24px;
     color: var(--color-white-100);
   }
   .bold-white {
@@ -216,16 +286,16 @@ const S_TitleFont = styled.div`
     font-weight: bold;
   }
   .margin {
-    margin-top: 10px;
+    margin-top: 45px;
   }
   .text {
     color: var(--color-white-80);
     margin: 45px 0;
-  }
-  .date {
-    color: var(--color-white-80);
+    line-height: 1.6;
   }
   img {
+    width: 60px;
+    height: 60px;
     box-shadow: var(--shadow-box-m-25);
     margin-right: 15px;
   }
@@ -241,11 +311,13 @@ const S_TitleFont = styled.div`
       width: 60%;
     }
   }
-  @media only screen and (max-width: 620px) {
-    font-size: 13px;
+  @media only screen and (max-width: 660px) {
     width: 100%;
-    h1 {
-      font-size: 14px;
+    p {
+      font-size: 16px;
+    }
+    .h1 {
+      font-size: 20px;
     }
     .margin {
       width: 100%;
@@ -253,24 +325,34 @@ const S_TitleFont = styled.div`
     .text {
       width: 100%;
     }
+    .ott {
+      display: flex;
+      justify-content: center;
+    }
+    img {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+    }
   }
 `;
 
 const S_Poster = styled.div`
-  width: 280px;
-  height: 410px;
+  width: 300px;
+  height: 450px;
   align-self: flex-end;
   position: relative;
+  z-index: 1;
+  animation: ${fadeInMoveDown} 0.5s ease-out;
+
   img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 10px;
   }
 
-  @media only screen and (max-width: 620px) {
+  @media only screen and (max-width: 660px) {
     align-self: center;
   }
 `;

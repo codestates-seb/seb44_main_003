@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { styled } from 'styled-components';
 import MainLogo from './MainLogo';
 import Navigation from './Navigation';
@@ -5,8 +6,23 @@ import MemberMenu from './MemberMenu';
 import SearchBar from './SearchBar';
 
 function Header() {
+  const [position, setPosition] = useState(window.scrollY);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const moving = window.scrollY;
+      setVisible(position < 400 || position > moving);
+      setPosition(moving);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [position]);
+
   return (
-    <S_Header>
+    <S_Header $visible={visible}>
       <S_Wrapper>
         <div>
           <MainLogo />
@@ -23,7 +39,9 @@ function Header() {
 
 export default Header;
 
-const S_Header = styled.header`
+const S_Header = styled.header<{ $visible: boolean }>`
+  transform: ${(props) =>
+    props.$visible ? undefined : 'translate(0, -120px)'};
   display: flex;
   justify-content: center;
   padding: 0 20px;
@@ -36,6 +54,7 @@ const S_Header = styled.header`
     rgba(20, 24, 31, 0) 100%
   );
   z-index: 1000;
+  transition: transform 0.5s ease;
 `;
 
 const S_Wrapper = styled.div`
@@ -51,6 +70,7 @@ const S_Wrapper = styled.div`
   > div {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
   > :nth-child(2) {
     flex-grow: 1;
