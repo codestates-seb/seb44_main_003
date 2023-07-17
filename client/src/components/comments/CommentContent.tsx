@@ -35,16 +35,22 @@ function CommentContent({ comment }: { comment: Comment }) {
     setContent('');
     setIsEditing(false);
   };
-  const isAdmin = comment.member.memberId === ADMIN_MEMBERID;
+  const isAdmin = comment.member
+    ? comment.member.memberId === ADMIN_MEMBERID
+    : false;
   return (
     <S_Comment key={comment.id}>
+      {comment.member && (
+        <div>
+          <img src={comment.member.avatarUri} alt="member profile" />
+        </div>
+      )}
       <div>
-        <img src={comment.member.avatarUri} alt="member profile" />
-      </div>
-      <div>
-        <h1 className={isAdmin ? 'admin' : undefined}>
-          {comment.member.nickname}
-        </h1>
+        {comment.member && (
+          <h1 className={isAdmin ? 'admin' : undefined}>
+            {comment.member.nickname}
+          </h1>
+        )}
         {isEditing ? (
           <S_Form onSubmit={handleSubmit} id={comment.id}>
             <textarea onChange={handleChange} value={content} />
@@ -59,19 +65,21 @@ function CommentContent({ comment }: { comment: Comment }) {
           </>
         )}
       </div>
-      {user.data && user.data.memberId === comment.member.memberId && (
-        <div>
-          <button type="button" onClick={handleEdit}>
-            <HiOutlinePencilAlt />
-          </button>
-          <button
-            type="button"
-            onClick={() => DeleteMutation.mutate(comment.id)}
-          >
-            <BsFillTrash3Fill />
-          </button>
-        </div>
-      )}
+      {comment.member &&
+        user.data &&
+        user.data.memberId === comment.member.memberId && (
+          <div>
+            <button type="button" onClick={handleEdit}>
+              <HiOutlinePencilAlt />
+            </button>
+            <button
+              type="button"
+              onClick={() => DeleteMutation.mutate(comment.id)}
+            >
+              <BsFillTrash3Fill />
+            </button>
+          </div>
+        )}
     </S_Comment>
   );
 }

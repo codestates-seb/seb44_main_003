@@ -17,7 +17,12 @@ function ReviewList() {
     return (
       <S_Wrapper>
         {data.reviews.map((review) => (
-          <CommentContent comment={review} />
+          <>
+            <a href={`/content/${review.media?.mediaId}`}>
+              {review.media ? review.media.title : ''}
+            </a>
+            <CommentContent key={review.id} comment={review} />
+          </>
         ))}
       </S_Wrapper>
     );
@@ -65,5 +70,9 @@ const S_Wrapper = styled.div`
     font-size: 20px;
     margin: 10px 5px;
     color: var(--color-white-80);
+  }
+  & a {
+    text-decoration: underline;
+    font-size: 18px;
   }
 `;
