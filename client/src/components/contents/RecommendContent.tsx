@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { GetDataDetail, GetFilterdData } from '../../api/api';
 import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
-// import SliderLoading from '../ui/exceptions/sliderLoading';
 import { RecommendContentLoading } from '../ui/exceptions/recommendContent';
 import { ContentData } from '../../types/types';
 
@@ -73,7 +72,6 @@ const S_ItemBox = styled.div`
 `;
 
 const S_Item = styled.div`
-  /* width: 225px; */
   width: calc(100% / 6 - 15px);
   margin: 0px 7.5px 50px;
 

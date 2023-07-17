@@ -38,9 +38,9 @@ const S_ImageBox = styled.div`
 const S_BannerImage = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 100%; /*height 추가*/
-  min-width: 0; /*추가*/
-  min-height: 0; /*추가*/
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
 `
 
 const S_BlackLinear = styled.div`

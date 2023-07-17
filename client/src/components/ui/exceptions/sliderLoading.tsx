@@ -48,7 +48,6 @@ const S_Wrapper = styled.div`
   position: relative;
   overflow-x: hidden; // 가로 스크롤 숨김
   margin: 0;
-  /* padding: 0px 3.75rem; */
   width: 100%;
 `;
 
