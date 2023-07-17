@@ -1,12 +1,12 @@
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useModal } from '../../hooks/useModal';
 import { S_Modal } from '../../styles/style';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GetUser, PatchUser } from '../../api/api';
-import { MemberLikes } from '../../types/types';
 import { genres } from '../../constant/constantValue';
+import { arrToObj, objToArr } from '../../utils/convertResponse';
 
 function MemberLikesModal() {
   const queryClient = useQueryClient();
@@ -20,24 +20,8 @@ function MemberLikesModal() {
       queryClient.invalidateQueries(['user']);
     },
   });
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm({
-    defaultValues: {
-      category: data?.category || '',
-      memberOtts: data?.memberOtts || [],
-      interests: data?.interests || [],
-    },
-  });
+  const { register, handleSubmit } = useForm();
 
-  const editData: MemberLikes = {
-    category: data?.category || '',
-    memberOtts: data?.memberOtts || [],
-    interests: data?.interests || [],
-  };
   const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
   console.log(data);
   return (
@@ -50,10 +34,11 @@ function MemberLikesModal() {
       <h1>선호도 변경</h1>
       <h2>추천을 원하는 카테고리를 선택해 주세요.</h2>
       <S_Form
-        onSubmit={handleSubmit(
-          (formData) => console.log(formData)
-          // mutation.mutate({ ...data, ...formData })
-        )}
+        onSubmit={handleSubmit((formData) => {
+          formData.memberOtts = [...arrToObj(formData.memberOtts, 'ott')];
+          formData.interests = [...arrToObj(formData.interests, 'interest')];
+          mutation.mutate(formData);
+        })}
       >
         <fieldset>
           <legend>카테고리</legend>
@@ -70,7 +55,7 @@ function MemberLikesModal() {
                 type="checkbox"
                 id={ott}
                 value={ott}
-                defaultChecked={data?.memberOtts?.includes(ott)}
+                defaultChecked={objToArr(data?.memberOtts || []).includes(ott)}
                 {...register('memberOtts')}
               />
               <label htmlFor={ott}>{ott}</label>
@@ -85,7 +70,7 @@ function MemberLikesModal() {
                 type="checkbox"
                 id={genre}
                 value={genre}
-                defaultChecked={data?.interests?.includes(genre)}
+                defaultChecked={objToArr(data?.interests || []).includes(genre)}
                 {...register('interests')}
               />
               <label htmlFor={genre}>{genre}</label>

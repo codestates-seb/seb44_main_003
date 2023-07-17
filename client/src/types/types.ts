@@ -11,9 +11,9 @@ export type NewMember = {
   nickname: string;
   createdAt: string;
   avatarUri: string;
-  category?: string;
-  memberOtts?: string[];
-  interests?: string[];
+  category: string;
+  memberOtts: { memberOttName: string }[];
+  interests: { interestName: string }[];
   roles: string[];
 };
 
