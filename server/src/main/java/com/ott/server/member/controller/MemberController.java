@@ -58,19 +58,19 @@ public class MemberController {
         Member createdMember = memberService.createMember(member);
         URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
 
-        String[] otts = requestBody.getMemberOtts();
-        for(int i = 0; i < otts.length; i++){
+        List<MemberOtt> otts = requestBody.getMemberOtts();
+        for(int i = 0; i < otts.size(); i++){
             MemberOtt memberOtt = new MemberOtt();
             memberOtt.setMember(member);
-            memberOtt.setMemberOttName(otts[i]);
+            memberOtt.setMemberOttName(otts.get(i).getMemberOttName());
 
             memberOttRepository.save(memberOtt);
         }
-        String[] interests = requestBody.getInterests();
-        for(int i = 0; i < interests.length; i++){
+        List<Interest> interests = requestBody.getInterests();
+        for(int i = 0; i < interests.size(); i++){
             Interest interest = new Interest();
             interest.setMember(member);
-            interest.setInterestName(interests[i]);
+            interest.setInterestName(interests.get(i).getInterestName());
 
             interestRepository.save(interest);
         }
@@ -96,11 +96,11 @@ public class MemberController {
             memberOttRepository.delete(memberOtts.get(i));
         }
 
-        String[] otts = requestBody.getMemberOtts();
-        for(int i = 0; i < otts.length; i++){
+        List<MemberOtt> otts = requestBody.getMemberOtts();
+        for(int i = 0; i < otts.size(); i++){
             MemberOtt memberOtt = new MemberOtt();
             memberOtt.setMember(member);
-            memberOtt.setMemberOttName(otts[i]);
+            memberOtt.setMemberOttName(otts.get(i).getMemberOttName());
 
             memberOttRepository.save(memberOtt);
         }
@@ -110,11 +110,11 @@ public class MemberController {
             interestRepository.delete(memberInterests.get(i));
         }
 
-        String[] interests = requestBody.getInterests();
-        for(int i = 0; i < interests.length; i++){
+        List<Interest> interests = requestBody.getInterests();
+        for(int i = 0; i < interests.size(); i++){
             Interest interest = new Interest();
             interest.setMember(member);
-            interest.setInterestName(interests[i]);
+            interest.setInterestName(interests.get(i).getInterestName());
 
             interestRepository.save(interest);
         }
