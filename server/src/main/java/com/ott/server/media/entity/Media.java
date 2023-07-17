@@ -40,6 +40,7 @@ public class Media extends Auditable {
     @FullTextField(analyzer = "standardAnalyzer", name = "title_standard")// todo jaso analyzer 쓰면서 사용안하게될듯
     @FullTextField(analyzer = "autocompleteAnalyzer", name = "title_autocomplete") // todo jaso analyzer 쓰면서 사용안하게될듯
     @FullTextField(analyzer = "jasoAnalyzer", name = "title_jaso")
+    @FullTextField(analyzer = "suggest_index_analyzer", searchAnalyzer = "suggest_search_analyzer")
     @GenericField(name = "title_keyword", projectable = Projectable.YES)
     @Column(length = 50, nullable = false)
     private String title;
