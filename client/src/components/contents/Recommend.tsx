@@ -3,7 +3,7 @@ import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
-import { RecommendLoading, RecommendError } from '../ui/exceptions/recommend';
+import RecommendLoading from '../ui/exceptions/RecommendLoading';
 
 function Recommend({
   countRecommend,
@@ -31,7 +31,7 @@ function Recommend({
     );
   }
 
-  const { isLoading, data, error, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess } = useQuery(
     ['isRecommend', contentId],
     () => GetIsRecommend(contentId),
     {
@@ -48,17 +48,10 @@ function Recommend({
       queryClient.invalidateQueries(['isRecommend', contentId]);
       queryClient.invalidateQueries(['selectedContent', contentId]);
     },
-    onError(error) {
-      console.error('로그인 안한 상태', error);
-    },
   });
 
   if (isLoading) {
     return <RecommendLoading countRecommend={countRecommend} />;
-  }
-
-  if (error) {
-    return <RecommendError countRecommend={countRecommend} />;
   }
 
   if (isSuccess) {
