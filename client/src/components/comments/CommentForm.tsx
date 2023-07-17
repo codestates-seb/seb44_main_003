@@ -27,7 +27,7 @@ function CommentForm() {
   return (
     <S_Form onSubmit={handleSubmit}>
       {isLoggedIn ? (
-        <textarea onChange={handleChange} value={content} />
+        <textarea onChange={handleChange} value={content} maxLength={255} />
       ) : (
         <textarea placeholder="로그인 후 후기를 남길 수 있습니다." disabled />
       )}
@@ -44,15 +44,21 @@ const S_Form = styled.form`
   position: relative;
   padding: 0 30px;
   margin-top: 50px;
+
   > textarea {
     background-color: transparent;
     border: 1px solid var(--color-white-80);
     border-radius: 10px;
     width: 100%;
-    height: 140px;
+    height: 130px;
     font-size: 16px;
     color: var(--color-white-80);
     padding: 20px 20px;
+    @media only screen and (max-width: 480px) {
+      height: 100px;
+      font-size: 13px;
+      padding: 10px 40px 10px 10px;
+    }
   }
   & svg {
     position: absolute;
@@ -60,5 +66,11 @@ const S_Form = styled.form`
     bottom: 20px;
     color: var(--color-white-80);
     font-size: 28px;
+    resize: vertical;
+    @media only screen and (max-width: 480px) {
+      right: 45px;
+      bottom: 15px;
+      font-size: 22px;
+    }
   }
 `;

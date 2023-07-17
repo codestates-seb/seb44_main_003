@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-export function ContentDetailLoading() {
+function ContentDetailLoading() {
   return <S_Wrapper></S_Wrapper>;
 }
-export function RecommendError() {
-  return <S_Wrapper></S_Wrapper>;
-}
+
+export default ContentDetailLoading;
 
 const S_Wrapper = styled.div`
   position: relative;

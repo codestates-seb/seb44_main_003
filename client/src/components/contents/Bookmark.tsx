@@ -3,7 +3,7 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
-import { BookmarkLoading, BookmarkError } from '../ui/exceptions/bookmark';
+import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
 
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ function Bookmark({ contentId }: { contentId: string }) {
     );
   }
 
-  const { isLoading, data, error, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess } = useQuery(
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
@@ -40,17 +40,10 @@ function Bookmark({ contentId }: { contentId: string }) {
     onSuccess: () => {
       queryClient.invalidateQueries(['isBookmarked', contentId]);
     },
-    onError(error) {
-      console.error('로그인 안한 상태', error);
-    },
   });
 
   if (isLoading) {
     return <BookmarkLoading />;
-  }
-
-  if (error) {
-    return <BookmarkError />;
   }
 
   if (isSuccess) {

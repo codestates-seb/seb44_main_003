@@ -7,12 +7,15 @@ import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
 import { useQueryClient } from '@tanstack/react-query';
 import { logout } from '../../header/Dropdown';
+import { useModal } from '../../../hooks/useModal';
+import MemberLikesModal from '../MemberLikesModal';
 
 function Information() {
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
+  const { openModal } = useModal();
   const handleEdit = () => {
     setIsEditing(!isEditing);
   };
@@ -94,7 +97,16 @@ function Information() {
             >
               프로필 변경
             </button>
-            <button type="button">선호도 변경</button>
+            <button
+              type="button"
+              onClick={() =>
+                openModal({
+                  content: <MemberLikesModal />,
+                })
+              }
+            >
+              선호도 변경
+            </button>
           </div>
           <button type="button" onClick={handleDelete}>
             회원 탈퇴

@@ -94,6 +94,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
   if (status === 'loading') {
     return <InfinityScrollLoading />;
   }
+
   if (status === 'error') return <div>Error</div>;
 
   const totalLength = (data?.pages || []).reduce(
@@ -105,9 +106,9 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
     return (
       <>
         {path.includes('search') ? (
-          totalLength !== 0 ? (
+          data?.pages[0].totalResults !== 0 ? (
             <S_Text>
-              {`'${query}' 검색 결과가 ${totalLength}개 있습니다.`}
+              {`'${query}' 검색 결과가 ${data?.pages[0].totalResults}개 있습니다.`}
             </S_Text>
           ) : (
             <S_NoContents>
@@ -124,7 +125,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
           )
         )}
         <S_FlexWrap>
-          {data.pages.map((page) => (
+          {data?.pages.map((page) => (
             <>
               {page.content.map((item: ContentData, index: number) => (
                 <S_Item key={item.id} index={index + 1} size={size}>
