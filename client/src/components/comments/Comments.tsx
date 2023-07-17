@@ -99,9 +99,10 @@ const S_Wrapper = styled.div`
     }
   }
   & svg {
-    font-size: 20px;
+    font-size: 23px;
     margin: 10px 5px;
     color: var(--color-white-80);
+    cursor: pointer;
   }
 `;
 
