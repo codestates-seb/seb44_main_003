@@ -6,19 +6,30 @@ import { RecommendContentLoading } from '../ui/exceptions/recommendContent';
 import { ContentData } from '../../types/types';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
-  const { isLoading: detailLoading, error: detailError, data: detailData, isSuccess: detailSuccess } = useQuery({
+  const {
+    isLoading: detailLoading,
+    error: detailError,
+    data: detailData,
+    isSuccess: detailSuccess,
+  } = useQuery({
     queryKey: ['selectedContent', contentId],
     queryFn: () => GetDataDetail(contentId),
   });
 
   let category = detailData?.category === 'TV' ? 'tv' : 'movie';
 
-  const { isLoading: filteredLoading, error: filteredError, data: filteredData, isSuccess: filteredSuccess } = useQuery({
+  const {
+    isLoading: filteredLoading,
+    error: filteredError,
+    data: filteredData,
+    isSuccess: filteredSuccess,
+  } = useQuery({
     queryKey: ['filteredContent', contentId],
-    queryFn: () => GetFilterdData(
-      `/medias/${category}?size=6&genre=${detailData?.genre.join(',')}`
-    ),
-    enabled: !!detailData // true가 되면 filteredData를 실행한다
+    queryFn: () =>
+      GetFilterdData(
+        `/medias/${category}?size=6&genre=${detailData?.genre.join(',')}`
+      ),
+    enabled: !!detailData, // true가 되면 filteredData를 실행한다
   });
 
   if (detailLoading || filteredLoading) {
@@ -30,10 +41,12 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     );
   }
 
-  if (detailError instanceof Error) return 'An error has occurred: ' + detailError.message;
+  if (detailError instanceof Error)
+    return 'An error has occurred: ' + detailError.message;
 
-  if (filteredError instanceof Error) return 'An error has occurred: ' + filteredError.message;
-  
+  if (filteredError instanceof Error)
+    return 'An error has occurred: ' + filteredError.message;
+
   if (detailSuccess && filteredSuccess) {
     return (
       <S_Wrapper>
@@ -67,7 +80,6 @@ const S_Text = styled.p`
 
 const S_ItemBox = styled.div`
   display: flex;
-  width: 100vw;
   flex-wrap: wrap;
 `;
 
@@ -84,7 +96,7 @@ const S_Item = styled.div`
     width: calc(100% / 5 - 15px);
     gap: 16px;
   }
-  
+
   @media only screen and (max-width: 770px) {
     width: calc(100% / 4 - 15px);
     gap: 14px;

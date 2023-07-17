@@ -63,7 +63,7 @@ const S_Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px 0 43px;
+  padding: 0 60px;
   width: 100%;
 
   > div {
@@ -81,6 +81,6 @@ const S_Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 540px) {
-    padding: 0 20px 0 3px;
+    padding: 0 20px;
   }
 `;

@@ -107,13 +107,13 @@ function ContentDetail({ contentId }: { contentId: string }) {
                 <div className="ott">
                   {ottList.map((ott) => renderOtt(ott))}
                 </div>
-                <p className="bold-white">출시일: {data.releaseDate}</p>
-                <p className="bold-white margin">
+                <h1 className="bold-white">출시일: {data.releaseDate}</h1>
+                <h1 className="bold-white margin">
                   {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
-                </p>
-                <p className="text">{data.content}</p>
+                </h1>
               </S_TitleFont>
             </S_Content>
+            <S_Text>{data.content}</S_Text>
           </div>
         </div>
       </S_Wrapper>
@@ -160,7 +160,7 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
   flex-direction: column;
   align-items: center;
   margin: 100px 0 50px 0;
-  padding: 0 30px;
+  padding: 0 60px;
   width: 100vw;
 
   .main-flex {
@@ -208,7 +208,7 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
   }
 
   @media only screen and (max-width: 660px) {
-    padding: 0 40px;
+    padding: 0 20px;
     .main-flex {
       display: flex;
       flex-direction: column;
@@ -267,14 +267,10 @@ const S_TextTitle = styled.h1`
 `;
 
 const S_TitleFont = styled.div`
-  width: 60%;
+  width: 70%;
   animation: ${fadeIn} 1s ease-in;
-
-  p {
-    font-size: 20px;
-  }
   .ott {
-    margin: 20px 0 45px 0;
+    margin: 40px 0 60px 0;
     animation: ${slideIn} 0.5s ease-out;
   }
   .h1 {
@@ -282,16 +278,12 @@ const S_TitleFont = styled.div`
     color: var(--color-white-100);
   }
   .bold-white {
+    font-size: 22px;
     color: var(--color-white-80);
     font-weight: bold;
   }
   .margin {
-    margin-top: 45px;
-  }
-  .text {
-    color: var(--color-white-80);
-    margin: 45px 0;
-    line-height: 1.6;
+    margin-top: 60px;
   }
   img {
     width: 60px;
@@ -303,11 +295,9 @@ const S_TitleFont = styled.div`
     filter: saturate(0);
     opacity: 0.8;
   }
+
   @media only screen and (max-width: 768px) {
     .margin {
-      width: 60%;
-    }
-    .text {
       width: 60%;
     }
   }
@@ -320,9 +310,6 @@ const S_TitleFont = styled.div`
       font-size: 20px;
     }
     .margin {
-      width: 100%;
-    }
-    .text {
       width: 100%;
     }
     .ott {
@@ -354,5 +341,16 @@ const S_Poster = styled.div`
 
   @media only screen and (max-width: 660px) {
     align-self: center;
+  }
+`;
+
+const S_Text = styled.p`
+  color: var(--color-white-80);
+  margin: 25px 0;
+  line-height: 1.6;
+  font-size: 20px;
+
+  @media only screen and (max-width: 660px) {
+    font-size: 16px;
   }
 `;

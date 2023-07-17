@@ -29,7 +29,7 @@ const S_Wrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 20px 0 45px;
+  margin: 40px 0 60px;
   animation: ${slideIn} 0.5s ease-out;
   @media only screen and (max-width: 660px) {
     width: calc(100% - 11vw);
