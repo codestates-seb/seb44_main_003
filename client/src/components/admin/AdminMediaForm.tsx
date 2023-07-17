@@ -212,6 +212,7 @@ const S_Form = styled.form`
   border: 1px solid white;
   padding: 10px;
   margin: 0 20px;
+  border-radius: 10px;
 
   label {
     color: white;

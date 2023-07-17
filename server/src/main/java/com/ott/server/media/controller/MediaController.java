@@ -10,6 +10,7 @@ import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.media.service.MediaService;
 import com.ott.server.mediaott.entity.MediaOtt;
 import com.ott.server.mediaott.repository.MediaOttRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -68,6 +69,7 @@ public class MediaController {
     //소분류
 
     @GetMapping("/all")
+    //@Cacheable("myCache")
     public ResponseEntity<List<MediaDto.Response2>> getAllMedia() {
         List<MediaDto.Response2> allMedia = mediaService.getAllMedia();
         return new ResponseEntity<>(allMedia, HttpStatus.OK);

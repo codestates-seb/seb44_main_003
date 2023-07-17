@@ -85,9 +85,9 @@ export type CommentData = {
 };
 
 export type Question = {
-  isOpen: boolean;
   closeModal: () => void;
   onNextClick: () => void;
+  onReset: () => void;
 };
 
 export type AddData = {
@@ -121,4 +121,19 @@ export type ModalType = {
 
 export type OpenModalType = {
   content: JSX.Element | string;
+};
+
+export type ItemProps = {
+  index: number;
+  size: number;
+};
+
+export type Report = {
+  completion: boolean;
+  content: string;
+  createdAt: string;
+  id: number;
+  lastModifiedAt: string;
+  mediaId: number;
+  title: string;
 };

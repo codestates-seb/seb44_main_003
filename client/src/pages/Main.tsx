@@ -1,4 +1,4 @@
-import Carousel from '../components/carousel/Carousel';
+import MainBanner from '../components/banner/MainBanner.tsx';
 import MainSliderSection from '../components/slide/mainslider/MainSliderSection.tsx';
 import { useSearchParams, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -33,7 +33,7 @@ function Main() {
 
   return (
     <>
-      <Carousel />
+      <MainBanner />
       <MainSliderSection />
     </>
   );

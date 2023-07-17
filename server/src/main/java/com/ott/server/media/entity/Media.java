@@ -11,6 +11,13 @@ import com.ott.server.review.entity.Review;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.search.engine.backend.types.Projectable;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.KeywordField;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,12 +27,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@Indexed(index = "media")
 public class Media extends Auditable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mediaId;
 
+
+
+    @FullTextField(analyzer = "standardAnalyzer", name = "title_standard")// todo jaso analyzer 쓰면서 사용안하게될듯
+    @FullTextField(analyzer = "autocompleteAnalyzer", name = "title_autocomplete") // todo jaso analyzer 쓰면서 사용안하게될듯
+    @FullTextField(analyzer = "jasoAnalyzer", name = "title_jaso")
+    @FullTextField(analyzer = "suggest_index_analyzer", searchAnalyzer = "suggest_search_analyzer")
+    @GenericField(name = "title_keyword", projectable = Projectable.YES)
     @Column(length = 50, nullable = false)
     private String title;
 
@@ -67,10 +83,6 @@ public class Media extends Auditable {
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference
     private List<Bookmark> bookmarks = new ArrayList<>();
-    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Recommendation> recommendations = new ArrayList<>();
-    @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Report> Reports = new ArrayList<>();
@@ -79,7 +91,8 @@ public class Media extends Auditable {
     private List<Recommendation> recommendations = new ArrayList<>();
     @OneToMany(mappedBy = "media", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Review> reviews = new ArrayList<>();
-
-    public void setId(Long aLong) {
+ 
+      public void setId(Long id) {
+        this.mediaId = id;
     }
 }

@@ -8,11 +8,14 @@ import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
 const SlideMovie = ({ genre }: { genre: string }) => {
+  const navigate = useNavigate();
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -24,15 +27,17 @@ const SlideMovie = ({ genre }: { genre: string }) => {
     return (
       <S_Wrapper>
         <S_SkeletonBox>
-        {Array.from({ length: 6 }, (_, index) => (
-          <SkeletonItemCard  key={index}/>
-        ))}
+          {Array.from({ length: 6 }, (_, index) => (
+            <SkeletonItemCard key={index} />
+          ))}
         </S_SkeletonBox>
       </S_Wrapper>
     );
   }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message;
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
 
   if (isSuccess) {
     return (
