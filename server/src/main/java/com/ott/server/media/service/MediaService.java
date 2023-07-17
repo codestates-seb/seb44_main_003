@@ -141,7 +141,7 @@ public class MediaService {
                     updateDto.getAgeRate().ifPresent(media::setAgeRate);
                     updateDto.getRecent().ifPresent(media::setRecent);
 
-                    if(updateDto.getGenre().orElse(new ArrayList<>()).size()>=1){{
+                    if(updateDto.getGenre().orElse(new ArrayList<>()).size()>=1){
                         List<Genre> genres = genreRepository.findByMedia(media);
                         for(Genre genre : genres)
                             genreRepository.delete(genre);
@@ -155,9 +155,9 @@ public class MediaService {
                                                 return genreRepository.save(genre);
                                             })
                                             .collect(Collectors.toList());
-                            media.setGenres(genres);
+                            media.setGenres(genreList);
                         });
-                    }}
+                    }
 
                     if(updateDto.getMediaOtt().orElse(new ArrayList<>()).size()>=1){
                         List<MediaOtt> mediaOtts = mediaOttRepository.findByMedia(media);
@@ -173,7 +173,7 @@ public class MediaService {
                                         return mediaOttRepository.save(mediaOtt);
                                     })
                                     .collect(Collectors.toList());
-                            media.setMediaOtts(mediaOtts);
+                            media.setMediaOtts(mediaOttList);
                         });
                     }
 
