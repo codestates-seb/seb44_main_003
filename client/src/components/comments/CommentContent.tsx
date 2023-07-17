@@ -90,6 +90,9 @@ const S_Comment = styled.li`
   display: flex;
   border-bottom: 1px solid white;
   padding: 10px 30px;
+  @media only screen and (max-width: 480px) {
+    padding: 10px;
+  }
   & h1.admin {
     display: inline;
     background: linear-gradient(to right, #667eea, #764ba2, #6b8dd6, #8e37d7);
@@ -107,6 +110,10 @@ const S_Comment = styled.li`
     to {
       background-position-x: 100%;
     }
+  }
+
+  > div:first-child {
+    flex-shrink: 0;
   }
   > div:nth-child(2) {
     flex-grow: 1;
