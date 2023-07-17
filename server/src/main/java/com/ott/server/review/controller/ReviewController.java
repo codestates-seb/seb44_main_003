@@ -87,6 +87,7 @@ public class ReviewController {
         MediaMultiResponseDto response = reviewService.findByMemberId(authentication, page-1, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
+
     }
 
 }
