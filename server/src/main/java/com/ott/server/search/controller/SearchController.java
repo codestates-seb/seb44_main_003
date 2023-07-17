@@ -2,6 +2,7 @@ package com.ott.server.search.controller;
 
 import com.ott.server.media.dto.MultiResponseDto;
 import com.ott.server.media.entity.Media;
+import com.ott.server.search.dto.MultiResponseDtoSearch;
 import com.ott.server.search.dto.SearchResult;
 import com.ott.server.search.mapper.SearchMapper;
 import com.ott.server.search.service.SearchService;
@@ -47,9 +48,12 @@ public class SearchController {
         Page<Media> pageMedias = searchService.search(q, page-1, size);
         List<Media> medias = pageMedias.getContent();
 
+        // 총 결과 수를 가져옵니다.
+        long totalResults = pageMedias.getTotalElements();
 
-        return new ResponseEntity<>(new MultiResponseDto(searchMapper.mediasToMediaResponseDtos(medias), page, pageMedias.getTotalPages()), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDtoSearch(searchMapper.mediasToMediaResponseDtos(medias), page, pageMedias.getTotalPages(), totalResults), HttpStatus.OK);
     }
+
     @GetMapping("/autocomplete")
     public ResponseEntity autocomplete(@RequestParam String q,
                                        @RequestParam(defaultValue = "10") int limit){
