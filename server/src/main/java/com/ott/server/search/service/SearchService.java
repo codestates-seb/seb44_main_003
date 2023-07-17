@@ -80,8 +80,8 @@ public class SearchService {
         SearchSession searchSession = Search.session(entityManager);
 
         SearchQuery<Media> query = searchSession.search(Media.class)
-                .where(f -> f.simpleQueryString()
-                        .field("title_jaso")
+                .where(f -> f.match()
+                        .field("title")
                         .matching(titleFragment))
                 .toQuery();
 
