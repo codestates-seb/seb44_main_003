@@ -48,7 +48,6 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
       getNextPageParam: (lastPage) => {
         const currentPage = lastPage.currentPage;
         const totalPages = lastPage.totalPages;
-
         if (currentPage < totalPages) {
           return currentPage + 1;
         }
@@ -59,7 +58,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
   );
 
   const { ref, inView } = useInView({
-    threshold: 1,
+    threshold: 0.1,
     triggerOnce: false,
   });
 
@@ -85,7 +84,6 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
     const handleResize = () => {
       setSize(getSize());
     };
-
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -151,13 +149,14 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
 export default InfinityScroll;
 
 const S_FlexWrap = styled.div`
-  width: calc(100vw - 40px);
+  width: (100% - 40px);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-left: 20px;
+  padding-left: 20px;
 
   .target {
+    width: 100vw;
     height: 10px;
   }
 
@@ -171,32 +170,32 @@ const S_Item = styled.div<ItemProps>`
   margin: 0 0 50px 15px;
 
   @media only screen and (max-width: 1500px) {
-    width: calc(100% / ${({ size }) => size / 4} - 13px);
+    width: calc(100% / ${({ size }) => size / 4} - 17px);
     margin: ${({ index }) =>
       index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
   }
 
   @media only screen and (max-width: 1024px) {
-    width: calc(100% / ${({ size }) => size / 4} - 12px);
+    width: calc(100% / ${({ size }) => size / 4} - 16px);
     margin: ${({ index }) =>
       index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
   }
 
   @media only screen and (max-width: 770px) {
-    width: calc(100% / ${({ size }) => size / 4} - 8px);
+    width: calc(100% / ${({ size }) => size / 4} - 13px);
     margin: ${({ index }) =>
       index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
 
   @media only screen and (max-width: 480px) {
-    width: calc(100% / ${({ size }) => size / 4} - 6.7px);
+    width: calc(100% / ${({ size }) => size / 4} - 13px);
     margin: ${({ index }) =>
       index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
 `;
 
 const S_Text = styled.p`
-  padding: 390px 0 70px 0;
+  padding: 130px 0 60px 0;
   font-size: 30px;
   font-weight: bold;
   color: var(--color-white-80);
