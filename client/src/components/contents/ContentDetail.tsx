@@ -7,7 +7,6 @@ import Bookmark from './Bookmark';
 import Recommend from './Recommend';
 import Tag from '../ui/Tag';
 import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
-import Error from '../../pages/Error';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
@@ -68,8 +67,6 @@ function ContentDetail({ contentId }: { contentId: string }) {
   if (isLoading) return <ContentDetailLoading />;
 
   if (error instanceof AxiosError) {
-    if (!error.status && error.code === 'ERR_NETWORK')
-      return <Error code="500" />;
     if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
 
