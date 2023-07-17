@@ -80,11 +80,11 @@ public class ReviewController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MultiResponseDto> getReviewsByMemberId(Authentication authentication,
+    public ResponseEntity<MediaMultiResponseDto> getReviewsByMemberId(Authentication authentication,
                                                                 @RequestParam(required = false, defaultValue = "1") int page,
                                                                 @RequestParam(required = false, defaultValue = "10") int size) {
 
-        MultiResponseDto response = reviewService.findByMemberId(authentication, page-1, size);
+        MediaMultiResponseDto response = reviewService.findByMemberId(authentication, page-1, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
 
