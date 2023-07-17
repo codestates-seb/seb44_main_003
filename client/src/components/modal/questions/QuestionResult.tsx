@@ -17,14 +17,19 @@ import beesad from '../../../assets/recommendimage/beesad.svg';
 import { useRecoilValue } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 
-const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => {
+const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
   const isLoggedIn = useIsLoggedIn();
 
   const recommendedContents = useRecoilValue(recommendedContentsState);
-  console.log(recommendedContents)
+  console.log(recommendedContents);
 
-  const { isLoading: filteredLoading, error: filteredError, data: filterData, isSuccess: filterSuccess } = useQuery({
+  const {
+    isLoading: filteredLoading,
+    error: filteredError,
+    data: filterData,
+    isSuccess: filterSuccess,
+  } = useQuery({
     queryKey: ['recommendedFilter', recommendedContents],
     queryFn: () =>
       GetFilterdData(
@@ -34,10 +39,13 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
           ','
         )}&ott=${recommendedContents.memberOtts.join(',')}`
       ),
-    enabled: isOpen,
   });
 
-  const { data: userData, error: userError, isSuccess: userSuccess } = useQuery({
+  const {
+    data: userData,
+    error: userError,
+    isSuccess: userSuccess,
+  } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
     staleTime: Infinity,
@@ -55,20 +63,24 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
     );
   }
 
-  if (filteredError instanceof Error) return 'An error has occurred: ' + filteredError.message;
+  if (filteredError instanceof Error)
+    return 'An error has occurred: ' + filteredError.message;
 
-  if (userError instanceof Error) return 'An error has occurred: ' + userError.message;
+  if (userError instanceof Error)
+    return 'An error has occurred: ' + userError.message;
 
   if (filterSuccess) {
     const randomNumber = Math.floor(Math.random() * filterData.content.length);
     const randomItem = filterData.content[randomNumber];
     if (filterData && filterData.content.length > 0) {
       return (
-        <S_Wrapper isOpen={isOpen}>
+        <S_Wrapper>
           <S_ModalBox>
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
-              <S_ResultId>{userSuccess ? userData.nickname : 'guest'}</S_ResultId>
+              <S_ResultId>
+                {userSuccess ? userData.nickname : 'guest'}
+              </S_ResultId>
               <S_ResultImg src={nicknameText} />
             </S_ResultIdBox>
             <S_ResultTitleBox>
@@ -98,12 +110,12 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
                     />
                   )}
                   {userSuccess && (
-                  <RecommendBtn 
-                    bgColor={'#F7CD40'}
-                    bgShadow={'#C17932'}
-                    btnText={btnAgain}
-                    onClick={onReset}
-                  />
+                    <RecommendBtn
+                      bgColor={'#F7CD40'}
+                      bgShadow={'#C17932'}
+                      btnText={btnAgain}
+                      onClick={onReset}
+                    />
                   )}
                   <RecommendBtn
                     bgColor={'#F7CD40'}
@@ -123,11 +135,13 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
       );
     } else {
       return (
-        <S_Wrapper isOpen={isOpen}>
+        <S_Wrapper>
           <S_ModalBox>
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
-              <S_ResultId>{userSuccess ? userData.nickname : 'guest'}</S_ResultId>
+              <S_ResultId>
+                {userSuccess ? userData.nickname : 'guest'}
+              </S_ResultId>
               <S_ResultImg src={nicknameText} />
             </S_ResultIdBox>
             <S_ResultTitleBox>
@@ -138,7 +152,7 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
                 <S_ResultImg src={beesad} />
                 <S_Text>{`다시 컨텐츠를 찾아볼까요?`}</S_Text>
                 <S_BtnsBox>
-                  <RecommendBtn 
+                  <RecommendBtn
                     bgColor={'#F7CD40'}
                     bgShadow={'#C17932'}
                     btnText={btnAgain}
@@ -157,8 +171,8 @@ const QuestionResult: React.FC<Question> = ({ isOpen, closeModal, onReset }) => 
 
 export default QuestionResult;
 
-const S_Wrapper = styled.div<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? 'flex' : 'none')};
+const S_Wrapper = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;

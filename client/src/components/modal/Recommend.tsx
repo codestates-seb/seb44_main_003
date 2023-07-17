@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { useRecoilState, useResetRecoilState } from 'recoil';
-import {
-  recommendModalState,
-  recommendedContentsState,
-} from '../../recoil/atoms/Atoms';
+import { useResetRecoilState } from 'recoil';
+import { recommendedContentsState } from '../../recoil/atoms/Atoms';
 import styled from 'styled-components';
 import FirstQuestion from './questions/FirstQuestion';
 import SecondQuestion from './questions/SecondQuestion';
@@ -12,7 +9,6 @@ import QuestionResult from './questions/QuestionResult';
 import { useModal } from '../../hooks/useModal';
 
 const Recommend = () => {
-  const [isRecommendModal] = useRecoilState(recommendModalState);
   const resetRecommendedContents = useResetRecoilState(
     recommendedContentsState
   );
@@ -47,7 +43,6 @@ const Recommend = () => {
           currentQuestion === index + 1 && (
             <Question
               key={index}
-              isOpen={isRecommendModal}
               closeModal={resetModal}
               onNextClick={handleNextClick}
               onReset={handleReset}
