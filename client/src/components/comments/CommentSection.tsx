@@ -1,14 +1,28 @@
 import { styled } from 'styled-components';
 import CommentForm from './CommentForm';
 import Comments from './Comments';
+import { useQuery } from '@tanstack/react-query';
+import { GetComments } from '../../api/api';
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
 function CommentSection() {
-  return (
-    <S_Wrapper>
-      <CommentForm />
-      <Comments />
-    </S_Wrapper>
-  );
+  const [page, setPage] = useState(1);
+  const { id } = useParams() as { id: string };
+  const { data, isSuccess } = useQuery({
+    queryKey: ['comments', id, page],
+    queryFn: () => GetComments({ id, page }),
+    refetchOnWindowFocus: false,
+  });
+
+  if (isSuccess) {
+    return (
+      <S_Wrapper>
+        <CommentForm />
+        <Comments data={data} page={page} setPage={setPage} />
+      </S_Wrapper>
+    );
+  }
 }
 
 export default CommentSection;
