@@ -48,6 +48,7 @@ const S_LoadingWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-top: 230px;
 
   .target {
     height: 10px;

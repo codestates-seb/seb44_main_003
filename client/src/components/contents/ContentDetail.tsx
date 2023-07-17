@@ -1,22 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import styled, { keyframes } from 'styled-components';
+import { GetDataDetail, GetUser } from './../../api/api';
+import Bookmark from './Bookmark';
+import Recommend from './Recommend';
+import Tag from '../ui/Tag';
+import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
+import DeleteMediaBtn from '../admin/DeleteMediaBtn';
+import PatchMediaBtn from '../admin/PatchMediaBtn';
+import ReportBtn from './ReportBtn';
 import netflix from '../../assets/ott/netflix.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
-import Bookmark from './Bookmark';
-import Tag from '../ui/Tag';
-import { GetDataDetail, GetUser } from './../../api/api';
-import Recommend from './Recommend';
-import {
-  ContentDetailLoading,
-  RecommendError,
-} from '../ui/exceptions/contentDetail';
-import DeleteMediaBtn from '../admin/DeleteMediaBtn';
-import PatchMediaBtn from '../admin/PatchMediaBtn';
-import ReportBtn from './ReportBtn';
 
 function ContentDetail({ contentId }: { contentId: string }) {
+  const navigate = useNavigate();
   const ottList = [
     { name: 'Netflix', img: netflix },
     { name: 'Disney Plus', img: disney },
@@ -66,7 +66,9 @@ function ContentDetail({ contentId }: { contentId: string }) {
 
   if (isLoading) return <ContentDetailLoading />;
 
-  if (error instanceof Error) return <RecommendError />;
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
 
   if (isSuccess) {
     return (
