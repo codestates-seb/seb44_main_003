@@ -41,6 +41,6 @@ public interface MediaRepository extends JpaRepository<Media, Long> {
 //
 //    Page<Media> findByCategoryAndGenresInAndMediaOttsIn(String category, List<Genre> genre, List<MediaOtt> ott, Pageable pageable);
 
-    @Query("SELECT m FROM Media m JOIN m.mediaOtts mo WHERE mo.ottName = :ottName ORDER BY m.recommendations.size DESC")
+    @Query("SELECT DISTINCT m FROM Media m JOIN m.mediaOtts mo WHERE mo.ottName = :ottName ORDER BY m.recommendations.size DESC")
     Page<Media> findMediaByOttNameOrderByRecommendationCountDesc(@Param("ottName") String ottName, Pageable pageable);
 }
