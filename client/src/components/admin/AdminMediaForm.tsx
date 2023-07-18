@@ -81,10 +81,6 @@ function AdminMediaForm({
           return AddMediaMutation.mutate(convertedData);
         }
         if (contentId) {
-          console.log({
-            mediaId: contentId,
-            mediaData: convertedData,
-          });
           EditMediaMutation.mutate({
             mediaId: contentId,
             mediaData: convertedData,
