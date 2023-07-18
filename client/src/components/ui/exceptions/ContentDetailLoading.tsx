@@ -11,6 +11,6 @@ const S_Wrapper = styled.div`
   margin: 100px 0 50px 0;
   padding: 0 30px;
   width: 100vw;
-  height: 680px;
+  height: 1000px;
   background-color: var(--color-bg-100);
 `;

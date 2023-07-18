@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SkeletonItemCard from '../SkeletonItemCard';
 import { ItemProps } from '../../../types/types';
 
-export function InfinityScrollLoading() {
+export function InfinityScrollLoading({ path }: { path: string }) {
   const [size, setSize] = useState(getSize());
 
   function getSize() {
@@ -33,13 +33,16 @@ export function InfinityScrollLoading() {
   }, []);
 
   return (
-    <S_LoadingWrap>
-      {Array.from({ length: size }, (_, index) => (
-        <S_Item key={index} index={index + 1} size={size}>
-          <SkeletonItemCard />
-        </S_Item>
-      ))}
-    </S_LoadingWrap>
+    <>
+      {path.includes('/search') ? <S_Padding /> : ''}
+      <S_LoadingWrap>
+        {Array.from({ length: size }, (_, index) => (
+          <S_Item key={index} index={index + 1} size={size}>
+            <SkeletonItemCard />
+          </S_Item>
+        ))}
+      </S_LoadingWrap>
+    </>
   );
 }
 
@@ -48,7 +51,10 @@ const S_LoadingWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: 230px;
+
+  .S_LoadingWrap.padding {
+    padding-top: 230px;
+  }
 
   .target {
     height: 10px;
@@ -87,4 +93,8 @@ const S_Item = styled.div<ItemProps>`
     margin: ${({ index }) =>
       index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
+`;
+
+const S_Padding = styled.div`
+  padding-top: 230px;
 `;
