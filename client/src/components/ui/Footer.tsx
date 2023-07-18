@@ -134,7 +134,7 @@ const S_Logo = styled.div`
   display: flex;
   justify-content: center;
   width: 100vw;
-  margin: 20px 0;
+  margin: 30px 0;
   img {
     object-fit: cover;
     height: 30px;
