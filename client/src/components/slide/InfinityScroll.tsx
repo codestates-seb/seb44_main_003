@@ -92,7 +92,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
   }, []);
 
   if (status === 'loading') {
-    return <InfinityScrollLoading />;
+    return <InfinityScrollLoading path={path} />;
   }
 
   if (status === 'error') return <div>Error</div>;

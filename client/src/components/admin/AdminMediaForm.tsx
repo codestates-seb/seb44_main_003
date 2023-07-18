@@ -59,7 +59,10 @@ function AdminMediaForm({
       releaseDate: parseInt(data.releaseDate),
       ageRate: data.ageRate,
       recent: data.recent,
-      genre: data.genre.split(',').map((item: string) => item.trim()),
+      genre: data.genre
+        .split(',')
+        .map((item: string) => item.trim())
+        .filter((item: string) => item !== ''),
       mediaOtt: filteredOtt.map((ott: any) => ({
         ottName: ott.ottName.trim(),
         ottAddress: ott.ottAddress.trim(),
@@ -78,6 +81,10 @@ function AdminMediaForm({
           return AddMediaMutation.mutate(convertedData);
         }
         if (contentId) {
+          console.log({
+            mediaId: contentId,
+            mediaData: convertedData,
+          });
           EditMediaMutation.mutate({
             mediaId: contentId,
             mediaData: convertedData,
