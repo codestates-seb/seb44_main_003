@@ -61,6 +61,16 @@ export const GetMovieData = (genre: string, size: number, page: number): Promise
     )
     .then((res) => res.data);
 
+/* ott top10 데이터 가져오기 */
+export const GetOttTopList = (ott: string): Promise<ItemData> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/medias/recommendation?page=1&size=10&ottName=${ott}`
+    )
+    .then((res) => res.data);
+
 export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/medias/${mediaId}`)
