@@ -289,6 +289,22 @@ public class MediaService {
         return new MultiResponseDto<>(responses, mediasPage.getNumber() + 1, mediasPage.getTotalPages());
     }
 
+    public MultiResponseDto<MediaDto.Response2> findMediaByOttNameOrderByRecommendationCount(String ottName, Pageable pageable){
+        Page<Media> mediasPage = mediaRepository.findMediaByOttNameOrderByRecommendationCountDesc(ottName, pageable);
+        List<Media> medias = mediasPage.getContent();
+        List<MediaDto.Response2> responses = new ArrayList<>();
+        for(int i = 0; i < medias.size(); i++){
+            Long mediaId = medias.get(i).getMediaId();
+            Media findMedia = findVerifiedMedia(mediaId);
+            MediaDto.Response2 response = new MediaDto.Response2();
+            response.setId(findMedia.getMediaId());
+            response.setTitle(findMedia.getTitle());
+            response.setMainPoster(findMedia.getMainPoster());
+            responses.add(response);
+        }
+        return new MultiResponseDto<>(responses, mediasPage.getNumber() + 1, mediasPage.getTotalPages());
+    }
+
     @Transactional(readOnly = true)
     public Media findVerifiedMedia(long mediaId) {
         Optional<Media> optionalMedia =
