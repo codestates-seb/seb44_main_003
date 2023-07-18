@@ -63,7 +63,7 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
   });
 
   useEffect(() => {
-    let timeoutId: number;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     if (inView && hasNextPage) {
       setIsLoadingMore(true);
