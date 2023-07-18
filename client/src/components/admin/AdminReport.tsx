@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { GetReport } from '../../api/api';
 import { Report } from '../../types/types';
 import { useModal } from '../../hooks/useModal';
-import ReportDetail from '../ui/modal/ReportDetail';
+import ReportDetail from '../ui/modal/report/ReportDetail';
 
 function AdminReport() {
   const { openModal } = useModal();

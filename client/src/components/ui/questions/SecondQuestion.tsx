@@ -5,29 +5,26 @@ import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, ottServices } from '../QuestionData';
+import { questionList, category } from './QuestionData';
 import { Question } from '../../../types/types';
 import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
-const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
+const SecondQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
     recommendedContentsState
   );
   const [isAnySelected, setIsAnySelected] = useState(false);
 
   useEffect(() => {
-    setIsAnySelected(recommendedContents.memberOtts.length > 0);
-  }, [recommendedContents.memberOtts]);
+    setIsAnySelected(recommendedContents.category !== '');
+  }, [recommendedContents.category]);
 
   const handleIconClick = (clickedName: string) => {
-    const isSelected = recommendedContents.memberOtts.indexOf(clickedName) > -1;
-
-    setRecommendedContents({
-      ...recommendedContents,
-      memberOtts: isSelected
-        ? recommendedContents.memberOtts.filter((name) => name !== clickedName)
-        : [...recommendedContents.memberOtts, clickedName],
-    });
+    if (recommendedContents.category === clickedName) {
+      setRecommendedContents({ ...recommendedContents, category: '' });
+    } else {
+      setRecommendedContents({ ...recommendedContents, category: clickedName });
+    }
   };
 
   return (
@@ -36,34 +33,30 @@ const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
     >
       <S_ModalBox>
         <CloseBtn onClick={closeModal} />
-        <QuestionCard question={questionList[0]} />
+        <QuestionCard question={questionList[1]} />
         <S_SelectionBox>
-          <S_TextBox>
-            <S_Text>* 중복 선택 가능</S_Text>
-          </S_TextBox>
-          <S_OttList>
-            {Object.values(ottServices).map((ott) => {
-              const isSelected = recommendedContents.memberOtts.includes(
-                ott.ottname
-              );
-              return (
-                <S_OttBox
-                  key={ott.name}
-                  onClick={() => handleIconClick(ott.ottname)}
-                >
-                  <S_OttIcon
-                    src={ott.icon}
-                    alt={ott.name}
-                    className={isSelected ? 'select' : ''}
-                  />
-                  <S_OttName>{ott.name}</S_OttName>
-                </S_OttBox>
-              );
-            })}
-          </S_OttList>
+          <S_CategoryList>
+            {category.map((cate) => (
+              <S_CategoryBox
+                key={cate.name}
+                onClick={() => handleIconClick(cate.categoryname)}
+              >
+                <S_CategoryIcon
+                  src={cate.icon}
+                  alt={cate.name}
+                  className={
+                    recommendedContents.category === cate.categoryname
+                      ? 'select'
+                      : ''
+                  }
+                />
+                <div>{cate.name}</div>
+              </S_CategoryBox>
+            ))}
+          </S_CategoryList>
           <RecommendBtn
-            bgColor={'#A59BDC'}
-            bgShadow={'#6659B2'}
+            bgColor={'#F67CB3'}
+            bgShadow={'#C53C79'}
             btnText={btnNext}
             onClick={onNextClick}
             disabled={!isAnySelected}
@@ -75,11 +68,10 @@ const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   );
 };
 
-export default FirstQuestion;
+export default SecondQuestion;
 
 const S_Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: 'flex';
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -99,7 +91,7 @@ const S_ModalBackground = styled.div`
   position: absolute;
   width: 840px;
   height: 700px;
-  background: #362c6d;
+  background: #83395b;
   border-radius: 240px;
   filter: blur(50px);
   z-index: -1;
@@ -109,7 +101,7 @@ const S_SelectionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  width: 100%;
+  width: 90%;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
@@ -117,44 +109,30 @@ const S_SelectionBox = styled.div`
   font-family: 'inter';
 `;
 
-const S_TextBox = styled.div`
+const S_CategoryList = styled.div`
   display: flex;
-  justify-content: right;
-`;
-
-const S_Text = styled.p`
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-bg-100);
-`;
-
-const S_OttList = styled.div`
-  display: grid;
+  margin: 40px 0px;
   justify-content: center;
   align-items: center;
-  margin: 50px 50px 30px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 80px;
 `;
 
-const S_OttBox = styled.div`
+const S_CategoryBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 15px;
   color: var(--color-bg-100);
   font-size: 18px;
   font-weight: 700;
 `;
 
-const S_OttIcon = styled.img`
+const S_CategoryIcon = styled.img`
   margin-bottom: 5px;
-  width: 90px;
-  height: 90px;
+  width: 130px;
+  height: 130px;
   background: var(--color-white-100);
   object-fit: cover;
-  border: 2px solid var(--color-bg-100);
-  border-radius: 10px;
   filter: saturate(0);
   opacity: 0.8;
   transition: filter 0.2s, opacity 0.2s;
@@ -164,5 +142,3 @@ const S_OttIcon = styled.img`
     opacity: 1;
   }
 `;
-
-const S_OttName = styled.div``;

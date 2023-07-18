@@ -236,6 +236,7 @@ const S_LoadMore = styled.div`
 
   .loadmore {
     font-size: 30px;
+    padding-top: 20px;
     font-weight: bold;
     color: var(--color-white-80);
     animation: ${opacityAnimation} 1s infinite;

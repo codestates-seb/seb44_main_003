@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { AxiosError } from 'axios';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -14,6 +16,7 @@ function Recommend({
 }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
 
   if (!isLoggedIn) {
     return (
@@ -31,7 +34,7 @@ function Recommend({
     );
   }
 
-  const { isLoading, data, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess, error } = useQuery(
     ['isRecommend', contentId],
     () => GetIsRecommend(contentId),
     {
@@ -52,6 +55,10 @@ function Recommend({
 
   if (isLoading) {
     return <RecommendLoading countRecommend={countRecommend} />;
+  }
+
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
 
   if (isSuccess) {
