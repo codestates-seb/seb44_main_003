@@ -15,7 +15,7 @@ function Bookmark({ contentId }: { contentId: string }) {
         <div>
           <BsHeart
             color="white"
-            size="40"
+            size="35"
             onClick={() => alert('로그인 후 이용 가능합니다')}
           />
           <p>찜</p>
@@ -53,14 +53,14 @@ function Bookmark({ contentId }: { contentId: string }) {
           {data ? (
             <BsHeartFill
               color="white"
-              size="40"
+              size="34"
               className="isTrue"
               onClick={() => BookmarkMutation.mutate(contentId)}
             />
           ) : (
             <BsHeart
               color="white"
-              size="40"
+              size="35"
               onClick={() => BookmarkMutation.mutate(contentId)}
             />
           )}

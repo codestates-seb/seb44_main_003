@@ -1,22 +1,12 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GenreBtn from './GenreBtn';
 import OttBtn from './OttBtn';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ListBtns() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 540);
+  //const [isMobile, setIsMobile] = useState(window.innerWidth <= 540);
   const genre = new URLSearchParams(location.search).get('genre');
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 540);
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const isMobile = useMediaQuery('(max-width: 540px)');
 
   return (
     <S_Wrapper>

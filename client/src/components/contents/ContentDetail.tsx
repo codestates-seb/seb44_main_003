@@ -14,6 +14,7 @@ import netflix from '../../assets/ott/netflix.svg';
 import disney from '../../assets/ott/disney.svg';
 import watcha from '../../assets/ott/watcha.svg';
 import wavve from '../../assets/ott/wavve.svg';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ContentDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function ContentDetail({ contentId }: { contentId: string }) {
     { name: 'Watcha', img: watcha },
     { name: 'wavve', img: wavve },
   ];
-
+  const isUnder900 = useMediaQuery('(max-width: 900px)');
   const { isLoading, data, error, isSuccess } = useQuery(
     ['selectedContent', contentId],
     () => GetDataDetail(contentId),
@@ -113,9 +114,10 @@ function ContentDetail({ contentId }: { contentId: string }) {
                 <h1 className="bold-white margin">
                   {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
                 </h1>
+                {isUnder900 || <S_Text>{data.content}</S_Text>}
               </S_TitleFont>
             </S_Content>
-            <S_Text>{data.content}</S_Text>
+            {isUnder900 && <S_Text>{data.content}</S_Text>}
           </div>
         </div>
       </S_Wrapper>
@@ -269,7 +271,7 @@ const S_TextTitle = styled.h1`
 `;
 
 const S_TitleFont = styled.div`
-  width: 70%;
+  width: 65%;
   animation: ${fadeIn} 1s ease-in;
   .ott {
     margin: 40px 0 60px 0;
@@ -280,12 +282,14 @@ const S_TitleFont = styled.div`
     color: var(--color-white-100);
   }
   .bold-white {
-    font-size: 22px;
+    font-size: 20px;
     color: var(--color-white-80);
-    font-weight: bold;
+    font-weight: 500;
+    line-height: 1.5;
+    max-width: 600px;
   }
   .margin {
-    margin-top: 60px;
+    margin-top: 25px;
   }
   img {
     width: 60px;
@@ -309,7 +313,7 @@ const S_TitleFont = styled.div`
       font-size: 16px;
     }
     .h1 {
-      font-size: 20px;
+      font-size: 18px;
     }
     .margin {
       width: 100%;
@@ -348,10 +352,10 @@ const S_Poster = styled.div`
 
 const S_Text = styled.p`
   color: var(--color-white-80);
-  margin: 25px 0;
+  margin: 25px 30px 25px 0;
   line-height: 1.6;
-  font-size: 20px;
-
+  font-size: 19px;
+  font-weight: 400;
   @media only screen and (max-width: 660px) {
     font-size: 16px;
   }

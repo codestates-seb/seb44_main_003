@@ -21,7 +21,7 @@ function Recommend({
         <div>
           <BsHandThumbsUp
             color="white"
-            size="40"
+            size="35"
             onClick={() => alert('로그인 후 이용 가능합니다')}
           />
           <p>추천</p>
@@ -61,14 +61,14 @@ function Recommend({
           {data ? (
             <BsHandThumbsUpFill
               color="white"
-              size="40"
+              size="35"
               className="isTrue"
               onClick={() => RecommendMutation.mutate(contentId)}
             />
           ) : (
             <BsHandThumbsUp
               color="white"
-              size="40"
+              size="35"
               onClick={() => RecommendMutation.mutate(contentId)}
             />
           )}
