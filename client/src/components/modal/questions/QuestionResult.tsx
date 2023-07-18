@@ -22,7 +22,6 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const isLoggedIn = useIsLoggedIn();
 
   const recommendedContents = useRecoilValue(recommendedContentsState);
-  console.log(recommendedContents);
 
   const {
     isLoading: filteredLoading,

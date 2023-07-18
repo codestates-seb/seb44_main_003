@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface MediaOttRepository extends JpaRepository<MediaOtt, Long> {
     void deleteByMedia(Media media);
+    List<MediaOtt> findByMedia(Media media);
     List<MediaOtt> findByOttNameIn(List<String> names);
 }

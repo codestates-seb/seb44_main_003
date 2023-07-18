@@ -43,6 +43,7 @@ public class MediaController {
 
     @PatchMapping("/{mediaId}") //todo 완료
     public ResponseEntity updateMedia(@PathVariable Long mediaId, @RequestBody(required = false) MediaDto.Update updateMediaDto) {
+
         mediaService.updateMedia(mediaId, updateMediaDto);
         return new ResponseEntity(HttpStatus.OK);
     }

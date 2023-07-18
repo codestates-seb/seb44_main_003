@@ -3,20 +3,20 @@ import styled from 'styled-components';
 import SkeletonItemCard from '../SkeletonItemCard';
 import { ItemProps } from '../../../types/types';
 
-export function InfinityScrollLoading() {
+export function RecommendContentLoading() {
   const [size, setSize] = useState(getSize());
 
   function getSize() {
     const width = window.innerWidth;
 
     if (width <= 480) {
-      return 12;
+      return 3;
     } else if (width <= 770) {
-      return 16;
+      return 4;
     } else if (width <= 1024) {
-      return 20;
+      return 5;
     } else {
-      return 24;
+      return 6;
     }
   }
 
@@ -48,7 +48,6 @@ const S_LoadingWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: 230px;
 
   .target {
     height: 10px;
@@ -61,25 +60,25 @@ const S_LoadingWrap = styled.div`
 
 const S_Item = styled.div<ItemProps>`
   width: 225px;
-  margin: 0 0 50px 15px;
+  margin: 0px 7.5px 50px;
   flex-grow: 1;
 
-  @media only screen and (max-width: 1500px) {
+  @media only screen and (max-width: 1200px) {
     width: 14vw;
     margin: ${({ index }) =>
-      index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
+      index % 6 === 0 ? '0 0 50px 0' : '0 18px 50px 0'};
   }
 
   @media only screen and (max-width: 1024px) {
     width: 17vw;
     margin: ${({ index }) =>
-      index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
+      index % 5 === 0 ? '0 0 30px 0' : '0 16px 30px 0'};
   }
 
   @media only screen and (max-width: 770px) {
     width: 18vw;
     margin: ${({ index }) =>
-      index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
+      index % 4 === 0 ? '0 0 30px 0' : '0 14x 30px 0'};
   }
 
   @media only screen and (max-width: 480px) {

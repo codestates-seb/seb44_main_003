@@ -7,7 +7,6 @@ import {
   SelectedData,
   AddData,
   ContentData,
-  Comment,
   Description,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
@@ -137,8 +136,8 @@ export const GetUserContents = (path: string): Promise<ContentData[]> =>
   instance.get(`/${path}`).then((res) => res.data);
 
 /* 유저 후기 목록 조회 */
-export const GetUserReviews = (): Promise<Comment[]> =>
-  instance.get('/reviews/all').then((res) => res.data);
+export const GetUserReviews = (): Promise<CommentData> =>
+  instance.get('/reviews/me').then((res) => res.data);
 
 /* 유저 프로필 사진 업로드 */
 export const PostUserProfile = (data: FormData) =>

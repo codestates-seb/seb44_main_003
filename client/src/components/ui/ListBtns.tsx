@@ -4,12 +4,12 @@ import GenreBtn from './GenreBtn';
 import OttBtn from './OttBtn';
 
 function ListBtns() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 540);
   const genre = new URLSearchParams(location.search).get('genre');
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 500);
+      setIsMobile(window.innerWidth <= 540);
     };
     window.addEventListener('resize', handleResize);
 
@@ -56,12 +56,16 @@ const S_Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
+  padding-left: 60px;
 
   .bar {
     font-size: 20px;
     color: var(--color-white-80);
     margin-right: 15px;
+  }
+
+  @media only screen and (max-width: 540px) {
+    padding-left: 20px;
   }
 `;
 
@@ -72,7 +76,7 @@ const S_flexBox = styled.div`
     display: flex;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 540px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -82,7 +86,7 @@ const S_FlexTextBox = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 540px) {
     margin-top: 10px;
   }
 `;

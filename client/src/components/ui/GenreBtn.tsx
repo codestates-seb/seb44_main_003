@@ -140,19 +140,19 @@ const S_LabelWrapper = styled.div`
   z-index: 10;
   background-color: var(--color-bg-100);
 
-  @media only screen and (max-width: 930px) {
+  @media only screen and (max-width: 960px) {
     left: 20px;
   }
 
   @media only screen and (max-width: 580px) {
     padding: 10px;
-    left: 140px;
+    left: 180px;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 540px) {
     top: 110%;
     padding: 10px;
-    left: 20px;
+    left: 15px;
   }
 `;
 
