@@ -75,7 +75,7 @@ export type Comment = {
   createdAt: string;
   lastModifiedAt: string;
   member?: { memberId: number; nickname: string; avatarUri: string };
-  media?: { mediaId: number; title: string };
+  media?: { mediaId: number; title: string; mainPoster: string };
 };
 
 export type CommentData = {

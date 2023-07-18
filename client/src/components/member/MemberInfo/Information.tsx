@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { GetUser, PatchUser, DeleteUser } from '../../../api/api';
+import { AxiosError } from 'axios';
 import { styled } from 'styled-components';
 import { HiPencil } from 'react-icons/hi';
 import { useState } from 'react';
@@ -9,12 +10,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { logout } from '../../header/Dropdown';
 import { useModal } from '../../../hooks/useModal';
 import MemberLikesModal from '../MemberLikesModal';
+import { useNavigate } from 'react-router-dom';
 
 function Information() {
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
+  const navigate = useNavigate();
   const { openModal } = useModal();
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -55,8 +58,10 @@ function Information() {
   };
 
   if (isLoading) return <S_Wrapper>Loading..</S_Wrapper>;
-  if (error instanceof Error)
-    return <S_Wrapper>Error:{error.message}</S_Wrapper>;
+
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
   if (isSuccess) {
     const memberSince = new Date(data.createdAt);
     const currentDate = new Date();
@@ -65,7 +70,7 @@ function Information() {
     return (
       <S_Wrapper>
         {isEditing ? (
-          <form className="flex" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="userNickname"
@@ -83,10 +88,10 @@ function Information() {
             <HiPencil onClick={handleEdit} />
           </h1>
         )}
-        <p>
-          <div>가입일 : {data.createdAt.substring(0, 10)} </div>
-          <span>|</span> <div>조잉에 함께한 지 {daysDiff}일 째입니다</div>
-        </p>
+        <div className="member-since">
+          <p>가입일 : {data.createdAt.substring(0, 10)} </p>
+          <span>|</span> <p>조잉에 함께한 지 {daysDiff}일 째입니다</p>
+        </div>
         <S_Div>
           <div>
             <button
@@ -124,8 +129,10 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 30px;
-
+  margin: 0 30px;
+  @media only screen and (max-width: 600px) {
+    margin-top: 15px;
+  }
   > h1 {
     display: flex;
     align-items: center;
@@ -141,8 +148,10 @@ const S_Wrapper = styled.div`
   }
 
   > form {
+    display: flex;
+    align-items: flex-end;
     > input {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 700;
       width: 200px;
       padding: 5px;
@@ -164,13 +173,13 @@ const S_Wrapper = styled.div`
       color: var(--color-bg-100);
     }
   }
-  > p {
+  & div.member-since {
     font-size: 18px;
     color: var(--color-white-80);
     @media only screen and (max-width: 480px) {
       font-size: 14px;
     }
-    > div {
+    > p {
       margin: 10px 0;
       @media only screen and (min-width: 800px) {
         display: inline;
@@ -188,19 +197,19 @@ const S_Wrapper = styled.div`
 const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 800px) {
+  /* @media only screen and (max-width: 800px) {
     transform: translate(-200px, 65px);
   }
   @media only screen and (max-width: 480px) {
     transform: translate(-100px, 35px);
-  }
+  } */
   > button {
-    width: 140px;
+    width: 130px;
     height: 36px;
     border-radius: 5px;
     border: 1px solid #fff;
     flex-shrink: 0;
-    margin-left: 10px;
+    margin-left: 15px;
     @media only screen and (max-width: 480px) {
       width: 100px;
       height: 30px;
@@ -209,7 +218,7 @@ const S_Div = styled.div`
   > div {
     flex-shrink: 0;
     > button {
-      width: 140px;
+      width: 130px;
       height: 36px;
       border-radius: 5px;
       border: 1px solid #fff;
@@ -219,7 +228,7 @@ const S_Div = styled.div`
       }
     }
     > button:first-child {
-      margin-right: 10px;
+      margin-right: 15px;
     }
   }
 `;

@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetUserReviews } from '../../../api/api';
-import CommentContent from '../../comments/CommentContent';
+import Comments from '../../comments/Comments';
 import noContent from '../../../assets/exception/nocontents.svg';
 import { styled } from 'styled-components';
+import { useState } from 'react';
 
 function ReviewList() {
-  const { data, isSuccess } = useQuery(['comments'], GetUserReviews);
+  const [page, setPage] = useState(1);
+  const { data, isSuccess } = useQuery({
+    queryKey: ['comments', page],
+    queryFn: () => GetUserReviews(page),
+    refetchOnWindowFocus: false,
+  });
+
   if (isSuccess) {
     if (!data.reviews.length)
       return (
@@ -16,14 +23,7 @@ function ReviewList() {
       );
     return (
       <S_Wrapper>
-        {data.reviews.map((review) => (
-          <>
-            <a href={`/content/${review.media?.mediaId}`}>
-              {review.media ? review.media.title : ''}
-            </a>
-            <CommentContent key={review.id} comment={review} />
-          </>
-        ))}
+        <Comments data={data} page={page} setPage={setPage} />
       </S_Wrapper>
     );
   }
@@ -41,13 +41,9 @@ const S_Error = styled.div`
 `;
 
 const S_Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  color: white;
-  margin: 50px 0;
-  padding: 0 30px;
-  & img {
+  margin: 20px 0;
+  /* & img {
     width: 26px;
     height: 26px;
     border-radius: 5px;
@@ -74,5 +70,5 @@ const S_Wrapper = styled.div`
   & a {
     text-decoration: underline;
     font-size: 18px;
-  }
+  } */
 `;

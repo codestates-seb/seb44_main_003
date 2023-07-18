@@ -19,8 +19,8 @@ const S_Wrapper = styled.div`
   width: 100%;
   color: white;
   margin-top: 150px;
-  @media only screen and (max-width: 480px) {
-    width: 100px;
-    height: 30px;
+  @media only screen and (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
