@@ -65,7 +65,7 @@ function Information() {
     return (
       <S_Wrapper>
         {isEditing ? (
-          <form className="flex" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               name="userNickname"
@@ -83,10 +83,10 @@ function Information() {
             <HiPencil onClick={handleEdit} />
           </h1>
         )}
-        <p>
-          <div>가입일 : {data.createdAt.substring(0, 10)} </div>
-          <span>|</span> <div>조잉에 함께한 지 {daysDiff}일 째입니다</div>
-        </p>
+        <div className="member-since">
+          <p>가입일 : {data.createdAt.substring(0, 10)} </p>
+          <span>|</span> <p>조잉에 함께한 지 {daysDiff}일 째입니다</p>
+        </div>
         <S_Div>
           <div>
             <button
@@ -124,8 +124,7 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 0 30px;
-
+  margin: 0 30px;
   > h1 {
     display: flex;
     align-items: center;
@@ -141,8 +140,10 @@ const S_Wrapper = styled.div`
   }
 
   > form {
+    display: flex;
+    align-items: flex-end;
     > input {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 700;
       width: 200px;
       padding: 5px;
@@ -164,13 +165,13 @@ const S_Wrapper = styled.div`
       color: var(--color-bg-100);
     }
   }
-  > p {
+  & div.member-since {
     font-size: 18px;
     color: var(--color-white-80);
     @media only screen and (max-width: 480px) {
       font-size: 14px;
     }
-    > div {
+    > p {
       margin: 10px 0;
       @media only screen and (min-width: 800px) {
         display: inline;
@@ -195,7 +196,7 @@ const S_Div = styled.div`
     transform: translate(-100px, 35px);
   }
   > button {
-    width: 140px;
+    width: 130px;
     height: 36px;
     border-radius: 5px;
     border: 1px solid #fff;
@@ -209,7 +210,7 @@ const S_Div = styled.div`
   > div {
     flex-shrink: 0;
     > button {
-      width: 140px;
+      width: 130px;
       height: 36px;
       border-radius: 5px;
       border: 1px solid #fff;
@@ -219,7 +220,7 @@ const S_Div = styled.div`
       }
     }
     > button:first-child {
-      margin-right: 10px;
+      margin-right: 15px;
     }
   }
 `;

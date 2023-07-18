@@ -8,12 +8,14 @@ import { BsFillTrash3Fill } from 'react-icons/bs';
 import { BiPaperPlane } from 'react-icons/bi';
 import { ADMIN_MEMBERID } from '../../constant/constantValue';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
   const queryClient = useQueryClient();
   const user = useQuery(['user'], GetUser, { enabled: false });
+  const navigate = useNavigate();
 
   const PatchMutation = useMutation(PatchComment, {
     onSuccess: () => queryClient.invalidateQueries(['comments']),
@@ -38,15 +40,24 @@ function CommentContent({ comment }: { comment: Comment }) {
   const isAdmin = comment.member
     ? comment.member.memberId === ADMIN_MEMBERID
     : false;
+  console.log(comment.media);
   return (
     <S_Comment key={comment.id}>
       {comment.member ? (
         <div>
-          <img src={comment.member.avatarUri} alt="member profile" />
+          <img
+            className="avatar"
+            src={comment.member.avatarUri}
+            alt="member profile"
+          />
         </div>
       ) : (
         <div>
-          <img src={comment.media.mainPoster} />
+          <img
+            className="poster"
+            src={comment.media!.mainPoster}
+            onClick={() => navigate(`/content/${comment.media!.mediaId}`)}
+          />
         </div>
       )}
       <div>
@@ -69,21 +80,20 @@ function CommentContent({ comment }: { comment: Comment }) {
           </>
         )}
       </div>
-      {comment.member &&
-        user.data &&
-        user.data.memberId === comment.member.memberId && (
-          <div>
-            <button type="button" onClick={handleEdit}>
-              <HiOutlinePencilAlt />
-            </button>
-            <button
-              type="button"
-              onClick={() => DeleteMutation.mutate(comment.id)}
-            >
-              <BsFillTrash3Fill />
-            </button>
-          </div>
-        )}
+      {(!comment.member ||
+        (user.data && user.data.memberId === comment.member.memberId)) && (
+        <div>
+          <button type="button" onClick={handleEdit}>
+            <HiOutlinePencilAlt />
+          </button>
+          <button
+            type="button"
+            onClick={() => DeleteMutation.mutate(comment.id)}
+          >
+            <BsFillTrash3Fill />
+          </button>
+        </div>
+      )}
     </S_Comment>
   );
 }

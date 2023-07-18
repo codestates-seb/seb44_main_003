@@ -78,11 +78,19 @@ const S_Wrapper = styled.div`
   flex-direction: column;
   color: white;
   padding: 0 30px;
-  & img {
+
+  & img.avater {
     width: 26px;
     height: 26px;
     border-radius: 5px;
     margin-right: 10px;
+  }
+  & img.poster {
+    width: 71px;
+    height: 100px;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
   }
   > h1 {
     margin: 20px;
