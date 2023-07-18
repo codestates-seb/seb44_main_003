@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { useModal } from '../../hooks/useModal';
-import ReportModal from '../ui/modal/ReportModal';
+import ReportModal from '../ui/modal/report/ReportModal';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 
 function ReportBtn({ contentId }: { contentId: string }) {

@@ -23,7 +23,6 @@ function MemberLikesModal() {
   const { register, handleSubmit } = useForm();
 
   const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
-  console.log(data);
   return (
     <S_Modal>
       <BiX

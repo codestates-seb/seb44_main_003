@@ -40,7 +40,7 @@ function CommentContent({ comment }: { comment: Comment }) {
   const isAdmin = comment.member
     ? comment.member.memberId === ADMIN_MEMBERID
     : false;
-  console.log(comment.media);
+
   return (
     <S_Comment key={comment.id}>
       {comment.member ? (

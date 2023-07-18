@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { AxiosError } from 'axios';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -8,6 +10,7 @@ import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
 
   if (!isLoggedIn) {
     return (
@@ -24,7 +27,7 @@ function Bookmark({ contentId }: { contentId: string }) {
     );
   }
 
-  const { isLoading, data, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess, error } = useQuery(
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
@@ -44,6 +47,10 @@ function Bookmark({ contentId }: { contentId: string }) {
 
   if (isLoading) {
     return <BookmarkLoading />;
+  }
+
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
 
   if (isSuccess) {

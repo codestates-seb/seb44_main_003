@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { styled } from 'styled-components';
-import { Report } from '../../../types/types';
-import { useModal } from '../../../hooks/useModal';
-import { DeleteReport } from '../../../api/api';
+import { Report } from '../../../../types/types';
+import { useModal } from '../../../../hooks/useModal';
+import { DeleteReport } from '../../../../api/api';
 
 function ReportDetail({ data }: { data: Report }) {
   const { closeModal } = useModal();
