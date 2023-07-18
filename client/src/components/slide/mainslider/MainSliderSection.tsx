@@ -1,4 +1,4 @@
-import MainSlider from './MainSlider';
+// import MainSlider from './MainSlider';
 import styled from 'styled-components';
 
 const MainSliderSection = () => {
@@ -22,7 +22,7 @@ const MainSliderSection = () => {
       {mainContentTitle.map((content, index) => (
         <div key={index}>
           <S_GenreTitle>{content.title}</S_GenreTitle>
-          <MainSlider genre={content.genre}/>
+          {/* <MainSlider genre={content.genre}/> */}
         </div>
       ))}
     </S_Wrapper>
