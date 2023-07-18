@@ -79,7 +79,7 @@ const S_Wrapper = styled.div`
   color: white;
   padding: 0 30px;
 
-  & img.avater {
+  & img {
     width: 26px;
     height: 26px;
     border-radius: 5px;

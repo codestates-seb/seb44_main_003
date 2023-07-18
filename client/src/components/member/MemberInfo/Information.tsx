@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { GetUser, PatchUser, DeleteUser } from '../../../api/api';
+import { AxiosError } from 'axios';
 import { styled } from 'styled-components';
 import { HiPencil } from 'react-icons/hi';
 import { useState } from 'react';
@@ -9,12 +10,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { logout } from '../../header/Dropdown';
 import { useModal } from '../../../hooks/useModal';
 import MemberLikesModal from '../MemberLikesModal';
+import { useNavigate } from 'react-router-dom';
 
 function Information() {
   const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
+  const navigate = useNavigate();
   const { openModal } = useModal();
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -55,8 +58,10 @@ function Information() {
   };
 
   if (isLoading) return <S_Wrapper>Loading..</S_Wrapper>;
-  if (error instanceof Error)
-    return <S_Wrapper>Error:{error.message}</S_Wrapper>;
+
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
   if (isSuccess) {
     const memberSince = new Date(data.createdAt);
     const currentDate = new Date();
@@ -125,6 +130,9 @@ const S_Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   margin: 0 30px;
+  @media only screen and (max-width: 600px) {
+    margin-top: 15px;
+  }
   > h1 {
     display: flex;
     align-items: center;
@@ -189,19 +197,19 @@ const S_Wrapper = styled.div`
 const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 800px) {
+  /* @media only screen and (max-width: 800px) {
     transform: translate(-200px, 65px);
   }
   @media only screen and (max-width: 480px) {
     transform: translate(-100px, 35px);
-  }
+  } */
   > button {
     width: 130px;
     height: 36px;
     border-radius: 5px;
     border: 1px solid #fff;
     flex-shrink: 0;
-    margin-left: 10px;
+    margin-left: 15px;
     @media only screen and (max-width: 480px) {
       width: 100px;
       height: 30px;

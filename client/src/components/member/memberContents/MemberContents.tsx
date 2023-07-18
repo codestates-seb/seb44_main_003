@@ -42,7 +42,7 @@ function MemberContents() {
 export default MemberContents;
 
 const S_Wrapper = styled.div`
-  margin: 30px 50px 0 30px;
+  margin: 100px 50px 0 30px;
   color: var(--color-white-60);
   > ul {
     display: flex;

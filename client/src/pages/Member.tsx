@@ -10,7 +10,7 @@ function Member() {
   return (
     <>
       <MemberInfo />
-      <Ad />
+      {/* <Ad /> */}
       <MemberContents />
       {showModal && <ProfileModal />}
     </>
