@@ -10,4 +10,5 @@ import lombok.Setter;
 public class MediaDetailDto {
     private Long mediaId;
     private String title;
+    private String mainPoster;
 }

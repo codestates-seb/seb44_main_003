@@ -153,14 +153,25 @@ public class MediaController {
     @GetMapping("/recommendation")
     public ResponseEntity<MultiResponseDto> getMediasByRecommendation(
             @RequestParam(required = false, defaultValue = "1") int page,
-            @RequestParam(required = false, defaultValue = "1000") int size) {
+            @RequestParam(required = false, defaultValue = "1000") int size,
+            @RequestParam(required = false) String ottName) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        MultiResponseDto medias = mediaService.getRecommendationsByMediaIdOrderByCount(pageable);
+        MultiResponseDto medias = mediaService.findMediaByOttNameOrderByRecommendationCount(ottName, pageable);
 
 
         return new ResponseEntity<>(medias, HttpStatus.OK);
     }
 
+//    @GetMapping("/recommendation")
+//    public ResponseEntity<MultiResponseDto> getMediasByRecommendation(
+//            @RequestParam(required = false, defaultValue = "1") int page,
+//            @RequestParam(required = false, defaultValue = "1000") int size) {
+//        Pageable pageable = PageRequest.of(page - 1, size);
+//        MultiResponseDto medias = mediaService.getRecommendationsByMediaIdOrderByCount(pageable);
+//
+//
+//        return new ResponseEntity<>(medias, HttpStatus.OK);
+//    }
 
 
     @DeleteMapping("/{mediaId}")
