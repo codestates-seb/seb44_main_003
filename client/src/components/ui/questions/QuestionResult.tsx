@@ -186,7 +186,7 @@ const S_ModalBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 800px;
   height: 100%;
 `;
 

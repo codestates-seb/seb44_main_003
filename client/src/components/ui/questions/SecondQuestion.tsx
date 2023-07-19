@@ -83,7 +83,7 @@ const S_ModalBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 820px;
   height: 100%;
 `;
 
@@ -136,9 +136,14 @@ const S_CategoryIcon = styled.img`
   filter: saturate(0);
   opacity: 0.8;
   transition: filter 0.2s, opacity 0.2s;
+  cursor: pointer;
 
   &.select {
     filter: none;
     opacity: 1;
+  }
+
+  &:hover {
+    filter: brightness(100%);
   }
 `;
