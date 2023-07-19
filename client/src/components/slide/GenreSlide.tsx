@@ -95,7 +95,7 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
             }}
             slidesPerView={6}
             slidesPerGroup={5}
-            centeredSlides={true}
+            centeredSlides={false}
             spaceBetween={18}
             navigation={true}
             watchOverflow={true}
