@@ -8,11 +8,14 @@ import { GetUser, PatchUser } from '../../api/api';
 import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
 
+const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
+const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
+
 function MemberLikesModal() {
   const queryClient = useQueryClient();
   const { closeModal } = useModal();
   const { data } = useQuery(['user'], GetUser);
-  const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
+
   /* todo: 장르 최대 3개 선택 */
   const mutation = useMutation(PatchUser, {
     onSuccess: () => {
@@ -22,7 +25,6 @@ function MemberLikesModal() {
   });
   const { register, handleSubmit } = useForm();
 
-  const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
   return (
     <S_Modal>
       <BiX
@@ -34,6 +36,8 @@ function MemberLikesModal() {
       <h2>추천을 원하는 카테고리를 선택해 주세요.</h2>
       <S_Form
         onSubmit={handleSubmit((formData) => {
+          if (formData.memberOtts === 'Netflix')
+            formData.memberOtts = ['Netflix'];
           formData.memberOtts = [...arrToObj(formData.memberOtts, 'ott')];
           formData.interests = [...arrToObj(formData.interests, 'interest')];
           mutation.mutate(formData);
