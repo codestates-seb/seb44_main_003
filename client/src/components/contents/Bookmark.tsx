@@ -31,9 +31,6 @@ function Bookmark({ contentId }: { contentId: string }) {
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
       enabled: isLoggedIn,
     }
   );

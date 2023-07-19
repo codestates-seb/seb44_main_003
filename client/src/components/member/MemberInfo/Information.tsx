@@ -41,9 +41,6 @@ function Information() {
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnWindowFocus: false,
   });
 
   const mutationPatch = useMutation(PatchUser, {

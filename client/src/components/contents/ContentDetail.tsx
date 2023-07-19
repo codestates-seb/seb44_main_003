@@ -27,12 +27,7 @@ function ContentDetail({ contentId }: { contentId: string }) {
   const isUnder900 = useMediaQuery('(max-width: 900px)');
   const { isLoading, data, error, isSuccess } = useQuery(
     ['selectedContent', contentId],
-    () => GetDataDetail(contentId),
-    {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
-    }
+    () => GetDataDetail(contentId)
   );
 
   const findOtt = (ottName: string) => {

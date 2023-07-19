@@ -38,9 +38,6 @@ function Recommend({
     ['isRecommend', contentId],
     () => GetIsRecommend(contentId),
     {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
       enabled: isLoggedIn,
     }
   );

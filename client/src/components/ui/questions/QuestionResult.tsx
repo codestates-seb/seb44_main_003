@@ -34,8 +34,9 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
       GetFilterdData(
         `/medias/${
           recommendedContents.category
-        }?genre=${recommendedContents.interests.join(',')
-      }&ott=${recommendedContents.memberOtts.join(',')}`
+        }?genre=${recommendedContents.interests.join(
+          ','
+        )}&ott=${recommendedContents.memberOtts.join(',')}`
       ),
   });
 
@@ -46,9 +47,6 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnWindowFocus: false,
     enabled: isLoggedIn,
   });
 
