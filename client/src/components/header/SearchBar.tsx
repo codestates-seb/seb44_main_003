@@ -39,16 +39,13 @@ function SearchBar() {
         setCurrentOptionIdx((prev) => Math.max(prev - 1, 0));
       }
       if (currentOptionIdx >= 0 && e.key === 'Enter') {
-        console.log('자동검색');
         search(data[currentOptionIdx]);
       } else if (e.key === 'Enter') {
-        console.log('키워드 검색');
         search(userInput);
       }
       return;
     }
     if (e.key === 'Enter') {
-      console.log('키워드 검색');
       search(userInput);
     }
   };
