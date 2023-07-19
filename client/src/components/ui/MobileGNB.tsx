@@ -5,7 +5,7 @@ import { useModal } from '../../hooks/useModal';
 import { AiFillHome } from 'react-icons/ai';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { AiOutlineHeart } from 'react-icons/ai';
-import kuromi from '../../assets/profiles/kuhub.svg';
+import kuromi from '../../assets/profiles/kuhub.webp';
 
 function MobileGNB() {
   const navigate = useNavigate();

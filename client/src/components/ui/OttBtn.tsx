@@ -115,6 +115,8 @@ function OttBtn() {
 export default OttBtn;
 
 const S_Ott = styled.img`
+  width: 40px;
+  height: 40px;
   box-shadow: var(--shadow-box-m-25);
   margin-right: 15px;
   cursor: pointer;
