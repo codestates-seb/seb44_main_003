@@ -9,7 +9,12 @@ import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
 import { useState, useEffect } from 'react';
 
-const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
+const ottList = [
+  { name: '넷플릭스', value: 'Netflix' },
+  { name: '웨이브', value: 'Wavve' },
+  { name: '디즈니플러스', value: 'Disney Plus' },
+  { name: '왓챠', value: 'Watcha' },
+];
 const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
 
 function MemberLikesModal() {
@@ -65,12 +70,14 @@ function MemberLikesModal() {
             <div>
               <input
                 type="checkbox"
-                id={ott}
-                value={ott}
-                defaultChecked={objToArr(data?.memberOtts || []).includes(ott)}
+                id={ott.value}
+                value={ott.value}
+                defaultChecked={objToArr(data?.memberOtts || []).includes(
+                  ott.value
+                )}
                 {...register('memberOtts')}
               />
-              <label htmlFor={ott}>{ott}</label>
+              <label htmlFor={ott.value}>{ott.name}</label>
             </div>
           ))}
         </fieldset>
@@ -119,6 +126,18 @@ const S_Form = styled.form`
     margin: 10px 0;
     > div {
       margin: 5px 10px;
+      @media only screen and (max-width: 600px) {
+        margin: 5px 15px;
+      }
+    }
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  > fieldset:nth-child(3) {
+    @media only screen and (max-width: 600px) {
+      height: 100px;
+      overflow-y: scroll;
     }
   }
   & legend {
