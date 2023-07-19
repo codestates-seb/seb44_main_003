@@ -34,9 +34,8 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
       GetFilterdData(
         `/medias/${
           recommendedContents.category
-        }?size=6&genre=${recommendedContents.interests.join(
-          ','
-        )}&ott=${recommendedContents.memberOtts.join(',')}`
+        }?genre=${recommendedContents.interests.join(',')
+      }&ott=${recommendedContents.memberOtts.join(',')}`
       ),
   });
 

@@ -148,7 +148,7 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   margin-right: 10px;
   width: 30px;
   height: 30px;
-  appearance: none; // 기본 체크박스 스타일을 제거
+  appearance: none;
   background: var(--color-white-100);
   object-fit: cover;
   border: 2px solid var(--color-bg-100);

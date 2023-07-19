@@ -7,7 +7,6 @@ import secondQ from '../../../assets/recommendimage/secondQ.webp';
 import thirdQ from '../../../assets/recommendimage/thirdQ.webp';
 
 import netflix from '../../../assets/recommendimage/netflix.svg';
-// import tving from '../../../assets/recommendimage/tving.svg';
 import disney from '../../../assets/recommendimage/disney.svg';
 import watcha from '../../../assets/recommendimage/watcha.svg';
 import wavve from '../../../assets/recommendimage/wavve.svg';
@@ -37,16 +36,7 @@ export const questionList = [
 ];
 
 export const ottServices = [
-  {
-    name: '넷플릭스',
-    ottname: 'netfilx',
-    icon: netflix,
-  },
-  // {
-  //   name: '티빙',
-  //   ottname: 'tving',
-  //   icon: tving
-  // },
+  { name: '넷플릭스', ottname: 'netfilx', icon: netflix,},
   { name: '디즈니플러스', ottname: 'disney', icon: disney },
   { name: '왓챠', ottname: 'watcha', icon: watcha },
   { name: '웨이브', ottname: 'wavve', icon: wavve },
