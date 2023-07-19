@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { GetUserContents } from '../../../api/api';
 import ItemCard from '../../ui/ItemCard';
 import { styled } from 'styled-components';
-import noContent from '../../../assets/exception/nocontents.svg';
+import noContent from '../../../assets/exception/nocontents.webp';
 
 function ContentsList({ path }: { path: string }) {
   const { data, isSuccess, isStale, refetch } = useQuery({

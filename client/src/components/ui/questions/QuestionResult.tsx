@@ -12,7 +12,7 @@ import noContent from '../../../assets/recommendimage/noContentText.webp';
 import btnSignup from '../../../assets/recommendimage/signupBtnText.webp';
 import btnRecommend from '../../../assets/recommendimage/recommendBtnText.webp';
 import btnAgain from '../../../assets/recommendimage/againBtnText.webp';
-import loadmore from '../../../assets/exception/loadmore.svg';
+import loadmore from '../../../assets/exception/loadmore.webp';
 import beesad from '../../../assets/recommendimage/beesad.svg';
 import { useRecoilValue } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';

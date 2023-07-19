@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import netflix from '../../assets/ott/netflix.svg';
-import disney from '../../assets/ott/disney.svg';
-import watcha from '../../assets/ott/watcha.svg';
-import wavve from '../../assets/ott/wavve.svg';
+import netflix from '../../assets/ott/netflix.webp';
+import disney from '../../assets/ott/disney.webp';
+import watcha from '../../assets/ott/watcha.webp';
+import wavve from '../../assets/ott/wavve.webp';
 
 function OttBtn() {
   const path = useLocation().pathname;

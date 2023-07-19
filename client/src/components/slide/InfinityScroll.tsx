@@ -6,8 +6,8 @@ import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { useInView } from 'react-intersection-observer';
 import { ContentData } from '../../types/types';
 import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
-import noContents from '../../assets/exception/nocontents.svg';
-import loadmore from '../../assets/exception/loadmore.svg';
+import noContents from '../../assets/exception/nocontents.webp';
+import loadmore from '../../assets/exception/loadmore.webp';
 import { ItemProps } from '../../types/types';
 
 function InfinityScroll({ path, query }: { path: string; query: string }) {
