@@ -136,9 +136,14 @@ const S_CategoryIcon = styled.img`
   filter: saturate(0);
   opacity: 0.8;
   transition: filter 0.2s, opacity 0.2s;
+  cursor: pointer;
 
   &.select {
     filter: none;
     opacity: 1;
+  }
+
+  &:hover {
+    filter: brightness(100%);
   }
 `;

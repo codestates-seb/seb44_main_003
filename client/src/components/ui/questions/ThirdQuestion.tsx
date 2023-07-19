@@ -153,7 +153,13 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   object-fit: cover;
   border: 2px solid var(--color-bg-100);
   border-radius: 5px;
+  cursor: pointer;
+
   &:checked {
+    background-color: #f7cd40;
+  }
+
+  &:hover {
     background-color: #f7cd40;
   }
 `;
