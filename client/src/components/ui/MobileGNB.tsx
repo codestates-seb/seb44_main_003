@@ -52,7 +52,7 @@ const S_Wrapper = styled.ul`
   > li {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 0 0 25%;
     align-items: center;
     justify-content: end;
   }
