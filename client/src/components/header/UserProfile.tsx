@@ -19,9 +19,6 @@ function UserProfile() {
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnWindowFocus: false,
     enabled: isLoggedIn,
   });
 
