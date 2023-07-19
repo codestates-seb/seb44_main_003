@@ -83,19 +83,32 @@ export const S_Modal = styled.div`
   background: #282f39;
   color: #fff;
   z-index: 9999;
+  @media only screen and (max-width: 600px) {
+    width: 90vw;
+    min-height: 200px;
+  }
   & svg {
     font-size: 30px;
     align-self: flex-end;
     margin: 15px 15px 0 0;
     cursor: pointer;
+    @media only screen and (max-width: 600px) {
+      font-size: 25px;
+    }
   }
   > h1 {
     font-size: 26px;
     margin-bottom: 10px;
+    @media only screen and (max-width: 600px) {
+      font-size: 20px;
+    }
   }
   > h2 {
     font-size: 22px;
     font-weight: 400;
     color: var(--color-white-80);
+    @media only screen and (max-width: 600px) {
+      font-size: 16px;
+    }
   }
 `;
