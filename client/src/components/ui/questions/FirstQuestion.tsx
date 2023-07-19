@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, ottServices } from './QuestionData';
+import { questionList, ottServices, moveNextBtn } from './QuestionData';
 import { Question } from '../../../types/types';
-import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -61,10 +60,11 @@ const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
               );
             })}
           </S_OttList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#A59BDC'}
             bgShadow={'#6659B2'}
-            btnText={btnNext}
+            btnText={moveNextBtn.text}
+            btnAlt={moveNextBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../recoil/atoms/Atoms';
 import { useModal } from '../../hooks/useModal';
-import Recommend from '../ui/questions/Recommend';
+import Recommend from '../ui/questions/RecommendModal';
 
 const navMenus = [
   { text: 'TV', route: '/tv' },

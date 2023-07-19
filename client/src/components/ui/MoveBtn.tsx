@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
-interface BtnColor {
+interface BtnProps {
   bgColor: string;
   bgShadow: string;
   btnText: string;
+  btnAlt: string;
   onClick?: () => void;
   disabled?: boolean;
 }
 
-const RecommendBtn: React.FC<BtnColor> = ({ bgColor, bgShadow, btnText, onClick = () => {}, disabled }) => {
+const MoveBtn: React.FC<BtnProps> = ({ bgColor, bgShadow, btnText, btnAlt, onClick = () => {}, disabled }) => {
   return (
     <S_ButtonBox> 
       <S_Button
@@ -16,13 +17,13 @@ const RecommendBtn: React.FC<BtnColor> = ({ bgColor, bgShadow, btnText, onClick 
         bgShadow={bgShadow}
         onClick={onClick}
         disabled={disabled}>
-        <S_ButtonText src={btnText} alt='button'></S_ButtonText>
+        <S_ButtonText src={btnText} alt={btnAlt}></S_ButtonText>
       </S_Button>
     </S_ButtonBox>
   )
 }
 
-export default RecommendBtn
+export default MoveBtn
 
 const S_ButtonBox = styled.div`
   display: flex;
