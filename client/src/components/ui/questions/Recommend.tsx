@@ -65,7 +65,7 @@ const S_Wrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5); // 연한 검정색 반투명 배경
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
 `;

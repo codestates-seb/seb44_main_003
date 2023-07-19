@@ -40,7 +40,6 @@ const S_Button = styled.button<{ bgColor: string, bgShadow: string, disabled?: b
   transition: top .01s linear;
   text-shadow: 0 1px 0 rgba(0,0,0,0.15);
 
-  // 비활성화 상태에서의 스타일 추가
   opacity: ${props => (props.disabled ? 0.5 : 1)};
   pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
   top: ${(props) => (props.disabled ? '9px' : '0')};

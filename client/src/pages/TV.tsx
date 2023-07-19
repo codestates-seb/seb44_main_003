@@ -48,8 +48,6 @@ function TV() {
     currentIndex.current = currentIndex.current + 4;
   }
 
-  // console.log(visibleGenres);
-
   useEffect(() => {
     let timeoutId: number;
 

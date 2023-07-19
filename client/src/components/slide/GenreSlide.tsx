@@ -10,7 +10,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-// install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
 const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
@@ -99,12 +98,12 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
         <S_SwiperBox onClick={(e: React.MouseEvent) => handleNextPage(e)}>
           <S_Swiper
             onSwiper={setSwiperRef}
-            slidesPerView={6} // 한 슬라이드에 보여줄 갯수
-            slidesPerGroup={5} // 한 번에 넘어가는 슬라이드 그룹의 개수
-            centeredSlides={false} // 센터 모드
-            spaceBetween={18} // 슬라이드 사이 여백
-            navigation={true} // 버튼
-            watchOverflow={true} // 슬라이드가 1개 일 때 pager, button 숨김 여부 설정
+            slidesPerView={6}
+            slidesPerGroup={5}
+            centeredSlides={false}
+            spaceBetween={18}
+            navigation={true}
+            watchOverflow={true}
             breakpoints={breakpoints}
             virtual
           >
@@ -128,7 +127,7 @@ export default GenreSlide;
 
 const S_SwiperBox = styled.div`
   position: relative;
-  overflow-x: hidden; // 가로 스크롤 숨김
+  overflow-x: hidden;
   margin: 0;
   padding: 0px 3.75rem;
   width: 100%;
@@ -136,7 +135,7 @@ const S_SwiperBox = styled.div`
 
 const S_Swiper = styled(Swiper)`
   display: flex;
-  overflow: visible; // 요소의 내용이 요소의 크기를 넘어갈 경우에도 내용을 표시
+  overflow: visible;
   margin-top: 1.25rem;
   margin-bottom: 3.75rem;
 
@@ -163,7 +162,7 @@ const S_Swiper = styled(Swiper)`
   }
 
   .swiper-button-disabled {
-    display: none; // 처음, 마지막 슬라이드에 도달하면 화살표 비활성화
+    display: none;
   }
 
   &:hover {

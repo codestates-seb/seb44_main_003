@@ -60,7 +60,6 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
       <S_Wrapper>
         <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
         <S_ItemBox>
-          {/* {filteredData?.content.map((item: ContentData) => ( */}
           {randomItems.map((item: ContentData) => (
             <S_Item key={item.id}>
               <ItemCard item={item} />
