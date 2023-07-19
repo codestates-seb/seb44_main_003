@@ -4,9 +4,8 @@ import OttBtn from './OttBtn';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ListBtns() {
-  //const [isMobile, setIsMobile] = useState(window.innerWidth <= 540);
   const genre = new URLSearchParams(location.search).get('genre');
-  const isMobile = useMediaQuery('(max-width: 540px)');
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   return (
     <S_Wrapper>
@@ -54,7 +53,7 @@ const S_Wrapper = styled.div`
     margin-right: 15px;
   }
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 600px) {
     padding-left: 20px;
   }
 `;
@@ -66,7 +65,7 @@ const S_flexBox = styled.div`
     display: flex;
   }
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -76,7 +75,7 @@ const S_FlexTextBox = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 600px) {
     margin-top: 10px;
   }
 `;

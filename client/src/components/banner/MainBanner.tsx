@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import mainImg from '../../assets/main_background.png';
+import mainImg from '../../assets/main_background.webp';
 import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
 import { PiMagicWandFill } from 'react-icons/pi';

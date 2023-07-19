@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetUserReviews } from '../../../api/api';
 import Comments from '../../comments/Comments';
-import noContent from '../../../assets/exception/nocontents.webp';
+import noContent from '../../../assets/exception/nocontents.svg';
 import { styled } from 'styled-components';
 import { useState } from 'react';
 

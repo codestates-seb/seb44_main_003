@@ -128,6 +128,10 @@ const S_Footer = styled.footer`
       height: 30px;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const S_Logo = styled.div`
