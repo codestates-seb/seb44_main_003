@@ -53,6 +53,12 @@ function Recommend({
     },
   });
 
+  const handleRecommend = () => {
+    if (!RecommendMutation.isLoading) {
+      RecommendMutation.mutate(contentId);
+    }
+  };
+
   if (isLoading) {
     return <RecommendLoading countRecommend={countRecommend} />;
   }
@@ -70,14 +76,10 @@ function Recommend({
               color="white"
               size="35"
               className="isTrue"
-              onClick={() => RecommendMutation.mutate(contentId)}
+              onClick={handleRecommend}
             />
           ) : (
-            <BsHandThumbsUp
-              color="white"
-              size="35"
-              onClick={() => RecommendMutation.mutate(contentId)}
-            />
+            <BsHandThumbsUp color="white" size="35" onClick={handleRecommend} />
           )}
           <p>추천</p>
         </div>

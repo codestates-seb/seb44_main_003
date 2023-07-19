@@ -42,8 +42,15 @@ function Bookmark({ contentId }: { contentId: string }) {
     mutationFn: (contentId: string) => PostBookmark(contentId),
     onSuccess: () => {
       queryClient.invalidateQueries(['isBookmarked', contentId]);
+      queryClient.invalidateQueries(['userContents']);
     },
   });
+
+  const handleBookmark = () => {
+    if (!BookmarkMutation.isLoading) {
+      BookmarkMutation.mutate(contentId);
+    }
+  };
 
   if (isLoading) {
     return <BookmarkLoading />;
@@ -62,14 +69,10 @@ function Bookmark({ contentId }: { contentId: string }) {
               color="white"
               size="34"
               className="isTrue"
-              onClick={() => BookmarkMutation.mutate(contentId)}
+              onClick={handleBookmark}
             />
           ) : (
-            <BsHeart
-              color="white"
-              size="35"
-              onClick={() => BookmarkMutation.mutate(contentId)}
-            />
+            <BsHeart color="white" size="35" onClick={handleBookmark} />
           )}
           <p className={data ? 'isTrue' : ''}>찜</p>
         </div>

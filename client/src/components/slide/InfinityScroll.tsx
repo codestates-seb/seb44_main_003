@@ -5,7 +5,7 @@ import ItemCard from '../ui/ItemCard';
 import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { useInView } from 'react-intersection-observer';
 import { ContentData } from '../../types/types';
-import { InfinityScrollLoading } from '../ui/exceptions/infinityScroll';
+import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
 import noContents from '../../assets/exception/nocontents.svg';
 import loadmore from '../../assets/exception/loadmore.svg';
 import { ItemProps } from '../../types/types';
