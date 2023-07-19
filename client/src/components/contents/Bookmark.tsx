@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { AxiosError } from 'axios';
 import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -8,6 +10,7 @@ import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
 
   if (!isLoggedIn) {
     return (
@@ -15,7 +18,7 @@ function Bookmark({ contentId }: { contentId: string }) {
         <div>
           <BsHeart
             color="white"
-            size="40"
+            size="35"
             onClick={() => alert('로그인 후 이용 가능합니다')}
           />
           <p>찜</p>
@@ -24,7 +27,7 @@ function Bookmark({ contentId }: { contentId: string }) {
     );
   }
 
-  const { isLoading, data, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess, error } = useQuery(
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
@@ -46,6 +49,10 @@ function Bookmark({ contentId }: { contentId: string }) {
     return <BookmarkLoading />;
   }
 
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
+
   if (isSuccess) {
     return (
       <S_IconWrapper>
@@ -53,14 +60,14 @@ function Bookmark({ contentId }: { contentId: string }) {
           {data ? (
             <BsHeartFill
               color="white"
-              size="40"
+              size="34"
               className="isTrue"
               onClick={() => BookmarkMutation.mutate(contentId)}
             />
           ) : (
             <BsHeart
               color="white"
-              size="40"
+              size="35"
               onClick={() => BookmarkMutation.mutate(contentId)}
             />
           )}

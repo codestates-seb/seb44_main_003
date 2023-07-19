@@ -42,22 +42,32 @@ export const PatchUser = (data: any) => instance.patch(`/members`, data);
 export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
-export const GetTVData = (genre: string): Promise<ItemData> =>
+export const GetTVData = (genre: string, size: number, page: number): Promise<ItemData> =>
   axios
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
+      }/medias/tv?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
     )
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
-export const GetMovieData = (genre: string): Promise<ItemData> =>
+export const GetMovieData = (genre: string, size: number, page: number): Promise<ItemData> =>
   axios
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/movie?genre=${genre}&ott=netfilx,tving,watcha,disney,wavve`
+      }/medias/movie?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
+    )
+    .then((res) => res.data);
+
+/* ott top10 데이터 가져오기 */
+export const GetOttTopList = (ott: string): Promise<ItemData> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/medias/recommendation?page=1&size=10&ottName=${ott}`
     )
     .then((res) => res.data);
 

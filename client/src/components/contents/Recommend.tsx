@@ -1,5 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { AxiosError } from 'axios';
 import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
@@ -14,6 +16,7 @@ function Recommend({
 }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
 
   if (!isLoggedIn) {
     return (
@@ -21,7 +24,7 @@ function Recommend({
         <div>
           <BsHandThumbsUp
             color="white"
-            size="40"
+            size="35"
             onClick={() => alert('로그인 후 이용 가능합니다')}
           />
           <p>추천</p>
@@ -31,7 +34,7 @@ function Recommend({
     );
   }
 
-  const { isLoading, data, isSuccess } = useQuery(
+  const { isLoading, data, isSuccess, error } = useQuery(
     ['isRecommend', contentId],
     () => GetIsRecommend(contentId),
     {
@@ -54,6 +57,10 @@ function Recommend({
     return <RecommendLoading countRecommend={countRecommend} />;
   }
 
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
+
   if (isSuccess) {
     return (
       <S_IconWrapper>
@@ -61,14 +68,14 @@ function Recommend({
           {data ? (
             <BsHandThumbsUpFill
               color="white"
-              size="40"
+              size="35"
               className="isTrue"
               onClick={() => RecommendMutation.mutate(contentId)}
             />
           ) : (
             <BsHandThumbsUp
               color="white"
-              size="40"
+              size="35"
               onClick={() => RecommendMutation.mutate(contentId)}
             />
           )}

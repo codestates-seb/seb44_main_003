@@ -16,7 +16,6 @@ import Movie from './pages/Movie';
 import Content from './pages/Content';
 import Search from './pages/Search';
 import List from './pages/List';
-import Recommend from './components/modal/Recommend';
 import Error from './pages/Error';
 import Admin from './pages/Admin';
 import './App.css';
@@ -68,10 +67,6 @@ const router = createBrowserRouter([
       {
         path: 'search',
         element: <Search />,
-      },
-      {
-        path: 'recommend',
-        element: <Recommend />,
       },
       {
         path: 'admin',

@@ -6,6 +6,11 @@ import { RecommendContentLoading } from '../ui/exceptions/recommendContent';
 import { ContentData } from '../../types/types';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
+  const getRandomItems = (items: ContentData[], numItems: number) => {
+    const shuffledItems = items.sort(() => 0.5 - Math.random());
+    return shuffledItems.slice(0, numItems);
+  };
+
   const {
     isLoading: detailLoading,
     error: detailError,
@@ -27,7 +32,7 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     queryKey: ['filteredContent', contentId],
     queryFn: () =>
       GetFilterdData(
-        `/medias/${category}?size=6&genre=${detailData?.genre.join(',')}`
+        `/medias/${category}?genre=${detailData?.genre.join(',')}`
       ),
     enabled: !!detailData, // true가 되면 filteredData를 실행한다
   });
@@ -48,11 +53,15 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     return 'An error has occurred: ' + filteredError.message;
 
   if (detailSuccess && filteredSuccess) {
+
+    const randomItems = getRandomItems(filteredData?.content, 6);
+
     return (
       <S_Wrapper>
         <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
         <S_ItemBox>
-          {filteredData?.content.map((item: ContentData) => (
+          {/* {filteredData?.content.map((item: ContentData) => ( */}
+          {randomItems.map((item: ContentData) => (
             <S_Item key={item.id}>
               <ItemCard item={item} />
             </S_Item>
@@ -93,12 +102,12 @@ const S_Item = styled.div`
   }
 
   @media only screen and (max-width: 1024px) {
-    width: calc(100% / 5 - 15px);
+    width: calc(100% / 6 - 15px);
     gap: 16px;
   }
 
   @media only screen and (max-width: 770px) {
-    width: calc(100% / 4 - 15px);
+    width: calc(100% / 3 - 15px);
     gap: 14px;
   }
 

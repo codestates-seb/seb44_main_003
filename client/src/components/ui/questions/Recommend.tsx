@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useResetRecoilState } from 'recoil';
-import { recommendedContentsState } from '../../recoil/atoms/Atoms';
+import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
-import FirstQuestion from './questions/FirstQuestion';
-import SecondQuestion from './questions/SecondQuestion';
-import ThirdQuestion from './questions/ThirdQuestion';
-import QuestionResult from './questions/QuestionResult';
-import { useModal } from '../../hooks/useModal';
+import FirstQuestion from './FirstQuestion';
+import SecondQuestion from './SecondQuestion';
+import ThirdQuestion from './ThirdQuestion';
+import QuestionResult from './QuestionResult';
+import { useModal } from '../../../hooks/useModal';
 
 const Recommend = () => {
   const resetRecommendedContents = useResetRecoilState(

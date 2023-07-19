@@ -1,38 +1,51 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { GetTVData } from '../../../api/api';
+import { GetOttTopList } from '../../../api/api';
 import ItemCard from '../../ui/ItemCard';
 import SkeletonItemCard from '../../ui/SkeletonItemCard';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { AxiosError } from 'axios';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { useNavigate } from 'react-router-dom';
 
 // install Virtual module
 SwiperCore.use([Virtual, Navigation]);
 
-const MainSlider = ({ genre }: { genre: string }) => {
+const MainSlider = ({ ott }: { ott: string }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
+  const navigate = useNavigate();
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: ['tvData', genre],
-    queryFn: () => GetTVData(genre),
+    queryKey: ['topTenData', ott],
+    queryFn: () => GetOttTopList(ott),
   });
+
+  const breakpoints = {
+    0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
+    480: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
+    770: { slidesPerView: 4, slidesPerGroup: 3, spaceBetween: 14 },
+    1024: { slidesPerView: 5, slidesPerGroup: 4, spaceBetween: 16 },
+    1200: { slidesPerView: 6, slidesPerGroup: 5, spaceBetween: 18 },
+  };
 
   if (isLoading) {
     return (
       <S_Wrapper>
         <S_SkeletonBox>
-        {Array.from({ length: 6 }, (_, index) => (
-          <SkeletonItemCard  key={index}/>
-        ))}
+          {Array.from({ length: 6 }, (_, index) => (
+            <SkeletonItemCard key={index} />
+          ))}
         </S_SkeletonBox>
       </S_Wrapper>
     );
   }
 
-  if (error instanceof Error) return 'An error has occurred: ' + error.message;
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
 
   if (isSuccess) {
     return (
@@ -45,6 +58,7 @@ const MainSlider = ({ genre }: { genre: string }) => {
           spaceBetween={18} // 슬라이드 사이 여백
           navigation={true} // 버튼
           watchOverflow={true}
+          breakpoints={breakpoints}
           virtual
         >
           {data.content.map((item) => (
@@ -94,6 +108,10 @@ const S_Swiper = styled(Swiper)`
   }
   .swiper-button-next {
     right: -3.75rem;
+  }
+
+  .swiper-button-disabled {
+    display: none; // 처음, 마지막 슬라이드에 도달하면 화살표 비활성화
   }
 
   &:hover {

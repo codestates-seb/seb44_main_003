@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import RecommendBtn from '../../ui/RecommendBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres } from '../QuestionData';
+import { questionList, genres } from './QuestionData';
 import { Question } from '../../../types/types';
 import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 

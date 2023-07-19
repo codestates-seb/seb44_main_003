@@ -1,28 +1,29 @@
 import MainSlider from './MainSlider';
 import styled from 'styled-components';
+import Netflix from '../../../assets/ott/netflix_m.png';
+import Watcha from '../../../assets/ott/watcha_m.png';
+import Disney_Plus from '../../../assets/ott/disney_m.png';
+import Wavve from '../../../assets/ott/wavve_m.png';
+
+const ottList = [
+  { ottName: 'Netflix', img: <img src={Netflix} /> },
+  { ottName: 'Disney Plus', img: <img src={Disney_Plus} className="disney" /> },
+  { ottName: 'Watcha', img: <img src={Watcha} /> },
+  { ottName: 'Wavve', img: <img src={Wavve} /> },
+];
 
 const MainSliderSection = () => {
-  const mainContentTitle = [
-    {
-      title: '조잉에서 꼭 봐야하는 컨텐츠',
-      genre: '드라마'
-    },
-    {
-      title: '조잉 유저들이 가장 많이 추천한 컨텐츠',
-      genre: '로맨스'
-    },
-    {
-      title: '추천 최신작',
-      genre: '판타지'
-    }
-  ];
-
   return (
     <S_Wrapper>
-      {mainContentTitle.map((content, index) => (
+      {ottList.map((ott, index) => (
         <div key={index}>
-          <S_GenreTitle>{content.title}</S_GenreTitle>
-          <MainSlider genre={content.genre}/>
+          <S_GenreTitle
+            className={ott.ottName === 'Disney Plus' ? 'disney' : undefined}
+          >
+            {ott.img}
+            <span>인기 TOP 10</span>
+          </S_GenreTitle>
+          <MainSlider ott={ott.ottName} />
         </div>
       ))}
     </S_Wrapper>
@@ -39,6 +40,15 @@ const S_Wrapper = styled.div`
 `;
 
 const S_GenreTitle = styled.h2`
+  display: flex;
+  align-items: center;
+  &.disney {
+    align-items: flex-end;
+  }
+  > img {
+    width: 70px;
+    margin-right: 8px;
+  }
   margin: 28px 0 5px 0;
   padding: 0px 3.75rem;
   color: var(--color-white-100);
