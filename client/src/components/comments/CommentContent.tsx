@@ -40,7 +40,6 @@ function CommentContent({ comment }: { comment: Comment }) {
   const isAdmin = comment.member
     ? comment.member.memberId === ADMIN_MEMBERID
     : false;
-
   return (
     <S_Comment key={comment.id}>
       {comment.member ? (
@@ -142,6 +141,9 @@ const S_Comment = styled.li`
   }
   > div:nth-child(3) {
     min-width: 60px;
+    @media only screen and (max-width: 480px) {
+      min-width: 50px;
+    }
   }
 `;
 

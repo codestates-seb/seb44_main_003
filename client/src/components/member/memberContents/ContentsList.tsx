@@ -5,10 +5,11 @@ import { styled } from 'styled-components';
 import noContent from '../../../assets/exception/nocontents.svg';
 
 function ContentsList({ path }: { path: string }) {
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isStale, refetch } = useQuery({
     queryKey: ['userContents', path],
     queryFn: () => GetUserContents(path),
   });
+  if (isStale) refetch();
   if (isSuccess) {
     if (!data.length)
       return (
@@ -32,10 +33,18 @@ export default ContentsList;
 const S_Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   max-width: 1500px;
+  padding: 0 10px;
+  @media only screen and (max-width: 480px) {
+    justify-content: center;
+  }
   > div {
-    width: 216px;
+    width: 213px;
     margin: 20px 10px;
+    @media only screen and (max-width: 480px) {
+      width: 150px;
+    }
   }
 `;
 

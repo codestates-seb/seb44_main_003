@@ -21,7 +21,6 @@ function Dropdown({
   setShowDropdown: Dispatch<SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
-  const goToMemberInfo = () => navigate('/member');
 
   return (
     <S_Wrapper
@@ -33,11 +32,11 @@ function Dropdown({
         <h1>{nickname}</h1>
       </div>
       <div>
-        <div onClick={goToMemberInfo}>
+        <div onClick={() => navigate('/member')}>
           <BsFillPersonFill />
           회원정보
         </div>
-        <div onClick={goToMemberInfo}>
+        <div onClick={() => navigate('/member?content=bookmarks')}>
           <AiFillHeart />찜 목록
         </div>
         <div onClick={logout}>

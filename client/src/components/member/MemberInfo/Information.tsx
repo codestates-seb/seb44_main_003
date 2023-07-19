@@ -28,6 +28,10 @@ function Information() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (userInput.length < 2 || userInput.length > 10) {
+      window.alert('닉네임은 2~10자여야 합니다.');
+      return;
+    }
     mutationPatch.mutate({
       ...data,
       nickname: userInput,

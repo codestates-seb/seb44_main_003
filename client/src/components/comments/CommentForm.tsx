@@ -31,7 +31,7 @@ function CommentForm() {
       ) : (
         <textarea placeholder="로그인 후 후기를 남길 수 있습니다." disabled />
       )}
-      <button type="submit">
+      <button type="submit" disabled>
         <BiPaperPlane />
       </button>
     </S_Form>
@@ -44,7 +44,9 @@ const S_Form = styled.form`
   position: relative;
   padding: 0 30px;
   margin-top: 50px;
-
+  @media only screen and (max-width: 480px) {
+    margin-bottom: 20px;
+  }
   > textarea {
     background-color: transparent;
     border: 1px solid var(--color-white-80);
