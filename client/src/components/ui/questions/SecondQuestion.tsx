@@ -115,6 +115,14 @@ const S_CategoryList = styled.div`
   justify-content: center;
   align-items: center;
   gap: 80px;
+
+  @media only screen and (max-width: 770px) {
+    gap: 60px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    gap: 40px;
+  }
 `;
 
 const S_CategoryBox = styled.div`
@@ -125,12 +133,19 @@ const S_CategoryBox = styled.div`
   color: var(--color-bg-100);
   font-size: 18px;
   font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 const S_CategoryIcon = styled.img`
   margin-bottom: 5px;
   width: 130px;
-  height: 130px;
   background: var(--color-white-100);
   object-fit: cover;
   filter: saturate(0);
@@ -145,5 +160,13 @@ const S_CategoryIcon = styled.img`
 
   &:hover {
     filter: brightness(100%);
+  }
+
+  @media only screen and (max-width: 770px) {
+    width: 120px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
   }
 `;

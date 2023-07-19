@@ -21,7 +21,7 @@ function ContentsList({ path }: { path: string }) {
     return (
       <S_Wrapper>
         {data.map((item) => (
-          <ItemCard item={item} />
+          <ItemCard key={item.id} item={item} />
         ))}
       </S_Wrapper>
     );

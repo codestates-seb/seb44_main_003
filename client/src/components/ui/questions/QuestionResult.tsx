@@ -149,7 +149,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             </S_ResultTitleBox>
             <S_SelectionBox>
               <S_RecommendBox>
-                <S_ResultImg src={beesad} />
+                <S_ResultAgainImg src={beesad} />
                 <S_Text>{`다시 컨텐츠를 찾아볼까요?`}</S_Text>
                 <S_BtnsBox>
                   <RecommendBtn
@@ -186,6 +186,14 @@ const S_ModalBox = styled.div`
   flex-direction: column;
   width: 800px;
   height: 100%;
+
+  @media only screen and (max-width: 770px) {
+    width: 580px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 350px;
+  }
 `;
 
 const S_ModalBackground = styled.div`
@@ -199,18 +207,48 @@ const S_ModalBackground = styled.div`
 `;
 
 const S_SelectionBox = styled.div`
-  display: grid;
+  display: flex;
   justify-content: center;
-  padding: 20px 40px;
+  padding: 30px 40px;
   width: 100%;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
   font-family: 'inter';
+
+  @media only screen and (max-width: 770px) {
+    display: grid;
+  }
+
+  @media only screen and (max-width: 480px) {
+    padding: 20px 20px;
+  }
 `;
 
-const S_ResultImg = styled.img``;
+const S_ResultImg = styled.img`
+  height: 70px;
+
+  @media only screen and (max-width: 770px) {
+    height: 60px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 50px;
+  }
+`;
+
+const S_ResultAgainImg = styled.img`
+  height: 200px;
+
+  @media only screen and (max-width: 770px) {
+    height: 180px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 150px;
+  }
+`;
 
 const S_ResultIdBox = styled.div`
   display: flex;
@@ -222,13 +260,21 @@ const S_ResultIdBox = styled.div`
 
 const S_ResultId = styled.p`
   font-family: 'cookieRun';
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 700;
   color: #f7cd40;
   text-shadow: 0 0 0px #212121, 0 0 0px #212121, 0 0 0px #212121,
     0 0 0px #212121, 5px 0 0px #212121, 5px 5px 0px #212121,
     5px -5px 0px #212121, -5px 0 0px #212121, -5px 5px 0px #212121,
     -5px -5px 0px #212121;
+  
+  @media only screen and (max-width: 770px) {
+    font-size: 40px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 30px;
+  }
 `;
 
 const S_ResultTitleBox = styled.div`
@@ -241,13 +287,21 @@ const S_ResultTitleBox = styled.div`
 
 const S_ResultTitle = styled.p`
   font-family: 'cookieRun';
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 700;
   color: #f7cd40;
   text-shadow: 0 0 0px #212121, 0 0 0px #212121, 0 0 0px #212121,
     0 0 0px #212121, 5px 0 0px #212121, 5px 5px 0px #212121,
     5px -5px 0px #212121, -5px 0 0px #212121, -5px 5px 0px #212121,
     -5px -5px 0px #212121;
+
+  @media only screen and (max-width: 770px) {
+    font-size: 40px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 30px;
+  }
 `;
 
 const S_RecommendBox = styled.div`
@@ -264,7 +318,6 @@ const S_RecommendPosterBox = styled.div`
 `;
 
 const S_RecommendPoster = styled.img`
-  width: 220px;
   height: 300px;
   background: var(--color-white-100);
   object-fit: cover;
@@ -272,7 +325,17 @@ const S_RecommendPoster = styled.img`
   border: 3px solid var(--color-bg-100);
   filter: var(--shadow-modal-m-b);
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 40px;
+
+  @media only screen and (max-width: 770px) {
+    margin-bottom: 20px;
+    margin-right: 0px;
+    height: 250px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 200px;
+  }
 `;
 
 const S_Text = styled.p`
@@ -283,12 +346,26 @@ const S_Text = styled.p`
   text-align: center;
   white-space: pre;
   color: var(--color-bg-100);
+
+  @media only screen and (max-width: 770px) {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
 `;
 
 const S_BtnsBox = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 30px;
+
+  @media only screen and (max-width: 480px) {
+    gap: 20px;
+  }
 `;
 
 const opacityAnimation = keyframes`
