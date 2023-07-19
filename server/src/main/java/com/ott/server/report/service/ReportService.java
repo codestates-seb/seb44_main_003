@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,12 +24,14 @@ public class ReportService {
     public ReportService(ReportRepository reportRepository) {
         this.reportRepository = reportRepository;
     }
+    @Transactional(propagation = Propagation.REQUIRED)
     public Report createReport(Report report){
         report.setCompletion(false);
 
         return reportRepository.save(report);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Report updateReport(Report report, Member member){
         Report findReport = verifiedReport(report.getId());
         if (!member.equals(findReport.getMember()) && !member.getRoles().contains("ADMIN")) {
@@ -53,6 +57,7 @@ public class ReportService {
         return reportRepository.findAll(PageRequest.of(page, size, Sort.by("lastModifiedAt").descending()));
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteReport(Long id, Member member){
         Report report = verifiedReport(id);
         if (!member.equals(report.getMember()) && !member.getRoles().contains("ADMIN")) {

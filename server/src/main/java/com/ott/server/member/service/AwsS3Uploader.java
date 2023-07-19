@@ -35,11 +35,8 @@ public class AwsS3Uploader {
         // 실제 S3 bucket 디렉토리명 설정
         // 파일명 중복을 방지하기 위한 UUID 추가
         String fileName = S3_BUCKET_DIRECTORY_NAME + "/" + UUID.randomUUID() + "." + multipartFile.getOriginalFilename();
-        System.out.println("--------------------------");
-        System.out.println();
+
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            System.out.println("11111111111111111111111111111111");
-            System.out.println(inputStream);
             amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
