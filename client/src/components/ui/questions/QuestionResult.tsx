@@ -3,15 +3,17 @@ import { useQuery } from '@tanstack/react-query';
 import { GetFilterdData, GetUser } from '../../../api/api';
 import useIsLoggedIn from '../../../hooks/useIsLoggedIn';
 import styled, { keyframes } from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import MoveBtn from '../MoveBtn';
 import CloseBtn from '../../ui/CloseBtn';
 import { Question } from '../../../types/types';
-import nicknameText from '../../../assets/recommendimage/nicknameText.webp';
-import recommendText from '../../../assets/recommendimage/recommendText.webp';
-import noContent from '../../../assets/recommendimage/noContentText.webp';
-import btnSignup from '../../../assets/recommendimage/signupBtnText.webp';
-import btnRecommend from '../../../assets/recommendimage/recommendBtnText.webp';
-import btnAgain from '../../../assets/recommendimage/againBtnText.webp';
+import {
+  noContentTitle,
+  nicknameTitle,
+  recommendTitle,
+  moveAgainBtn,
+  moveSignupBtn,
+  moveRecommendBtn
+} from './QuestionData'
 import loadmore from '../../../assets/exception/loadmore.webp';
 import beesad from '../../../assets/recommendimage/beesad.svg';
 import { useRecoilValue } from 'recoil';
@@ -79,13 +81,13 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
               <S_ResultId>
                 {userSuccess ? userData.nickname : 'guest'}
               </S_ResultId>
-              <S_ResultImg src={nicknameText} />
+              <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>
             <S_ResultTitleBox>
               <S_ResultTitle key={randomItem.title}>
                 {randomItem.title}
               </S_ResultTitle>
-              <S_ResultImg src={recommendText} />
+              <S_ResultImg src={recommendTitle.text} />
             </S_ResultTitleBox>
             <S_SelectionBox>
               <S_RecommendPosterBox>
@@ -95,10 +97,11 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
                 <S_Text>{`추천 컨텐츠가 마음에 드셨나요? \n조잉 멤버가 되면 \n더 많은 맞춤 컨텐츠를 추천해드립니다!`}</S_Text>
                 <S_BtnsBox>
                   {!userSuccess && (
-                    <RecommendBtn
+                    <MoveBtn
                       bgColor={'#F7CD40'}
                       bgShadow={'#C17932'}
-                      btnText={btnSignup}
+                      btnText={moveSignupBtn.text}
+                      btnAlt={moveSignupBtn.name}
                       onClick={() => {
                         if (!isLoggedIn) {
                           navigate('/signup');
@@ -108,17 +111,19 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
                     />
                   )}
                   {userSuccess && (
-                    <RecommendBtn
+                    <MoveBtn
                       bgColor={'#F7CD40'}
                       bgShadow={'#C17932'}
-                      btnText={btnAgain}
+                      btnText={moveAgainBtn.text}
+                      btnAlt={moveAgainBtn.name}
                       onClick={onReset}
                     />
                   )}
-                  <RecommendBtn
+                  <MoveBtn
                     bgColor={'#F7CD40'}
                     bgShadow={'#C17932'}
-                    btnText={btnRecommend}
+                    btnText={moveRecommendBtn.text}
+                    btnAlt={moveRecommendBtn.name}
                     onClick={() => {
                       navigate(`/content/${randomItem.id}`);
                       closeModal();
@@ -142,20 +147,21 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
               <S_ResultId>
                 {userSuccess ? userData.nickname : 'guest'}
               </S_ResultId>
-              <S_ResultImg src={nicknameText} />
+              <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>
             <S_ResultTitleBox>
-              <S_ResultImg src={noContent} />
+              <S_ResultImg src={noContentTitle.text} />
             </S_ResultTitleBox>
             <S_SelectionBox>
               <S_RecommendBox>
                 <S_ResultAgainImg src={beesad} />
                 <S_Text>{`다시 컨텐츠를 찾아볼까요?`}</S_Text>
                 <S_BtnsBox>
-                  <RecommendBtn
+                  <MoveBtn
                     bgColor={'#F7CD40'}
                     bgShadow={'#C17932'}
-                    btnText={btnAgain}
+                    btnText={moveAgainBtn.text}
+                    btnAlt={moveAgainBtn.name}
                     onClick={onReset}
                   />
                 </S_BtnsBox>

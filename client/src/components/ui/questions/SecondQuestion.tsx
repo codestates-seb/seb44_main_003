@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, category } from './QuestionData';
+import { questionList, category, moveNextBtn } from './QuestionData';
 import { Question } from '../../../types/types';
-import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const SecondQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -54,10 +53,11 @@ const SecondQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
               </S_CategoryBox>
             ))}
           </S_CategoryList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#F67CB3'}
             bgShadow={'#C53C79'}
-            btnText={btnNext}
+            btnText={moveNextBtn.text}
+            btnAlt={moveNextBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
