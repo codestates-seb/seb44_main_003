@@ -64,6 +64,7 @@ function SearchBar() {
         onChange={handleChange}
         onKeyUp={handleKeyUp}
         ref={ref}
+        placeholder="제목, 인물명으로 검색해보세요."
       />
       <S_Logo onClick={handleClick}>
         <FiSearch />
