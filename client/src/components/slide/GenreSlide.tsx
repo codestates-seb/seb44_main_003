@@ -131,6 +131,14 @@ const S_SwiperBox = styled.div`
   margin: 0;
   padding: 0px 3.75rem;
   width: 100%;
+
+  @media only screen and (max-width: 770px) {
+    padding: 0px 2rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    padding: 0px 1.25rem;
+  }
 `;
 
 const S_Swiper = styled(Swiper)`
@@ -139,13 +147,23 @@ const S_Swiper = styled(Swiper)`
   margin-top: 1.25rem;
   margin-bottom: 3.75rem;
 
+  @media only screen and (max-width: 770px) {
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
   .swiper-button-prev,
   .swiper-button-next {
     top: 50%;
     margin: 0;
     padding: 1.5rem;
     height: 100%;
-    transform: translateY(-50%);
+    transform: translateY(-55%);
     background-repeat: no-repeat;
     background: var(--color-bg-60);
     color: var(--color-white-100);
@@ -153,12 +171,38 @@ const S_Swiper = styled(Swiper)`
     z-index: 10;
     --swiper-navigation-size: 2.5rem;
     opacity: 0;
+
+    @media only screen and (max-width: 770px) {
+      padding: 1rem;
+      --swiper-navigation-size: 2rem;
+    }
+
+    @media only screen and (max-width: 480px) {
+      padding: 0.55rem;
+      --swiper-navigation-size: 1rem;
+    }
   }
   .swiper-button-prev {
     left: -3.75rem;
+
+    @media only screen and (max-width: 770px) {
+      left: -2rem;
+    }
+
+    @media only screen and (max-width: 480px) {
+      left: -1.25rem;
+    }
   }
   .swiper-button-next {
     right: -3.75rem;
+
+    @media only screen and (max-width: 770px) {
+      right: -2rem;
+    }
+
+    @media only screen and (max-width: 480px) {
+      right: -1.25rem;
+    }
   }
 
   .swiper-button-disabled {
@@ -182,6 +226,15 @@ const S_SwiperSlide = styled(SwiperSlide)`
 const S_LoadingBox = styled.div`
   margin-top: 15px;
   padding: 0px 3.75rem;
+
+  @media only screen and (max-width: 770px) {
+    padding: 0px 2rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin-top: 10px;
+    padding: 0px 1.25rem;
+  }
 `;
 
 const S_GenreTitle = styled.h2`
@@ -190,4 +243,14 @@ const S_GenreTitle = styled.h2`
   color: var(--color-white-100);
   font-size: 24px;
   font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    margin: 25px 0 5px 0;
+    padding: 0px 2rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin: 25px 0 5px 0;
+    padding: 0px 1.25rem;
+  }
 `;

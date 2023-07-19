@@ -25,6 +25,10 @@ const S_Wrapper = styled.div`
   transition: transform 0.3s ease;
   &:hover {
     transform: translateY(-15px);
+
+    @media only screen and (max-width: 480px) {
+      transform: translateY(-10px);
+    }
   }
 `;
 
@@ -44,10 +48,6 @@ const S_ItemTitle = styled.p`
   font-weight: 700;
   filter: var(--shadow-l-25);
 
-  @media only screen and (max-width: 1200px) {
-    font-size: 18px;
-  }
-
   @media only screen and (max-width: 1024px) {
     font-size: 16px;
   }
@@ -57,6 +57,6 @@ const S_ItemTitle = styled.p`
   }
 
   @media only screen and (max-width: 480px) {
-    font-size: 13px;
+    font-size: 12px;
   }
 `;
