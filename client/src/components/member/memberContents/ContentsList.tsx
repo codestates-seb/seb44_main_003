@@ -5,10 +5,11 @@ import { styled } from 'styled-components';
 import noContent from '../../../assets/exception/nocontents.svg';
 
 function ContentsList({ path }: { path: string }) {
-  const { data, isSuccess } = useQuery({
+  const { data, isSuccess, isStale, refetch } = useQuery({
     queryKey: ['userContents', path],
     queryFn: () => GetUserContents(path),
   });
+  if (isStale) refetch();
   if (isSuccess) {
     if (!data.length)
       return (
