@@ -1,9 +1,9 @@
 import MainSlider from './MainSlider';
 import styled from 'styled-components';
-import Netflix from '../../../assets/ott/netflix_m.png';
-import Watcha from '../../../assets/ott/watcha_m.png';
-import Disney_Plus from '../../../assets/ott/disney_m.png';
-import Wavve from '../../../assets/ott/wavve_m.png';
+import Netflix from '../../../assets/ott/netflix_m.webp';
+import Watcha from '../../../assets/ott/watcha_m.webp';
+import Disney_Plus from '../../../assets/ott/disney_m.webp';
+import Wavve from '../../../assets/ott/wavve_m.webp';
 
 const ottList = [
   { ottName: 'Netflix', img: <img src={Netflix} /> },
