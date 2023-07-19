@@ -2,8 +2,8 @@ import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
-import kuhub from '../../assets/profiles/kuhub.svg';
-import logo from '../../assets/logo/overthetop.svg';
+import kuhub from '../../assets/profiles/kuhub.webp';
+import logo from '../../assets/logo/overthetop.webp';
 
 function Footer() {
   const location = useLocation();
@@ -116,7 +116,7 @@ const S_Footer = styled.footer`
     height: 40px;
     opacity: 0.8;
   }
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 740px) {
     section {
       flex-direction: column;
       align-items: center;
@@ -189,7 +189,7 @@ const S_Team = styled.footer`
     }
   }
 
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 740px) {
     width: 130px;
     height: 40px;
     flex-direction: row;

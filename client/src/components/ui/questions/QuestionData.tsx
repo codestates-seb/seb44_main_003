@@ -36,7 +36,7 @@ export const questionList = [
 ];
 
 export const ottServices = [
-  { name: '넷플릭스', ottname: 'netfilx', icon: netflix,},
+  { name: '넷플릭스', ottname: 'netfilx', icon: netflix },
   { name: '디즈니+', ottname: 'disney', icon: disney },
   { name: '왓챠', ottname: 'watcha', icon: watcha },
   { name: '웨이브', ottname: 'wavve', icon: wavve },

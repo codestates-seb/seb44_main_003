@@ -10,10 +10,10 @@ import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
-import netflix from '../../assets/ott/netflix.svg';
-import disney from '../../assets/ott/disney.svg';
-import watcha from '../../assets/ott/watcha.svg';
-import wavve from '../../assets/ott/wavve.svg';
+import netflix from '../../assets/ott/netflix.webp';
+import disney from '../../assets/ott/disney.webp';
+import watcha from '../../assets/ott/watcha.webp';
+import wavve from '../../assets/ott/wavve.webp';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ContentDetail({ contentId }: { contentId: string }) {
