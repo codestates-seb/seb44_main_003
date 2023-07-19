@@ -6,7 +6,7 @@ import { PiMagicWandFill } from 'react-icons/pi';
 import { PiCaretRightThin } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
-import Recommend from '../ui/questions/Recommend';
+import Recommend from '../ui/questions/RecommendModal';
 
 function MainBanner() {
   const navigate = useNavigate();

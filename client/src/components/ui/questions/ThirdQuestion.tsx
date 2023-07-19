@@ -3,14 +3,11 @@ import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import RecommendBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres } from './QuestionData';
+import { questionList, genres, moveNextBtn, beehappy, beesad} from './QuestionData';
 import { Question } from '../../../types/types';
-import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
-import beehappy from '../../../assets/recommendimage/beehappy.svg';
-import beesad from '../../../assets/recommendimage/beesad.svg';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -66,7 +63,8 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
           <RecommendBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
-            btnText={btnNext}
+            btnText={moveNextBtn.text}
+            btnAlt={moveNextBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
@@ -175,7 +173,7 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   height: 35px;
   appearance: none;
   filter: saturate(0);
-  background-image: url(${beesad});
+  background-image: url(${beesad.text});
   background-size: cover;
   background-position: center;
   opacity: 0.4;
@@ -183,7 +181,7 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   cursor: pointer;
 
   &:checked {
-    background-image: url(${beehappy});
+    background-image: url(${beehappy.text});
     filter: none;
     opacity: 1;
   }

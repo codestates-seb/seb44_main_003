@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Recommend from './questions/Recommend';
+import Recommend from './questions/RecommendModal';
 import { useModal } from '../../hooks/useModal';
 import { AiFillHome } from 'react-icons/ai';
 import { HiMagnifyingGlass } from 'react-icons/hi2';

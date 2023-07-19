@@ -8,7 +8,7 @@ import ThirdQuestion from './ThirdQuestion';
 import QuestionResult from './QuestionResult';
 import { useModal } from '../../../hooks/useModal';
 
-const Recommend = () => {
+const RecommendModal = () => {
   const resetRecommendedContents = useResetRecoilState(
     recommendedContentsState
   );
@@ -53,7 +53,7 @@ const Recommend = () => {
   );
 };
 
-export default Recommend;
+export default RecommendModal;
 
 const S_Wrapper = styled.div`
   display: flex;
