@@ -22,4 +22,16 @@ const S_Close = styled(IoClose)`
   color: var(--color-white-100);
   font-size: 50px;
   cursor: pointer;
+
+  @media only screen and (max-width: 1200px) {
+    font-size: 50px;
+  }
+
+  @media only screen and (max-width: 770px) {
+    font-size: 40px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 30px;
+  }
 `;

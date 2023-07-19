@@ -65,4 +65,16 @@ const S_Button = styled.button<{ bgColor: string, bgShadow: string, disabled?: b
 
 const S_ButtonText = styled.img`
   margin: 0 15px;
+  height: 30px;
+  @media only screen and (max-width: 1200px) {
+    height: 30px;
+  }
+
+  @media only screen and (max-width: 770px) {
+    height: 25px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 18px;
+  }
 `

@@ -93,6 +93,19 @@ const S_ModalBox = styled.div`
   flex-direction: column;
   width: 820px;
   height: 100%;
+  font-family: 'inter';
+  font-size: 18px;
+  font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    width: 620px;
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 330px;
+    font-size: 12px;
+  }
 `;
 
 const S_ModalBackground = styled.div`
@@ -114,7 +127,6 @@ const S_SelectionBox = styled.div`
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
-  font-family: 'inter';
 `;
 
 const S_TextBox = styled.div`
@@ -123,17 +135,25 @@ const S_TextBox = styled.div`
 `;
 
 const S_Text = styled.p`
-  font-size: 18px;
-  font-weight: 700;
   color: var(--color-bg-100);
 `;
 
 const S_OttList = styled.div`
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
   margin: 50px 50px 30px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px;
+
+  @media only screen and (max-width: 770px) {
+    margin: 40px 40px 20px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin: 30px 30px 10px;
+    
+  }
 `;
 
 const S_OttBox = styled.div`
@@ -142,15 +162,16 @@ const S_OttBox = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: 15px;
+  width: calc(100% / 4 - 20px);
   color: var(--color-bg-100);
-  font-size: 18px;
-  font-weight: 700;
+
+  @media only screen and (max-width: 480px) {
+    width: calc(100% / 2 - 10px);
+  }
 `;
 
 const S_OttIcon = styled.img`
   margin-bottom: 5px;
-  width: 90px;
-  height: 90px;
   background: var(--color-white-100);
   object-fit: cover;
   border: 2px solid var(--color-bg-100);
@@ -159,6 +180,7 @@ const S_OttIcon = styled.img`
   opacity: 0.8;
   transition: filter 0.2s, opacity 0.2s;
   cursor: pointer;
+  width: 90px;
 
   &.select {
     filter: none;
@@ -167,6 +189,14 @@ const S_OttIcon = styled.img`
 
   &:hover {
     filter: brightness(100%);
+  }
+
+  @media only screen and (max-width: 770px) {
+    width: 70px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 65px;
   }
 `;
 

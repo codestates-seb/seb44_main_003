@@ -37,7 +37,7 @@ export const questionList = [
 
 export const ottServices = [
   { name: '넷플릭스', ottname: 'netfilx', icon: netflix,},
-  { name: '디즈니플러스', ottname: 'disney', icon: disney },
+  { name: '디즈니+', ottname: 'disney', icon: disney },
   { name: '왓챠', ottname: 'watcha', icon: watcha },
   { name: '웨이브', ottname: 'wavve', icon: wavve },
 ];
@@ -59,20 +59,13 @@ export const genres = [
   '액션',
   '드라마',
   'SF',
+  '판타지',
   '스릴러',
-  '애니메이션',
   '코미디',
   '가족',
-  '판타지',
+  '애니메이션',
   '로맨스',
   '공포',
   '범죄',
-  '스포츠',
-  '음악',
-  'Made in Europe',
-  'Reality TV',
   '역사',
-  '다큐멘터리',
-  '전쟁',
-  '서부',
 ];
