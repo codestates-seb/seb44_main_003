@@ -47,6 +47,7 @@ function Recommend({
     onSuccess: () => {
       queryClient.invalidateQueries(['isRecommend', contentId]);
       queryClient.invalidateQueries(['selectedContent', contentId]);
+      queryClient.invalidateQueries(['userContents']);
     },
   });
 

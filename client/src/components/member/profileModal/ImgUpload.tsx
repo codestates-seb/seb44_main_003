@@ -5,6 +5,8 @@ import { styled } from 'styled-components';
 import preview from '../../../assets/profiles/preview.svg';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
+import useMediaQuery from '../../../hooks/useMediaQuery';
+import { AiOutlineUpload } from 'react-icons/ai';
 
 function ImgUpload() {
   const queryClient = useQueryClient();
@@ -12,6 +14,7 @@ function ImgUpload() {
   const [imgState, setImgState] = useState<Blob | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const isUnder600 = useMediaQuery('(max-width: 600px)');
   const mutation = useMutation(PostUserProfile, {
     onSuccess: () => {
       queryClient.invalidateQueries(['user']);
@@ -64,13 +67,14 @@ function ImgUpload() {
 
   return (
     <S_Wrapper onSubmit={handleSubmit}>
-      <div>
-        <div className="dragBox" onDrop={handleDrop} onDragOver={dragOver}>
-          <div>
-            <label htmlFor="img">파일을 선택</label>
-            <span>하거나 파일을 여기로 드래그하세요.</span>
+      {isUnder600 ? (
+        <div>
+          <div className="previewBox">
+            <img src={imgPreview || preview} />
           </div>
-          <p>(20MB 이하의 이미지만 업로드할 수 있습니다.)</p>
+          <label htmlFor="img" className="upload">
+            <AiOutlineUpload /> 파일 올리기
+          </label>
           <input
             onChange={handleChange}
             id="img"
@@ -79,10 +83,27 @@ function ImgUpload() {
             accept="image/*"
           />
         </div>
-        <div className="previewBox">
-          <img src={imgPreview || preview} />
+      ) : (
+        <div>
+          <div className="dragBox" onDrop={handleDrop} onDragOver={dragOver}>
+            <div>
+              <label htmlFor="img">파일을 선택</label>
+              <span>하거나 파일을 여기로 드래그하세요.</span>
+            </div>
+            <p>(20MB 이하의 이미지만 업로드할 수 있습니다.)</p>
+            <input
+              onChange={handleChange}
+              id="img"
+              name="img"
+              type="file"
+              accept="image/*"
+            />
+          </div>
+          <div className="previewBox">
+            <img src={imgPreview || preview} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="error">{error}</div>
       <div>
         <button type="submit">확인</button>
@@ -102,6 +123,14 @@ const S_Wrapper = styled.form`
   align-items: center;
   font-size: 16px;
   margin-top: 30px;
+  @media only screen and (max-width: 600px) {
+    margin-top: 10px;
+  }
+  & button {
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
   > div {
     display: flex;
     align-items: center;
@@ -112,6 +141,11 @@ const S_Wrapper = styled.form`
     width: 140px;
     height: 140px;
     border-radius: 5px;
+  }
+  > div:first-child {
+    @media only screen and (max-width: 600px) {
+      flex-direction: column;
+    }
   }
   & div.dragBox {
     display: flex;
@@ -130,12 +164,20 @@ const S_Wrapper = styled.form`
   & div.error {
     color: var(--color-primary-yellow);
     height: 40px;
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   }
   & div.previewBox {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-left: 10px;
+    @media only screen and (max-width: 600px) {
+      width: 100px;
+      height: 100px;
+      margin: 0;
+    }
   }
   & button {
     color: var(--color-white-80);
@@ -152,6 +194,22 @@ const S_Wrapper = styled.form`
     cursor: pointer;
     font-weight: 700;
     text-decoration: underline;
+    > svg {
+      font-size: 14px;
+      margin: 0 2px 2px 0;
+    }
+    @media only screen and (max-width: 600px) {
+      display: flex;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: 1px solid white;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 14px;
+      background-color: var(--color-white-60);
+      color: var(--color-dropdown);
+      padding: 5px;
+    }
   }
   & label:hover {
     color: white;
