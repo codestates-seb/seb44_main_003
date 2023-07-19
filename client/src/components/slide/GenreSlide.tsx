@@ -57,16 +57,6 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
     }
   )
 
-  const handleNextPage = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.className === 'swiper-button-next') {
-      if (!hasNextPage) {
-        return
-      }
-      fetchNextPage()
-    }
-  }
-
   useEffect(() => {
     const handleResize = () => {
       setSize(getSize());
@@ -91,21 +81,27 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
 
   if (status === 'error') return <div>Error</div>;
   
-  if (status === 'success' && data.pages[0].content.length > 0) {
+  if (status === 'success' && data.pages.length > 0) {
     return (
       <>
         <S_GenreTitle>{genre}</S_GenreTitle>
-        <S_SwiperBox onClick={(e: React.MouseEvent) => handleNextPage(e)}>
+        <S_SwiperBox>
           <S_Swiper
             onSwiper={setSwiperRef}
+            onReachEnd={() => {
+              if (hasNextPage) {
+                fetchNextPage();
+              }
+            }}
             slidesPerView={6}
             slidesPerGroup={5}
-            centeredSlides={false}
+            centeredSlides={true}
             spaceBetween={18}
             navigation={true}
             watchOverflow={true}
             breakpoints={breakpoints}
-            virtual
+            // virtual
+            loop
           >
             {data.pages.map((page) => (
               <>
