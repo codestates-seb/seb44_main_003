@@ -10,6 +10,7 @@ import {
   Description,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
+import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
 
 const accessToken = localStorage.getItem('token');
 
@@ -42,7 +43,11 @@ export const PatchUser = (data: any) => instance.patch(`/members`, data);
 export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
-export const GetTVData = (genre: string, size: number, page: number): Promise<ItemData> =>
+export const GetTVData = (
+  genre: string,
+  size: number,
+  page: number
+): Promise<ItemData> =>
   axios
     .get(
       `${
@@ -52,7 +57,11 @@ export const GetTVData = (genre: string, size: number, page: number): Promise<It
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
-export const GetMovieData = (genre: string, size: number, page: number): Promise<ItemData> =>
+export const GetMovieData = (
+  genre: string,
+  size: number,
+  page: number
+): Promise<ItemData> =>
   axios
     .get(
       `${
@@ -80,6 +89,16 @@ export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
 export const GetSearchedData = (keyword: string) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?q=${keyword}`)
+    .then((res) => res.data);
+
+/* 자동완성 검색 */
+export const GetAutoComplete = (keyword: string): Promise<string[]> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/search/autocomplete?q=${keyword}&limit=${AUTOCOMPLETE_RESULT_SIZE}`
+    )
     .then((res) => res.data);
 
 /* 후기 데이터 */

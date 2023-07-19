@@ -44,6 +44,7 @@ export default Header;
 const S_Header = styled.header<{ $visible: boolean }>`
   transform: ${(props) =>
     props.$visible ? undefined : 'translate(0, -120px)'};
+  visibility: ${(props) => (props.$visible ? undefined : 'hidden')};
   display: flex;
   justify-content: center;
   width: 100%;
@@ -67,7 +68,6 @@ const S_Wrapper = styled.div`
   justify-content: space-between;
   padding: 0 60px;
   width: 100%;
-
   > div {
     display: flex;
     flex-direction: row;

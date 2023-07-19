@@ -1,29 +1,58 @@
 import { styled } from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { GetAutoComplete } from '../../api/api';
+import { FaXmark } from 'react-icons/fa6';
 
 function SearchBar() {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [userInput, setUserInput] = useState('');
+  const [currentOptionIdx, setCurrentOptionIdx] = useState(-1);
   const navigate = useNavigate();
-  const search = () => {
-    if (userInput.trim().length) {
-      navigate(`/search?keyword=${userInput}`);
-      setUserInput('');
-      setShowSearchBar(false);
+  const ref = useRef<HTMLInputElement>(null);
+  const { data } = useQuery(['searchData', userInput], () =>
+    GetAutoComplete(userInput)
+  );
+  const reset = () => {
+    setUserInput('');
+    setShowSearchBar(false);
+    setCurrentOptionIdx(-1);
+  };
+  const search = (keyword: string) => {
+    if (keyword.trim().length) {
+      navigate(`/search?keyword=${keyword}`);
+      reset();
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
-  const handleClick = () => {
-    if (showSearchBar && userInput.length) search();
-    else setShowSearchBar(!showSearchBar);
+  const handleKeyUp = (e: React.KeyboardEvent) => {
+    if (data && data.length) {
+      if (e.keyCode === 40) {
+        setCurrentOptionIdx((prev) => Math.min(prev + 1, data.length - 1));
+      }
+      if (e.keyCode === 38) {
+        setCurrentOptionIdx((prev) => Math.max(prev - 1, 0));
+      }
+      if (currentOptionIdx >= 0 && e.key === 'Enter') {
+        search(data[currentOptionIdx]);
+      } else if (e.key === 'Enter') {
+        search(userInput);
+      }
+      return;
+    }
+    if (e.key === 'Enter') {
+      search(userInput);
+    }
   };
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.code === 'Enter') search();
+  const handleClick = () => {
+    if (showSearchBar && userInput.length) search(userInput);
+    else setShowSearchBar(!showSearchBar);
+    if (ref.current) ref.current.focus();
   };
 
   return (
@@ -34,10 +63,28 @@ function SearchBar() {
         value={userInput}
         onChange={handleChange}
         onKeyUp={handleKeyUp}
+        ref={ref}
+        placeholder="제목, 인물명으로 검색해보세요."
       />
       <S_Logo onClick={handleClick}>
         <FiSearch />
       </S_Logo>
+      {showSearchBar && data && !!data.length && (
+        <ul className="auto-complete">
+          <FaXmark onClick={reset} />
+          {data.map((result, i) => (
+            <li
+              key={i}
+              onClick={() => {
+                search(result);
+              }}
+              className={currentOptionIdx === i ? 'currentOption' : ''}
+            >
+              {result}
+            </li>
+          ))}
+        </ul>
+      )}
     </S_Wrapper>
   );
 }
@@ -50,6 +97,45 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
   position: relative;
   width: ${(props) => (props.$show ? '100%' : '30px')};
   transition: width 1s ease;
+
+  > ul.auto-complete {
+    position: absolute;
+    top: 41px;
+    width: 100%;
+    max-width: 678px;
+    background-color: var(--color-bg-100);
+    display: block;
+    margin-top: -1px;
+    padding-top: 0.5rem;
+    border: 1px solid var(--color-white-80);
+    border-radius: 0 0 1rem 1rem;
+    z-index: 3;
+    > svg {
+      font-size: 20px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      color: white;
+      cursor: pointer;
+    }
+    > li {
+      padding: 0.2rem 1rem;
+      color: var(--color-white-80);
+      cursor: pointer;
+      transition: color 0.3s ease;
+      &.currentOption {
+        background-color: var(--color-white-20);
+      }
+    }
+    > li:last-child {
+      padding-bottom: 0.5rem;
+      border-radius: 0 0 1rem 1rem;
+    }
+    > li:hover {
+      color: white;
+      background-color: var(--color-white-20);
+    }
+  }
 `;
 
 const S_Input = styled.input<{ $show: boolean }>`
