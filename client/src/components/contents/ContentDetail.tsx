@@ -225,8 +225,8 @@ const S_Section = styled.section<{ backgroundimage: string }>`
     }
   }
 
-  @media only screen and (max-width: 540px) {
-    padding: 0 20px;
+  @media only screen and (max-width: 600px) {
+    padding: 0 30px;
   }
 `;
 
@@ -239,6 +239,7 @@ const S_Content = styled.div`
   @media only screen and (max-width: 720px) {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 `;
 

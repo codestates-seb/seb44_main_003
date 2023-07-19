@@ -42,8 +42,7 @@ const S_Wrapper = styled.ul`
   margin: 40px 0 60px;
   animation: ${slideIn} 0.5s ease-out;
   @media only screen and (max-width: 720px) {
-    width: calc(100% - 11vw);
-    margin: 20px 0 45px 11vw;
+    justify-content: center;
   }
 `;
 
@@ -57,7 +56,8 @@ const S_Tag = styled.li`
   margin: 0 15px 15px 0;
   height: 40px;
   border-radius: 50px;
-  background-color: var(--color-bg-100);
+  border: 2px solid var(--color-bg-100);
+  background-color: var(--color-bg-80);
 
   .gold {
     color: var(--color-primary-gold);
