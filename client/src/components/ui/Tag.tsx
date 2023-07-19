@@ -31,9 +31,9 @@ const S_Wrapper = styled.ul`
   width: 100%;
   margin: 40px 0 60px;
   animation: ${slideIn} 0.5s ease-out;
-  @media only screen and (max-width: 660px) {
-    width: calc(100% - 11vw);
-    margin: 20px 0 45px 11vw;
+  @media only screen and (max-width: 720px) {
+    width: calc(100% - 12vw);
+    margin: 20px 0 45px 12vw;
   }
 `;
 
@@ -53,7 +53,7 @@ const S_Tag = styled.li`
     color: var(--color-primary-gold);
   }
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
     margin: 5px;
     padding: 0;
   }

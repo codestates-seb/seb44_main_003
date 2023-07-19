@@ -68,53 +68,55 @@ function ContentDetail({ contentId }: { contentId: string }) {
 
   if (isSuccess) {
     return (
-      <S_Wrapper backgroundimage={data.mainPoster}>
-        {admin?.data?.roles[0] === 'ADMIN' && (
-          <>
-            <PatchMediaBtn editData={data} contentId={contentId} />
-            <DeleteMediaBtn contentId={contentId} />
-          </>
-        )}
-        <div className="main-flex">
-          <div className="title-flex">
-            <S_Title>
-              {data.titlePoster ? (
-                <img src={data.titlePoster} alt="title" />
-              ) : (
-                <S_TextTitle>{data.title}</S_TextTitle>
-              )}
-            </S_Title>
-            <S_Content>
-              <div className="poster-flex">
-                <S_Poster>
-                  <img src={data.mainPoster} alt="poster" />
-                </S_Poster>
-                <ReportBtn contentId={contentId} />
-                <div className="icon-flex">
-                  <Bookmark contentId={contentId} />
-                  <Recommend
-                    countRecommend={data.countRecommend}
-                    contentId={contentId}
-                  />
+      <S_Wrapper>
+        <S_Section backgroundimage={data.mainPoster}>
+          {admin?.data?.roles[0] === 'ADMIN' && (
+            <>
+              <PatchMediaBtn editData={data} contentId={contentId} />
+              <DeleteMediaBtn contentId={contentId} />
+            </>
+          )}
+          <div className="main-flex">
+            <div className="title-flex">
+              <S_Title>
+                {data.titlePoster ? (
+                  <img src={data.titlePoster} alt="title" />
+                ) : (
+                  <S_TextTitle>{data.title}</S_TextTitle>
+                )}
+              </S_Title>
+              <S_Content>
+                <div className="poster-flex">
+                  <S_Poster>
+                    <img src={data.mainPoster} alt="poster" />
+                  </S_Poster>
+                  <ReportBtn contentId={contentId} />
+                  <div className="icon-flex">
+                    <Bookmark contentId={contentId} />
+                    <Recommend
+                      countRecommend={data.countRecommend}
+                      contentId={contentId}
+                    />
+                  </div>
                 </div>
-              </div>
-              <S_TitleFont>
-                <h1 className="h1">장르</h1>
-                <Tag genre={data.genre} />
-                <h1 className="h1">컨텐츠 보러가기</h1>
-                <div className="ott">
-                  {ottList.map((ott) => renderOtt(ott))}
-                </div>
-                <h1 className="bold-white">출시일: {data.releaseDate}</h1>
-                <h1 className="bold-white margin">
-                  {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
-                </h1>
-                {isUnder900 || <S_Text>{data.content}</S_Text>}
-              </S_TitleFont>
-            </S_Content>
-            {isUnder900 && <S_Text>{data.content}</S_Text>}
+                <S_TitleFont>
+                  <h1 className="h1">장르</h1>
+                  <Tag genre={data.genre} />
+                  <h1 className="h1">컨텐츠 보러가기</h1>
+                  <div className="ott">
+                    {ottList.map((ott) => renderOtt(ott))}
+                  </div>
+                  <h1 className="bold-white">출시일: {data.releaseDate}</h1>
+                  <h1 className="bold-white margin">
+                    {data.cast ? ` 출연: ${data.cast}` : '출연: 알수없음'}
+                  </h1>
+                  {isUnder900 || <S_Text>{data.content}</S_Text>}
+                </S_TitleFont>
+              </S_Content>
+              {isUnder900 && <S_Text>{data.content}</S_Text>}
+            </div>
           </div>
-        </div>
+        </S_Section>
       </S_Wrapper>
     );
   }
@@ -153,7 +155,13 @@ const slideIn = keyframes`
   }
 `;
 
-const S_Wrapper = styled.section<{ backgroundimage: string }>`
+const S_Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const S_Section = styled.section<{ backgroundimage: string }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -195,19 +203,13 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
     opacity: 0.9;
     z-index: -1;
   }
-  span {
-    margin-top: 20px;
-    width: 1500px;
-    height: 1px;
-    background-color: var(--color-white-80);
-  }
 
   @media only screen and (max-width: 940px) {
     margin-top: 140px;
   }
 
-  @media only screen and (max-width: 660px) {
-    padding: 0 20px;
+  @media only screen and (max-width: 720px) {
+    padding: 0 60px;
     .main-flex {
       display: flex;
       flex-direction: column;
@@ -222,6 +224,10 @@ const S_Wrapper = styled.section<{ backgroundimage: string }>`
       flex-direction: column;
     }
   }
+
+  @media only screen and (max-width: 540px) {
+    padding: 0 20px;
+  }
 `;
 
 const S_Content = styled.div`
@@ -230,7 +236,7 @@ const S_Content = styled.div`
   justify-content: space-between;
   margin-top: 50px;
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
     display: flex;
     flex-direction: column;
   }
@@ -243,7 +249,8 @@ const S_Title = styled.div`
     animation: ${fadeInMoveDown} 0.5s ease-out;
   }
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
+    align-self: center;
     margin-bottom: 20px;
   }
 `;
@@ -260,7 +267,7 @@ const S_TextTitle = styled.h1`
   position: relative;
   animation: ${fadeInMoveDown} 0.5s ease-out;
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
     justify-content: center;
   }
 `;
@@ -297,12 +304,7 @@ const S_TitleFont = styled.div`
     opacity: 0.8;
   }
 
-  @media only screen and (max-width: 768px) {
-    .margin {
-      width: 60%;
-    }
-  }
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
     width: 100%;
     p {
       font-size: 16px;
@@ -340,7 +342,7 @@ const S_Poster = styled.div`
     border-radius: 10px;
   }
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
     align-self: center;
   }
 `;
@@ -351,7 +353,8 @@ const S_Text = styled.p`
   line-height: 1.6;
   font-size: 19px;
   font-weight: 400;
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 720px) {
+    margin: 25px 0;
     font-size: 16px;
   }
 `;
