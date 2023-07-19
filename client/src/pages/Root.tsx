@@ -1,6 +1,7 @@
 import { Outlet, useLoaderData } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/ui/Footer';
+import MobileGNB from '../components/ui/MobileGNB';
 import { S_Root, S_Wrapper, S_Container } from '../styles/style';
 import { useEffect } from 'react';
 import { logout } from '../components/header/Dropdown';
@@ -23,6 +24,7 @@ function Root() {
         </S_Container>
       </S_Wrapper>
       <Footer />
+      <MobileGNB />
     </S_Root>
   );
 }
