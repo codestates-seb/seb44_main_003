@@ -19,6 +19,7 @@ function Navigation() {
   const { openModal } = useModal();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
+
   return (
     <StyledNav>
       {navMenus.map((menu) => (
@@ -53,10 +54,19 @@ const StyledNav = styled.nav`
     top: 70px;
     left: 40px;
   }
+  @media only screen and (max-width: 600px) {
+    position: static;
+    width: 80px;
+  }
   > h1 {
     font-weight: 700;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+  }
+  > h1:nth-child(3) {
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 

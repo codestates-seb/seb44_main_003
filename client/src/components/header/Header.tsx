@@ -4,10 +4,12 @@ import MainLogo from './MainLogo';
 import Navigation from './Navigation';
 import MemberMenu from './MemberMenu';
 import SearchBar from './SearchBar';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 function Header() {
   const [position, setPosition] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +31,7 @@ function Header() {
           <Navigation />
         </div>
         <div>
-          <SearchBar />
+          {isMobile || <SearchBar />}
           <MemberMenu />
         </div>
       </S_Wrapper>
@@ -80,7 +82,7 @@ const S_Wrapper = styled.div`
     }
   }
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 600px) {
     padding: 0 20px;
   }
 `;
