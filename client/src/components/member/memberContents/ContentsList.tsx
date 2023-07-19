@@ -32,10 +32,18 @@ export default ContentsList;
 const S_Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   max-width: 1500px;
+  padding: 0 10px;
+  @media only screen and (max-width: 480px) {
+    justify-content: center;
+  }
   > div {
-    width: 216px;
+    width: 213px;
     margin: 20px 10px;
+    @media only screen and (max-width: 480px) {
+      width: 150px;
+    }
   }
 `;
 
