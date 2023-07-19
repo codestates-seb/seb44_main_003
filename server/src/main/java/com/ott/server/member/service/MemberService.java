@@ -34,6 +34,7 @@ public class MemberService {
         this.authorityUtils = authorityUtils;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Member createMember(Member member) {
         System.out.println("Creating a new member with email: " + member.getEmail());
         verifyExistsEmail(member.getEmail());
@@ -93,7 +94,7 @@ public class MemberService {
         return memberRepository.findAll(PageRequest.of(page, size,
                 Sort.by("memberId").descending()));
     }
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteMember(long memberId) {
         System.out.println("Deleting member with ID: " + memberId);
 

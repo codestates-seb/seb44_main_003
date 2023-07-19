@@ -10,6 +10,8 @@ import com.ott.server.media.repository.MediaRepository;
 import com.ott.server.member.entity.Member;
 import com.ott.server.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class BookmarkService {
         this.mediaRepository = mediaRepository;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void createOrDeleteBookmark(BookmarkDto.Post bookmarkDto, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
         Media media = mediaRepository.findById(bookmarkDto.getMediaId())

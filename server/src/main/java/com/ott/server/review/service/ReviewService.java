@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -38,7 +40,7 @@ public class ReviewService {
         this.reviewMapper = reviewMapper;
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public void save(ReviewCreateDto reviewDto, Authentication authentication) {
         if (reviewDto.getMediaId() == null || reviewDto.getContent() == null || reviewDto.getContent().isEmpty()) {
             throw new BusinessLogicException(ExceptionCode.INVALID_REVIEW_FORMAT);
@@ -99,6 +101,7 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void update(Long id, ReviewUpdateDto newReviewData, Authentication authentication) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
@@ -112,6 +115,7 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void delete(Long id, Authentication authentication) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));

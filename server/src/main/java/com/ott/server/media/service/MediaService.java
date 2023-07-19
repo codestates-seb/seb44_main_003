@@ -20,6 +20,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -56,7 +58,7 @@ public class MediaService {
                 .startAndWait();
     }
 
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public MediaDto.Response createMedia(MediaDto.Create createDto) {
         Media media = new Media();
         media.setTitle(createDto.getTitle());
@@ -121,7 +123,7 @@ public class MediaService {
 
 
 
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void updateMedia(Long mediaId, MediaDto.Update updateDto) {
 
 
@@ -256,6 +258,7 @@ public class MediaService {
 
 
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteMedia(Long mediaId) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
