@@ -84,8 +84,9 @@ export const S_Modal = styled.div`
   color: #fff;
   z-index: 9999;
   @media only screen and (max-width: 600px) {
-    width: 90vw;
+    width: 370px;
     min-height: 200px;
+    padding-bottom: 10px;
   }
   & svg {
     font-size: 30px;
@@ -94,6 +95,7 @@ export const S_Modal = styled.div`
     cursor: pointer;
     @media only screen and (max-width: 600px) {
       font-size: 25px;
+      margin: 10px 10px 0 0;
     }
   }
   > h1 {
@@ -101,6 +103,7 @@ export const S_Modal = styled.div`
     margin-bottom: 10px;
     @media only screen and (max-width: 600px) {
       font-size: 20px;
+      margin-bottom: 5px;
     }
   }
   > h2 {

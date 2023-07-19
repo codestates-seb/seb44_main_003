@@ -9,7 +9,12 @@ import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
 import { useState, useEffect } from 'react';
 
-const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
+const ottList = [
+  { name: '넷플릭스', value: 'Netflix' },
+  { name: '웨이브', value: 'Wavve' },
+  { name: '디즈니플러스', value: 'Disney Plus' },
+  { name: '왓챠', value: 'Watcha' },
+];
 const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
 
 function MemberLikesModal() {
@@ -33,7 +38,6 @@ function MemberLikesModal() {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
-
   return (
     <S_Modal>
       <BiX
@@ -54,30 +58,40 @@ function MemberLikesModal() {
       >
         <fieldset>
           <legend>카테고리</legend>
-          <select id="category" placeholder="string" {...register('category')}>
-            <option selected={data?.category === 'TV'}>TV</option>
-            <option selected={data?.category === '영화'}>영화</option>
+          <select
+            id="category"
+            placeholder="string"
+            defaultValue={data?.category}
+            {...register('category')}
+          >
+            <option>TV</option>
+            <option>영화</option>
           </select>
         </fieldset>
         <fieldset className="ottDiv">
           <legend>OTT</legend>
           {ottList.map((ott) => (
-            <div>
+            <div key={ott.value}>
               <input
                 type="checkbox"
-                id={ott}
-                value={ott}
-                defaultChecked={objToArr(data?.memberOtts || []).includes(ott)}
+                id={ott.value}
+                value={ott.value}
+                defaultChecked={objToArr(data?.memberOtts || []).includes(
+                  ott.value
+                )}
                 {...register('memberOtts')}
               />
-              <label htmlFor={ott}>{ott}</label>
+              <label htmlFor={ott.value}>{ott.name}</label>
             </div>
           ))}
         </fieldset>
         <fieldset>
           <legend>장르</legend>
           {genres.map((genre) => (
-            <div className={longName.includes(genre) ? 'except' : 'element'}>
+            <div
+              key={genre}
+              className={longName.includes(genre) ? 'except' : 'element'}
+            >
               <input
                 type="checkbox"
                 id={genre}
@@ -119,6 +133,18 @@ const S_Form = styled.form`
     margin: 10px 0;
     > div {
       margin: 5px 10px;
+      @media only screen and (max-width: 600px) {
+        margin: 5px 15px;
+      }
+    }
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  > fieldset:nth-child(3) {
+    @media only screen and (max-width: 600px) {
+      height: 100px;
+      overflow-y: scroll;
     }
   }
   & legend {

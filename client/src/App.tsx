@@ -87,6 +87,7 @@ const queryClient = new QueryClient({
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      retry: 2,
     },
   },
   queryCache: new QueryCache({
