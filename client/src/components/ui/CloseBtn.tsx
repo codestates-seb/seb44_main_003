@@ -18,7 +18,7 @@ export default CloseBtn
 const S_Close = styled(IoClose)`
   position: absolute;
   top: 15%;
-  right: 0%;
+  right: 5%;
   color: var(--color-white-100);
   font-size: 50px;
   cursor: pointer;
