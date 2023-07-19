@@ -172,7 +172,6 @@ const S_Swiper = styled(Swiper)`
     --swiper-navigation-size: 2.5rem;
     opacity: 0;
 
-
     @media only screen and (max-width: 770px) {
       padding: 1rem;
       --swiper-navigation-size: 2rem;
@@ -236,7 +235,6 @@ const S_LoadingBox = styled.div`
     margin-top: 10px;
     padding: 0px 1.25rem;
   }
-
 `;
 
 const S_GenreTitle = styled.h2`

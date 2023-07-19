@@ -54,4 +54,14 @@ const S_GenreTitle = styled.h2`
   color: var(--color-white-100);
   font-size: 24px;
   font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    margin: 25px 0 5px 0;
+    padding: 0px 2rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin: 25px 0 5px 0;
+    padding: 0px 1.25rem;
+  }
 `;
