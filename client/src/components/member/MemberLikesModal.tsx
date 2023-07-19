@@ -38,7 +38,6 @@ function MemberLikesModal() {
     });
     return () => subscription.unsubscribe();
   }, [watch]);
-
   return (
     <S_Modal>
       <BiX
@@ -59,15 +58,20 @@ function MemberLikesModal() {
       >
         <fieldset>
           <legend>카테고리</legend>
-          <select id="category" placeholder="string" {...register('category')}>
-            <option selected={data?.category === 'TV'}>TV</option>
-            <option selected={data?.category === '영화'}>영화</option>
+          <select
+            id="category"
+            placeholder="string"
+            defaultValue={data?.category}
+            {...register('category')}
+          >
+            <option>TV</option>
+            <option>영화</option>
           </select>
         </fieldset>
         <fieldset className="ottDiv">
           <legend>OTT</legend>
           {ottList.map((ott) => (
-            <div>
+            <div key={ott.value}>
               <input
                 type="checkbox"
                 id={ott.value}
@@ -84,7 +88,10 @@ function MemberLikesModal() {
         <fieldset>
           <legend>장르</legend>
           {genres.map((genre) => (
-            <div className={longName.includes(genre) ? 'except' : 'element'}>
+            <div
+              key={genre}
+              className={longName.includes(genre) ? 'except' : 'element'}
+            >
               <input
                 type="checkbox"
                 id={genre}
