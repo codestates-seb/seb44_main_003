@@ -53,6 +53,9 @@ const S_Wrapper = styled.div`
   & p {
     font-size: 16px;
     margin-top: 5px;
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
   }
   & div.add {
     display: flex;
@@ -60,6 +63,10 @@ const S_Wrapper = styled.div`
     align-items: center;
     cursor: pointer;
     width: 130px;
+    @media only screen and (max-width: 600px) {
+      width: 70px;
+      height: 70px;
+    }
   }
 `;
 const S_ImgDiv = styled.div`
@@ -69,13 +76,20 @@ const S_ImgDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 420px;
-
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+    width: 250px;
+  }
   & img {
     width: 140px;
     height: 140px;
     border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
+    @media only screen and (max-width: 600px) {
+      width: 70px;
+      height: 70px;
+    }
   }
   & img:hover {
     filter: brightness(110%);

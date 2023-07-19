@@ -7,23 +7,32 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GetUser, PatchUser } from '../../api/api';
 import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
+import { useState, useEffect } from 'react';
 
 const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
 const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
 
 function MemberLikesModal() {
+  const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const { closeModal } = useModal();
   const { data } = useQuery(['user'], GetUser);
 
-  /* todo: 장르 최대 3개 선택 */
   const mutation = useMutation(PatchUser, {
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries(['user']);
     },
   });
-  const { register, handleSubmit } = useForm();
+  const { watch, register, handleSubmit } = useForm();
+  useEffect(() => {
+    const subscription = watch((value) => {
+      if (value.interests.length > 5)
+        setError('장르는 최대 5개까지 선택할 수 있습니다.');
+      if (value.interests.length <= 5) setError(null);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <S_Modal>
@@ -80,7 +89,10 @@ function MemberLikesModal() {
             </div>
           ))}
         </fieldset>
-        <button type="submit">제출</button>
+        {error && <span className="error">{error}</span>}
+        <button type="submit" disabled={!!error}>
+          제출
+        </button>
       </S_Form>
     </S_Modal>
   );
@@ -127,6 +139,9 @@ const S_Form = styled.form`
   & label {
     margin-left: 6px;
     cursor: pointer;
+  }
+  & span.error {
+    color: var(--color-primary-yellow);
   }
   & button {
     color: var(--color-white-80);
