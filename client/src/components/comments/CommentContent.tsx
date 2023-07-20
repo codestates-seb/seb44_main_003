@@ -80,7 +80,8 @@ function CommentContent({ comment }: { comment: Comment }) {
         )}
       </div>
       {(!comment.member ||
-        (user.data && user.data.memberId === comment.member.memberId)) && (
+        (user.data && user.data.memberId === comment.member.memberId) ||
+        user.data?.memberId === ADMIN_MEMBERID) && (
         <div>
           <button type="button" onClick={handleEdit}>
             <HiOutlinePencilAlt />
