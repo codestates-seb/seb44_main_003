@@ -5,11 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { GetAutoComplete } from '../../api/api';
 import { FaXmark } from 'react-icons/fa6';
+import { useModal } from '../../hooks/useModal';
+import { FiSearch } from 'react-icons/fi';
+import logo from '../../assets/logo/logo_white.webp';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 function SearchBar() {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [currentOptionIdx, setCurrentOptionIdx] = useState(-1);
+  const isMobile = useMediaQuery('(max-width: 600px)');
   const navigate = useNavigate();
   const ref = useRef<HTMLInputElement>(null);
   const { data } = useQuery(['searchData', userInput], () =>
@@ -56,20 +61,29 @@ function SearchBar() {
   };
 
   return (
-    <S_Wrapper $show={showSearchBar}>
-      <S_Input
-        $show={showSearchBar}
-        type="text"
-        value={userInput}
-        onChange={handleChange}
-        onKeyUp={handleKeyUp}
-        ref={ref}
-        placeholder="제목, 인물명으로 검색해보세요."
-      />
-      <S_Logo onClick={handleClick}>
-        <FiSearch />
-      </S_Logo>
-      {showSearchBar && data && !!data.length && (
+    <S_Wrapper isMobile={isMobile}>
+      <div>
+        <img
+          src={logo}
+          onClick={() => {
+            reset();
+            navigate('/');
+          }}
+        />
+        <FaXmark onClick={reset} />
+      </div>
+      <div>
+        <S_Input
+          type="text"
+          value={userInput}
+          onChange={handleChange}
+          onKeyUp={handleKeyUp}
+          placeholder="제목, 인물명으로 검색해보세요."
+          autoFocus
+        />
+        <FiSearch onClick={handleClick} />
+      </div>
+      {data && !!data.length && (
         <ul className="auto-complete">
           <FaXmark onClick={reset} />
           {data.map((result, i) => (
@@ -91,18 +105,35 @@ function SearchBar() {
 
 export default SearchBar;
 
-const S_Wrapper = styled.div<{ $show: boolean }>`
+const S_Wrapper = styled.div<{ isMobile: boolean }>`
+  height: ${({ isMobile }) => (isMobile ? '100vh' : '300px')};
+  width: 100%;
+  position: absolute;
+  top: 0;
+  border-bottom: 2px solid var(--color-dropdown-stroke);
   display: flex;
-  justify-content: flex-end;
-  position: relative;
-  width: ${(props) => (props.$show ? '100%' : '30px')};
-  transition: width 1s ease;
-
-  > ul.auto-complete {
-    position: absolute;
-    top: 41px;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, 0);
+  padding: ${({ isMobile }) => (isMobile ? '20px 30px' : '20px 50px;')};
+  background-color: var(--color-bg-100);
+  > div:first-child {
     width: 100%;
-    max-width: 678px;
+    display: flex;
+    justify-content: space-between;
+  }
+  > div:nth-child(2) {
+    position: relative;
+    width: ${({ isMobile }) => (isMobile ? '90%' : '70%')};
+    > svg {
+      position: absolute;
+      cursor: pointer;
+      right: 20px;
+      top: 27px;
+    }
+  }
+  > ul.auto-complete {
+    width: ${({ isMobile }) => (isMobile ? '90%' : '70%')};
     background-color: var(--color-bg-100);
     display: block;
     margin-top: -1px;
@@ -119,7 +150,9 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
       cursor: pointer;
     }
     > li {
-      padding: 0.2rem 1rem;
+      width: 100%;
+      padding: ${({ isMobile }) => (isMobile ? '0.5rem 1rem' : '0.3rem 1rem')};
+      font-size: ${({ isMobile }) => (isMobile ? '14px' : undefined)};
       color: var(--color-white-80);
       cursor: pointer;
       transition: color 0.3s ease;
@@ -135,6 +168,15 @@ const S_Wrapper = styled.div<{ $show: boolean }>`
       color: white;
       background-color: var(--color-white-20);
     }
+  }
+  & img {
+    cursor: pointer;
+    width: ${({ isMobile }) => (isMobile ? '80px' : undefined)};
+  }
+  & svg {
+    font-size: ${({ isMobile }) => (isMobile ? '20px' : '25px')};
+    color: white;
+    cursor: pointer;
   }
 `;
 

@@ -31,7 +31,11 @@ function Header() {
           <Navigation />
         </div>
         <div>
-          {isMobile || <SearchBar />}
+          {isMobile || (
+            <S_Logo onClick={handleClick}>
+              <FiSearch />
+            </S_Logo>
+          )}
           <MemberMenu />
         </div>
       </S_Wrapper>
@@ -82,7 +86,7 @@ const S_Wrapper = styled.div`
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 770px) {
     padding: 0 20px;
   }
 `;

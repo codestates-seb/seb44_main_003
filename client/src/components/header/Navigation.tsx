@@ -48,14 +48,11 @@ const StyledNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 250px;
-  @media only screen and (max-width: 940px) {
-    position: absolute;
-    top: 70px;
-    left: 40px;
+  width: 230px;
+  @media only screen and (max-width: 770px) {
+    width: 180px;
   }
   @media only screen and (max-width: 600px) {
-    position: static;
     width: 80px;
   }
   > h1 {

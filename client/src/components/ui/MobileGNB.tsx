@@ -6,28 +6,53 @@ import { AiFillHome } from 'react-icons/ai';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { AiOutlineHeart } from 'react-icons/ai';
 import kuromi from '../../assets/profiles/kuhub.webp';
+import SearchBar from '../header/SearchBar';
 
 function MobileGNB() {
   const navigate = useNavigate();
-  const { openModal } = useModal();
+  const { openModal, closeModal, modalDataState } = useModal();
   const gnbItems = [
-    { name: '홈', icon: <AiFillHome />, onClick: () => navigate('/') },
-    { name: '검색', icon: <HiMagnifyingGlass />, onClick: () => {} },
+    {
+      name: '홈',
+      icon: <AiFillHome />,
+      onClick: () => {
+        if (modalDataState.isOpen) closeModal();
+        navigate('/');
+      },
+    },
+    {
+      name: '검색',
+      icon: <HiMagnifyingGlass />,
+      onClick: () => {
+        const content = modalDataState.content as JSX.Element;
+        if (modalDataState.isOpen && content.type.name === 'SearchBar')
+          closeModal();
+        else openModal({ content: <SearchBar /> });
+      },
+    },
     {
       name: '추천해조잉',
       icon: <img src={kuromi} />,
-      onClick: () => openModal({ content: <Recommend /> }),
+      onClick: () => {
+        const content = modalDataState.content as JSX.Element;
+        if (modalDataState.isOpen && content.type.name === 'RecommendModal')
+          closeModal();
+        else openModal({ content: <Recommend /> });
+      },
     },
     {
       name: '찜',
       icon: <AiOutlineHeart />,
-      onClick: () => navigate('/member?content=bookmarks'),
+      onClick: () => {
+        if (modalDataState.isOpen) closeModal();
+        navigate('/member?content=bookmarks');
+      },
     },
   ];
   return (
     <S_Wrapper>
       {gnbItems.map((item) => (
-        <li onClick={item.onClick}>
+        <li key={item.name} onClick={item.onClick}>
           {item.icon}
           <h1>{item.name}</h1>
         </li>
