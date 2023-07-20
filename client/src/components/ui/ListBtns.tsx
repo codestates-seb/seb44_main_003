@@ -54,7 +54,10 @@ const S_Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
-    padding-left: 32px;
+    padding-left: 20px;
+    .bar {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -76,13 +79,19 @@ const S_FlexTextBox = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 600px) {
-    margin-top: 10px;
+    margin-top: 20px;
   }
 `;
 
-const S_genre = styled.h1`
+const S_genre = styled.p`
   position: absolute;
   top: 100%;
   padding-top: 20px;
   color: var(--color-primary-gold);
+  font-size: 18px;
+  font-weight: bold;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+  }
 `;

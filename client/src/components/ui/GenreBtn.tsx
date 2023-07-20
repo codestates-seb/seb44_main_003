@@ -94,7 +94,7 @@ function GenreBtn() {
       >
         <h1>장르 검색</h1>
         {isMobile ? (
-          <IoIosArrowForward size={30} />
+          <IoIosArrowForward size={24} />
         ) : (
           <IoIosArrowDown size={30} />
         )}
@@ -155,6 +155,9 @@ const S_GenreBtn = styled.div<{ isMobile: boolean }>`
     `
     svg {
       margin: 0;
+    }
+    h1{
+      font-size:16px;
     }
   `}
 `;

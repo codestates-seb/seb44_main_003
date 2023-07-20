@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RxDoubleArrowUp, RxDoubleArrowDown } from 'react-icons/rx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { styled, keyframes } from 'styled-components';
 import 'swiper/css';
@@ -18,6 +19,7 @@ function MobileGenreModal({
   genre: string | null;
 }) {
   const [isMount, setIsMount] = useState(true);
+
   const navigate = useNavigate();
   const { closeModal } = useModal();
   let centeredSlideIndex = genres.findIndex((text) => text === genre);
@@ -46,16 +48,21 @@ function MobileGenreModal({
         <S_Swiper
           direction={'vertical'}
           slidesPerView={15}
-          spaceBetween={15}
           centeredSlides={true}
           initialSlide={centeredSlideIndex}
           className="mySwiper"
         >
+          <S_SwiperSlide className="arrow">
+            <S_RxDoubleArrowUp size={30} />
+          </S_SwiperSlide>
           {genres.map((genreText) => (
             <S_SwiperSlide onClick={() => handleClick(genreText)}>
               <h1 key={genreText}>{genreText}</h1>
             </S_SwiperSlide>
           ))}
+          <S_SwiperSlide className="arrow">
+            <S_RxDoubleArrowDown size={30} />
+          </S_SwiperSlide>
         </S_Swiper>
       </S_Modal>
     </S_Wrapper>
@@ -82,12 +89,40 @@ const slideOutAnimation = keyframes`
   }
 `;
 
+const moveUpAnimation = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+`;
+
+const moveDownAnimation = keyframes`
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+`;
+
 const S_Wrapper = styled.div`
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
+
+  svg {
+    color: white;
+  }
 `;
 
 const S_Modal = styled.aside<{ isMount: boolean }>`
@@ -98,6 +133,7 @@ const S_Modal = styled.aside<{ isMount: boolean }>`
   top: 0;
   width: 50vw;
   height: 100vh;
+  z-index: 1;
   background-color: var(--color-bg-80);
   animation: ${({ isMount }) =>
       isMount ? slideInAnimation : slideOutAnimation}
@@ -116,9 +152,28 @@ const S_Swiper = styled(Swiper)`
 
 const S_SwiperSlide = styled(SwiperSlide)`
   width: 100vw;
+  padding: 10px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   color: var(--color-white-60);
+
+  svg {
+    color: var(--color-white-60);
+  }
+
+  &.arrow {
+    cursor: auto;
+  }
+`;
+
+const S_RxDoubleArrowUp = styled(RxDoubleArrowUp)`
+  margin-bottom: 50px;
+  animation: ${moveUpAnimation} 1s infinite ease-out;
+`;
+
+const S_RxDoubleArrowDown = styled(RxDoubleArrowDown)`
+  margin-top: 50px;
+  animation: ${moveDownAnimation} 1s infinite ease-out;
 `;
