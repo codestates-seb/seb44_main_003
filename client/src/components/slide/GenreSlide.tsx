@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { GetTVData, GetMovieData } from '../../api/api';
 import { ContentData } from '../../types/types';
@@ -15,20 +15,20 @@ SwiperCore.use([Virtual, Navigation]);
 const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
   const [size, setSize] = useState(getSize());
+  const lastSlideRef = useRef<HTMLDivElement>(null);
 
-  function getSize() {
-    const width = window.innerWidth;
+  useEffect(() => {
+    const handleResize = () => {
+      setSize(getSize());
+    };
+    window.addEventListener('resize', handleResize);
 
-    if (width <= 480) {
-      return 6;
-    } else if (width <= 770) {
-      return 8;
-    } else if (width <= 1024) {
-      return 12;
-    } else {
-      return 14;
-    }
-  }
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
 
   const breakpoints = {
     0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
@@ -56,6 +56,43 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
       },
     }
   )
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage) {
+        fetchNextPage();
+      }
+    }, options);
+
+    if (lastSlideRef.current) {
+      observer.observe(lastSlideRef.current);
+    }
+
+    return () => {
+      if (lastSlideRef.current) {
+        observer.unobserve(lastSlideRef.current);
+      }
+    };
+  }, [fetchNextPage, hasNextPage]);
+
+  function getSize() {
+    const width = window.innerWidth;
+
+    if (width <= 480) {
+      return 6;
+    } else if (width <= 770) {
+      return 8;
+    } else if (width <= 1024) {
+      return 12;
+    } else {
+      return 14;
+    }
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -81,7 +118,7 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
 
   if (status === 'error') return <div>Error</div>;
   
-  if (status === 'success' && data.pages.length > 0) {
+  if (status === 'success' && data.pages[0].content.length > 0) {
     return (
       <>
         <S_GenreTitle>{genre}</S_GenreTitle>
@@ -100,17 +137,21 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
             navigation={true}
             watchOverflow={true}
             breakpoints={breakpoints}
-            // virtual
-            loop
+            virtual
+            // loop
           >
-            {data.pages.map((page) => (
-              <>
-                {page.content.map((item: ContentData) => (
-                  <S_SwiperSlide key={item.id}>
+            {data.pages.map((page, pageIndex) => (
+              <React.Fragment key={pageIndex}>
+                {page.content.map((item: ContentData, index) => (
+                  <S_SwiperSlide key={item.id} virtualIndex={index}>
                     <ItemCard item={item} />
                   </S_SwiperSlide>
                 ))}
-              </>
+                {/* Use the ref on the last slide */}
+                {pageIndex === data.pages.length - 1 && (
+                  <div ref={lastSlideRef} />
+                )}
+              </React.Fragment>
             ))}
           </S_Swiper>
         </S_SwiperBox>

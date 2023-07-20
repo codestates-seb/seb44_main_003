@@ -52,7 +52,7 @@ export const GetTVData = (
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
+      }/medias/tv?page=${page}&size=${size}&genre=${genre}`
     )
     .then((res) => res.data);
 
@@ -66,7 +66,7 @@ export const GetMovieData = (
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/movie?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
+      }/medias/movie?page=${page}&size=${size}&genre=${genre}`
     )
     .then((res) => res.data);
 
