@@ -13,13 +13,14 @@ function CommentSection() {
     queryKey: ['comments', id, page],
     queryFn: () => GetComments({ id, page }),
     refetchOnWindowFocus: false,
+    staleTime: 0,
+    cacheTime: 0,
   });
-
+  if (isLoading || isFetching) return <S_Loading />;
   if (isSuccess) {
     return (
       <S_Wrapper>
         <CommentForm />
-        {isLoading || (isFetching && <div className="loading-box" />)}
         <Comments data={data} page={page} setPage={setPage} />
       </S_Wrapper>
     );
@@ -27,13 +28,12 @@ function CommentSection() {
 }
 
 export default CommentSection;
-
 const S_Wrapper = styled.section`
   margin: 50px 0;
   padding: 0 30px;
   min-width: 400px;
   min-height: 300px;
-  & div.loading-box {
-    min-height: 800px;
-  }
+`;
+const S_Loading = styled.div`
+  height: 800px;
 `;
