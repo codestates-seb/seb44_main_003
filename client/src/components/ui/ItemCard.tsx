@@ -11,9 +11,7 @@ const ItemCard: React.FC<ItemProps> = ({ item }) => {
 
   return (
     <S_Wrapper onClick={() => navigate(`/content/${item.id}`)}>
-      <S_ItemBox>
-        <S_ItemImg src={item.mainPoster} alt={`${item.id}`} />
-      </S_ItemBox>
+      <S_ItemImg src={item.mainPoster} alt={`${item.id}`} />
       <S_ItemTitle>{item.title}</S_ItemTitle>
     </S_Wrapper>
   );
@@ -23,6 +21,8 @@ export default ItemCard;
 
 const S_Wrapper = styled.div`
   transition: transform 0.3s ease;
+  cursor: pointer;
+
   &:hover {
     transform: translateY(-15px);
 
@@ -31,8 +31,6 @@ const S_Wrapper = styled.div`
     }
   }
 `;
-
-const S_ItemBox = styled.div``;
 
 const S_ItemImg = styled.img`
   object-fit: cover;
