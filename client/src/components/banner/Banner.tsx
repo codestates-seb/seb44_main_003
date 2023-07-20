@@ -1,38 +1,62 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const Banner = ({ image }: { image: string }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
-    <S_ImageBox>
-      <S_BannerImage src={image} alt={image}/>
+    <S_Wrapper>
+      <S_SkeletonBox>
+        {!imageLoaded && <S_Skeleton />}
+      </S_SkeletonBox>
+      <S_BannerBox>
+        <S_BannerImage
+          src={image}
+          alt={image}
+          style={{ display: imageLoaded ? 'block' : 'none' }}
+          onLoad={handleImageLoad}
+        />
+      </S_BannerBox>
       <S_BlackLinear/>
-    </S_ImageBox>
+    </S_Wrapper>
   )
 }
 
 export default Banner;
 
-const S_ImageBox = styled.div`
+const S_Wrapper = styled.div`
   position: relative; 
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 660px;
+  height: 0;
+  padding-bottom: calc(7 / 16 * 100%);
+`;
 
-  @media only screen and (max-width: 1200px) {
-    height: 500px;
-  }
+const S_SkeletonBox = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
 
-  @media only screen and (max-width: 1024px) {
-    height: 350px;
-  }
-  
-  @media only screen and (max-width: 770px) {
-    height: 260px;
-  }
+const S_Skeleton = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-dropdown);
+`;
 
-  @media only screen and (max-width: 480px) {
-    height: 180px;
-  }
+const S_BannerBox = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const S_BannerImage = styled.img`
