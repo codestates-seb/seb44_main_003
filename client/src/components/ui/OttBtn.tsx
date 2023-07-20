@@ -125,4 +125,9 @@ const S_Ott = styled.img`
     filter: saturate(0);
     opacity: 0.8;
   }
+
+  @media only screen and (max-width: 600px) {
+    width: 32px;
+    height: 32px;
+  }
 `;

@@ -36,5 +36,5 @@ const S_Wrapper = styled.div`
 
 const S_BtnWrapper = styled.div`
   width: 100%;
-  padding: 130px 0px 60px;
+  padding: 80px 0px 60px;
 `;

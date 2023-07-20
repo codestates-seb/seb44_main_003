@@ -54,8 +54,7 @@ const S_Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 600px) {
-    padding-left: 32px;
-
+    padding-left: 20px;
     .bar {
       font-size: 16px;
     }
