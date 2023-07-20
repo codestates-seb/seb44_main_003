@@ -103,6 +103,11 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
                 fetchNextPage();
               }
             }}
+            // onSlideChange={() => {
+            //   if (hasNextPage) {
+            //     fetchNextPage();
+            //   }
+            // }}
             slidesPerView={6}
             slidesPerGroup={5}
             centeredSlides={false}
@@ -183,8 +188,8 @@ const S_Swiper = styled(Swiper)`
     }
 
     @media only screen and (max-width: 480px) {
-      padding: 0.55rem;
-      --swiper-navigation-size: 1rem;
+      padding: 0.8rem;
+      --swiper-navigation-size: 1.5rem;
     }
   }
   .swiper-button-prev {
