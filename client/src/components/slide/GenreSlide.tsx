@@ -98,6 +98,11 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
         <S_SwiperBox onClick={(e: React.MouseEvent) => handleNextPage(e)}>
           <S_Swiper
             onSwiper={setSwiperRef}
+            onReachEnd={() => {
+              if (hasNextPage) {
+                fetchNextPage();
+              }
+            }}
             slidesPerView={6}
             slidesPerGroup={5}
             centeredSlides={false}
