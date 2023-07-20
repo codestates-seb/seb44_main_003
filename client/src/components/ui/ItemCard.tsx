@@ -11,7 +11,9 @@ const ItemCard: React.FC<ItemProps> = ({ item }) => {
 
   return (
     <S_Wrapper onClick={() => navigate(`/content/${item.id}`)}>
-      <S_ItemImg src={item.mainPoster} alt={`${item.id}`} />
+      <div>
+        <S_ItemImg src={item.mainPoster} alt={`${item.id}`} />
+      </div>
       <S_ItemTitle>{item.title}</S_ItemTitle>
     </S_Wrapper>
   );
