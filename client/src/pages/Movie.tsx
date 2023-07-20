@@ -1,11 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Banner from '../components/banner/Banner';
+import BannerSlide from '../components/slide/BannerSlide';
 import GenreSlide from '../components/slide/GenreSlide';
-import image from '../assets/기적의형제.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
+import { BannerImgsType } from '../types/types'
+import bannerMovieImg1 from '../assets/banner_image/아바타 물의 길.webp';
+import bannerMovieImg2 from '../assets/banner_image/코코.webp';
+import bannerMovieImg3 from '../assets/banner_image/카운트.webp';
+import bannerMovieImg4 from '../assets/banner_image/암살.webp';
+import bannerMovieImg5 from '../assets/banner_image/기생충.webp';
 
 function Movie() {
   const [visibleGenres, setVisibleGenres] = useState<Array<string>>([]);
@@ -14,6 +19,34 @@ function Movie() {
     threshold: 0.1,
     triggerOnce: false,
   });
+
+  const bannerMovieImgs: BannerImgsType = [
+    {
+      name: bannerMovieImg1,
+      alt: '아바타 물의 길',
+      id: 109
+    },
+    {
+      name: bannerMovieImg2,
+      alt: '코코',
+      id: 326
+    },
+    {
+      name: bannerMovieImg3,
+      alt: '카운트',
+      id: 654
+    },
+    {
+      name: bannerMovieImg4,
+      alt: '암살',
+      id: 475
+    },
+    {
+      name: bannerMovieImg5,
+      alt: '기생충',
+      id: 201
+    },
+  ];
 
   const genres: string[] = [
     '액션',
@@ -66,7 +99,7 @@ function Movie() {
 
   return (
     <S_Wrapper>
-      <Banner image={image} />
+      <BannerSlide bannerImgs={bannerMovieImgs}/>
       <ListBtns />
       {visibleGenres.map((genre) => (
         <>
