@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { useModal } from '../../hooks/useModal';
@@ -88,9 +88,16 @@ function GenreBtn() {
 
   return (
     <GenreBtnContainer ref={genreBtnRef}>
-      <S_GenreBtn onClick={isMobile ? handleMobileClick : handleGenreClick}>
+      <S_GenreBtn
+        onClick={isMobile ? handleMobileClick : handleGenreClick}
+        isMobile={isMobile}
+      >
         <h1>장르 검색</h1>
-        <IoIosArrowDown size={30} />
+        {isMobile ? (
+          <IoIosArrowForward size={30} />
+        ) : (
+          <IoIosArrowDown size={30} />
+        )}
       </S_GenreBtn>
       {isMobile
         ? null
@@ -131,7 +138,7 @@ const GenreBtnContainer = styled.div`
   vertical-align: middle;
 `;
 
-const S_GenreBtn = styled.div`
+const S_GenreBtn = styled.div<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
   color: var(--color-white-80);
@@ -142,6 +149,14 @@ const S_GenreBtn = styled.div`
   h1 {
     font-size: 20px;
   }
+
+  ${({ isMobile }) =>
+    isMobile &&
+    `
+    svg {
+      margin: 0;
+    }
+  `}
 `;
 
 const S_LabelWrapper = styled.div`

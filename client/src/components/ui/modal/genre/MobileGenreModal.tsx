@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { styled, keyframes } from 'styled-components';
@@ -16,6 +17,7 @@ function MobileGenreModal({
   ott: string | null;
   genre: string | null;
 }) {
+  const [isMount, setIsMount] = useState(true);
   const navigate = useNavigate();
   const { closeModal } = useModal();
   let centeredSlideIndex = genres.findIndex((text) => text === genre);
@@ -23,17 +25,24 @@ function MobileGenreModal({
   const handleClick = (genre: string) => {
     centeredSlideIndex = genres.findIndex((text) => text === genre);
     if (path === '/tv' || path === '/movie') {
-      return navigate(`${path}/list?genre=${genre}`), closeModal();
+      return navigate(`${path}/list?genre=${genre}`);
     }
     let navigateUrl = `${path}?genre=${genre}${
       ott !== null ? `&ott=${ott}` : ''
     }`;
-    navigate(navigateUrl), closeModal();
+    navigate(navigateUrl);
+  };
+
+  const handleClickOutside = () => {
+    setIsMount(false);
+    setTimeout(() => {
+      closeModal();
+    }, 200);
   };
 
   return (
-    <S_Wrapper>
-      <S_Modal>
+    <S_Wrapper onClick={handleClickOutside}>
+      <S_Modal isMount={isMount}>
         <S_Swiper
           direction={'vertical'}
           slidesPerView={15}
@@ -64,21 +73,35 @@ const slideInAnimation = keyframes`
   }
 `;
 
-const S_Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  justify-content: flex-end;
+const slideOutAnimation = keyframes`
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
 `;
 
-const S_Modal = styled.aside`
+const S_Wrapper = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const S_Modal = styled.aside<{ isMount: boolean }>`
+  position: absolute;
   display: flex;
   justify-content: center;
+  right: 0;
+  top: 0;
   width: 50vw;
   height: 100vh;
   background-color: var(--color-bg-80);
-  animation: ${slideInAnimation} 0.5s ease-out;
+  animation: ${({ isMount }) =>
+      isMount ? slideInAnimation : slideOutAnimation}
+    0.3s ease-out;
 `;
 
 const S_Swiper = styled(Swiper)`
