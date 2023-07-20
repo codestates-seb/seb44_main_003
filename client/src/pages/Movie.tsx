@@ -24,27 +24,27 @@ function Movie() {
     {
       name: bannerMovieImg1,
       alt: '아바타 물의 길',
-      url: 'http://localhost:5173/content/109'
+      id: 109
     },
     {
       name: bannerMovieImg2,
       alt: '코코',
-      url: 'http://localhost:5173/content/326'
+      id: 326
     },
     {
       name: bannerMovieImg3,
       alt: '카운트',
-      url: 'http://localhost:5173/content/654'
+      id: 654
     },
     {
       name: bannerMovieImg4,
       alt: '암살',
-      url: 'http://localhost:5173/content/475'
+      id: 475
     },
     {
       name: bannerMovieImg5,
       alt: '기생충',
-      url: 'http://localhost:5173/content/201'
+      id: 201
     },
   ];
 

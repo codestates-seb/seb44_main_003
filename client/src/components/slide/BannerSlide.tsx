@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectFade, Pagination, Autoplay } from 'swiper';
@@ -9,7 +9,8 @@ import 'swiper/css/pagination';
 
 SwiperCore.use([EffectFade, Pagination, Autoplay]);
 
-const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, url: string }[] }) => {
+const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, id: number }[] }) => {
+  const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleImageLoad = () => {
@@ -33,14 +34,13 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, 
         >
           {bannerImgs.map((image, index) => (
             <SwiperSlide key={index}>
-              <S_BannerLink to={image.url}>
-                <S_BannerImage
-                  src={image.name}
-                  alt={image.alt}
-                  style={{ display: imageLoaded ? 'block' : 'none' }}
-                  onLoad={handleImageLoad}
-                />
-              </S_BannerLink>
+              <S_BannerImage
+                src={image.name}
+                alt={image.alt}
+                style={{ display: imageLoaded ? 'block' : 'none' }}
+                onLoad={handleImageLoad}
+                onClick={() => navigate(`/content/${image.id}`)}
+              />
             </SwiperSlide>
           ))}
           <S_BlackLinear/>
@@ -125,13 +125,6 @@ const S_SwiperBox = styled.div`
       bottom: calc(10px + 5px);
     }
   }
-`;
-
-const S_BannerLink = styled(Link)`
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
 `;
 
 const S_BannerImage = styled.img`

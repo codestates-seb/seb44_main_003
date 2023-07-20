@@ -26,27 +26,27 @@ function TV() {
     {
       name: bannerTvImg1,
       alt: '마당이 있는 집',
-      url: 'http://localhost:5173/content/4'
+      id: 4
     },
     {
       name: bannerTvImg2,
       alt: '최애의 아이',
-      url: 'http://localhost:5173/content/8'
+      id: 8
     },
     {
       name: bannerTvImg3,
       alt: '셀러브리티',
-      url: 'http://localhost:5173/content/59'
+      id: 59
     },
     {
       name: bannerTvImg4,
       alt: '킹더랜드',
-      url: 'http://localhost:5173/content/19'
+      id: 19
     },
     {
       name: bannerTvImg5,
       alt: '이번 생도 잘 부탁해',
-      url: 'http://localhost:5173/content/11'
+      id: 11
     },
   ];
 
