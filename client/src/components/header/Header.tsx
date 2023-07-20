@@ -5,10 +5,13 @@ import Navigation from './Navigation';
 import MemberMenu from './MemberMenu';
 import SearchBar from './SearchBar';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { FiSearch } from 'react-icons/fi';
+import { useModal } from '../../hooks/useModal';
 
 function Header() {
   const [position, setPosition] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
+  const { openModal } = useModal();
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
@@ -22,6 +25,9 @@ function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [position]);
+  const handleClick = () => {
+    openModal({ content: <SearchBar /> });
+  };
 
   return (
     <S_Header $visible={visible}>
@@ -31,7 +37,11 @@ function Header() {
           <Navigation />
         </div>
         <div>
-          {isMobile || <SearchBar />}
+          {isMobile || (
+            <S_Logo onClick={handleClick}>
+              <FiSearch />
+            </S_Logo>
+          )}
           <MemberMenu />
         </div>
       </S_Wrapper>
@@ -58,7 +68,6 @@ const S_Header = styled.header<{ $visible: boolean }>`
   z-index: 1000;
   transition: transform 0.5s ease;
 `;
-
 const S_Wrapper = styled.div`
   margin-top: 15px;
   position: absolute;
@@ -82,7 +91,16 @@ const S_Wrapper = styled.div`
     }
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 770px) {
     padding: 0 20px;
+  }
+`;
+const S_Logo = styled.button`
+  color: var(--color-white-60);
+  font-size: 20px;
+  right: 8px;
+  transition: color 0.3s ease;
+  &:hover {
+    color: white;
   }
 `;
