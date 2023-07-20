@@ -27,7 +27,7 @@ const S_Wrapper = styled.div`
     transform: translateY(-15px);
 
     @media only screen and (max-width: 480px) {
-      transform: translateY(-10px);
+      transform: translateY(0px);
     }
   }
 `;
