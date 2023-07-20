@@ -30,18 +30,17 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, 
             disableOnInteraction: false,
           }}
           loop={true}
-          className="mySwiper"
         >
           {bannerImgs.map((image, index) => (
             <SwiperSlide key={index}>
-              <Link to={image.url}>
+              <S_BannerLink to={image.url}>
                 <S_BannerImage
                   src={image.name}
                   alt={image.alt}
                   style={{ display: imageLoaded ? 'block' : 'none' }}
                   onLoad={handleImageLoad}
                 />
-              </Link>
+              </S_BannerLink>
             </SwiperSlide>
           ))}
           <S_BlackLinear/>
@@ -83,6 +82,7 @@ const S_SwiperBox = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
+  cursor: pointer;
 
   .swiper {
     width: 100%;
@@ -127,13 +127,20 @@ const S_SwiperBox = styled.div`
   }
 `;
 
+const S_BannerLink = styled(Link)`
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+`;
+
 const S_BannerImage = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
   min-width: 0;
   min-height: 0;
-  z-index: 0; 
+  z-index: 0;
 `;
 
 const S_BlackLinear = styled.div`
@@ -147,4 +154,12 @@ const S_BlackLinear = styled.div`
   );
   bottom: 0;
   z-index: 1;
+  
+  @media only screen and (max-width: 1024px) {
+    height: 100px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    height: 50px;
+  }
 `
