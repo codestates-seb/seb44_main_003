@@ -3,9 +3,13 @@ import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import UserProfile from './UserProfile';
 import LoginSignup from './LoginSignup';
 
-function MemberMenu() {
+function MemberMenu({ position }: { position: number }) {
   const isLoggedIn = useIsLoggedIn();
-  return <S_Nav>{isLoggedIn ? <UserProfile /> : <LoginSignup />}</S_Nav>;
+  return (
+    <S_Nav>
+      {isLoggedIn ? <UserProfile /> : <LoginSignup position={position} />}
+    </S_Nav>
+  );
 }
 
 export default MemberMenu;

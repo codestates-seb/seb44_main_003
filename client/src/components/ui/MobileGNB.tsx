@@ -82,7 +82,7 @@ const S_Wrapper = styled.ul`
     justify-content: end;
   }
   & h1 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
   }
   & svg {

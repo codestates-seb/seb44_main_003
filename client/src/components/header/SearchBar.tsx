@@ -68,14 +68,16 @@ function SearchBar() {
         <FaXmark onClick={reset} />
       </div>
       <div>
-        <S_Input
-          type="text"
-          value={userInput}
-          onChange={handleChange}
-          onKeyUp={handleKeyUp}
-          placeholder="제목, 인물명으로 검색해보세요."
-          autoFocus
-        />
+        <label>
+          <S_Input
+            type="text"
+            value={userInput}
+            onChange={handleChange}
+            onKeyUp={handleKeyUp}
+            placeholder="제목, 인물명으로 검색해보세요."
+            autoFocus
+          />
+        </label>
         <FiSearch onClick={handleClick} />
       </div>
       {data && !!data.length && (
@@ -100,6 +102,7 @@ function SearchBar() {
 export default SearchBar;
 
 const S_Wrapper = styled.div<{ isMobile: boolean }>`
+  max-width: 1500px;
   height: ${({ isMobile }) => (isMobile ? '100vh' : '300px')};
   width: 100%;
   position: absolute;
@@ -122,7 +125,7 @@ const S_Wrapper = styled.div<{ isMobile: boolean }>`
     > svg {
       position: absolute;
       cursor: pointer;
-      right: 20px;
+      right: 10px;
       top: 27px;
     }
   }
@@ -131,7 +134,6 @@ const S_Wrapper = styled.div<{ isMobile: boolean }>`
     background-color: var(--color-bg-100);
     margin-top: -1px;
     padding-top: 0.5rem;
-    border-radius: 0 0 1rem 1rem;
     z-index: 3;
     > li {
       width: 100%;
@@ -157,16 +159,20 @@ const S_Wrapper = styled.div<{ isMobile: boolean }>`
     color: white;
     cursor: pointer;
   }
+  & label {
+    border-bottom: 2px solid white;
+    padding: 5px 0;
+  }
 `;
 
 const S_Input = styled.input`
+  width: 100%;
   margin-top: 20px;
   border: none;
-  border-bottom: 2px solid white;
-  width: 100%;
+  /* border-bottom: 2px solid white; */
   height: 42px;
-  padding: 2px 10px;
+  padding: 0 10px;
   font-size: 17px;
-  background: rgba(217, 217, 217, 0);
+  background: transparent;
   color: var(--color-white-60);
 `;

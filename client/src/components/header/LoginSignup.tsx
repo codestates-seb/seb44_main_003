@@ -1,12 +1,23 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { SCROLL_Y_SECTION_1 } from '../../constant/constantValue';
 
-function LoginSignup() {
+function LoginSignup({ position }: { position: number }) {
   const navigate = useNavigate();
   return (
     <S_Wrapper>
-      <S_Button onClick={() => navigate('/login')}>login</S_Button>
-      <S_Button onClick={() => navigate('/signup')}>signup</S_Button>
+      <S_Button
+        className={position >= SCROLL_Y_SECTION_1 ? 'solid' : undefined}
+        onClick={() => navigate('/login')}
+      >
+        login
+      </S_Button>
+      <S_Button
+        className={position >= SCROLL_Y_SECTION_1 ? 'solid' : undefined}
+        onClick={() => navigate('/signup')}
+      >
+        signup
+      </S_Button>
     </S_Wrapper>
   );
 }
@@ -33,6 +44,9 @@ const S_Button = styled.button`
   background-color: #d9d9d933;
   backdrop-filter: blur(3px);
   transition: all 0.3s ease;
+  &.solid {
+    background-color: var(--color-bg-100);
+  }
   &:hover {
     background-color: var(--color-white-60);
     border: 1px solid white;

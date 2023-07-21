@@ -75,6 +75,10 @@ const S_Wrapper = styled.div`
     justify-content: space-between;
     height: 570px;
   }
+  @media only screen and (max-width: 480px) {
+    padding-top: 50px;
+    height: 450px;
+  }
   & img {
     position: absolute;
     top: 0;
