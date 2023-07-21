@@ -95,6 +95,10 @@ const S_Wrapper = styled.div`
     opacity: 0.2;
     z-index: -1;
     animation: appear 1.5s linear -0.5s;
+    @media only screen and (max-width: 600px) {
+      width: 900px;
+      height: 900px;
+    }
   }
   > div.banner {
     display: flex;
@@ -118,6 +122,9 @@ const S_Wrapper = styled.div`
       font-size: 30px;
       margin-bottom: 15px;
       animation: appear 1.5s linear -0.3s;
+      @media only screen and (max-width: 600px) {
+        animation: mobile-appear 1s linear -0.3s;
+      }
       @media only screen and (max-width: 1024px) {
         font-size: 23px;
       }
@@ -140,10 +147,23 @@ const S_Wrapper = styled.div`
       -webkit-background-clip: text;
       font-size: 80px;
       animation: appear 1.5s linear -0.1s;
+      @media only screen and (max-width: 600px) {
+        animation: mobile-appear 1s linear -0.1s;
+      }
       @keyframes appear {
         from {
           filter: brightness(0);
           transform: translate(0, 80px);
+        }
+        to {
+          filter: brightness(1);
+          transform: translate(0, 0);
+        }
+      }
+      @keyframes mobile-appear {
+        from {
+          filter: brightness(0);
+          transform: translate(0, 40px);
         }
         to {
           filter: brightness(1);
