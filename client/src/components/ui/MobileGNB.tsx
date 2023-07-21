@@ -7,9 +7,14 @@ import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { AiOutlineHeart } from 'react-icons/ai';
 import kuromi from '../../assets/profiles/kuhub.webp';
 import SearchBar from '../header/SearchBar';
+import { useResetRecoilState } from 'recoil';
+import { recommendedContentsState } from '../../recoil/atoms/Atoms';
 
 function MobileGNB() {
   const navigate = useNavigate();
+  const resetRecommendedContents = useResetRecoilState(
+    recommendedContentsState
+  );
   const { openModal, closeModal, modalDataState } = useModal();
   const gnbItems = [
     {
@@ -37,7 +42,10 @@ function MobileGNB() {
         const content = modalDataState.content as JSX.Element;
         if (modalDataState.isOpen && content.type.name === 'RecommendModal')
           closeModal();
-        else openModal({ content: <Recommend /> });
+        else {
+          openModal({ content: <Recommend /> });
+          resetRecommendedContents();
+        };
       },
     },
     {
