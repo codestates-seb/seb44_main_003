@@ -33,16 +33,26 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         try {
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
+        } catch (ExpiredJwtException ee) {
+            String refreshToken = request.getHeader("Refresh");
+            if (refreshToken != null) {
+                try {
+                    String username = ee.getClaims().getSubject();
+                    jwtTokenizer.validateRefreshToken(refreshToken, username);
+
+                } catch (ExpiredJwtException e) {
+                    throw new ServletException("Refresh token expired");
+                }
+            }
         } catch (SignatureException se) {
             request.setAttribute("exception", se);
-        } catch (ExpiredJwtException ee) {
-            request.setAttribute("exception", ee);
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }
-
         filterChain.doFilter(request, response);
     }
+
+
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

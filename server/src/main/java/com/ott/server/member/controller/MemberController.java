@@ -125,6 +125,7 @@ public class MemberController {
     @GetMapping
     public ResponseEntity getMember(
             Authentication authentication) {
+        System.out.println("^%^$^%^$"+authentication.getPrincipal().toString());
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
         return new ResponseEntity<>(

@@ -67,6 +67,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'io.lettuce:lettuce-core:6.2.4.RELEASE'
+
 
 }
 

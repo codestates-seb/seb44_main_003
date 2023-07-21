@@ -80,9 +80,13 @@ public class SearchService {
         SearchSession searchSession = Search.session(entityManager);
 
         SearchQuery<Media> query = searchSession.search(Media.class)
-                .where(f -> f.match()
-                        .field("title")
-                        .matching(titleFragment))
+                .where(f -> f.bool()
+                        .should(f.match()
+                                .field("title")
+                                .matching(titleFragment))
+                        .should(f.match()
+                                .field("cast")
+                                .matching(titleFragment)))
                 .toQuery();
 
         List<Media> mediaList = query.fetchHits((int) pageable.getOffset(), pageable.getPageSize());
@@ -93,6 +97,7 @@ public class SearchService {
 
         return titles;
     }
+
 
 
 
