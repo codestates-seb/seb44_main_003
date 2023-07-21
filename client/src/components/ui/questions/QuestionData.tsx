@@ -1,20 +1,26 @@
 export const questionList = [
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kuroming.svg',
+    characterImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kuroming.svg',
     characterName: 'kuroming',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/firstQ.webp',
+    questionImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/firstQ.webp',
     questionText: '어떤 OTT 서비스를 이용하고 계신가요?',
   },
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kongdami.svg',
+    characterImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kongdami.svg',
     characterName: 'kongdami',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/secondQ.webp',
+    questionImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/secondQ.webp',
     questionText: 'TV 프로그램과 영화 중 어떤 것을 추천 받고 싶으신가요?',
   },
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg',
+    characterImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg',
     characterName: 'beehappy',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/thirdQ.webp',
+    questionImage:
+      'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/thirdQ.webp',
     questionText: '어떤 장르를 즐겨보시나요?',
   },
 ];
@@ -22,22 +28,23 @@ export const questionList = [
 export const ottServices = [
   {
     name: '넷플릭스',
-    ottname: 'netfilx',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/netflix.svg' },
+    ottname: 'netflix',
+    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/netflix.svg',
+  },
   {
     name: '디즈니+',
-    ottname: 'disney',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/disney.svg'
+    ottname: 'disney plus',
+    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/disney.svg',
   },
   {
     name: '왓챠',
     ottname: 'watcha',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/watcha.svg'
+    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/watcha.svg',
   },
   {
     name: '웨이브',
     ottname: 'wavve',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/wavve.svg'
+    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/wavve.svg',
   },
 ];
 
@@ -71,45 +78,45 @@ export const genres = [
 
 export const noContentTitle = {
   name: 'noContentTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/noContentText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/noContentText.webp',
+};
 
 export const nicknameTitle = {
   name: 'nicknameTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nicknameText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nicknameText.webp',
+};
 
 export const recommendTitle = {
   name: 'recommendTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendText.webp',
+};
 
 export const moveAgainBtn = {
   name: 'again',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/againBtnText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/againBtnText.webp',
+};
 
 export const moveNextBtn = {
   name: 'next',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nextBtnText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nextBtnText.webp',
+};
 
 export const moveSignupBtn = {
   name: 'signup',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/signupBtnText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/signupBtnText.webp',
+};
 
 export const moveRecommendBtn = {
   name: 'signup',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendBtnText.webp'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendBtnText.webp',
+};
 
 export const beehappy = {
   name: 'beehappy',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg',
+};
 
 export const beesad = {
   name: 'beesad',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beesad.svg'
-}
+  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beesad.svg',
+};

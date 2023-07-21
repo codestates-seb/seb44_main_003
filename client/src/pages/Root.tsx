@@ -11,11 +11,11 @@ import useMediaQuery from '../hooks/useMediaQuery';
 function Root() {
   const isMobile = useMediaQuery('(max-width:600px)');
   const currentToken = useLoaderData();
-  // useEffect(() => {
-  //   if (currentToken === 'EXPIRED') {
-  //     logout();
-  //   }
-  // }, [currentToken]);
+  useEffect(() => {
+    if (currentToken === 'EXPIRED') {
+      logout();
+    }
+  }, [currentToken]);
   return (
     <S_Root>
       <Header />

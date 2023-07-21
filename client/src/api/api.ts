@@ -11,7 +11,6 @@ import {
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
-import useTokens from '../hooks/useTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
@@ -36,14 +35,13 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 500) {
-      useTokens(error.response);
       const headers = error.response.headers;
       const accessToken = headers.authorization;
       const refreshToken = headers.refresh;
       if (accessToken) {
         localStorage.setItem('token', accessToken);
         const expiration = new Date();
-        expiration.setMinutes(expiration.getMinutes() + 30);
+        expiration.setMinutes(expiration.getMinutes() + 86400);
         localStorage.setItem('expiration', expiration.toISOString());
       }
       if (refreshToken) {
