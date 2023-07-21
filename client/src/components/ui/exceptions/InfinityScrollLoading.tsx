@@ -47,7 +47,6 @@ export function InfinityScrollLoading({ path }: { path: string }) {
 }
 
 const S_LoadingWrap = styled.div`
-  width: calc(100vw - 40px);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
