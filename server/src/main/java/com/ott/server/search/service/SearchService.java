@@ -84,10 +84,10 @@ public class SearchService {
                         .should(f.match()
                                 .field("title")
                                 .matching(titleFragment))
-                        .should(f.match()
-                                .field("cast")
-                                .matching(titleFragment)))
-                .toQuery();
+                    .toQuery();
+      //                              .should(f.match()
+      //                              .field("cast")
+      //                              .matching(titleFragment)))
 
         List<Media> mediaList = query.fetchHits((int) pageable.getOffset(), pageable.getPageSize());
 
