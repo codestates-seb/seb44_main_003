@@ -42,7 +42,7 @@ function Header() {
               <FiSearch />
             </S_Logo>
           )}
-          <MemberMenu />
+          <MemberMenu position={position} />
         </div>
       </S_Wrapper>
     </S_Header>
@@ -52,31 +52,28 @@ function Header() {
 export default Header;
 
 const S_Header = styled.header<{ $visible: boolean }>`
-  transform: ${(props) =>
-    props.$visible ? undefined : 'translate(0, -120px)'};
-  visibility: ${(props) => (props.$visible ? undefined : 'hidden')};
+  transform: ${(props) => (props.$visible ? undefined : 'translate(0, -80px)')};
   display: flex;
   justify-content: center;
   width: 100%;
   top: 0;
   position: sticky;
-  background: linear-gradient(
-    180deg,
-    rgba(20, 24, 31, 0.49) 0%,
-    rgba(20, 24, 31, 0) 100%
-  );
   z-index: 1000;
   transition: transform 0.5s ease;
 `;
 const S_Wrapper = styled.div`
-  margin-top: 15px;
   position: absolute;
   max-width: 1500px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 15px 60px 0 60px;
   width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 24, 31, 0.49) 0%,
+    rgba(20, 24, 31, 0) 100%
+  );
   > div {
     display: flex;
     flex-direction: row;
@@ -92,7 +89,7 @@ const S_Wrapper = styled.div`
   }
 
   @media only screen and (max-width: 770px) {
-    padding: 0 20px;
+    padding: 15px 20px 0 20px;
   }
 `;
 const S_Logo = styled.button`
