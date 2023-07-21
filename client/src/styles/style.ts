@@ -24,8 +24,7 @@ export const S_Root = styled.div`
 
 /* ----- Wrapper Root-Main ----- */
 export const S_Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  margin: 0 auto;
   flex-grow: 1;
   overflow-x: hidden;
 `;
@@ -116,7 +115,7 @@ export const S_Modal = styled.div`
     font-size: 22px;
     font-weight: 400;
     color: var(--color-white-80);
-    
+
     @media only screen and (max-width: 600px) {
       font-size: 16px;
     }

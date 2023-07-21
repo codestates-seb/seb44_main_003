@@ -53,8 +53,11 @@ const S_Wrapper = styled.div`
     margin-right: 15px;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 770px) {
     padding-left: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
     .bar {
       font-size: 16px;
     }
