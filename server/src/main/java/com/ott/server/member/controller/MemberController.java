@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -125,12 +126,16 @@ public class MemberController {
     @GetMapping
     public ResponseEntity getMember(
             Authentication authentication) {
+
+        Authentication debugAuth = SecurityContextHolder.getContext().getAuthentication();
+
         String email = authentication.getPrincipal().toString();
         Member member = memberService.findMemberByEmail(email);
         return new ResponseEntity<>(
                 memberMapper.memberToMemberResponse(member)
                 , HttpStatus.OK);
     }
+
 
     @DeleteMapping
     public ResponseEntity deleteMember(

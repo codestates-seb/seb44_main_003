@@ -1,12 +1,15 @@
 package com.ott.server.auth.jwt;
 
+import com.ott.server.RedisService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +21,8 @@ import java.util.Map;
 
 @Component
 public class JwtTokenizer {
+
+    private RedisService redisService;
     @Getter
     @Value("${jwt.key}")
     private String secretKey;
@@ -29,6 +34,54 @@ public class JwtTokenizer {
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
+
+    public JwtTokenizer(RedisService redisService) {
+        this.redisService = redisService;
+    }
+
+//    public String generateRefreshToken(String subject) {
+//        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+//
+//        Date expirationDate = new Date(System.currentTimeMillis() + refreshTokenExpirationMinutes * 60 * 1000);
+//
+//        return Jwts.builder()
+//                .setSubject(subject)
+//                .setIssuedAt(new Date())
+//                .setExpiration(expirationDate)
+//                .signWith(key)
+//                .compact();
+//    }
+
+//    public Jws<Claims> validateRefreshToken(String token) {
+//        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+//        return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+//    }
+
+
+    public Jws<Claims> validateRefreshToken(String token, String username) {
+        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+        Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+
+        String storedRefreshToken = redisService.get(username);
+        if (!token.equals(storedRefreshToken)) {
+            throw new ExpiredJwtException(null, null, "Refresh token is not valid");
+        }
+
+        return claims;
+    }
+
+    public String delegateRefreshToken(String username) {
+        String subject = username;
+        Date expiration = this.getTokenExpiration(this.getRefreshTokenExpirationMinutes());
+        String base64EncodedSecretKey = this.encodeBase64SecretKey(this.getSecretKey());
+
+        String refreshToken = this.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        redisService.set(username, refreshToken, refreshTokenExpirationMinutes);
+
+        return refreshToken;
+    }
+
 
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
