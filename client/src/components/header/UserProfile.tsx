@@ -4,7 +4,7 @@ import { GetUser } from '../../api/api';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import Dropdown from './Dropdown';
+import Dropdown, { logout } from './Dropdown';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 function UserProfile() {
@@ -37,7 +37,7 @@ function UserProfile() {
   if (error instanceof Error)
     return (
       <S_ProfileWrapper>
-        <BiError />
+        <BiError onClick={logout} />
       </S_ProfileWrapper>
     );
 

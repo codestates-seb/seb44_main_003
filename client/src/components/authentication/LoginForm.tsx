@@ -57,7 +57,7 @@ function LoginForm() {
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           const expiration = new Date();
-          expiration.setMinutes(expiration.getMinutes() + 86400);
+          expiration.setMinutes(expiration.getMinutes() + 30);
           localStorage.setItem('expiration', expiration.toISOString());
         }
         if (refreshToken) {
