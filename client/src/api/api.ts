@@ -11,22 +11,55 @@ import {
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
-
-const accessToken = localStorage.getItem('token');
+import useTokens from '../hooks/useTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: accessToken,
   },
 });
 
 instance.interceptors.request.use((config) => {
-  config.headers.Authorization = accessToken || '';
-  return config;
+  const newConfig = { ...config };
+  const accessToken = localStorage.getItem('token');
+  const refresh = localStorage.getItem('refresh');
+  newConfig.headers.Authorization = accessToken;
+  newConfig.headers.Refresh = refresh;
+  return newConfig;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 500) {
+      useTokens(error.response);
+      const headers = error.response.headers;
+      const accessToken = headers.authorization;
+      const refreshToken = headers.refresh;
+      if (accessToken) {
+        localStorage.setItem('token', accessToken);
+        const expiration = new Date();
+        expiration.setMinutes(expiration.getMinutes() + 30);
+        localStorage.setItem('expiration', expiration.toISOString());
+      }
+      if (refreshToken) {
+        localStorage.setItem('refresh', refreshToken);
+      }
+      const originalRequestConfig = error.config;
+      const newAccess = localStorage.getItem('token');
+      const newRefresh = localStorage.getItem('refresh');
+      originalRequestConfig.headers['Authorization'] = newAccess;
+      originalRequestConfig.headers['refresh'] = newRefresh;
+
+      return axios(originalRequestConfig);
+    }
+    return Promise.reject(error);
+  }
+);
 
 /* 유저 정보 가져오기 */
 export const GetUser = (): Promise<NewMember> =>
@@ -171,13 +204,15 @@ export const GetUserReviews = (page: number): Promise<CommentData> =>
     .then((res) => res.data);
 
 /* 유저 프로필 사진 업로드 */
-export const PostUserProfile = (data: FormData) =>
-  axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
+export const PostUserProfile = (data: FormData) => {
+  const accessToken = localStorage.getItem('token');
+  return axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
     headers: {
       Authorization: accessToken,
       'Content-Type': 'multipart/form-data',
     },
   });
+};
 
 /* 관리자 미디어 생성 */
 export const AdminPostData = (mediaData: AddData) =>

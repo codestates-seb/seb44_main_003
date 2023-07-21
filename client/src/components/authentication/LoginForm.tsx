@@ -52,13 +52,16 @@ function LoginForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        /* todo: refreshToken 구현되면 accessToken은 변수로만 저장 */
         const accessToken = data.headers.authorization;
+        const refreshToken = data.headers.refresh;
         if (accessToken) {
           localStorage.setItem('token', accessToken);
           const expiration = new Date();
-          expiration.setMinutes(expiration.getMinutes() + 30);
+          expiration.setMinutes(expiration.getMinutes() + 1);
           localStorage.setItem('expiration', expiration.toISOString());
+        }
+        if (refreshToken) {
+          localStorage.setItem('refresh', refreshToken);
         }
         window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
       }
