@@ -198,12 +198,6 @@ const S_Wrapper = styled.div`
 const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-  /* @media only screen and (max-width: 800px) {
-    transform: translate(-200px, 65px);
-  }
-  @media only screen and (max-width: 480px) {
-    transform: translate(-100px, 35px);
-  } */
   > button {
     width: 130px;
     height: 36px;
@@ -211,7 +205,7 @@ const S_Div = styled.div`
     border: 1px solid #fff;
     flex-shrink: 0;
     margin-left: 15px;
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 600px) {
       width: 100px;
       height: 30px;
     }
@@ -223,7 +217,7 @@ const S_Div = styled.div`
       height: 36px;
       border-radius: 5px;
       border: 1px solid #fff;
-      @media only screen and (max-width: 480px) {
+      @media only screen and (max-width: 600px) {
         width: 100px;
         height: 30px;
       }

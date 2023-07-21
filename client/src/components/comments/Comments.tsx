@@ -72,7 +72,6 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
-  padding: 0 30px;
   @media only screen and (max-width: 480px) {
     padding: 0 10px;
   }

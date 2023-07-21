@@ -26,7 +26,7 @@ const S_main = styled.main`
     animation: backgroundChange 1.2s ease;
     z-index: -1;
     @media only screen and (max-width: 600px) {
-      transform: scale(6);
+      transform: translate(-50%, 50%) scale(6);
       animation: mediaBackgroundChange 1.2s ease;
     }
     @keyframes backgroundChange {
