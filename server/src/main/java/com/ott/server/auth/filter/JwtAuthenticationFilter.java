@@ -38,22 +38,23 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         return authenticationManager.authenticate(authenticationToken);
     }
-
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult) throws ServletException, IOException {
+                                            Authentication authResult) throws IOException, ServletException {
         Member member = (Member) authResult.getPrincipal();
 
         String accessToken = delegateAccessToken(member);
-        String refreshToken = delegateRefreshToken(member);
+        String refreshToken = jwtTokenizer.delegateRefreshToken(member.getEmail());
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);  // 추가
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
+
+
 
     private String delegateAccessToken(Member member) {
         Map<String, Object> claims = new HashMap<>();

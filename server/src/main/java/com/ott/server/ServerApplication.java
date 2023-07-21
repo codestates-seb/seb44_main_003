@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
@@ -34,6 +35,8 @@ import javax.persistence.EntityManager;
 @EnableCaching
 @EnableElasticsearchRepositories(basePackages = "com.ott.server.media.repository.elastic")
 public class ServerApplication {
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
