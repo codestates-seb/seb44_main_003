@@ -31,7 +31,8 @@ const S_Wrapper = styled.div`
   border-radius: 10px;
   color: var(--color-white-80);
   @media only screen and (max-width: 480px) {
-    width: 360px;
+    width: 90vw;
+    min-width: fit-content;
   }
   & form {
     display: flex;

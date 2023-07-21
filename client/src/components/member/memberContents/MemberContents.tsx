@@ -43,7 +43,6 @@ export default MemberContents;
 
 const S_Wrapper = styled.div`
   margin-top: 100px;
-  padding: 0 40px;
   color: var(--color-white-60);
   > ul {
     display: flex;

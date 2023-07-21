@@ -35,15 +35,11 @@ const S_Wrapper = styled.div`
   flex-wrap: wrap;
   width: 100%;
   max-width: 1500px;
-  padding: 0 10px;
-  @media only screen and (max-width: 480px) {
-    justify-content: center;
-  }
   > div {
     width: 213px;
-    margin: 20px 10px;
-    @media only screen and (max-width: 480px) {
-      width: 150px;
+    margin: 20px 5px;
+    @media only screen and (max-width: 600px) {
+      width: calc(100% / 3 - 10px);
     }
   }
 `;
