@@ -49,7 +49,7 @@ function MobileGenreModal({
           direction={'vertical'}
           slidesPerView={15}
           centeredSlides={true}
-          initialSlide={centeredSlideIndex}
+          initialSlide={centeredSlideIndex + 1}
           className="mySwiper"
         >
           <S_SwiperSlide className="arrow">
