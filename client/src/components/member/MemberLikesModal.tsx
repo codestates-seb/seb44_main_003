@@ -15,7 +15,7 @@ const ottList = [
   { name: '디즈니플러스', value: 'Disney Plus' },
   { name: '왓챠', value: 'Watcha' },
 ];
-const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
+const longName = ['애니메이션'];
 
 function MemberLikesModal() {
   const [error, setError] = useState<string | null>(null);
