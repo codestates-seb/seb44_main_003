@@ -36,5 +36,10 @@ const S_Wrapper = styled.div`
 
 const S_BtnWrapper = styled.div`
   width: 100%;
-  padding: 80px 0px 60px;
+  padding: 130px 0px 60px;
+
+  @media only screen and (max-width: 480px) {
+    padding: 80px 0 60px 0;
+    font-size: 16px;
+  }
 `;

@@ -204,12 +204,9 @@ const S_Section = styled.section<{ backgroundimage: string }>`
     z-index: -1;
   }
 
-  @media only screen and (max-width: 940px) {
-    margin-top: 140px;
-  }
-
-  @media only screen and (max-width: 720px) {
-    padding: 0 60px;
+  @media only screen and (max-width: 770px) {
+    margin: 50px 0;
+    padding: 0 20px;
     .main-flex {
       display: flex;
       flex-direction: column;
@@ -224,10 +221,6 @@ const S_Section = styled.section<{ backgroundimage: string }>`
       flex-direction: column;
     }
   }
-
-  @media only screen and (max-width: 600px) {
-    padding: 0 30px;
-  }
 `;
 
 const S_Content = styled.div`
@@ -236,7 +229,7 @@ const S_Content = styled.div`
   justify-content: space-between;
   margin-top: 50px;
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -250,9 +243,8 @@ const S_Title = styled.div`
     animation: ${fadeInMoveDown} 0.5s ease-out;
   }
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     align-self: center;
-    margin-bottom: 20px;
   }
 `;
 
@@ -268,7 +260,7 @@ const S_TextTitle = styled.h1`
   position: relative;
   animation: ${fadeInMoveDown} 0.5s ease-out;
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     justify-content: center;
   }
 `;
@@ -305,7 +297,7 @@ const S_TitleFont = styled.div`
     opacity: 0.8;
   }
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     width: 100%;
     p {
       font-size: 16px;
@@ -343,7 +335,7 @@ const S_Poster = styled.div`
     border-radius: 10px;
   }
 
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     align-self: center;
   }
 `;
@@ -354,7 +346,7 @@ const S_Text = styled.p`
   line-height: 1.6;
   font-size: 19px;
   font-weight: 400;
-  @media only screen and (max-width: 720px) {
+  @media only screen and (max-width: 770px) {
     margin: 25px 0;
     font-size: 16px;
   }

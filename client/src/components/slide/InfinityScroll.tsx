@@ -92,7 +92,11 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
   }, []);
 
   if (status === 'loading') {
-    return <InfinityScrollLoading path={path} />;
+    return (
+      <S_FlexWrap>
+        <InfinityScrollLoading path={path} />
+      </S_FlexWrap>
+    );
   }
 
   if (status === 'error') return <div>Error</div>;
@@ -154,42 +158,36 @@ const S_FlexWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding-left: 20px;
+  padding: 0 60px;
 
   .target {
     width: 100vw;
     height: 10px;
   }
 
-  @media only screen and (max-width: 1500px) {
-    margin: 0;
+  @media only screen and (max-width: 770px) {
+    padding: 0 20px;
   }
 `;
 
 const S_Item = styled.div<ItemProps>`
-  width: calc(100% / ${({ size }) => size / 4} - 18px);
-  margin: 0 0 50px 15px;
-
-  @media only screen and (max-width: 1500px) {
-    width: calc(100% / ${({ size }) => size / 4} - 17px);
-    margin: ${({ index }) =>
-      index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
-  }
+  width: calc((100% - 75px) / ${({ size }) => size / 4});
+  margin: ${({ index }) => (index % 6 === 0 ? '0 0 30px 0' : '0 15px 30px 0')};
 
   @media only screen and (max-width: 1024px) {
-    width: calc(100% / ${({ size }) => size / 4} - 16px);
+    width: calc((100% - 60px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
   }
 
   @media only screen and (max-width: 770px) {
-    width: calc(100% / ${({ size }) => size / 4} - 13px);
+    width: calc((100% - 30px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
 
   @media only screen and (max-width: 480px) {
-    width: calc(100% / ${({ size }) => size / 4} - 13px);
+    width: calc((100% - 20px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
@@ -200,6 +198,11 @@ const S_Text = styled.p`
   font-size: 30px;
   font-weight: bold;
   color: var(--color-white-80);
+
+  @media only screen and (max-width: 480px) {
+    padding: 80px 0 40px 0;
+    font-size: 16px;
+  }
 `;
 
 const S_NoContents = styled.div`

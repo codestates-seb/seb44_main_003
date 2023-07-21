@@ -17,8 +17,8 @@ const S_main = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   > img {
     position: fixed;
     transform: translate(-50%, 50%) scale(3.7);
