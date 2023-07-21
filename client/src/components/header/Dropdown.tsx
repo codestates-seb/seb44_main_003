@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction } from 'react';
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('expiration');
+  localStorage.removeItem('refresh');
   location.reload();
 };
 
