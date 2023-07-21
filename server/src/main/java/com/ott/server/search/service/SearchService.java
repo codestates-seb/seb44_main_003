@@ -83,7 +83,7 @@ public class SearchService {
                 .where(f -> f.bool()
                         .should(f.match()
                                 .field("title")
-                                .matching(titleFragment))
+                                .matching(titleFragment)))
                     .toQuery();
       //                              .should(f.match()
       //                              .field("cast")
