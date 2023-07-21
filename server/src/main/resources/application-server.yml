@@ -93,7 +93,7 @@ mail:
 jwt:
   key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 1
-  refresh-token-expiration-minutes: 2
+  refresh-token-expiration-minutes: 5
 
 cloud:
   aws:
