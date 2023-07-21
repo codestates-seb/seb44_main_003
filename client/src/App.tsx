@@ -19,7 +19,6 @@ import List from './pages/List';
 import Error from './pages/Error';
 import Admin from './pages/Admin';
 import './App.css';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter([
   {
@@ -104,7 +103,6 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <GlobalStyle />
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
   );
