@@ -63,7 +63,7 @@ const S_Wrapper = styled.nav`
   border: 1px solid var(--color-dropdown-stroke);
   border-radius: 5px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
-  top: 50px;
+  top: 60px;
   right: 10px;
   @media only screen and (max-width: 480px) {
     width: 170px;
