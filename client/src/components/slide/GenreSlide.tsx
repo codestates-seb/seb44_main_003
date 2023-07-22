@@ -19,11 +19,11 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
   function getSize() {
     const width = window.innerWidth;
 
-    if (width <= 480) {
-      return 6;
-    } else if (width <= 770) {
+    if (width < 770) {
       return 8;
-    } else if (width <= 1024) {
+    } else if (width < 1024) {
+      return 10;
+    } else if (width < 1200) {
       return 12;
     } else {
       return 14;
@@ -32,7 +32,6 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
 
   const breakpoints = {
     0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
-    480: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
     770: { slidesPerView: 4, slidesPerGroup: 3, spaceBetween: 14 },
     1024: { slidesPerView: 5, slidesPerGroup: 4, spaceBetween: 16 },
     1200: { slidesPerView: 6, slidesPerGroup: 5, spaceBetween: 18 }
@@ -103,11 +102,6 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
                 fetchNextPage();
               }
             }}
-            // onSlideChange={() => {
-            //   if (hasNextPage) {
-            //     fetchNextPage();
-            //   }
-            // }}
             slidesPerView={6}
             slidesPerGroup={5}
             centeredSlides={false}
@@ -143,10 +137,6 @@ const S_SwiperBox = styled.div`
   width: 100%;
 
   @media only screen and (max-width: 770px) {
-    padding: 0px 2rem;
-  }
-
-  @media only screen and (max-width: 480px) {
     padding: 0px 1.25rem;
   }
 `;
@@ -192,25 +182,19 @@ const S_Swiper = styled(Swiper)`
       --swiper-navigation-size: 1.5rem;
     }
   }
+
   .swiper-button-prev {
     left: -3.75rem;
 
     @media only screen and (max-width: 770px) {
-      left: -2rem;
-    }
-
-    @media only screen and (max-width: 480px) {
       left: -1.25rem;
     }
   }
+
   .swiper-button-next {
     right: -3.75rem;
 
     @media only screen and (max-width: 770px) {
-      right: -2rem;
-    }
-
-    @media only screen and (max-width: 480px) {
       right: -1.25rem;
     }
   }
@@ -238,12 +222,11 @@ const S_LoadingBox = styled.div`
   padding: 0px 3.75rem;
 
   @media only screen and (max-width: 770px) {
-    padding: 0px 2rem;
+    padding: 0px 1.25rem;
   }
 
   @media only screen and (max-width: 480px) {
     margin-top: 10px;
-    padding: 0px 1.25rem;
   }
 `;
 
@@ -255,11 +238,6 @@ const S_GenreTitle = styled.h2`
   font-weight: 700;
 
   @media only screen and (max-width: 770px) {
-    margin: 25px 0 5px 0;
-    padding: 0px 2rem;
-  }
-
-  @media only screen and (max-width: 480px) {
     margin: 25px 0 5px 0;
     padding: 0px 1.25rem;
   }

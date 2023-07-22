@@ -106,7 +106,7 @@ function Movie() {
           <GenreSlide genre={genre} path='movie' />
         </>
       ))}
-      <div ref={ref} className="target"></div>
+      <div ref={ref} className="target" />
     </S_Wrapper>
   );
 }

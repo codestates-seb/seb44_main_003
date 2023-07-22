@@ -12,8 +12,6 @@ import bannerTvImg3 from '../assets/banner_image/셀러브리티.webp';
 import bannerTvImg4 from '../assets/banner_image/킹더랜드.webp';
 import bannerTvImg5 from '../assets/banner_image/이번 생도 잘 부탁해.webp';
 
-
-
 function TV() {
   const [visibleGenres, setVisibleGenres] = useState<Array<string>>([]);
   const currentIndex = useRef(4);
@@ -108,7 +106,7 @@ function TV() {
           <GenreSlide genre={genre} path='tv' />
         </>
       ))}
-      <div ref={ref} className="target"></div>
+      <div ref={ref} className="target" />
     </S_Wrapper>
   );
 }
