@@ -185,6 +185,13 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
     filter: none;
     opacity: 1;
   }
+  
+  @media (hover: hover) {
+    &:hover {
+      background-image: url(${beehappy.text});
+      filter: brightness(100%);
+    }
+  }
 
   @media only screen and (max-width: 480px) {
     margin-right: 0px;
