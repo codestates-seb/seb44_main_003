@@ -102,9 +102,7 @@ function Movie() {
       <BannerSlide bannerImgs={bannerMovieImgs}/>
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <>
-          <GenreSlide genre={genre} path='movie' />
-        </>
+        <GenreSlide key={`movie-${genre}`} genre={genre} path='movie' />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>

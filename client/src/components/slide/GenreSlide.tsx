@@ -114,7 +114,7 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
             {data.pages.map((page) => (
               <>
                 {page.content.map((item: ContentData) => (
-                  <S_SwiperSlide key={item.id}>
+                  <S_SwiperSlide key={`${genre}-${item.id}`}>
                     <ItemCard item={item} />
                   </S_SwiperSlide>
                 ))}
