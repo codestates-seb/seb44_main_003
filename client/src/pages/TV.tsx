@@ -102,9 +102,7 @@ function TV() {
       <BannerSlide bannerImgs={bannerTvImgs}/>
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <>
-          <GenreSlide genre={genre} path='tv' />
-        </>
+        <GenreSlide key={`tv-${genre}`} genre={genre} path='tv' />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>
