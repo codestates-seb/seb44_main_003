@@ -20,21 +20,21 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
     const width = window.innerWidth;
 
     if (width < 770) {
-      return 8;
-    } else if (width < 1024) {
-      return 10;
-    } else if (width < 1200) {
       return 12;
+    } else if (width < 1024) {
+      return 16;
+    } else if (width < 1200) {
+      return 20;
     } else {
-      return 14;
+      return 24;
     }
   }
 
   const breakpoints = {
-    0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
-    770: { slidesPerView: 4, slidesPerGroup: 3, spaceBetween: 14 },
-    1024: { slidesPerView: 5, slidesPerGroup: 4, spaceBetween: 16 },
-    1200: { slidesPerView: 6, slidesPerGroup: 5, spaceBetween: 18 }
+    0: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 10 },
+    770: { slidesPerView: 4, slidesPerGroup: 4, spaceBetween: 14 },
+    1024: { slidesPerView: 5, slidesPerGroup: 5, spaceBetween: 16 },
+    1200: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 18 }
   };
 
   const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
