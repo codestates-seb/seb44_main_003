@@ -158,8 +158,10 @@ const S_CategoryIcon = styled.img`
     opacity: 1;
   }
 
-  &:hover {
-    filter: brightness(100%);
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(100%);
+    }
   }
 
   @media only screen and (max-width: 770px) {
