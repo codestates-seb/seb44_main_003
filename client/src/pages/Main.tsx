@@ -4,6 +4,7 @@ import { useSearchParams, useLoaderData } from 'react-router-dom';
 import { useEffect } from 'react';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { scrollToTop } from '../utils/scrollToTop.ts';
+import { useTokens } from '../hooks/useTokens.ts';
 
 function Main() {
   const isLoggedIn = useIsLoggedIn();
@@ -12,12 +13,7 @@ function Main() {
   const refreshToken = searchParams.get('refresh_token');
   const currentToken = useLoaderData();
   if (!isLoggedIn && accessToken) {
-    localStorage.setItem('token', accessToken);
-    const expiration = new Date();
-    expiration.setMinutes(expiration.getMinutes() + 30);
-    localStorage.setItem('expiration', expiration.toISOString());
-    if (refreshToken)
-      document.cookie = `refreshToken=${refreshToken}; path=/; HttpOnly; Secure; SameSite=None`;
+    useTokens(accessToken, refreshToken);
     window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
   }
 
