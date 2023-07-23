@@ -76,28 +76,24 @@ export const DeleteUser = () => instance.delete('/members');
 /* TV 데이터 가져오기 */
 export const GetTVData = (
   genre: string,
-  size: number,
-  page: number
 ): Promise<ItemData> =>
   axios
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/tv?page=${page}&size=${size}&genre=${genre}`
+      }/medias/tv?genre=${genre}`
     )
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
 export const GetMovieData = (
   genre: string,
-  size: number,
-  page: number
 ): Promise<ItemData> =>
   axios
     .get(
       `${
         import.meta.env.VITE_BASE_URL
-      }/medias/movie?page=${page}&size=${size}&genre=${genre}`
+      }/medias/movie?genre=${genre}`
     )
     .then((res) => res.data);
 
