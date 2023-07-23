@@ -6,6 +6,7 @@ import { Login } from '../../api/api';
 import { LoginInfo } from '../../types/types';
 import { AxiosError } from 'axios';
 import { useTokens } from '../../hooks/useTokens';
+import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -54,6 +55,9 @@ function LoginForm() {
     onSuccess(data) {
       if (data.status === 200) {
         useTokens(data.headers.authorization, data.headers.refresh);
+        const expiration = new Date();
+        expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
+        localStorage.setItem('expiration', expiration.toISOString());
         window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
       }
     },
