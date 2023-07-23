@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
 import { GetTVData, GetMovieData } from '../../api/api';
 import { ContentData } from '../../types/types';
 import ItemCard from '../ui/ItemCard';
@@ -16,16 +16,23 @@ const breakpoints = {
   0: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 10 },
   770: { slidesPerView: 4, slidesPerGroup: 4, spaceBetween: 14 },
   1024: { slidesPerView: 5, slidesPerGroup: 5, spaceBetween: 16 },
-  1200: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 18 }
+  1200: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 18 },
 };
 
-const GenreSlider = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
+const GenreSlider = ({
+  genre,
+  path,
+}: {
+  genre: string;
+  path: 'tv' | 'movie';
+}) => {
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
-    queryKey: path === 'tv' ? ['tvGenreSlide', genre] : ['movieGenreSlide', genre],
-    queryFn: () => path === 'tv'? GetTVData(genre) : GetMovieData(genre),
-  })
+    queryKey:
+      path === 'tv' ? ['tvGenreSlide', genre] : ['movieGenreSlide', genre],
+    queryFn: () => (path === 'tv' ? GetTVData(genre) : GetMovieData(genre)),
+  });
 
   if (isLoading) {
     return (
@@ -35,11 +42,11 @@ const GenreSlider = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => 
           <SliderLoading />
         </S_LoadingBox>
       </>
-    )
+    );
   }
 
   if (error instanceof Error) return <div>Error</div>;
-  
+
   if (isSuccess && data.content.length > 0) {
     return (
       <>
