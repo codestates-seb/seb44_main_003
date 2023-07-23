@@ -132,7 +132,7 @@ const S_Wrapper = styled.div`
   justify-content: space-around;
   margin: 0 30px;
   @media only screen and (max-width: 600px) {
-    margin-top: 15px;
+    margin: 15px 0 0 0;
   }
   > h1 {
     display: flex;
@@ -157,7 +157,7 @@ const S_Wrapper = styled.div`
       width: 200px;
       padding: 5px;
       border-radius: 5px;
-      @media only screen and (max-width: 700px) {
+      @media only screen and (max-width: 770px) {
         display: block;
         margin-bottom: 10px;
       }
@@ -182,13 +182,13 @@ const S_Wrapper = styled.div`
     }
     > p {
       margin: 10px 0;
-      @media only screen and (min-width: 800px) {
+      @media only screen and (min-width: 770px) {
         display: inline;
       }
     }
     > span {
       margin: 0 3px;
-      @media only screen and (max-width: 800px) {
+      @media only screen and (max-width: 770px) {
         display: none;
       }
     }

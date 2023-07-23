@@ -21,5 +21,6 @@ const S_Wrapper = styled.div`
   @media only screen and (max-width: 600px) {
     flex-direction: column;
     align-items: center;
+    margin-top: 100px;
   }
 `;
