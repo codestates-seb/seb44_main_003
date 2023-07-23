@@ -18,7 +18,7 @@ const S_main = styled.main`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: 100vh;
   > img {
     position: fixed;
     transform: translate(-50%, 50%) scale(3.7);
