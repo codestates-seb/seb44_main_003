@@ -1,6 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+@font-face {
+  font-family: 'cookieRun';
+  src: url('./assets/fonts/CookieRunRegular.otf');
+}
+
+@font-face {
+  font-family: 'inter';
+  src: url('./assets/fonts/Inter-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -10,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-  /* font-family: 'inter', sans-serif; */
+  font-family: 'inter', sans-serif;
   background-color: var(--color-bg-100);
   width: 100vw;
   height: 100vh;
@@ -35,18 +48,6 @@ textarea {
 textarea:focus, input:focus {
   outline: none;
 }
-
-@font-face {
-  font-family: 'cookieRun';
-  src: url('./assets/fonts/CookieRunRegular.otf');
-}
-/* 
-@font-face {
-  font-family: 'inter';
-  src: url('./assets/fonts/Inter-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-} */
 
 .lds-ellipsis {
   display: inline-block;
