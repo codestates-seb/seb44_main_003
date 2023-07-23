@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BannerSlide from '../components/slide/BannerSlide';
-import GenreSlide from '../components/slide/GenreSlide';
+// import GenreSlide from '../components/slide/GenreSlide';
+import GenreSlide from '../components/slide/GenreSlider';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
@@ -12,6 +13,56 @@ import bannerTvImg3 from '../assets/banner_image/셀러브리티.webp';
 import bannerTvImg4 from '../assets/banner_image/킹더랜드.webp';
 import bannerTvImg5 from '../assets/banner_image/이번 생도 잘 부탁해.webp';
 
+const bannerTvImgs: BannerImgsType = [
+  {
+    name: bannerTvImg1,
+    alt: '마당이 있는 집',
+    id: 4
+  },
+  {
+    name: bannerTvImg2,
+    alt: '최애의 아이',
+    id: 8
+  },
+  {
+    name: bannerTvImg3,
+    alt: '셀러브리티',
+    id: 59
+  },
+  {
+    name: bannerTvImg4,
+    alt: '킹더랜드',
+    id: 19
+  },
+  {
+    name: bannerTvImg5,
+    alt: '이번 생도 잘 부탁해',
+    id: 11
+  },
+];
+
+const genres: string[] = [
+  '액션',
+  '드라마',
+  'SF',
+  '스릴러',
+  '애니메이션',
+  '코미디',
+  '가족',
+  '판타지',
+  '로맨스',
+  '공포',
+  '범죄',
+  '스포츠',
+  '음악',
+  'Made in Europe',
+  'Reality TV',
+  '역사',
+  '다큐멘터리',
+  '전쟁',
+  '서부'
+];
+
 function TV() {
   const [visibleGenres, setVisibleGenres] = useState<Array<string>>([]);
   const currentIndex = useRef(4);
@@ -19,56 +70,6 @@ function TV() {
     threshold: 0.1,
     triggerOnce: false,
   });
-
-  const bannerTvImgs: BannerImgsType = [
-    {
-      name: bannerTvImg1,
-      alt: '마당이 있는 집',
-      id: 4
-    },
-    {
-      name: bannerTvImg2,
-      alt: '최애의 아이',
-      id: 8
-    },
-    {
-      name: bannerTvImg3,
-      alt: '셀러브리티',
-      id: 59
-    },
-    {
-      name: bannerTvImg4,
-      alt: '킹더랜드',
-      id: 19
-    },
-    {
-      name: bannerTvImg5,
-      alt: '이번 생도 잘 부탁해',
-      id: 11
-    },
-  ];
-
-  const genres: string[] = [
-    '액션',
-    '드라마',
-    'SF',
-    '스릴러',
-    '애니메이션',
-    '코미디',
-    '가족',
-    '판타지',
-    '로맨스',
-    '공포',
-    '범죄',
-    '스포츠',
-    '음악',
-    'Made in Europe',
-    'Reality TV',
-    '역사',
-    '다큐멘터리',
-    '전쟁',
-    '서부'
-  ];
 
   useEffect(() => {
     const genreSlice = genres.slice(0, currentIndex.current);
