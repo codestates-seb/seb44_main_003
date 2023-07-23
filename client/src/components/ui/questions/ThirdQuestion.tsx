@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import RecommendBtn from '../MoveBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
 import { questionList, genres, moveNextBtn, beehappy, beesad} from './QuestionData';
@@ -60,7 +60,7 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
               </S_GenreBox>
             ))}
           </S_GenreList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
             btnText={moveNextBtn.text}
