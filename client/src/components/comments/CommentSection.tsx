@@ -30,9 +30,11 @@ function CommentSection() {
 export default CommentSection;
 const S_Wrapper = styled.section`
   margin: 50px 0;
-  padding: 0 30px;
-  min-width: 400px;
+  padding: 0 60px;
   min-height: 300px;
+  @media only screen and (max-width: 770px) {
+    padding: 0 20px;
+  }
 `;
 const S_Loading = styled.div`
   height: 800px;
