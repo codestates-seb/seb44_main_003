@@ -29,9 +29,12 @@ const S_Button = styled.button`
   height: 50px;
   z-index: 9999;
   position: fixed;
-  bottom: 60px;
-  right: 60px;
+  bottom: 5%;
+  right: 5%;
   background-color: var(--color-white-60);
   color: var(--color-bg-100);
   border-radius: 50%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
