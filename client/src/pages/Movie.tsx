@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BannerSlide from '../components/slide/BannerSlide';
-// import GenreSlide from '../components/slide/GenreSlide';
-import GenreSlide from '../components/slide/GenreSlider';
+import GenreSlide from '../components/slide/GenreSlide';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
