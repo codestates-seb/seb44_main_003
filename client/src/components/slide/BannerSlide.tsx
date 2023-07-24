@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 
 SwiperCore.use([EffectFade, Pagination, Autoplay]);
 
-const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, id: number }[] }) => {
+const BannerSlide = ({ bannerImgs }: { bannerImgs: { url: string, alt: string, id: number }[] }) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -35,7 +35,7 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { name: string, alt: string, 
           {bannerImgs.map((image, index) => (
             <SwiperSlide key={index}>
               <S_BannerImage
-                src={image.name}
+                src={image.url}
                 alt={image.alt}
                 style={{ display: imageLoaded ? 'block' : 'none' }}
                 onLoad={handleImageLoad}

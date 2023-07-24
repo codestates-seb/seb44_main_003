@@ -6,35 +6,30 @@ import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
 import { BannerImgsType } from '../types/types'
-import bannerMovieImg1 from '../assets/banner_image/아바타 물의 길.webp';
-import bannerMovieImg2 from '../assets/banner_image/코코.webp';
-import bannerMovieImg3 from '../assets/banner_image/카운트.webp';
-import bannerMovieImg4 from '../assets/banner_image/암살.webp';
-import bannerMovieImg5 from '../assets/banner_image/기생충.webp';
 
 const bannerMovieImgs: BannerImgsType = [
   {
-    name: bannerMovieImg1,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/아바타 물의 길.webp`,
     alt: '아바타 물의 길',
     id: 109
   },
   {
-    name: bannerMovieImg2,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/코코.webp`,
     alt: '코코',
     id: 326
   },
   {
-    name: bannerMovieImg3,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/카운트.webp`,
     alt: '카운트',
     id: 654
   },
   {
-    name: bannerMovieImg4,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/암살.webp`,
     alt: '암살',
     id: 475
   },
   {
-    name: bannerMovieImg5,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/기생충.webp`,
     alt: '기생충',
     id: 201
   },

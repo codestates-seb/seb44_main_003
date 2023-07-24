@@ -6,35 +6,30 @@ import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
 import { BannerImgsType } from '../types/types'
-import bannerTvImg1 from '../assets/banner_image/마당이 있는 집.webp';
-import bannerTvImg2 from '../assets/banner_image/최애의 아이.webp';
-import bannerTvImg3 from '../assets/banner_image/셀러브리티.webp';
-import bannerTvImg4 from '../assets/banner_image/킹더랜드.webp';
-import bannerTvImg5 from '../assets/banner_image/이번 생도 잘 부탁해.webp';
 
 const bannerTvImgs: BannerImgsType = [
   {
-    name: bannerTvImg1,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/마당이 있는 집.webp`,
     alt: '마당이 있는 집',
     id: 4
   },
   {
-    name: bannerTvImg2,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/최애의 아이.webp`,
     alt: '최애의 아이',
     id: 8
   },
   {
-    name: bannerTvImg3,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/셀러브리티.webp`,
     alt: '셀러브리티',
     id: 59
   },
   {
-    name: bannerTvImg4,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/킹더랜드.webp`,
     alt: '킹더랜드',
     id: 19
   },
   {
-    name: bannerTvImg5,
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/이번 생도 잘 부탁해.webp`,
     alt: '이번 생도 잘 부탁해',
     id: 11
   },
