@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { PostUserProfile } from '../../../api/api';
 import { styled } from 'styled-components';
-import preview from '../../../assets/profiles/preview.svg';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
 import useMediaQuery from '../../../hooks/useMediaQuery';
@@ -70,7 +69,12 @@ function ImgUpload() {
       {isUnder600 ? (
         <div>
           <div className="previewBox">
-            <img src={imgPreview || preview} />
+            <img
+              src={
+                imgPreview ||
+                `${import.meta.env.VITE_IMAGE_URL}/profiles/preview.svg`
+              }
+            />
           </div>
           <label htmlFor="img" className="upload">
             <AiOutlineUpload /> 파일 올리기
@@ -100,7 +104,12 @@ function ImgUpload() {
             />
           </div>
           <div className="previewBox">
-            <img src={imgPreview || preview} />
+            <img
+              src={
+                imgPreview ||
+                `${import.meta.env.VITE_IMAGE_URL}/profiles/preview.svg`
+              }
+            />
           </div>
         </div>
       )}

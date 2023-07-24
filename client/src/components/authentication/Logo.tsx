@@ -1,10 +1,12 @@
-import logoImg from '../../assets/logo/logo_yellow.svg';
 import { styled } from 'styled-components';
 
 function Logo() {
   return (
     <S_Wrapper>
-      <img src={logoImg} alt="yellow logo" />
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/logo/logo_yellow.svg`}
+        alt="메인 로고"
+      />
     </S_Wrapper>
   );
 }

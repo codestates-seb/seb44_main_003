@@ -1,7 +1,4 @@
 import { styled } from 'styled-components';
-import google from '../../assets/social_login/google_login.svg';
-import naver from '../../assets/social_login/naver_login.svg';
-import kakao from '../../assets/social_login/kakao_login.svg';
 
 function SocialLogin({ isLoginPage }: { isLoginPage: boolean }) {
   return (
@@ -11,13 +8,28 @@ function SocialLogin({ isLoginPage }: { isLoginPage: boolean }) {
         <a
           href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/google`}
         >
-          <img src={google} alt="google login" />
+          <img
+            src={`${
+              import.meta.env.VITE_IMAGE_URL
+            }/social_login/google_login.svg`}
+            alt="구글 로그인"
+          />
         </a>
         <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/naver`}>
-          <img src={naver} alt="naver login" />
+          <img
+            src={`${
+              import.meta.env.VITE_IMAGE_URL
+            }/social_login/naver_login.svg`}
+            alt="네이버 로그인"
+          />
         </a>
         <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`}>
-          <img src={kakao} alt="kakao login" />
+          <img
+            src={`${
+              import.meta.env.VITE_IMAGE_URL
+            }/social_login/kakao_login.svg`}
+            alt="카카오 로그인"
+          />
         </a>
       </div>
     </S_Wrapper>
