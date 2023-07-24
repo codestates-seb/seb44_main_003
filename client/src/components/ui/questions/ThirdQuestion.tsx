@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres, moveNextBtn, beehappy, beesad} from './QuestionData';
+import { questionList, genres, moveResultBtn, beehappy, beesad} from './QuestionData';
 import { Question } from '../../../types/types';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
@@ -63,8 +63,8 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
           <MoveBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
-            btnText={moveNextBtn.text}
-            btnAlt={moveNextBtn.name}
+            btnText={moveResultBtn.text}
+            btnAlt={moveResultBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
