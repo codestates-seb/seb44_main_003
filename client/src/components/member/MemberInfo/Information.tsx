@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
 import { useQueryClient } from '@tanstack/react-query';
-import { logout } from '../../header/Dropdown';
 import { useModal } from '../../../hooks/useModal';
 import MemberLikesModal from '../MemberLikesModal';
 import { useNavigate } from 'react-router-dom';
@@ -53,7 +52,10 @@ function Information() {
 
   const mutationDelete = useMutation(DeleteUser, {
     onSuccess: () => {
-      logout();
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
+      localStorage.removeItem('refresh');
+      navigate('/');
       notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
     },
   });
