@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import { NewMember, LoginInfo } from '../../types/types';
 import { useTokens } from '../../hooks/useTokens';
 import { notifyWithIcon } from '../../utils/notify';
+import { useNavigate } from 'react-router-dom';
 
 export const profileImgs = [
   'kongdami',
@@ -31,6 +32,7 @@ function SignupForm() {
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [signupError, setSignupError] = useState<string | null>(null);
   const randomNum = Math.floor(Math.random() * 6);
+  const navigate = useNavigate();
 
   const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -113,7 +115,7 @@ function SignupForm() {
     onSuccess(data) {
       if (data.status === 200) {
         useTokens(data.headers.authorization, data.headers.refresh);
-        window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
+        navigate('/');
       }
     },
   });
