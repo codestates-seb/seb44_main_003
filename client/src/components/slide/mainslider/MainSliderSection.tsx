@@ -1,15 +1,44 @@
 import MainSlider from './MainSlider';
 import styled from 'styled-components';
-import Netflix from '../../../assets/ott/netflix_m.webp';
-import Watcha from '../../../assets/ott/watcha_m.webp';
-import Disney_Plus from '../../../assets/ott/disney_m.webp';
-import Wavve from '../../../assets/ott/wavve_m.webp';
 
 const ottList = [
-  { ottName: 'Netflix', img: <img src={Netflix} /> },
-  { ottName: 'Disney Plus', img: <img src={Disney_Plus} className="disney" /> },
-  { ottName: 'Watcha', img: <img src={Watcha} /> },
-  { ottName: 'Wavve', img: <img src={Wavve} /> },
+  {
+    ottName: 'Netflix',
+    img: (
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/netflix_m.webp`}
+        alt="넷플릭스 로고"
+      />
+    ),
+  },
+  {
+    ottName: 'Disney Plus',
+    img: (
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/disney_m.webp`}
+        alt="디즈니 로고"
+        className="disney"
+      />
+    ),
+  },
+  {
+    ottName: 'Watcha',
+    img: (
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/watcha_m.webp`}
+        alt="왓챠 로고"
+      />
+    ),
+  },
+  {
+    ottName: 'Wavve',
+    img: (
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/wavve_m.webp`}
+        alt="웨이브 로고"
+      />
+    ),
+  },
 ];
 
 const MainSliderSection = () => {

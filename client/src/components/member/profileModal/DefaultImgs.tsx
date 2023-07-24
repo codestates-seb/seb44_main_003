@@ -5,7 +5,6 @@ import { PatchUser } from '../../../api/api';
 import { NewMember } from '../../../types/types';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
-import profileAdd from '../../../assets/profiles/profileAdd.svg';
 
 function DefaultImgs({
   setIsUploading,
@@ -31,14 +30,17 @@ function DefaultImgs({
         {profileImgs.map((profile, index) => (
           <img
             key={index}
-            src={`https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profile}.png`}
+            src={`${import.meta.env.VITE_IMAGE_URL}/${profile}.png`}
             alt={profile}
             onClick={handleClick}
           />
         ))}
       </S_ImgDiv>
       <div className="add">
-        <img src={profileAdd} onClick={() => setIsUploading(true)} />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/profiles/profileAdd.svg`}
+          onClick={() => setIsUploading(true)}
+        />
         <p>프로필 추가</p>
       </div>
     </S_Wrapper>

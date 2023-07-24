@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import mainImg from '../../assets/main_background.webp';
 import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
 import { PiMagicWandFill } from 'react-icons/pi';
@@ -13,7 +12,10 @@ function MainBanner() {
   const { openModal } = useModal();
   return (
     <S_Wrapper>
-      <img src={mainImg} />
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/main_background.webp`}
+        alt="메인 배경"
+      />
       <S_BlackLinear />
       <div className="banner">
         <div>

@@ -1,12 +1,14 @@
 import { styled } from 'styled-components';
-import logo from '../../assets/logo/logo_white.webp';
 import { useNavigate } from 'react-router-dom';
 
 function MainLogo() {
   const navigate = useNavigate();
   return (
     <S_Wrapper onClick={() => navigate('/')}>
-      <img src={logo} alt="main logo" />
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/logo/logo_white.webp`}
+        alt="메인 로고"
+      />
     </S_Wrapper>
   );
 }
