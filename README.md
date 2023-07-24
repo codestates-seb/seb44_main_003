@@ -71,10 +71,29 @@ https://joying.vercel.app
 - top 버튼
 
 **BE 백순우**
+- AWS 배포
+- CodePipeline 배포 자동화
+- SSL 인증서 적용
+- 데이터 크롤링
+- 리포트 CRUD
 
 **BE 이상협**
+- 미디어 CRUD
+- 리뷰 CRUD
+- 추천 CRUD
+- Elastic search
+- Hibernate search
 
 **BE 이재익**
+- Spring Security
+- JWT
+- 일반 로그인 / 회원 가입
+- 구글 OAuth
+- 카카오 OAuth
+- 네이버 OAuth
+- 찜 CRUD
+- 멤버 CRUD
+
 
 </div>
 </details>
