@@ -7,6 +7,7 @@ import { LoginInfo } from '../../types/types';
 import { AxiosError } from 'axios';
 import { useTokens } from '../../hooks/useTokens';
 import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -16,6 +17,8 @@ function LoginForm() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -58,7 +61,7 @@ function LoginForm() {
         const expiration = new Date();
         expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
         localStorage.setItem('expiration', expiration.toISOString());
-        window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
+        navigate('/');
       }
     },
     onError(error: AxiosError) {

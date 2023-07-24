@@ -53,8 +53,8 @@ function Information() {
 
   const mutationDelete = useMutation(DeleteUser, {
     onSuccess: () => {
-      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
       logout();
+      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
     },
   });
 
