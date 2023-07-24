@@ -57,7 +57,7 @@ public class SearchController {
 
     @GetMapping("/autocomplete")
     public ResponseEntity autocomplete(@RequestParam String q,
-                                       @RequestParam(defaultValue = "10") int limit){
+                                       @RequestParam(defaultValue = "5") int limit){
         try {
             Pageable pageable = PageRequest.of(0, limit);
             List<String> titles = searchService.autocomplete(q, pageable);
