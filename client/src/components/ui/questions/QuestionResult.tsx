@@ -55,8 +55,8 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
       <S_LoadMore>
         <p className="loadmore">Loading . . .</p>
         <img
-          src={`${import.meta.env.VITE_IMAGE_URL}/exception/nocontents.svg`}
-          alt="컨텐츠없음"
+          src={`${import.meta.env.VITE_IMAGE_URL}/exception/loadmore.webp`}
+          alt="다미 로딩스피너"
         />
       </S_LoadMore>
     );

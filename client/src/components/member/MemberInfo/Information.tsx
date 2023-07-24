@@ -11,6 +11,7 @@ import { logout } from '../../header/Dropdown';
 import { useModal } from '../../../hooks/useModal';
 import MemberLikesModal from '../MemberLikesModal';
 import { useNavigate } from 'react-router-dom';
+import { notifyError, notifyWithIcon } from './../../../utils/notify';
 
 function Information() {
   const queryClient = useQueryClient();
@@ -20,6 +21,9 @@ function Information() {
   const navigate = useNavigate();
   const { openModal } = useModal();
   const handleEdit = () => {
+    if (!isEditing) {
+      setUserInput(data!.nickname);
+    }
     setIsEditing(!isEditing);
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +33,7 @@ function Information() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userInput.length < 2 || userInput.length > 10) {
-      window.alert('닉네임은 2~10자여야 합니다.');
+      notifyError('닉네임은 2~10자여야 합니다.');
       return;
     }
     mutationPatch.mutate({
@@ -48,7 +52,10 @@ function Information() {
   });
 
   const mutationDelete = useMutation(DeleteUser, {
-    onSuccess: () => logout(),
+    onSuccess: () => {
+      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
+      logout();
+    },
   });
 
   const handleDelete = () => {
@@ -81,7 +88,9 @@ function Information() {
               autoFocus
             />
             <button type="submit">Save</button>
-            <button onClick={handleEdit}>Cancel</button>
+            <button onClick={handleEdit} type="button">
+              Cancel
+            </button>
           </form>
         ) : (
           <h1>
