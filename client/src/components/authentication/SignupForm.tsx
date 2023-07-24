@@ -6,6 +6,7 @@ import { PostUser, Login } from '../../api/api';
 import { AxiosError } from 'axios';
 import { NewMember, LoginInfo } from '../../types/types';
 import { useTokens } from '../../hooks/useTokens';
+import { notifyWithIcon } from '../../utils/notify';
 
 export const profileImgs = [
   'kongdami',
@@ -121,6 +122,7 @@ function SignupForm() {
     mutationFn: (newMember: NewMember) => PostUser(newMember),
     onSuccess(data) {
       if (data.status === 201) {
+        notifyWithIcon(`${nickname}님 JOYING에 오신 걸 환영합니다!`, '🎉');
         LoginMutation.mutate({ email, password });
       }
     },
