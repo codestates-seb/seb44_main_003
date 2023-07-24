@@ -11,6 +11,7 @@ import {
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
 import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
+import { useTokens } from '../hooks/useTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
@@ -38,15 +39,7 @@ instance.interceptors.response.use(
       const headers = error.response.headers;
       const accessToken = headers.authorization;
       const refreshToken = headers.refresh;
-      if (accessToken) {
-        localStorage.setItem('token', accessToken);
-        const expiration = new Date();
-        expiration.setMinutes(expiration.getMinutes() + 30);
-        localStorage.setItem('expiration', expiration.toISOString());
-      }
-      if (refreshToken) {
-        localStorage.setItem('refresh', refreshToken);
-      }
+      useTokens(accessToken, refreshToken);
       const originalRequestConfig = error.config;
       const newAccess = localStorage.getItem('token');
       const newRefresh = localStorage.getItem('refresh');
@@ -74,27 +67,15 @@ export const PatchUser = (data: any) => instance.patch(`/members`, data);
 export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
-export const GetTVData = (
-  genre: string,
-): Promise<ItemData> =>
+export const GetTVData = (genre: string): Promise<ItemData> =>
   axios
-    .get(
-      `${
-        import.meta.env.VITE_BASE_URL
-      }/medias/tv?genre=${genre}`
-    )
+    .get(`${import.meta.env.VITE_BASE_URL}/medias/tv?genre=${genre}`)
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
-export const GetMovieData = (
-  genre: string,
-): Promise<ItemData> =>
+export const GetMovieData = (genre: string): Promise<ItemData> =>
   axios
-    .get(
-      `${
-        import.meta.env.VITE_BASE_URL
-      }/medias/movie?genre=${genre}`
-    )
+    .get(`${import.meta.env.VITE_BASE_URL}/medias/movie?genre=${genre}`)
     .then((res) => res.data);
 
 /* ott top10 데이터 가져오기 */

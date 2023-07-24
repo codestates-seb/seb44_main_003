@@ -6,6 +6,7 @@ import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
 import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
+import { notifyError, notifyWithIcon } from '../../utils/notify';
 
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ function Bookmark({ contentId }: { contentId: string }) {
           <BsHeart
             color="white"
             size="35"
-            onClick={() => alert('로그인 후 이용 가능합니다')}
+            onClick={() => notifyError('로그인 후 이용 가능합니다')}
           />
           <p>찜</p>
         </div>
@@ -38,6 +39,11 @@ function Bookmark({ contentId }: { contentId: string }) {
   const BookmarkMutation = useMutation({
     mutationFn: (contentId: string) => PostBookmark(contentId),
     onSuccess: () => {
+      if (!data) {
+        notifyWithIcon('찜 완료!', '❤️');
+      } else {
+        notifyWithIcon('찜 취소..', '🤍');
+      }
       queryClient.invalidateQueries(['isBookmarked', contentId]);
       queryClient.invalidateQueries(['userContents']);
     },

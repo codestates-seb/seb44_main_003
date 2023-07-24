@@ -5,6 +5,7 @@ import { HiXCircle } from 'react-icons/hi';
 import { PostUser, Login } from '../../api/api';
 import { AxiosError } from 'axios';
 import { NewMember, LoginInfo } from '../../types/types';
+import { useTokens } from '../../hooks/useTokens';
 
 export const profileImgs = [
   'kongdami',
@@ -110,13 +111,7 @@ function SignupForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        const accessToken = data.headers.authorization;
-        if (accessToken) {
-          localStorage.setItem('token', accessToken);
-          const expiration = new Date();
-          expiration.setMinutes(expiration.getMinutes() + 30);
-          localStorage.setItem('expiration', expiration.toISOString());
-        }
+        useTokens(data.headers.authorization, data.headers.refresh);
         window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
       }
     },

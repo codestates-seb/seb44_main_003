@@ -2,10 +2,12 @@ import { Outlet, useLoaderData } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/ui/Footer';
 import MobileGNB from '../components/ui/MobileGNB';
+import TopButton from '../components/ui/TopButton';
 import { S_Root, S_Wrapper, S_Container } from '../styles/style';
 import { useEffect } from 'react';
 import { logout } from '../components/header/Dropdown';
 import Modal from '../components/ui/modal/Modal';
+import Toast from '../components/ui/Toast';
 import useMediaQuery from '../hooks/useMediaQuery';
 
 function Root() {
@@ -23,6 +25,8 @@ function Root() {
         <S_Container>
           <Outlet />
           <Modal />
+          <Toast />
+          <TopButton />
         </S_Container>
       </S_Wrapper>
       <Footer />
