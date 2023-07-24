@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/joying.svg" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="JOYING" />
+    <meta property="og:url" content="https://joying.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://ott-main-project.s3.ap-northeast-2.amazonaws.com/joying_banner.webp"
+    />
+    <meta
+      property="og:description"
+      content="세상의 모든 컨텐츠를 한 곳에 보여조잉!"
+    />
     <title>Joying</title>
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-MLZRZBMST6"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MLZRZBMST6');
+  </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

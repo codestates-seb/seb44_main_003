@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../recoil/atoms/Atoms';
 import { useModal } from '../../hooks/useModal';
-import Recommend from '../ui/questions/Recommend';
+import Recommend from '../ui/questions/RecommendModal';
 
 const navMenus = [
   { text: 'TV', route: '/tv' },
@@ -19,6 +19,7 @@ function Navigation() {
   const { openModal } = useModal();
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
+
   return (
     <StyledNav>
       {navMenus.map((menu) => (
@@ -32,7 +33,7 @@ function Navigation() {
               navigate(menu.route);
             }
           }}
-          $isSelected={pathname === menu.route}
+          $isSelected={pathname.includes(menu.route as string)}
         >
           {menu.text}
         </S_Heading>
@@ -47,16 +48,22 @@ const StyledNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 250px;
-  @media only screen and (max-width: 940px) {
-    position: absolute;
-    top: 70px;
-    left: 40px;
+  width: 230px;
+  @media only screen and (max-width: 770px) {
+    width: 180px;
+  }
+  @media only screen and (max-width: 600px) {
+    width: 80px;
   }
   > h1 {
     font-weight: 700;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+  }
+  > h1:nth-child(3) {
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 

@@ -7,22 +7,39 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GetUser, PatchUser } from '../../api/api';
 import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
+import { useState, useEffect } from 'react';
+import { notifySuccess } from '../../utils/notify';
+
+const ottList = [
+  { name: '넷플릭스', value: 'Netflix' },
+  { name: '웨이브', value: 'Wavve' },
+  { name: '디즈니플러스', value: 'Disney Plus' },
+  { name: '왓챠', value: 'Watcha' },
+];
+const longName = ['애니메이션'];
 
 function MemberLikesModal() {
+  const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const { closeModal } = useModal();
   const { data } = useQuery(['user'], GetUser);
-  const ottList = ['Netflix', 'Disney Plus', 'Watcha', 'Wavve'];
-  /* todo: 장르 최대 3개 선택 */
+
   const mutation = useMutation(PatchUser, {
     onSuccess: () => {
+      notifySuccess('선호도가 변경되었습니다.');
       closeModal();
       queryClient.invalidateQueries(['user']);
     },
   });
-  const { register, handleSubmit } = useForm();
-
-  const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
+  const { watch, register, handleSubmit } = useForm();
+  useEffect(() => {
+    const subscription = watch((value) => {
+      if (value.interests.length > 5)
+        setError('장르는 최대 5개까지 선택할 수 있습니다.');
+      if (value.interests.length <= 5) setError(null);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
   return (
     <S_Modal>
       <BiX
@@ -34,6 +51,8 @@ function MemberLikesModal() {
       <h2>추천을 원하는 카테고리를 선택해 주세요.</h2>
       <S_Form
         onSubmit={handleSubmit((formData) => {
+          if (formData.memberOtts === 'Netflix')
+            formData.memberOtts = ['Netflix'];
           formData.memberOtts = [...arrToObj(formData.memberOtts, 'ott')];
           formData.interests = [...arrToObj(formData.interests, 'interest')];
           mutation.mutate(formData);
@@ -41,30 +60,40 @@ function MemberLikesModal() {
       >
         <fieldset>
           <legend>카테고리</legend>
-          <select id="category" placeholder="string" {...register('category')}>
-            <option selected={data?.category === 'TV'}>TV</option>
-            <option selected={data?.category === '영화'}>영화</option>
+          <select
+            id="category"
+            placeholder="string"
+            defaultValue={data?.category}
+            {...register('category')}
+          >
+            <option>TV</option>
+            <option>영화</option>
           </select>
         </fieldset>
         <fieldset className="ottDiv">
           <legend>OTT</legend>
           {ottList.map((ott) => (
-            <div>
+            <div key={ott.value}>
               <input
                 type="checkbox"
-                id={ott}
-                value={ott}
-                defaultChecked={objToArr(data?.memberOtts || []).includes(ott)}
+                id={ott.value}
+                value={ott.value}
+                defaultChecked={objToArr(data?.memberOtts || []).includes(
+                  ott.value
+                )}
                 {...register('memberOtts')}
               />
-              <label htmlFor={ott}>{ott}</label>
+              <label htmlFor={ott.value}>{ott.name}</label>
             </div>
           ))}
         </fieldset>
         <fieldset>
           <legend>장르</legend>
           {genres.map((genre) => (
-            <div className={longName.includes(genre) ? 'except' : 'element'}>
+            <div
+              key={genre}
+              className={longName.includes(genre) ? 'except' : 'element'}
+            >
               <input
                 type="checkbox"
                 id={genre}
@@ -76,7 +105,10 @@ function MemberLikesModal() {
             </div>
           ))}
         </fieldset>
-        <button type="submit">제출</button>
+        {error && <span className="error">{error}</span>}
+        <button type="submit" disabled={!!error}>
+          제출
+        </button>
       </S_Form>
     </S_Modal>
   );
@@ -103,6 +135,18 @@ const S_Form = styled.form`
     margin: 10px 0;
     > div {
       margin: 5px 10px;
+      @media only screen and (max-width: 600px) {
+        margin: 5px 15px;
+      }
+    }
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  > fieldset:nth-child(3) {
+    @media only screen and (max-width: 600px) {
+      height: 100px;
+      overflow-y: scroll;
     }
   }
   & legend {
@@ -123,6 +167,9 @@ const S_Form = styled.form`
   & label {
     margin-left: 6px;
     cursor: pointer;
+  }
+  & span.error {
+    color: var(--color-primary-yellow);
   }
   & button {
     color: var(--color-white-80);

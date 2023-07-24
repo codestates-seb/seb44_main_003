@@ -3,7 +3,7 @@
   --color-bg-100: #14181f;
   --color-bg-80: rgba(20, 24, 31, 0.8);
   --color-bg-60: rgba(20, 24, 31, 0.6);
-  --color-bg-00: rgba(20, 24, 31, 0.0);
+  --color-bg-00: rgba(20, 24, 31, 0);
 
   --color-primary-yellow: #ffff00;
   --color-primary-gold: #ffcd29;
@@ -15,6 +15,7 @@
   --color-white-100: #ffffff;
   --color-white-80: rgba(255, 255, 255, 0.8);
   --color-white-60: rgba(255, 255, 255, 0.6);
+  --color-white-20: rgba(255, 255, 255, 0.2);
 
   /* shadow */
 

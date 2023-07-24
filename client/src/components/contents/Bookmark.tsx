@@ -6,6 +6,7 @@ import { GetIsBookmark, PostBookmark } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
 import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
+import { notifyError, notifyWithIcon } from '../../utils/notify';
 
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
@@ -19,7 +20,7 @@ function Bookmark({ contentId }: { contentId: string }) {
           <BsHeart
             color="white"
             size="35"
-            onClick={() => alert('로그인 후 이용 가능합니다')}
+            onClick={() => notifyError('로그인 후 이용 가능합니다')}
           />
           <p>찜</p>
         </div>
@@ -31,9 +32,6 @@ function Bookmark({ contentId }: { contentId: string }) {
     ['isBookmarked', contentId],
     () => GetIsBookmark(contentId),
     {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
       enabled: isLoggedIn,
     }
   );
@@ -41,9 +39,21 @@ function Bookmark({ contentId }: { contentId: string }) {
   const BookmarkMutation = useMutation({
     mutationFn: (contentId: string) => PostBookmark(contentId),
     onSuccess: () => {
+      if (!data) {
+        notifyWithIcon('찜 완료!', '❤️');
+      } else {
+        notifyWithIcon('찜 취소..', '🤍');
+      }
       queryClient.invalidateQueries(['isBookmarked', contentId]);
+      queryClient.invalidateQueries(['userContents']);
     },
   });
+
+  const handleBookmark = () => {
+    if (!BookmarkMutation.isLoading) {
+      BookmarkMutation.mutate(contentId);
+    }
+  };
 
   if (isLoading) {
     return <BookmarkLoading />;
@@ -62,14 +72,10 @@ function Bookmark({ contentId }: { contentId: string }) {
               color="white"
               size="34"
               className="isTrue"
-              onClick={() => BookmarkMutation.mutate(contentId)}
+              onClick={handleBookmark}
             />
           ) : (
-            <BsHeart
-              color="white"
-              size="35"
-              onClick={() => BookmarkMutation.mutate(contentId)}
-            />
+            <BsHeart color="white" size="35" onClick={handleBookmark} />
           )}
           <p className={data ? 'isTrue' : ''}>찜</p>
         </div>

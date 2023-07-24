@@ -1,19 +1,21 @@
 import { styled } from 'styled-components';
-import mainImg from '../../assets/main_background.png';
 import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
 import { PiMagicWandFill } from 'react-icons/pi';
 import { PiCaretRightThin } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../hooks/useModal';
-import Recommend from '../ui/questions/Recommend';
+import Recommend from '../ui/questions/RecommendModal';
 
 function MainBanner() {
   const navigate = useNavigate();
   const { openModal } = useModal();
   return (
     <S_Wrapper>
-      <img src={mainImg} />
+      <img
+        src={`${import.meta.env.VITE_IMAGE_URL}/main_background.webp`}
+        alt="메인 배경"
+      />
       <S_BlackLinear />
       <div className="banner">
         <div>
@@ -69,12 +71,23 @@ const S_Wrapper = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  @media only screen and (max-width: 1095px) {
+  @media only screen and (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     height: 570px;
   }
+  @media only screen and (max-width: 600px) {
+    padding-top: 50px;
+    height: 450px;
+  }
+  & h1,
+  h2,
+  h3,
+  p {
+    min-width: max-content;
+  }
+
   & img {
     position: absolute;
     top: 0;
@@ -84,13 +97,17 @@ const S_Wrapper = styled.div`
     opacity: 0.2;
     z-index: -1;
     animation: appear 1.5s linear -0.5s;
+    @media only screen and (max-width: 600px) {
+      width: 900px;
+      height: 900px;
+    }
   }
   > div.banner {
     display: flex;
     position: relative;
     margin-bottom: 50px;
     padding: 5px 80px;
-    @media only screen and (max-width: 1095px) {
+    @media only screen and (max-width: 1024px) {
       flex-grow: 1;
       align-items: center;
       margin-bottom: 0;
@@ -107,10 +124,13 @@ const S_Wrapper = styled.div`
       font-size: 30px;
       margin-bottom: 15px;
       animation: appear 1.5s linear -0.3s;
-      @media only screen and (max-width: 1213px) {
+      @media only screen and (max-width: 600px) {
+        animation: mobile-appear 1s linear -0.3s;
+      }
+      @media only screen and (max-width: 1024px) {
         font-size: 23px;
       }
-      @media only screen and (max-width: 665px) {
+      @media only screen and (max-width: 600px) {
         display: flex;
         flex-direction: column;
         font-size: 18px;
@@ -129,6 +149,9 @@ const S_Wrapper = styled.div`
       -webkit-background-clip: text;
       font-size: 80px;
       animation: appear 1.5s linear -0.1s;
+      @media only screen and (max-width: 600px) {
+        animation: mobile-appear 1s linear -0.1s;
+      }
       @keyframes appear {
         from {
           filter: brightness(0);
@@ -139,11 +162,21 @@ const S_Wrapper = styled.div`
           transform: translate(0, 0);
         }
       }
-      @media only screen and (max-width: 1213px) {
+      @keyframes mobile-appear {
+        from {
+          filter: brightness(0);
+          transform: translate(0, 40px);
+        }
+        to {
+          filter: brightness(1);
+          transform: translate(0, 0);
+        }
+      }
+      @media only screen and (max-width: 1024px) {
         font-size: 65px;
       }
 
-      @media only screen and (max-width: 665px) {
+      @media only screen and (max-width: 600px) {
         display: flex;
         flex-direction: column;
         font-size: 55px;
@@ -159,19 +192,19 @@ const S_Wrapper = styled.div`
     flex-grow: 1;
     align-items: end;
     z-index: 3;
-    @media only screen and (max-width: 1095px) {
+    @media only screen and (max-width: 1024px) {
       flex-direction: row;
       flex-grow: 0;
       width: 70vw;
       margin-right: 0;
       margin-bottom: 20px;
     }
-    @media only screen and (max-width: 900px) {
+    @media only screen and (max-width: 1024px) {
       width: 90vw;
     }
     > div:first-child {
       animation: appear-side 1.5s linear -0.7s;
-      @media only screen and (max-width: 1095px) {
+      @media only screen and (max-width: 1024px) {
         animation: appear-bottom 1.5s linear -0.7s;
       }
       @keyframes appear-side {
@@ -197,13 +230,13 @@ const S_Wrapper = styled.div`
     }
     > div:nth-child(2) {
       animation: appear-side 1.5s linear -0.5s;
-      @media only screen and (max-width: 1095px) {
+      @media only screen and (max-width: 1024px) {
         animation: appear-bottom 1.5s linear -0.7s;
       }
     }
     > div:nth-child(3) {
       animation: appear-side 1.5s linear -0.3s;
-      @media only screen and (max-width: 1095px) {
+      @media only screen and (max-width: 1024px) {
         animation: appear-bottom 1.5s linear -0.7s;
       }
     }
@@ -221,17 +254,17 @@ const S_Wrapper = styled.div`
       color: white;
       font-size: 17px;
       cursor: pointer;
-      @media only screen and (max-width: 1277px) {
+      @media only screen and (max-width: 1024px) {
         width: 350px;
       }
-      @media only screen and (max-width: 1095px) {
+      @media only screen and (max-width: 1024px) {
         margin: 0 5px;
         height: 90px;
         flex-grow: 1;
         padding: 15px;
         min-width: 80px;
       }
-      @media only screen and (max-width: 665px) {
+      @media only screen and (max-width: 600px) {
         height: 70px;
       }
     }
@@ -244,18 +277,18 @@ const S_Wrapper = styled.div`
     & h3 {
       font-size: 20px;
       margin-bottom: 5px;
-      @media only screen and (max-width: 1277px) {
+      @media only screen and (max-width: 1024px) {
         font-size: 17px;
         font-weight: 400;
       }
-      @media only screen and (max-width: 1095px) {
+      @media only screen and (max-width: 1024px) {
         font-size: 16px;
       }
-      @media only screen and (max-width: 665px) {
+      @media only screen and (max-width: 600px) {
         font-size: 14px;
       }
       > span {
-        @media only screen and (max-width: 1095px) {
+        @media only screen and (max-width: 1024px) {
           display: none;
         }
       }
@@ -264,31 +297,31 @@ const S_Wrapper = styled.div`
   & p {
     font-size: 16px;
     color: var(--color-white-80);
-    @media only screen and (max-width: 1277px) {
+    @media only screen and (max-width: 1024px) {
       font-size: 14px;
     }
-    @media only screen and (max-width: 1095px) {
+    @media only screen and (max-width: 1024px) {
       display: none;
     }
   }
   & svg {
     font-size: 35px;
     margin-bottom: 15px;
-    @media only screen and (max-width: 1277px) {
+    @media only screen and (max-width: 1024px) {
       font-size: 30px;
     }
-    @media only screen and (max-width: 1095px) {
+    @media only screen and (max-width: 1024px) {
       font-size: 25px;
       margin-bottom: 5px;
     }
-    @media only screen and (max-width: 665px) {
+    @media only screen and (max-width: 600px) {
       font-size: 20px;
     }
   }
   & svg.arrow {
     font-size: 28px;
     color: var(--color-white-80);
-    @media only screen and (max-width: 1095px) {
+    @media only screen and (max-width: 1024px) {
       display: none;
     }
   }

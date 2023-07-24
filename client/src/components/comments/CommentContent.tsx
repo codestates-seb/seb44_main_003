@@ -40,7 +40,6 @@ function CommentContent({ comment }: { comment: Comment }) {
   const isAdmin = comment.member
     ? comment.member.memberId === ADMIN_MEMBERID
     : false;
-
   return (
     <S_Comment key={comment.id}>
       {comment.member ? (
@@ -81,7 +80,8 @@ function CommentContent({ comment }: { comment: Comment }) {
         )}
       </div>
       {(!comment.member ||
-        (user.data && user.data.memberId === comment.member.memberId)) && (
+        (user.data && user.data.memberId === comment.member.memberId) ||
+        user.data?.memberId === ADMIN_MEMBERID) && (
         <div>
           <button type="button" onClick={handleEdit}>
             <HiOutlinePencilAlt />
@@ -103,7 +103,7 @@ export default CommentContent;
 const S_Comment = styled.li`
   display: flex;
   border-bottom: 1px solid white;
-  padding: 10px 30px;
+  padding: 10px;
   @media only screen and (max-width: 480px) {
     padding: 10px;
   }
@@ -142,6 +142,9 @@ const S_Comment = styled.li`
   }
   > div:nth-child(3) {
     min-width: 60px;
+    @media only screen and (max-width: 480px) {
+      min-width: 50px;
+    }
   }
 `;
 

@@ -5,7 +5,6 @@ import { PatchUser } from '../../../api/api';
 import { NewMember } from '../../../types/types';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
-import profileAdd from '../../../assets/profiles/profileAdd.svg';
 
 function DefaultImgs({
   setIsUploading,
@@ -31,14 +30,17 @@ function DefaultImgs({
         {profileImgs.map((profile, index) => (
           <img
             key={index}
-            src={`https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profile}.png`}
+            src={`${import.meta.env.VITE_IMAGE_URL}/${profile}.png`}
             alt={profile}
             onClick={handleClick}
           />
         ))}
       </S_ImgDiv>
       <div className="add">
-        <img src={profileAdd} onClick={() => setIsUploading(true)} />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/profiles/profileAdd.svg`}
+          onClick={() => setIsUploading(true)}
+        />
         <p>프로필 추가</p>
       </div>
     </S_Wrapper>
@@ -53,6 +55,9 @@ const S_Wrapper = styled.div`
   & p {
     font-size: 16px;
     margin-top: 5px;
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
   }
   & div.add {
     display: flex;
@@ -60,6 +65,10 @@ const S_Wrapper = styled.div`
     align-items: center;
     cursor: pointer;
     width: 130px;
+    @media only screen and (max-width: 600px) {
+      width: 70px;
+      height: 70px;
+    }
   }
 `;
 const S_ImgDiv = styled.div`
@@ -69,13 +78,20 @@ const S_ImgDiv = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 420px;
-
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+    width: 250px;
+  }
   & img {
     width: 140px;
     height: 140px;
     border-radius: 5px;
     margin-bottom: 20px;
     cursor: pointer;
+    @media only screen and (max-width: 600px) {
+      width: 70px;
+      height: 70px;
+    }
   }
   & img:hover {
     filter: brightness(110%);

@@ -5,6 +5,9 @@ import { useMutation } from '@tanstack/react-query';
 import { Login } from '../../api/api';
 import { LoginInfo } from '../../types/types';
 import { AxiosError } from 'axios';
+import { useTokens } from '../../hooks/useTokens';
+import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -14,6 +17,8 @@ function LoginForm() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -52,15 +57,11 @@ function LoginForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        /* todo: refreshToken 구현되면 accessToken은 변수로만 저장 */
-        const accessToken = data.headers.authorization;
-        if (accessToken) {
-          localStorage.setItem('token', accessToken);
-          const expiration = new Date();
-          expiration.setMinutes(expiration.getMinutes() + 30);
-          localStorage.setItem('expiration', expiration.toISOString());
-        }
-        window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
+        useTokens(data.headers.authorization, data.headers.refresh);
+        const expiration = new Date();
+        expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
+        localStorage.setItem('expiration', expiration.toISOString());
+        navigate('/');
       }
     },
     onError(error: AxiosError) {

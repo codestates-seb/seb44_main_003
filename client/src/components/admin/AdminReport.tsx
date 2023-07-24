@@ -7,11 +7,7 @@ import ReportDetail from '../ui/modal/report/ReportDetail';
 
 function AdminReport() {
   const { openModal } = useModal();
-  const { data, isSuccess } = useQuery(['Reports'], () => GetReport(), {
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnWindowFocus: false,
-  });
+  const { data, isSuccess } = useQuery(['Reports'], () => GetReport());
 
   const formatDate = (date: any) => {
     const dateTime = new Date(date);

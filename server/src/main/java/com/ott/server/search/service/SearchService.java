@@ -107,6 +107,7 @@ public class SearchService {
                         .matching(titleFragment))
                 .toQuery();
 
+
         List<Media> titleMediaList = titleQuery.fetchHits((int) pageable.getOffset(), pageable.getPageSize());
         titleMediaList.forEach(media -> titleList.add(media.getTitle()));
 

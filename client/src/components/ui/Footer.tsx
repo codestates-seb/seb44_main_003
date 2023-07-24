@@ -2,8 +2,6 @@ import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
-import kuhub from '../../assets/profiles/kuhub.svg';
-import logo from '../../assets/logo/overthetop.svg';
 
 function Footer() {
   const location = useLocation();
@@ -17,7 +15,10 @@ function Footer() {
     <S_Footer>
       <span />
       <S_Logo>
-        <img src={logo} alt="logo" />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/logo/overthetop.webp`}
+          alt="오버더탑 로고"
+        />
       </S_Logo>
       <section>
         <div className="team">
@@ -27,7 +28,10 @@ function Footer() {
             }}
           >
             <p>FE 이진화</p>
-            <img src={kuhub} alt="kuhub" />
+            <img
+              src={`${import.meta.env.VITE_IMAGE_URL}/profiles/kuhub.webp`}
+              alt="쿠로미 아이콘"
+            />
             <DiGithubFull size={30} />
           </S_Team>
           <S_Team
@@ -116,7 +120,7 @@ const S_Footer = styled.footer`
     height: 40px;
     opacity: 0.8;
   }
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 740px) {
     section {
       flex-direction: column;
       align-items: center;
@@ -127,6 +131,10 @@ const S_Footer = styled.footer`
     img {
       height: 30px;
     }
+  }
+
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 30px;
   }
 `;
 
@@ -189,7 +197,7 @@ const S_Team = styled.footer`
     }
   }
 
-  @media only screen and (max-width: 670px) {
+  @media only screen and (max-width: 740px) {
     width: 130px;
     height: 40px;
     flex-direction: row;

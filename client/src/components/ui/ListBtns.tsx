@@ -4,9 +4,8 @@ import OttBtn from './OttBtn';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ListBtns() {
-  //const [isMobile, setIsMobile] = useState(window.innerWidth <= 540);
   const genre = new URLSearchParams(location.search).get('genre');
-  const isMobile = useMediaQuery('(max-width: 540px)');
+  const isMobile = useMediaQuery('(max-width: 600px)');
 
   return (
     <S_Wrapper>
@@ -54,8 +53,14 @@ const S_Wrapper = styled.div`
     margin-right: 15px;
   }
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 770px) {
     padding-left: 20px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .bar {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -66,7 +71,7 @@ const S_flexBox = styled.div`
     display: flex;
   }
 
-  @media only screen and (max-width: 540px) {
+  @media only screen and (max-width: 600px) {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -76,14 +81,20 @@ const S_FlexTextBox = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 540px) {
-    margin-top: 10px;
+  @media only screen and (max-width: 600px) {
+    margin-top: 20px;
   }
 `;
 
-const S_genre = styled.h1`
+const S_genre = styled.p`
   position: absolute;
   top: 100%;
   padding-top: 20px;
   color: var(--color-primary-gold);
+  font-size: 18px;
+  font-weight: bold;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+  }
 `;

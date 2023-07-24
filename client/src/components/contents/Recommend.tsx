@@ -6,6 +6,7 @@ import { GetIsRecommend, PostRecommend } from '../../api/api';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
 import { S_IconWrapper } from '../../styles/style';
 import RecommendLoading from '../ui/exceptions/RecommendLoading';
+import { notifyError, notifyWithIcon } from '../../utils/notify';
 
 function Recommend({
   countRecommend,
@@ -25,7 +26,7 @@ function Recommend({
           <BsHandThumbsUp
             color="white"
             size="35"
-            onClick={() => alert('로그인 후 이용 가능합니다')}
+            onClick={() => notifyError('로그인 후 이용 가능합니다')}
           />
           <p>추천</p>
         </div>
@@ -38,9 +39,6 @@ function Recommend({
     ['isRecommend', contentId],
     () => GetIsRecommend(contentId),
     {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
       enabled: isLoggedIn,
     }
   );
@@ -48,10 +46,22 @@ function Recommend({
   const RecommendMutation = useMutation({
     mutationFn: (contentId: string) => PostRecommend(contentId),
     onSuccess: () => {
+      if (!data) {
+        notifyWithIcon('추천 완료!', '👍🏼');
+      } else {
+        notifyWithIcon('추천 취소..', '👎🏼');
+      }
       queryClient.invalidateQueries(['isRecommend', contentId]);
       queryClient.invalidateQueries(['selectedContent', contentId]);
+      queryClient.invalidateQueries(['userContents']);
     },
   });
+
+  const handleRecommend = () => {
+    if (!RecommendMutation.isLoading) {
+      RecommendMutation.mutate(contentId);
+    }
+  };
 
   if (isLoading) {
     return <RecommendLoading countRecommend={countRecommend} />;
@@ -70,14 +80,10 @@ function Recommend({
               color="white"
               size="35"
               className="isTrue"
-              onClick={() => RecommendMutation.mutate(contentId)}
+              onClick={handleRecommend}
             />
           ) : (
-            <BsHandThumbsUp
-              color="white"
-              size="35"
-              onClick={() => RecommendMutation.mutate(contentId)}
-            />
+            <BsHandThumbsUp color="white" size="35" onClick={handleRecommend} />
           )}
           <p>추천</p>
         </div>

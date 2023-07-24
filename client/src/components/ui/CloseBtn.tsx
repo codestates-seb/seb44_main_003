@@ -18,8 +18,20 @@ export default CloseBtn
 const S_Close = styled(IoClose)`
   position: absolute;
   top: 15%;
-  right: 0%;
+  right: 5%;
   color: var(--color-white-100);
   font-size: 50px;
   cursor: pointer;
+
+  @media only screen and (max-width: 1200px) {
+    font-size: 50px;
+  }
+
+  @media only screen and (max-width: 770px) {
+    font-size: 40px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 30px;
+  }
 `;

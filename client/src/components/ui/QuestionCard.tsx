@@ -23,7 +23,15 @@ const S_Wrapper = styled.div`
   flex-direction: column;
 `
 const S_Character = styled.img`
-  height: 180px;
+  height: 150px;
+
+  @media only screen and (max-width: 770px) {
+    height: 130px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 100px;
+  }
 `
 
 const S_Question = styled.img`

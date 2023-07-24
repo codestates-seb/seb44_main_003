@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction } from 'react';
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('expiration');
+  localStorage.removeItem('refresh');
   location.reload();
 };
 
@@ -21,7 +22,6 @@ function Dropdown({
   setShowDropdown: Dispatch<SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
-  const goToMemberInfo = () => navigate('/member');
 
   return (
     <S_Wrapper
@@ -32,26 +32,26 @@ function Dropdown({
         <img src={avatarUri} alt="user image" />
         <h1>{nickname}</h1>
       </div>
-      <div>
-        <div onClick={goToMemberInfo}>
+      <ul>
+        <li onClick={() => navigate('/member')}>
           <BsFillPersonFill />
           회원정보
-        </div>
-        <div onClick={goToMemberInfo}>
+        </li>
+        <li onClick={() => navigate('/member?content=bookmarks')}>
           <AiFillHeart />찜 목록
-        </div>
-        <div onClick={logout}>
+        </li>
+        <li onClick={logout}>
           <FiLogOut />
           로그아웃
-        </div>
-      </div>
+        </li>
+      </ul>
     </S_Wrapper>
   );
 }
 
 export default Dropdown;
 
-const S_Wrapper = styled.div`
+const S_Wrapper = styled.nav`
   display: flex;
   flex-direction: column;
   z-index: 9999;
@@ -63,29 +63,38 @@ const S_Wrapper = styled.div`
   border: 1px solid var(--color-dropdown-stroke);
   border-radius: 5px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
-  top: 50px;
+  top: 60px;
   right: 10px;
+  @media only screen and (max-width: 480px) {
+    width: 170px;
+    height: 190px;
+  }
   > div:first-child {
     display: flex;
     align-items: center;
     padding: 15px 20px;
     border-bottom: 1px solid var(--color-dropdown-stroke);
   }
-  > div:nth-child(2) {
+  > ul {
     display: flex;
     padding: 5px 0;
     flex-direction: column;
     justify-content: space-around;
     flex-grow: 1;
     color: var(--color-white-80);
-    > div {
+
+    > li {
       padding: 0 20px;
       display: flex;
+      align-items: center;
       cursor: pointer;
+      @media only screen and (max-width: 480px) {
+        font-size: 14px;
+      }
     }
-    > div:hover {
+    > li:hover {
       color: white;
-      transition: color 0.5s ease;
+      transition: color 0.3s ease;
     }
   }
   & img {

@@ -10,22 +10,47 @@ import {
   Description,
 } from '../types/types';
 import { COMMENTS_PER_PAGE } from '../constant/constantValue';
-
-const accessToken = localStorage.getItem('token');
+import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
+import { useTokens } from '../hooks/useTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: accessToken,
   },
 });
 
 instance.interceptors.request.use((config) => {
-  config.headers.Authorization = accessToken || '';
-  return config;
+  const newConfig = { ...config };
+  const accessToken = localStorage.getItem('token');
+  const refresh = localStorage.getItem('refresh');
+  newConfig.headers.Authorization = accessToken;
+  newConfig.headers.Refresh = refresh;
+  return newConfig;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 500) {
+      const headers = error.response.headers;
+      const accessToken = headers.authorization;
+      const refreshToken = headers.refresh;
+      useTokens(accessToken, refreshToken);
+      const originalRequestConfig = error.config;
+      const newAccess = localStorage.getItem('token');
+      const newRefresh = localStorage.getItem('refresh');
+      originalRequestConfig.headers['Authorization'] = newAccess;
+      originalRequestConfig.headers['refresh'] = newRefresh;
+
+      return axios(originalRequestConfig);
+    }
+    return Promise.reject(error);
+  }
+);
 
 /* 유저 정보 가져오기 */
 export const GetUser = (): Promise<NewMember> =>
@@ -42,23 +67,15 @@ export const PatchUser = (data: any) => instance.patch(`/members`, data);
 export const DeleteUser = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
-export const GetTVData = (genre: string, size: number, page: number): Promise<ItemData> =>
+export const GetTVData = (genre: string): Promise<ItemData> =>
   axios
-    .get(
-      `${
-        import.meta.env.VITE_BASE_URL
-      }/medias/tv?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
-    )
+    .get(`${import.meta.env.VITE_BASE_URL}/medias/tv?genre=${genre}`)
     .then((res) => res.data);
 
 /* Movie 데이터 가져오기 */
-export const GetMovieData = (genre: string, size: number, page: number): Promise<ItemData> =>
+export const GetMovieData = (genre: string): Promise<ItemData> =>
   axios
-    .get(
-      `${
-        import.meta.env.VITE_BASE_URL
-      }/medias/movie?page=${page}&size=${size}&genre=${genre}&ott=netfilx,watcha,disney,wavve`
-    )
+    .get(`${import.meta.env.VITE_BASE_URL}/medias/movie?genre=${genre}`)
     .then((res) => res.data);
 
 /* ott top10 데이터 가져오기 */
@@ -80,6 +97,16 @@ export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
 export const GetSearchedData = (keyword: string) =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/search?q=${keyword}`)
+    .then((res) => res.data);
+
+/* 자동완성 검색 */
+export const GetAutoComplete = (keyword: string): Promise<string[]> =>
+  axios
+    .get(
+      `${
+        import.meta.env.VITE_BASE_URL
+      }/search/autocomplete?q=${keyword}&limit=${AUTOCOMPLETE_RESULT_SIZE}`
+    )
     .then((res) => res.data);
 
 /* 후기 데이터 */
@@ -152,13 +179,15 @@ export const GetUserReviews = (page: number): Promise<CommentData> =>
     .then((res) => res.data);
 
 /* 유저 프로필 사진 업로드 */
-export const PostUserProfile = (data: FormData) =>
-  axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
+export const PostUserProfile = (data: FormData) => {
+  const accessToken = localStorage.getItem('token');
+  return axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
     headers: {
       Authorization: accessToken,
       'Content-Type': 'multipart/form-data',
     },
   });
+};
 
 /* 관리자 미디어 생성 */
 export const AdminPostData = (mediaData: AddData) =>

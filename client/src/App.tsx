@@ -5,7 +5,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
-import { tokenLoader, checkAuthLoader } from './utils/auth';
+import { tokenLoader, checkAuthLoader, checkUnauthLoader } from './utils/auth';
 import GlobalStyle from './styles/global-styles';
 import Root from './pages/Root';
 import Main from './pages/Main';
@@ -39,10 +39,12 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Auth />,
+        loader: checkUnauthLoader,
       },
       {
         path: 'signup',
         element: <Auth />,
+        loader: checkUnauthLoader,
       },
       {
         path: 'tv',
@@ -83,8 +85,11 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: Infinity,
+      cacheTime: Infinity,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
+      retry: 2,
     },
   },
   queryCache: new QueryCache({

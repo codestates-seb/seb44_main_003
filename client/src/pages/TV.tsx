@@ -1,11 +1,61 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import Banner from '../components/banner/Banner';
+import BannerSlide from '../components/slide/BannerSlide';
 import GenreSlide from '../components/slide/GenreSlide';
-import image from '../assets/이번생도잘부탁해.webp';
 import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
+import { BannerImgsType } from '../types/types'
+
+const bannerTvImgs: BannerImgsType = [
+  {
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/마당이 있는 집.webp`,
+    alt: '마당이 있는 집',
+    id: 4
+  },
+  {
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/최애의 아이.webp`,
+    alt: '최애의 아이',
+    id: 8
+  },
+  {
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/셀러브리티.webp`,
+    alt: '셀러브리티',
+    id: 59
+  },
+  {
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/킹더랜드.webp`,
+    alt: '킹더랜드',
+    id: 19
+  },
+  {
+    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/이번 생도 잘 부탁해.webp`,
+    alt: '이번 생도 잘 부탁해',
+    id: 11
+  },
+];
+
+const genres: string[] = [
+  '액션',
+  '드라마',
+  'SF',
+  '스릴러',
+  '애니메이션',
+  '코미디',
+  '가족',
+  '판타지',
+  '로맨스',
+  '공포',
+  '범죄',
+  '스포츠',
+  '음악',
+  'Made in Europe',
+  'Reality TV',
+  '역사',
+  '다큐멘터리',
+  '전쟁',
+  '서부'
+];
 
 function TV() {
   const [visibleGenres, setVisibleGenres] = useState<Array<string>>([]);
@@ -14,28 +64,6 @@ function TV() {
     threshold: 0.1,
     triggerOnce: false,
   });
-
-  const genres: string[] = [
-    '액션',
-    '드라마',
-    'SF',
-    '스릴러',
-    '애니메이션',
-    '코미디',
-    '가족',
-    '판타지',
-    '로맨스',
-    '공포',
-    '범죄',
-    '스포츠',
-    '음악',
-    'Made in Europe',
-    'Reality TV',
-    '역사',
-    '다큐멘터리',
-    '전쟁',
-    '서부'
-  ];
 
   useEffect(() => {
     const genreSlice = genres.slice(0, currentIndex.current);
@@ -66,14 +94,12 @@ function TV() {
 
   return (
     <S_Wrapper>
-      <Banner image={image} />
+      <BannerSlide bannerImgs={bannerTvImgs}/>
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <>
-          <GenreSlide genre={genre} path='tv' />
-        </>
+        <GenreSlide key={`tv-${genre}`} genre={genre} path='tv' />
       ))}
-      <div ref={ref} className="target"></div>
+      <div ref={ref} className="target" />
     </S_Wrapper>
   );
 }

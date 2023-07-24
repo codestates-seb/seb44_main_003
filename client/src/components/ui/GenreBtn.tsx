@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import styled from 'styled-components';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import { useModal } from '../../hooks/useModal';
+import MobileGenreModal from './modal/genre/MobileGenreModal';
 
 function GenreBtn() {
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -32,6 +35,13 @@ function GenreBtn() {
     'Made in Europe',
   ];
   const genreBtnRef = useRef(null);
+  const isMobile = useMediaQuery('(max-width: 600px)');
+  const { openModal } = useModal();
+  const modalData = {
+    content: (
+      <MobileGenreModal genres={genres} path={path} ott={ott} genre={genre} />
+    ),
+  };
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.value;
@@ -59,6 +69,10 @@ function GenreBtn() {
     }
   };
 
+  const handleMobileClick = () => {
+    openModal(modalData);
+  };
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -68,42 +82,51 @@ function GenreBtn() {
 
   useEffect(() => {
     if (genre) {
-      setIsOpen(true);
+      setSelectedGenre(genre);
     }
   }, [selectedGenre]);
 
   return (
     <GenreBtnContainer ref={genreBtnRef}>
-      <S_GenreBtn onClick={handleGenreClick}>
+      <S_GenreBtn
+        onClick={isMobile ? handleMobileClick : handleGenreClick}
+        ismobile={isMobile.toString()}
+      >
         <h1>장르 검색</h1>
-        <IoIosArrowDown size={30} />
+        {isMobile ? (
+          <IoIosArrowForward size={24} />
+        ) : (
+          <IoIosArrowDown size={30} />
+        )}
       </S_GenreBtn>
-      {isOpen && (
-        <S_LabelWrapper>
-          {Array.from({ length: Math.ceil(genres.length / 4) }).map(
-            (_text, index) => (
-              <S_LabelRow key={index}>
-                {genres
-                  .slice(index * 4, (index + 1) * 4)
-                  .map((text, innerIndex) => (
-                    <S_Label
-                      key={innerIndex}
-                      flexgrow={text === 'Made in Europe' ? '1' : '0'}
-                    >
-                      <S_Input
-                        type="checkbox"
-                        value={text}
-                        checked={selectedGenre === text}
-                        onChange={handleGenreChange}
-                      />
-                      <S_Text>{text}</S_Text>
-                    </S_Label>
-                  ))}
-              </S_LabelRow>
-            )
+      {isMobile
+        ? null
+        : isOpen && (
+            <S_LabelWrapper>
+              {Array.from({ length: Math.ceil(genres.length / 4) }).map(
+                (_text, index) => (
+                  <S_LabelRow key={index}>
+                    {genres
+                      .slice(index * 4, (index + 1) * 4)
+                      .map((text, innerIndex) => (
+                        <S_Label
+                          key={innerIndex}
+                          flexgrow={text === 'Made in Europe' ? '1' : '0'}
+                        >
+                          <S_Input
+                            type="checkbox"
+                            value={text}
+                            checked={selectedGenre === text}
+                            onChange={handleGenreChange}
+                          />
+                          <S_Text>{text}</S_Text>
+                        </S_Label>
+                      ))}
+                  </S_LabelRow>
+                )
+              )}
+            </S_LabelWrapper>
           )}
-        </S_LabelWrapper>
-      )}
     </GenreBtnContainer>
   );
 }
@@ -115,7 +138,7 @@ const GenreBtnContainer = styled.div`
   vertical-align: middle;
 `;
 
-const S_GenreBtn = styled.div`
+const S_GenreBtn = styled.div<{ ismobile: string }>`
   display: flex;
   align-items: center;
   color: var(--color-white-80);
@@ -126,6 +149,17 @@ const S_GenreBtn = styled.div`
   h1 {
     font-size: 20px;
   }
+
+  ${({ ismobile }) =>
+    ismobile === 'true' &&
+    `
+    svg {
+      margin: 0;
+    }
+    h1{
+      font-size:16px;
+    }
+  `}
 `;
 
 const S_LabelWrapper = styled.div`
@@ -143,17 +177,6 @@ const S_LabelWrapper = styled.div`
   @media only screen and (max-width: 960px) {
     left: 20px;
   }
-
-  @media only screen and (max-width: 580px) {
-    padding: 10px;
-    left: 180px;
-  }
-
-  @media only screen and (max-width: 540px) {
-    top: 110%;
-    padding: 10px;
-    left: 15px;
-  }
 `;
 
 const S_LabelRow = styled.div`
@@ -165,10 +188,6 @@ const S_Label = styled.label<{ flexgrow: string }>`
   display: flex;
   align-items: center;
   flex-grow: ${(props) => props.flexgrow};
-
-  @media only screen and (max-width: 580px) {
-    width: 80px;
-  }
 `;
 
 const S_Text = styled.div`
@@ -184,10 +203,6 @@ const S_Text = styled.div`
   }
   input[type='checkbox']:checked + & {
     color: var(--color-primary-gold);
-  }
-
-  @media only screen and (max-width: 580px) {
-    padding: 10px 10px;
   }
 `;
 
@@ -206,9 +221,5 @@ const S_Input = styled.input`
     background-position: 50%;
     background-repeat: no-repeat;
     background-color: var(--color-primary-gold);
-  }
-
-  @media only screen and (max-width: 580px) {
-    display: none;
   }
 `;

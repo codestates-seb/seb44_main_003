@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, category } from './QuestionData';
+import { questionList, category, moveNextBtn } from './QuestionData';
 import { Question } from '../../../types/types';
-import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const SecondQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -54,10 +53,11 @@ const SecondQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
               </S_CategoryBox>
             ))}
           </S_CategoryList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#F67CB3'}
             bgShadow={'#C53C79'}
-            btnText={btnNext}
+            btnText={moveNextBtn.text}
+            btnAlt={moveNextBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
@@ -83,7 +83,7 @@ const S_ModalBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 820px;
   height: 100%;
 `;
 
@@ -115,6 +115,14 @@ const S_CategoryList = styled.div`
   justify-content: center;
   align-items: center;
   gap: 80px;
+
+  @media only screen and (max-width: 770px) {
+    gap: 60px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    gap: 40px;
+  }
 `;
 
 const S_CategoryBox = styled.div`
@@ -125,20 +133,42 @@ const S_CategoryBox = styled.div`
   color: var(--color-bg-100);
   font-size: 18px;
   font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 const S_CategoryIcon = styled.img`
   margin-bottom: 5px;
   width: 130px;
-  height: 130px;
   background: var(--color-white-100);
   object-fit: cover;
   filter: saturate(0);
   opacity: 0.8;
   transition: filter 0.2s, opacity 0.2s;
+  cursor: pointer;
 
   &.select {
     filter: none;
     opacity: 1;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      filter: brightness(100%);
+    }
+  }
+
+  @media only screen and (max-width: 770px) {
+    width: 120px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    width: 100px;
   }
 `;

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetUserReviews } from '../../../api/api';
 import Comments from '../../comments/Comments';
-import noContent from '../../../assets/exception/nocontents.svg';
 import { styled } from 'styled-components';
 import { useState } from 'react';
 
@@ -17,7 +16,10 @@ function ReviewList() {
     if (!data.reviews.length)
       return (
         <S_Error>
-          <img src={noContent} />
+          <img
+            src={`${import.meta.env.VITE_IMAGE_URL}/exception/nocontents.svg`}
+            alt="컨텐츠없음"
+          />
           <p>작성한 후기가 없습니다</p>
         </S_Error>
       );
@@ -43,32 +45,4 @@ const S_Error = styled.div`
 const S_Wrapper = styled.div`
   width: 100%;
   margin: 20px 0;
-  /* & img {
-    width: 26px;
-    height: 26px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  > h1 {
-    margin: 20px;
-    display: flex;
-    align-items: center;
-  }
-  > div:last-child {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    > button {
-      margin: 0 10px;
-    }
-  }
-  & svg {
-    font-size: 20px;
-    margin: 10px 5px;
-    color: var(--color-white-80);
-  }
-  & a {
-    text-decoration: underline;
-    font-size: 18px;
-  } */
 `;

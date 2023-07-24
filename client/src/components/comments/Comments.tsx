@@ -17,15 +17,10 @@ function Comments({
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  //전체 후기 수
   const length = data.totalReviews;
-  //총 페이지 숫자
   const pagesNum = Math.ceil(length / COMMENTS_PER_PAGE);
-  //현재 페이지섹션
   const pageSection = Math.ceil(page / PAGES_PER_SECTION);
-  //마지막 페이지 섹션
   const lastPageSection = Math.ceil(pagesNum / PAGES_PER_SECTION) || 1;
-  //현재 페이지 섹션에서 보여질 첫 페이지 숫자
   const startNum = 1 + (pageSection - 1) * PAGES_PER_SECTION;
   const isFirstPageSection = pageSection === 1;
   const isLastPageSection = pageSection === lastPageSection;
@@ -77,8 +72,6 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
-  padding: 0 30px;
-
   & img {
     width: 26px;
     height: 26px;
@@ -93,7 +86,7 @@ const S_Wrapper = styled.div`
     cursor: pointer;
   }
   > h1 {
-    margin: 20px;
+    margin: 20px 0;
     display: flex;
     align-items: center;
   }
@@ -114,6 +107,9 @@ const S_Wrapper = styled.div`
     transition: color 0.3s ease;
     &:hover {
       color: white;
+    }
+    @media only screen and (max-width: 480px) {
+      font-size: 15px;
     }
   }
 `;

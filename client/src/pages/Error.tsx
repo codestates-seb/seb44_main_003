@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import error from '../assets/error.webp';
 
 function NotFound() {
   return (
@@ -24,7 +23,7 @@ function ServerError() {
 function Error({ code }: { code: string }) {
   return (
     <S_Wrapper>
-      <img src={error} />
+      <img src={`${import.meta.env.VITE_IMAGE_URL}/error.webp`} alt="에러" />
       {code === '404' ? <NotFound /> : <ServerError />}
     </S_Wrapper>
   );
@@ -40,6 +39,9 @@ const S_Wrapper = styled.main`
   color: white;
   > img {
     width: 300px;
+    @media only screen and (max-width: 600px) {
+      width: 20vw;
+    }
   }
   > div {
     display: flex;
@@ -48,16 +50,26 @@ const S_Wrapper = styled.main`
     > h1 {
       font-size: 30px;
       margin-bottom: 15px;
+      @media only screen and (max-width: 600px) {
+        font-size: 18px;
+      }
     }
     > p {
       font-size: 20px;
       line-height: 1.5;
+      word-break: keep-all;
+      @media only screen and (max-width: 600px) {
+        font-size: 14px;
+      }
     }
     > a {
       margin-top: 15px;
       font-size: 18px;
       color: var(--color-white-80);
       text-decoration: underline;
+      @media only screen and (max-width: 600px) {
+        font-size: 14px;
+      }
     }
     > a:hover {
       color: white;

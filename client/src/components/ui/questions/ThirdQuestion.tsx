@@ -3,12 +3,11 @@ import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import RecommendBtn from '../../ui/RecommendBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres } from './QuestionData';
+import { questionList, genres, moveResultBtn, beehappy, beesad} from './QuestionData';
 import { Question } from '../../../types/types';
-import btnNext from '../../../assets/recommendimage/nextBtnText.webp';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -51,19 +50,21 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
             {genres.map((genre) => (
               <S_GenreBox key={genre}>
                 <S_CheckBox
+                  id={`check${genre}`}
                   checked={recommendedContents.interests.includes(genre)}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleGenreCheckboxClick(e.target.checked, genre)
                   }
                 />
-                <div>{genre}</div>
+                <S_CheckText htmlFor={`check${genre}`}>{genre}</S_CheckText>
               </S_GenreBox>
             ))}
           </S_GenreList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
-            btnText={btnNext}
+            btnText={moveResultBtn.text}
+            btnAlt={moveResultBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
@@ -89,7 +90,7 @@ const S_ModalBox = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100%;
+  width: 820px;
   height: 100%;
 `;
 
@@ -113,7 +114,18 @@ const S_SelectionBox = styled.div`
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
   font-family: 'inter';
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-bg-100);
   overflow: auto;
+
+  @media only screen and (max-width: 770px) {
+    font-size: 16px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 const S_TextBox = styled.div`
@@ -121,39 +133,71 @@ const S_TextBox = styled.div`
   justify-content: right;
 `;
 
-const S_Text = styled.p`
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-bg-100);
-`;
+const S_Text = styled.p``;
 
 const S_GenreList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 35px 5px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin: 30px 40px;
+  margin: 30px 20px;
+
+  @media only screen and (max-width: 770px) {
+    gap: 20px 5px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin: 15px 10px;
+  }
 `;
 
 const S_GenreBox = styled.div`
   display: flex;
   align-items: center;
-  color: var(--color-bg-100);
-  font-size: 18px;
-  font-weight: 700;
+  width: calc(100% / 4 - 10px);
+
+  @media only screen and (max-width: 770px) {
+    width: calc(100% / 3 - 10px);
+  }
+
+  @media only screen and (max-width: 480px) {
+    justify-content: center;
+    flex-direction: column;
+  }
 `;
 
 const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
   margin-right: 10px;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   appearance: none;
-  background: var(--color-white-100);
-  object-fit: cover;
-  border: 2px solid var(--color-bg-100);
-  border-radius: 5px;
+  filter: saturate(0);
+  background-image: url(${beesad.text});
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  transition: filter 0.1s, opacity 0.1s;
+  cursor: pointer;
+
   &:checked {
-    background-color: #f7cd40;
+    background-image: url(${beehappy.text});
+    filter: none;
+    opacity: 1;
   }
+  
+  @media (hover: hover) {
+    &:hover {
+      background-image: url(${beehappy.text});
+      filter: brightness(100%);
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    margin-right: 0px;
+  }
+`;
+
+const S_CheckText = styled.label`
+  cursor: pointer;
 `;

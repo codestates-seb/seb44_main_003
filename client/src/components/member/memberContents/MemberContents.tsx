@@ -42,14 +42,16 @@ function MemberContents() {
 export default MemberContents;
 
 const S_Wrapper = styled.div`
-  margin: 100px 50px 0 30px;
+  margin-top: 100px;
   color: var(--color-white-60);
   > ul {
     display: flex;
     justify-content: space-around;
     width: 500px;
+    @media only screen and (max-width: 480px) {
+      width: 100vw;
+    }
   }
-
   > div {
     border-top: 1px solid var(--color-white-60);
     min-height: 100px;

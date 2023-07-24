@@ -138,3 +138,9 @@ export type Report = {
   mediaId: number;
   title: string;
 };
+
+export type BannerImgsType = {
+  url: string;
+  alt: string;
+  id: number;
+}[];

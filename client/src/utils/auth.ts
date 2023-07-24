@@ -40,3 +40,12 @@ export function checkAuthLoader() {
   }
   return null;
 }
+
+export function checkUnauthLoader() {
+  const token = getAuthToken();
+
+  if (token) {
+    return redirect('/');
+  }
+  return null;
+}

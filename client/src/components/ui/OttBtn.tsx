@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import netflix from '../../assets/ott/netflix.svg';
-import disney from '../../assets/ott/disney.svg';
-import watcha from '../../assets/ott/watcha.svg';
-import wavve from '../../assets/ott/wavve.svg';
 
 function OttBtn() {
   const path = useLocation().pathname;
@@ -51,22 +47,22 @@ function OttBtn() {
     return (
       <>
         <S_Ott
-          src={netflix}
+          src={`${import.meta.env.VITE_IMAGE_URL}/ott/netflix.webp`}
           alt="Netflix"
           onClick={() => navigate(`${path}/list?ott=Netflix`)}
         />
         <S_Ott
-          src={disney}
+          src={`${import.meta.env.VITE_IMAGE_URL}/ott/disney.webp`}
           alt="Disney Plus"
           onClick={() => navigate(`${path}/list?ott=Disney Plus`)}
         />
         <S_Ott
-          src={watcha}
+          src={`${import.meta.env.VITE_IMAGE_URL}/ott/watcha.webp`}
           alt="Watcha"
           onClick={() => navigate(`${path}/list?ott=Watcha`)}
         />
         <S_Ott
-          src={wavve}
+          src={`${import.meta.env.VITE_IMAGE_URL}/ott/wavve.webp`}
           alt="wavve"
           onClick={() => navigate(`${path}/list?ott=wavve`)}
         />
@@ -77,7 +73,7 @@ function OttBtn() {
   return (
     <>
       <S_Ott
-        src={netflix}
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/netflix.webp`}
         alt="Netflix"
         className={selectedOtt.Netflix ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
@@ -85,7 +81,7 @@ function OttBtn() {
         }}
       />
       <S_Ott
-        src={disney}
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/disney.webp`}
         alt="Disney Plus"
         className={selectedOtt['Disney Plus'] ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
@@ -93,7 +89,7 @@ function OttBtn() {
         }}
       />
       <S_Ott
-        src={watcha}
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/watcha.webp`}
         alt="Watcha"
         className={selectedOtt.Watcha ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
@@ -101,7 +97,7 @@ function OttBtn() {
         }}
       />
       <S_Ott
-        src={wavve}
+        src={`${import.meta.env.VITE_IMAGE_URL}/ott/wavve.webp`}
         alt="wavve"
         className={selectedOtt.wavve ? '' : 'dark'}
         onClick={(e: React.MouseEvent<EventTarget>) => {
@@ -115,6 +111,8 @@ function OttBtn() {
 export default OttBtn;
 
 const S_Ott = styled.img`
+  width: 40px;
+  height: 40px;
   box-shadow: var(--shadow-box-m-25);
   margin-right: 15px;
   cursor: pointer;
@@ -122,5 +120,10 @@ const S_Ott = styled.img`
   &.dark {
     filter: saturate(0);
     opacity: 0.8;
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 32px;
+    height: 32px;
   }
 `;

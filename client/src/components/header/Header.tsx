@@ -4,10 +4,15 @@ import MainLogo from './MainLogo';
 import Navigation from './Navigation';
 import MemberMenu from './MemberMenu';
 import SearchBar from './SearchBar';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import { FiSearch } from 'react-icons/fi';
+import { useModal } from '../../hooks/useModal';
 
 function Header() {
   const [position, setPosition] = useState(window.scrollY);
   const [visible, setVisible] = useState(true);
+  const { openModal } = useModal();
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +25,9 @@ function Header() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [position]);
+  const handleClick = () => {
+    openModal({ content: <SearchBar /> });
+  };
 
   return (
     <S_Header $visible={visible}>
@@ -29,8 +37,12 @@ function Header() {
           <Navigation />
         </div>
         <div>
-          <SearchBar />
-          <MemberMenu />
+          {isMobile || (
+            <S_Logo onClick={handleClick}>
+              <FiSearch />
+            </S_Logo>
+          )}
+          <MemberMenu position={position} />
         </div>
       </S_Wrapper>
     </S_Header>
@@ -40,32 +52,28 @@ function Header() {
 export default Header;
 
 const S_Header = styled.header<{ $visible: boolean }>`
-  transform: ${(props) =>
-    props.$visible ? undefined : 'translate(0, -120px)'};
+  transform: ${(props) => (props.$visible ? undefined : 'translate(0, -80px)')};
   display: flex;
   justify-content: center;
   width: 100%;
   top: 0;
   position: sticky;
-  background: linear-gradient(
-    180deg,
-    rgba(20, 24, 31, 0.49) 0%,
-    rgba(20, 24, 31, 0) 100%
-  );
   z-index: 1000;
   transition: transform 0.5s ease;
 `;
-
 const S_Wrapper = styled.div`
-  margin-top: 15px;
   position: absolute;
   max-width: 1500px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 15px 60px 0 60px;
   width: 100%;
-
+  background: linear-gradient(
+    180deg,
+    rgba(20, 24, 31, 0.49) 0%,
+    rgba(20, 24, 31, 0) 100%
+  );
   > div {
     display: flex;
     flex-direction: row;
@@ -80,7 +88,16 @@ const S_Wrapper = styled.div`
     }
   }
 
-  @media only screen and (max-width: 540px) {
-    padding: 0 20px;
+  @media only screen and (max-width: 770px) {
+    padding: 15px 20px 0 20px;
+  }
+`;
+const S_Logo = styled.button`
+  color: var(--color-white-60);
+  font-size: 20px;
+  right: 8px;
+  transition: color 0.3s ease;
+  &:hover {
+    color: white;
   }
 `;

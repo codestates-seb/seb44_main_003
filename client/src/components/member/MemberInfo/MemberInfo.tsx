@@ -14,7 +14,6 @@ function MemberInfo() {
 export default MemberInfo;
 
 const S_Wrapper = styled.div`
-  padding: 0 40px;
   display: flex;
   width: 100%;
   color: white;
@@ -22,5 +21,6 @@ const S_Wrapper = styled.div`
   @media only screen and (max-width: 600px) {
     flex-direction: column;
     align-items: center;
+    margin-top: 100px;
   }
 `;
