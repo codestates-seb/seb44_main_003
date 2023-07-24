@@ -5,7 +5,6 @@ import { useModal } from '../../hooks/useModal';
 import { AiFillHome } from 'react-icons/ai';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { AiOutlineHeart } from 'react-icons/ai';
-import kuromi from '../../assets/profiles/kuhub.webp';
 import SearchBar from '../header/SearchBar';
 import { useResetRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../recoil/atoms/Atoms';
@@ -37,7 +36,12 @@ function MobileGNB() {
     },
     {
       name: '추천해조잉',
-      icon: <img src={kuromi} />,
+      icon: (
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/profiles/kuhub.webp`}
+          alt="쿠로미 아이콘"
+        />
+      ),
       onClick: () => {
         const content = modalDataState.content as JSX.Element;
         if (modalDataState.isOpen && content.type.name === 'RecommendModal')
@@ -45,7 +49,7 @@ function MobileGNB() {
         else {
           openModal({ content: <Recommend /> });
           resetRecommendedContents();
-        };
+        }
       },
     },
     {

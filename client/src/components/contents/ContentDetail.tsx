@@ -10,19 +10,15 @@ import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
 import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
-import netflix from '../../assets/ott/netflix.webp';
-import disney from '../../assets/ott/disney.webp';
-import watcha from '../../assets/ott/watcha.webp';
-import wavve from '../../assets/ott/wavve.webp';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 function ContentDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
   const ottList = [
-    { name: 'Netflix', img: netflix },
-    { name: 'Disney Plus', img: disney },
-    { name: 'Watcha', img: watcha },
-    { name: 'wavve', img: wavve },
+    { name: 'Netflix', img: '/ott/netflix.webp' },
+    { name: 'Disney Plus', img: '/ott/disney.webp' },
+    { name: 'Watcha', img: '/ott/watcha.webp' },
+    { name: 'wavve', img: '/ott/wavve.webp' },
   ];
   const isUnder900 = useMediaQuery('(max-width: 900px)');
   const { isLoading, data, error, isSuccess } = useQuery(
@@ -48,12 +44,21 @@ function ContentDetail({ contentId }: { contentId: string }) {
           rel="noopener noreferrer"
           key={ott.name}
         >
-          <img src={ott.img} alt={ott.name} className="" />
+          <img
+            src={`${import.meta.env.VITE_IMAGE_URL}${ott.img}`}
+            alt={ott.name}
+            className=""
+          />
         </a>
       );
     } else {
       return (
-        <img src={ott.img} alt={ott.name} className="dark" key={ott.name} />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}${ott.img}`}
+          alt={ott.name}
+          className="dark"
+          key={ott.name}
+        />
       );
     }
   };
