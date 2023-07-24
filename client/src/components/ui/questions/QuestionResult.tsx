@@ -12,10 +12,8 @@ import {
   recommendTitle,
   moveAgainBtn,
   moveSignupBtn,
-  moveRecommendBtn
-} from './QuestionData'
-import loadmore from '../../../assets/exception/loadmore.webp';
-import beesad from '../../../assets/recommendimage/beesad.svg';
+  moveRecommendBtn,
+} from './QuestionData';
 import { useRecoilValue } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 
@@ -56,7 +54,10 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
     return (
       <S_LoadMore>
         <p className="loadmore">Loading . . .</p>
-        <img src={loadmore} alt="loadmore" />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/exception/nocontents.svg`}
+          alt="컨텐츠없음"
+        />
       </S_LoadMore>
     );
   }
@@ -154,7 +155,12 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             </S_ResultTitleBox>
             <S_SelectionBox>
               <S_RecommendBox>
-                <S_ResultAgainImg src={beesad} />
+                <S_ResultAgainImg
+                  src={`${
+                    import.meta.env.VITE_IMAGE_URL
+                  }/recommendimage/beesad.svg`}
+                  alt="슬픈 꿀벌"
+                />
                 <S_Text>{`다시 컨텐츠를 찾아볼까요?`}</S_Text>
                 <S_BtnsBox>
                   <MoveBtn
@@ -273,7 +279,7 @@ const S_ResultId = styled.p`
     0 0 0px #212121, 5px 0 0px #212121, 5px 5px 0px #212121,
     5px -5px 0px #212121, -5px 0 0px #212121, -5px 5px 0px #212121,
     -5px -5px 0px #212121;
-  
+
   @media only screen and (max-width: 770px) {
     font-size: 40px;
   }

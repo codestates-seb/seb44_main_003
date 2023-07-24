@@ -6,8 +6,6 @@ import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { useInView } from 'react-intersection-observer';
 import { ContentData } from '../../types/types';
 import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
-import noContents from '../../assets/exception/nocontents.svg';
-import loadmore from '../../assets/exception/loadmore.webp';
 import { ItemProps } from '../../types/types';
 
 function InfinityScroll({ path, query }: { path: string; query: string }) {
@@ -117,14 +115,24 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
           ) : (
             <S_NoContents>
               <S_Text>{`${query} 검색 결과가 없습니다.`}</S_Text>
-              <img src={noContents} alt="noContents" />
+              <img
+                src={`${
+                  import.meta.env.VITE_IMAGE_URL
+                }/exception/nocontents.svg`}
+                alt="컨텐츠없음"
+              />
             </S_NoContents>
           )
         ) : (
           totalLength === 0 && (
             <S_NoContents>
               <p className="noContents">해당 컨텐츠가 없습니다.</p>
-              <img src={noContents} alt="noContents" />
+              <img
+                src={`${
+                  import.meta.env.VITE_IMAGE_URL
+                }/exception/nocontents.svg`}
+                alt="컨텐츠없음"
+              />
             </S_NoContents>
           )
         )}
@@ -141,7 +149,12 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
           {isLoadingMore ? (
             <S_LoadMore>
               <p className="loadmore">Loading . . .</p>
-              <img src={loadmore} alt="loadmore" />
+              <img
+                src={`${
+                  import.meta.env.VITE_IMAGE_URL
+                }/exception/loadmore.webp`}
+                alt="다미 로딩스피너"
+              />
             </S_LoadMore>
           ) : null}
           <div ref={ref} className="target"></div>
@@ -212,10 +225,16 @@ const S_NoContents = styled.div`
   width: 100vw;
 
   .noContents {
-    padding: 160px 0 70px 0;
+    padding: 70px 0;
     font-size: 30px;
     font-weight: bold;
     color: var(--color-white-80);
+  }
+
+  @media only screen and (max-width: 480px) {
+    .noContents {
+      font-size: 16px;
+    }
   }
 `;
 

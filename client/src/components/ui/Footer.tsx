@@ -2,8 +2,6 @@ import { useLocation } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
-import kuhub from '../../assets/profiles/kuhub.webp';
-import logo from '../../assets/logo/overthetop.webp';
 
 function Footer() {
   const location = useLocation();
@@ -17,7 +15,10 @@ function Footer() {
     <S_Footer>
       <span />
       <S_Logo>
-        <img src={logo} alt="logo" />
+        <img
+          src={`${import.meta.env.VITE_IMAGE_URL}/logo/overthetop.webp`}
+          alt="오버더탑 로고"
+        />
       </S_Logo>
       <section>
         <div className="team">
@@ -27,7 +28,10 @@ function Footer() {
             }}
           >
             <p>FE 이진화</p>
-            <img src={kuhub} alt="kuhub" />
+            <img
+              src={`${import.meta.env.VITE_IMAGE_URL}/profiles/kuhub.webp`}
+              alt="쿠로미 아이콘"
+            />
             <DiGithubFull size={30} />
           </S_Team>
           <S_Team
