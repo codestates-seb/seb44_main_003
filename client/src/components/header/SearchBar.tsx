@@ -117,7 +117,8 @@ const S_Modal = styled.div`
 const S_Wrapper = styled.div<{ isMobile: boolean }>`
   max-width: 1500px;
   width: 100%;
-  height: ${({ isMobile }) => (isMobile ? '100vh' : '300px')};
+  height: ${({ isMobile }) => (isMobile ? '100vh' : 'fit-content')};
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
