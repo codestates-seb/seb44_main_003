@@ -12,52 +12,49 @@ function MainBanner() {
   const { openModal } = useModal();
   return (
     <S_Wrapper>
-      <img
-        src={`${import.meta.env.VITE_IMAGE_URL}/main_background.webp`}
+      <S_MainBackground
+        src={`${import.meta.env.VITE_IMAGE_URL}/main/main_background.webp`}
         alt="메인 배경"
       />
       <S_BlackLinear />
-      <div className="banner">
-        <div>
-          <h2>
-            <span>내가 보고 싶은 그 드라마..</span>
-            <span>어느 OTT에서 볼 수 있지?</span>
-          </h2>
-          <h1>
-            <span>조잉이</span> <span>다 찾아조잉!</span>
-          </h1>
-        </div>
-      </div>
-      <div className="nav">
-        <div onClick={() => navigate('/tv')}>
-          <div>
-            <IoIosTv />
-            <h3>
-              TV 컨텐츠 <span>둘러보기</span>
-            </h3>
-            <p>다양한 TV 컨텐츠를 한눈에!</p>
-          </div>
-          <PiCaretRightThin className="arrow" />
-        </div>
-        <div onClick={() => navigate('/movie')}>
-          <div>
-            <BiCameraMovie />
-            <h3>
-              영화 컨텐츠 <span>둘러보기</span>
-            </h3>
-            <p>여러 장르의 영화를 모아보자!</p>
-          </div>
-          <PiCaretRightThin className="arrow" />
-        </div>
-        <div onClick={() => openModal({ content: <Recommend /> })}>
-          <div>
-            <PiMagicWandFill />
-            <h3>추천해조잉</h3>
-            <p>구독 중인 OTT의 맞춤 컨텐츠를 추천해드려요</p>
-          </div>
-          <PiCaretRightThin className="arrow" />
-        </div>
-      </div>
+      <S_Container>
+        <S_Banner>
+          <S_MainText
+            src={`${import.meta.env.VITE_IMAGE_URL}/main/main_text.webp`}
+            alt="메인 텍스트"
+          />
+        </S_Banner>
+        <S_Nav>
+          <S_ContentsBox onClick={() => navigate('/tv')}>
+            <S_Contents>
+              <IoIosTv />
+              <h3>
+                TV 컨텐츠 <span>둘러보기</span>
+              </h3>
+              <p>다양한 TV 컨텐츠를 한눈에!</p>
+            </S_Contents>
+            <PiCaretRightThin className="arrow" />
+          </S_ContentsBox>
+          <S_ContentsBox onClick={() => navigate('/movie')}>
+            <S_Contents>
+              <BiCameraMovie />
+              <h3>
+                영화 컨텐츠 <span>둘러보기</span>
+              </h3>
+              <p>여러 장르의 영화를 모아보자!</p>
+            </S_Contents>
+            <PiCaretRightThin className="arrow" />
+          </S_ContentsBox>
+          <S_ContentsBox onClick={() => openModal({ content: <Recommend /> })}>
+            <S_Contents>
+              <PiMagicWandFill />
+              <h3>추천해조잉</h3>
+              <p>구독 중인 OTT의 맞춤 컨텐츠를 추천해드려요</p>
+            </S_Contents>
+            <PiCaretRightThin className="arrow" />
+          </S_ContentsBox>
+        </S_Nav>
+      </S_Container>
     </S_Wrapper>
   );
 }
@@ -65,259 +62,184 @@ function MainBanner() {
 export default MainBanner;
 
 const S_Wrapper = styled.div`
-  padding-top: 120px;
-  width: 100%;
-  height: 820px;
-  display: flex;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 70px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+
   @media only screen and (max-width: 1024px) {
+    padding-top: 70px;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 570px;
   }
+
   @media only screen and (max-width: 600px) {
-    padding-top: 50px;
-    height: 450px;
+    padding-top: 60px;
   }
-  & h1,
-  h2,
-  h3,
-  p {
-    min-width: max-content;
+`;
+
+const S_MainBackground = styled.img`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  animation: appear 1.5s linear -0.5s;
+`;
+
+const S_Container = styled.div`
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 3.75rem;
+  width: 100%;
+
+  @media only screen and (max-width: 770px) {
+    padding: 0px 1.25rem;
+  }
+`;
+
+const S_Banner = styled.div`
+  /* border: 1px solid yellow; */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 50px 0;
+  width: 50%;
+
+  @media only screen and (max-width: 1024px) {
+    margin: 10px 0 40px 0;
   }
 
-  & img {
-    position: absolute;
-    top: 0;
-    width: 1500px;
-    height: 1500px;
-    object-fit: cover;
-    opacity: 0.2;
-    z-index: -1;
-    animation: appear 1.5s linear -0.5s;
-    @media only screen and (max-width: 600px) {
-      width: 900px;
-      height: 900px;
+  @media only screen and (max-width: 600px) {
+    margin: 5px 0 25px 0;
+  }
+`;
+
+const S_MainText = styled.img`
+  object-fit: cover;
+  height: 100%;
+  animation: appear-bottom 1.2s linear;
+  @keyframes appear-bottom {
+    from {
+      filter: brightness(0);
+      transform: translate(0, 40px);
+    }
+    to {
+      filter: brightness(1);
+      transform: translate(0, 0);
     }
   }
-  > div.banner {
-    display: flex;
-    position: relative;
-    margin-bottom: 50px;
-    padding: 5px 80px;
+`;
+
+const S_Nav = styled.div`
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  width: 100%;
+  gap: 18px;
+  z-index: 3;
+
+  @media only screen and (max-width: 600px) {
+    margin-bottom: 20px;
+  }
+
+  > div:first-child {
+    animation: appear-side 1.5s linear -0.7s;
+
     @media only screen and (max-width: 1024px) {
-      flex-grow: 1;
-      align-items: center;
-      margin-bottom: 0;
-      padding: 0;
+      animation: appear-bottom 1.5s linear -0.7s;
     }
-    > div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100%;
-    }
-    & h2 {
-      color: white;
-      font-size: 30px;
-      margin-bottom: 15px;
-      animation: appear 1.5s linear -0.3s;
-      @media only screen and (max-width: 600px) {
-        animation: mobile-appear 1s linear -0.3s;
-      }
-      @media only screen and (max-width: 1024px) {
-        font-size: 23px;
-      }
-      @media only screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        font-size: 18px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-      }
-    }
-    & h1 {
-      background: linear-gradient(
-        to bottom,
-        var(--color-primary-yellow),
-        var(--color-primary-gold)
-      );
-      color: transparent;
-      background-clip: text;
-      -webkit-background-clip: text;
-      font-size: 80px;
-      animation: appear 1.5s linear -0.1s;
-      @media only screen and (max-width: 600px) {
-        animation: mobile-appear 1s linear -0.1s;
-      }
-      @keyframes appear {
-        from {
-          filter: brightness(0);
-          transform: translate(0, 80px);
-        }
-        to {
-          filter: brightness(1);
-          transform: translate(0, 0);
-        }
-      }
-      @keyframes mobile-appear {
-        from {
-          filter: brightness(0);
-          transform: translate(0, 40px);
-        }
-        to {
-          filter: brightness(1);
-          transform: translate(0, 0);
-        }
-      }
-      @media only screen and (max-width: 1024px) {
-        font-size: 65px;
-      }
 
-      @media only screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
-        font-size: 55px;
+    @keyframes appear-side {
+      from {
+        filter: brightness(0);
+        transform: translate(80px, 0);
+      }
+      to {
+        filter: brightness(1);
+        transform: translate(0, 0);
+      }
+    }
+
+    @keyframes appear-bottom {
+      from {
+        filter: brightness(0);
+        transform: translate(0, 40px);
+      }
+      to {
+        filter: brightness(1);
+        transform: translate(0, 0);
       }
     }
   }
 
-  > div.nav {
-    display: flex;
-    flex-direction: column;
+  > div:nth-child(2) {
+    animation: appear-side 1.5s linear -0.5s;
+
+    @media only screen and (max-width: 1024px) {
+      animation: appear-bottom 1.5s linear -0.7s;
+    }
+  }
+
+  > div:nth-child(3) {
+    animation: appear-side 1.5s linear -0.3s;
+
+    @media only screen and (max-width: 1024px) {
+      animation: appear-bottom 1.5s linear -0.7s;
+    }
+  }
+`;
+
+const S_ContentsBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 30px;
+  width: calc(100% / 3 - 10px);
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: var(--color-dropdown);
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+
+  @media only screen and (max-width: 1024px) {
     justify-content: center;
-    margin-right: 80px;
-    flex-grow: 1;
-    align-items: end;
-    z-index: 3;
-    @media only screen and (max-width: 1024px) {
-      flex-direction: row;
-      flex-grow: 0;
-      width: 70vw;
-      margin-right: 0;
-      margin-bottom: 20px;
-    }
-    @media only screen and (max-width: 1024px) {
-      width: 90vw;
-    }
-    > div:first-child {
-      animation: appear-side 1.5s linear -0.7s;
-      @media only screen and (max-width: 1024px) {
-        animation: appear-bottom 1.5s linear -0.7s;
-      }
-      @keyframes appear-side {
-        from {
-          filter: brightness(0);
-          transform: translate(80px, 0);
-        }
-        to {
-          filter: brightness(1);
-          transform: translate(0, 0);
-        }
-      }
-      @keyframes appear-bottom {
-        from {
-          filter: brightness(0);
-          transform: translate(0, 40px);
-        }
-        to {
-          filter: brightness(1);
-          transform: translate(0, 0);
-        }
-      }
-    }
-    > div:nth-child(2) {
-      animation: appear-side 1.5s linear -0.5s;
-      @media only screen and (max-width: 1024px) {
-        animation: appear-bottom 1.5s linear -0.7s;
-      }
-    }
-    > div:nth-child(3) {
-      animation: appear-side 1.5s linear -0.3s;
-      @media only screen and (max-width: 1024px) {
-        animation: appear-bottom 1.5s linear -0.7s;
-      }
-    }
-    > div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 400px;
-      height: 150px;
-      margin-bottom: 20px;
-      padding: 20px 10px 20px 30px;
-      border: 1px solid white;
-      border-radius: 10px;
-      background-color: var(--color-dropdown);
-      color: white;
-      font-size: 17px;
-      cursor: pointer;
-      @media only screen and (max-width: 1024px) {
-        width: 350px;
-      }
-      @media only screen and (max-width: 1024px) {
-        margin: 0 5px;
-        height: 90px;
-        flex-grow: 1;
-        padding: 15px;
-        min-width: 80px;
-      }
-      @media only screen and (max-width: 600px) {
-        height: 70px;
-      }
-    }
-    > div:hover {
-      filter: brightness(120%);
-    }
-    > div:active {
-      filter: brightness(90%);
-    }
-    & h3 {
-      font-size: 20px;
-      margin-bottom: 5px;
-      @media only screen and (max-width: 1024px) {
-        font-size: 17px;
-        font-weight: 400;
-      }
-      @media only screen and (max-width: 1024px) {
-        font-size: 16px;
-      }
-      @media only screen and (max-width: 600px) {
-        font-size: 14px;
-      }
-      > span {
-        @media only screen and (max-width: 1024px) {
-          display: none;
-        }
-      }
-    }
+    padding: 15px;
   }
-  & p {
-    font-size: 16px;
-    color: var(--color-white-80);
-    @media only screen and (max-width: 1024px) {
-      font-size: 14px;
-    }
-    @media only screen and (max-width: 1024px) {
-      display: none;
-    }
+
+  @media only screen and (max-width: 600px) {
+    padding: 10px;
   }
+
   & svg {
     font-size: 35px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+
     @media only screen and (max-width: 1024px) {
       font-size: 30px;
     }
+
     @media only screen and (max-width: 1024px) {
       font-size: 25px;
-      margin-bottom: 5px;
     }
+
     @media only screen and (max-width: 600px) {
       font-size: 20px;
     }
   }
+
   & svg.arrow {
     font-size: 28px;
     color: var(--color-white-80);
@@ -325,7 +247,66 @@ const S_Wrapper = styled.div`
       display: none;
     }
   }
+
+  &:hover {
+    filter: brightness(120%);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
 `;
+
+const S_Contents = styled.div`
+  word-break: keep-all;
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 600px) {
+    font-size: 14px;
+  }
+
+  & h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+
+    @media only screen and (max-width: 1024px) {
+      font-size: 17px;
+    }
+
+    @media only screen and (max-width: 1024px) {
+      font-size: 16px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+
+    > span {
+      @media only screen and (max-width: 1024px) {
+        display: none;
+      }
+    }
+  }
+
+  & p {
+    font-size: 16px;
+    color: var(--color-white-80);
+
+    @media only screen and (max-width: 1024px) {
+      font-size: 14px;
+    }
+
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
+  }
+`;
+
 const S_BlackLinear = styled.div`
   position: absolute;
   bottom: 0;
@@ -337,4 +318,12 @@ const S_BlackLinear = styled.div`
     var(--color-bg-00) 100%
   );
   z-index: 2;
+
+  @media only screen and (max-width: 1024px) {
+    height: 100px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    height: 50px;
+  }
 `;
