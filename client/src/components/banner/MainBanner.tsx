@@ -105,7 +105,6 @@ const S_Container = styled.div`
   @media only screen and (max-width: 770px) {
     padding: 0px 1.25rem;
   }
-
 `;
 
 const S_Banner = styled.div`
@@ -208,7 +207,7 @@ const S_ContentsBox = styled.div`
     justify-content: center;
     padding: 15px;
   }
-  
+
   @media only screen and (max-width: 600px) {
     padding: 10px;
   }
@@ -224,12 +223,12 @@ const S_ContentsBox = styled.div`
     @media only screen and (max-width: 1024px) {
       font-size: 25px;
     }
-    
+
     @media only screen and (max-width: 600px) {
       font-size: 20px;
     }
   }
-  
+
   & svg.arrow {
     font-size: 28px;
     color: var(--color-white-80);
@@ -241,14 +240,14 @@ const S_ContentsBox = styled.div`
   &:hover {
     filter: brightness(120%);
   }
-  
+
   &:active {
     filter: brightness(90%);
   }
 `;
 
 const S_Contents = styled.div`
-
+  word-break: keep-all;
   @media only screen and (max-width: 1024px) {
     display: flex;
     flex-direction: column;
