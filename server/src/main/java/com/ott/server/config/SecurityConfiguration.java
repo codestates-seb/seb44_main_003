@@ -101,7 +101,7 @@ public class SecurityConfiguration {
                 config.setAllowedMethods(Arrays.asList("*"));
                 config.setAllowCredentials(true);
                 config.setAllowedHeaders(Arrays.asList("*"));
-                config.setExposedHeaders(Arrays.asList("Authorization"));
+                config.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
                 return config;
             }
         };

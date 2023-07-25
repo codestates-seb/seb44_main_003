@@ -53,7 +53,6 @@ public class RecommendationService {
         return findRecommendation;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteRecommendation(long recommendationId) {
         Recommendation findRecommendation = findVerifiedRecommendation(recommendationId);
         recommendationRepository.delete(findRecommendation);
