@@ -3,7 +3,7 @@
 # 🔝 Team Over-The-Top
 
 <br>
-<img src="[https://ott-main-project.s3.ap-northeast-2.amazonaws.com/logo/logo_yellow.svg](https://github.com/codestates-seb/seb44_main_003/assets/122351417/71882a5e-905c-40b4-b56d-d251f0898202)" width='400'>
+<img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/71882a5e-905c-40b4-b56d-d251f0898202" width='400'>
 <br>
 <b>JOYING: 세상의 모든 OTT 컨텐츠를 한 곳에 보여조잉!</b>
 <br>
