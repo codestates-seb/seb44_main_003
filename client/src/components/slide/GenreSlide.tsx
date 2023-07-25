@@ -9,6 +9,8 @@ import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 SwiperCore.use([Virtual, Navigation]);
 
@@ -26,6 +28,7 @@ const GenreSlider = ({
   genre: string;
   path: 'tv' | 'movie';
 }) => {
+  const navigate = useNavigate();
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
 
   const { isLoading, error, data, isSuccess } = useQuery({
@@ -45,7 +48,9 @@ const GenreSlider = ({
     );
   }
 
-  if (error instanceof Error) return <div>Error</div>;
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
 
   if (isSuccess && data.content.length > 0) {
     return (
