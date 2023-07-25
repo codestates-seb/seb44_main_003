@@ -30,7 +30,6 @@ public class BookmarkService {
         this.mediaRepository = mediaRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public void createOrDeleteBookmark(BookmarkDto.Post bookmarkDto, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
         Media media = mediaRepository.findById(bookmarkDto.getMediaId())
