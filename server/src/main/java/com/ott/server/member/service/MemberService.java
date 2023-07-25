@@ -74,11 +74,13 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
+    @Transactional(readOnly = true)
     public Member findMember(long memberId) {
         System.out.println("Finding member with ID: " + memberId);
         return findVerifiedMember(memberId);
     }
 
+    @Transactional(readOnly = true)
     public Member findMemberByEmail(String email) {
         Optional<Member> optionalMember =
                 memberRepository.findByEmail(email);
@@ -101,6 +103,7 @@ public class MemberService {
         memberRepository.delete(findMember);
     }
 
+    @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId);
