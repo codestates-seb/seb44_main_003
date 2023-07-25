@@ -29,7 +29,7 @@ public class RecommendationService {
         this.memberRepository = memberRepository;
         this.mediaRepository = mediaRepository;
     }
-    @Transactional(propagation = Propagation.REQUIRED)
+
     public void createOrDeleteRecommendation(RecommendationDto.Post recommendationDto, String email) {
         Member member = memberRepository.findByEmail(email).orElseThrow();
         Media media = mediaRepository.findById(recommendationDto.getMediaId())
@@ -47,19 +47,16 @@ public class RecommendationService {
         }
     }
 
-    @Transactional
     public Recommendation findRecommendation(long recommendationId){
         Recommendation findRecommendation = findVerifiedRecommendation(recommendationId);
         return findRecommendation;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
     public void deleteRecommendation(long recommendationId) {
         Recommendation findRecommendation = findVerifiedRecommendation(recommendationId);
         recommendationRepository.delete(findRecommendation);
     }
 
-    @Transactional
     private Recommendation findVerifiedRecommendation(long recommendationId) {
         Optional<Recommendation> optionalRecommendation = recommendationRepository.findById(recommendationId);
         Recommendation findRecommendation =
