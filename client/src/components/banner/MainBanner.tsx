@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
@@ -10,11 +11,22 @@ import Recommend from '../ui/questions/RecommendModal';
 function MainBanner() {
   const navigate = useNavigate();
   const { openModal } = useModal();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
   return (
     <S_Wrapper>
+      <S_SkeletonBox>
+        {!imageLoaded && <S_Skeleton />}
+      </S_SkeletonBox>
       <S_MainBackground
         src={`${import.meta.env.VITE_IMAGE_URL}/main/main_background.webp`}
         alt="메인 배경"
+        style={{ display: imageLoaded ? 'block' : 'none' }}
+        onLoad={handleImageLoad}
       />
       <S_BlackLinear />
       <S_Container>
@@ -83,9 +95,24 @@ const S_Wrapper = styled.div`
   }
 `;
 
+const S_SkeletonBox = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+const S_Skeleton = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-100);
+`;
+
 const S_MainBackground = styled.img`
   position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -94,7 +121,6 @@ const S_MainBackground = styled.img`
 `;
 
 const S_Container = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,7 +134,6 @@ const S_Container = styled.div`
 `;
 
 const S_Banner = styled.div`
-  /* border: 1px solid yellow; */
   position: relative;
   display: flex;
   justify-content: center;
@@ -142,7 +167,6 @@ const S_MainText = styled.img`
 `;
 
 const S_Nav = styled.div`
-  /* border: 1px solid blue; */
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
