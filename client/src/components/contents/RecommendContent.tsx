@@ -2,21 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import { GetDataDetail, GetFilterdData } from '../../api/api';
 import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
-import { RecommendContentLoading } from '../ui/exceptions/recommendContent';
+import { RecommendContentLoading } from '../ui/exceptions/RecommendContentLoading';
 import { ContentData } from '../../types/types';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
+  const navigate = useNavigate();
   const getRandomItems = (items: ContentData[], numItems: number) => {
     const shuffledItems = items.sort(() => 0.5 - Math.random());
     return shuffledItems.slice(0, numItems);
   };
 
-  const {
-    isLoading: detailLoading,
-    error: detailError,
-    data: detailData,
-    isSuccess: detailSuccess,
-  } = useQuery({
+  const { data: detailData, isSuccess: detailSuccess } = useQuery({
     queryKey: ['selectedContent', contentId],
     queryFn: () => GetDataDetail(contentId),
   });
@@ -24,7 +22,7 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
   let category = detailData?.category === 'TV' ? 'tv' : 'movie';
 
   const {
-    isLoading: filteredLoading,
+    isInitialLoading: filteredLoading,
     error: filteredError,
     data: filteredData,
     isSuccess: filteredSuccess,
@@ -37,7 +35,7 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     enabled: !!detailData, // true가 되면 filteredData를 실행한다
   });
 
-  if (detailLoading || filteredLoading) {
+  if (!!detailData && filteredLoading) {
     return (
       <S_Wrapper>
         <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
@@ -46,14 +44,12 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     );
   }
 
-  if (detailError instanceof Error)
-    return 'An error has occurred: ' + detailError.message;
-
-  if (filteredError instanceof Error)
-    return 'An error has occurred: ' + filteredError.message;
+  if (filteredError instanceof AxiosError) {
+    if (!filteredError.status && filteredError.code === 'ERR_NETWORK')
+      navigate('/error');
+  }
 
   if (detailSuccess && filteredSuccess) {
-
     const randomItems = getRandomItems(filteredData?.content, 6);
 
     return (
@@ -76,7 +72,11 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
 export default RecommendContent;
 
 const S_Wrapper = styled.div`
-  padding: 0px 30px;
+  padding: 0px 3.75rem;
+
+  @media only screen and (max-width: 770px) {
+    padding: 0px 1.25rem;
+  }
 `;
 
 const S_Text = styled.p`
@@ -84,34 +84,31 @@ const S_Text = styled.p`
   color: var(--color-white-100);
   font-size: 24px;
   font-weight: 700;
+
+  @media only screen and (max-width: 770px) {
+    font-size: 18px;
+  }
 `;
 
 const S_ItemBox = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+  /* border: 2px solid red; */
+
+  @media only screen and (max-width: 770px) {
+    gap: 10px;
+  }
 `;
 
 const S_Item = styled.div`
-  width: calc(100% / 6 - 15px);
-  margin: 0px 7.5px 50px;
-
-  @media only screen and (max-width: 1200px) {
-    width: calc(100% / 6 - 15px);
-    gap: 18px;
-  }
-
-  @media only screen and (max-width: 1024px) {
-    width: calc(100% / 6 - 15px);
-    gap: 16px;
-  }
+  width: calc(100% / 6 - 18px);
+  margin: 0px 0px 50px;
+  /* border: 2px solid yellow; */
 
   @media only screen and (max-width: 770px) {
-    width: calc(100% / 3 - 15px);
-    gap: 14px;
-  }
-
-  @media only screen and (max-width: 480px) {
-    width: calc(100% / 3 - 15px);
-    gap: 10px;
+    width: calc(100% / 3 - 10px);
+    margin: 0px 0px 30px;
   }
 `;

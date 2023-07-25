@@ -2,8 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { BiError } from 'react-icons/bi';
 import { GetUser } from '../../../api/api';
 import { styled } from 'styled-components';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function MemberProfile() {
+  const navigate = useNavigate();
   const { isLoading, data, error, isSuccess } = useQuery({
     queryKey: ['user'],
     queryFn: GetUser,
@@ -20,12 +23,15 @@ function MemberProfile() {
       </S_ProfileWrapper>
     );
 
-  if (error instanceof Error)
-    return (
-      <S_ProfileWrapper>
-        <BiError />
-      </S_ProfileWrapper>
-    );
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+    else
+      return (
+        <S_ProfileWrapper>
+          <BiError />
+        </S_ProfileWrapper>
+      );
+  }
 
   if (isSuccess)
     return (

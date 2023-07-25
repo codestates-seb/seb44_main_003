@@ -8,6 +8,7 @@ import { GetUser, PatchUser } from '../../api/api';
 import { genres } from '../../constant/constantValue';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
 import { useState, useEffect } from 'react';
+import { notifySuccess } from '../../utils/notify';
 
 const ottList = [
   { name: '넷플릭스', value: 'Netflix' },
@@ -15,7 +16,7 @@ const ottList = [
   { name: '디즈니플러스', value: 'Disney Plus' },
   { name: '왓챠', value: 'Watcha' },
 ];
-const longName = ['애니메이션', '다큐멘터리', 'Made in Europe', 'Reality TV'];
+const longName = ['애니메이션'];
 
 function MemberLikesModal() {
   const [error, setError] = useState<string | null>(null);
@@ -25,6 +26,7 @@ function MemberLikesModal() {
 
   const mutation = useMutation(PatchUser, {
     onSuccess: () => {
+      notifySuccess('선호도가 변경되었습니다.');
       closeModal();
       queryClient.invalidateQueries(['user']);
     },

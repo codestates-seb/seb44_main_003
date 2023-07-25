@@ -33,7 +33,7 @@ function Navigation() {
               navigate(menu.route);
             }
           }}
-          $isSelected={pathname === menu.route}
+          $isSelected={pathname.includes(menu.route as string)}
         >
           {menu.text}
         </S_Heading>

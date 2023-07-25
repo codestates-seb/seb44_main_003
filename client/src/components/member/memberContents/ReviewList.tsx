@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetUserReviews } from '../../../api/api';
 import Comments from '../../comments/Comments';
-import noContent from '../../../assets/exception/nocontents.svg';
 import { styled } from 'styled-components';
 import { useState } from 'react';
 
@@ -17,7 +16,10 @@ function ReviewList() {
     if (!data.reviews.length)
       return (
         <S_Error>
-          <img src={noContent} />
+          <img
+            src={`${import.meta.env.VITE_IMAGE_URL}/exception/nocontents.svg`}
+            alt="컨텐츠없음"
+          />
           <p>작성한 후기가 없습니다</p>
         </S_Error>
       );

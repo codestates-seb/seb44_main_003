@@ -140,7 +140,7 @@ export type Report = {
 };
 
 export type BannerImgsType = {
-  name: string;
+  url: string;
   alt: string;
   id: number;
 }[];

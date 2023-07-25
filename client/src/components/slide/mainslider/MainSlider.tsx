@@ -59,7 +59,7 @@ const MainSlider = ({ ott }: { ott: string }) => {
           virtual
         >
           {data.content.map((item) => (
-            <S_SwiperSlide>
+            <S_SwiperSlide key={item.id}>
               <ItemCard item={item} />
             </S_SwiperSlide>
           ))}
@@ -141,7 +141,7 @@ const S_Swiper = styled(Swiper)`
   }
   .swiper-button-next {
     right: -3.75rem;
-    
+
     @media only screen and (max-width: 770px) {
       right: -2rem;
     }

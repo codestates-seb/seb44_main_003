@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import { useModal } from '../../hooks/useModal';
 import ReportModal from '../ui/modal/report/ReportModal';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
+import { notifyError } from '../../utils/notify';
 
 function ReportBtn({ contentId }: { contentId: string }) {
   const { openModal } = useModal();
@@ -15,7 +16,7 @@ function ReportBtn({ contentId }: { contentId: string }) {
     if (isLoggedIn) {
       openModal(modalData);
     } else {
-      alert('로그인 후 이용 가능합니다');
+      notifyError('로그인 후 이용 가능합니다');
     }
   };
 

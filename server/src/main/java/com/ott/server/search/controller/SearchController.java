@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +58,14 @@ public class SearchController {
     @GetMapping("/autocomplete")
     public ResponseEntity autocomplete(@RequestParam String q,
                                        @RequestParam(defaultValue = "10") int limit){
-        Pageable pageable = PageRequest.of(0, limit);
-        List<String> titles = searchService.autocomplete(q, pageable);
-        return new ResponseEntity<>(titles, HttpStatus.OK);
+        try {
+            Pageable pageable = PageRequest.of(0, limit);
+            List<String> titles = searchService.autocomplete(q, pageable);
+            return new ResponseEntity<>(titles, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

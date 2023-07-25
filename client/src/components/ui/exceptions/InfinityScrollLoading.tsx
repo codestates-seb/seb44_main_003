@@ -47,7 +47,7 @@ export function InfinityScrollLoading({ path }: { path: string }) {
 }
 
 const S_LoadingWrap = styled.div`
-  width: calc(100vw - 40px);
+  width: 100vw;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -66,30 +66,23 @@ const S_LoadingWrap = styled.div`
 `;
 
 const S_Item = styled.div<ItemProps>`
-  width: 225px;
-  margin: 0 0 50px 15px;
-  flex-grow: 1;
-
-  @media only screen and (max-width: 1500px) {
-    width: 14vw;
-    margin: ${({ index }) =>
-      index % 6 === 0 ? '0 0 50px 0' : '0 15px 50px 0'};
-  }
+  width: calc((100% - 75px) / ${({ size }) => size / 4});
+  margin: ${({ index }) => (index % 6 === 0 ? '0 0 30px 0' : '0 15px 30px 0')};
 
   @media only screen and (max-width: 1024px) {
-    width: 17vw;
+    width: calc((100% - 60px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 5 === 0 ? '0 0 30px 0' : '0 15px 30px 0'};
   }
 
   @media only screen and (max-width: 770px) {
-    width: 18vw;
+    width: calc((100% - 30px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 4 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }
 
   @media only screen and (max-width: 480px) {
-    width: 23vw;
+    width: calc((100% - 20px) / ${({ size }) => size / 4});
     margin: ${({ index }) =>
       index % 3 === 0 ? '0 0 30px 0' : '0 10px 30px 0'};
   }

@@ -72,10 +72,6 @@ const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
-  padding: 0 30px;
-  @media only screen and (max-width: 480px) {
-    padding: 0 10px;
-  }
   & img {
     width: 26px;
     height: 26px;
@@ -90,12 +86,9 @@ const S_Wrapper = styled.div`
     cursor: pointer;
   }
   > h1 {
-    margin: 20px;
+    margin: 20px 0;
     display: flex;
     align-items: center;
-    @media only screen and (max-width: 480px) {
-      margin: 0;
-    }
   }
   > div:last-child {
     display: flex;

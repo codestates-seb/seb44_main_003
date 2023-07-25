@@ -6,7 +6,6 @@ import { GetAutoComplete } from '../../api/api';
 import { FaXmark } from 'react-icons/fa6';
 import { useModal } from '../../hooks/useModal';
 import { FiSearch } from 'react-icons/fi';
-import logo from '../../assets/logo/logo_white.webp';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 function SearchBar() {
@@ -57,11 +56,11 @@ function SearchBar() {
 
   return (
     <S_Modal>
-      {' '}
       <S_Wrapper isMobile={isMobile}>
         <div>
           <img
-            src={logo}
+            src={`${import.meta.env.VITE_IMAGE_URL}/logo/logo_white.webp`}
+            alt="메인 로고"
             onClick={() => {
               reset();
               navigate('/');
@@ -118,7 +117,8 @@ const S_Modal = styled.div`
 const S_Wrapper = styled.div<{ isMobile: boolean }>`
   max-width: 1500px;
   width: 100%;
-  height: ${({ isMobile }) => (isMobile ? '100vh' : '300px')};
+  height: ${({ isMobile }) => (isMobile ? '100vh' : 'fit-content')};
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;

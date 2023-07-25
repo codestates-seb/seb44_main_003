@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 import { PostReport } from '../../../../api/api';
 import { useModal } from '../../../../hooks/useModal';
+import { notifySuccess } from '../../../../utils/notify';
 
 function ReportModal({ contentId }: { contentId: string }) {
   const { closeModal } = useModal();
@@ -15,7 +16,8 @@ function ReportModal({ contentId }: { contentId: string }) {
   const PostReportMutation = useMutation({
     mutationFn: PostReport,
     onSuccess: () => {
-      alert('제보가 접수되었습니다.');
+      notifySuccess('제보가 접수되었습니다.');
+      closeModal();
     },
   });
 

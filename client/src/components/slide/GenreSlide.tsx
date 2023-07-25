@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { GetTVData, GetMovieData } from '../../api/api';
 import { ContentData } from '../../types/types';
 import ItemCard from '../ui/ItemCard';
@@ -9,76 +9,35 @@ import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 SwiperCore.use([Virtual, Navigation]);
 
-const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
+const breakpoints = {
+  0: { slidesPerView: 3, slidesPerGroup: 3, spaceBetween: 10 },
+  770: { slidesPerView: 4, slidesPerGroup: 4, spaceBetween: 14 },
+  1024: { slidesPerView: 5, slidesPerGroup: 5, spaceBetween: 16 },
+  1200: { slidesPerView: 6, slidesPerGroup: 6, spaceBetween: 18 },
+};
+
+const GenreSlider = ({
+  genre,
+  path,
+}: {
+  genre: string;
+  path: 'tv' | 'movie';
+}) => {
+  const navigate = useNavigate();
   const [, setSwiperRef] = useState<SwiperCore | null>(null);
-  const [size, setSize] = useState(getSize());
 
-  function getSize() {
-    const width = window.innerWidth;
+  const { isLoading, error, data, isSuccess } = useQuery({
+    queryKey:
+      path === 'tv' ? ['tvGenreSlide', genre] : ['movieGenreSlide', genre],
+    queryFn: () => (path === 'tv' ? GetTVData(genre) : GetMovieData(genre)),
+  });
 
-    if (width <= 480) {
-      return 6;
-    } else if (width <= 770) {
-      return 8;
-    } else if (width <= 1024) {
-      return 12;
-    } else {
-      return 14;
-    }
-  }
-
-  const breakpoints = {
-    0: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
-    480: { slidesPerView: 3, slidesPerGroup: 2, spaceBetween: 10 },
-    770: { slidesPerView: 4, slidesPerGroup: 3, spaceBetween: 14 },
-    1024: { slidesPerView: 5, slidesPerGroup: 4, spaceBetween: 16 },
-    1200: { slidesPerView: 6, slidesPerGroup: 5, spaceBetween: 18 }
-  };
-
-  const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
-    path === 'tv' ? ['tvGenreSlide', genre] : ['movieGenreSlide', genre],
-    ({ pageParam = 1 }) =>
-      path === 'tv'
-        ? GetTVData(genre, size, pageParam)
-        : GetMovieData(genre, size, pageParam),
-    {
-      getNextPageParam: (lastPage) => {
-        const currentPage = lastPage.currentPage;
-        const totalPages = lastPage.totalPages;
-        if (currentPage < totalPages) {
-          return currentPage + 1;
-        }
-
-        return undefined;
-      },
-    }
-  )
-
-  const handleNextPage = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.className === 'swiper-button-next') {
-      if (!hasNextPage) {
-        return
-      }
-      fetchNextPage()
-    }
-  }
-
-  useEffect(() => {
-    const handleResize = () => {
-      setSize(getSize());
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  if (status === 'loading') {
+  if (isLoading) {
     return (
       <>
         <S_GenreTitle>{genre}</S_GenreTitle>
@@ -86,30 +45,21 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
           <SliderLoading />
         </S_LoadingBox>
       </>
-    )
+    );
   }
 
-  if (status === 'error') return <div>Error</div>;
-  
-  if (status === 'success' && data.pages[0].content.length > 0) {
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+  }
+
+  if (isSuccess && data.content.length > 0) {
     return (
       <>
         <S_GenreTitle>{genre}</S_GenreTitle>
-        <S_SwiperBox onClick={(e: React.MouseEvent) => handleNextPage(e)}>
+        <S_SwiperBox>
           <S_Swiper
             onSwiper={setSwiperRef}
-            onReachEnd={() => {
-              if (hasNextPage) {
-                fetchNextPage();
-              }
-            }}
-            // onSlideChange={() => {
-            //   if (hasNextPage) {
-            //     fetchNextPage();
-            //   }
-            // }}
             slidesPerView={6}
-            slidesPerGroup={5}
             centeredSlides={false}
             spaceBetween={18}
             navigation={true}
@@ -117,14 +67,10 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
             breakpoints={breakpoints}
             virtual
           >
-            {data.pages.map((page) => (
-              <>
-                {page.content.map((item: ContentData) => (
-                  <S_SwiperSlide key={item.id}>
-                    <ItemCard item={item} />
-                  </S_SwiperSlide>
-                ))}
-              </>
+            {data.content.map((item: ContentData) => (
+              <S_SwiperSlide key={`${genre}-${item.id}`}>
+                <ItemCard item={item} />
+              </S_SwiperSlide>
             ))}
           </S_Swiper>
         </S_SwiperBox>
@@ -133,7 +79,7 @@ const GenreSlide = ({ genre, path }: { genre: string, path: 'tv'|'movie' }) => {
   }
 };
 
-export default GenreSlide;
+export default GenreSlider;
 
 const S_SwiperBox = styled.div`
   position: relative;
@@ -143,10 +89,6 @@ const S_SwiperBox = styled.div`
   width: 100%;
 
   @media only screen and (max-width: 770px) {
-    padding: 0px 2rem;
-  }
-
-  @media only screen and (max-width: 480px) {
     padding: 0px 1.25rem;
   }
 `;
@@ -192,25 +134,19 @@ const S_Swiper = styled(Swiper)`
       --swiper-navigation-size: 1.5rem;
     }
   }
+
   .swiper-button-prev {
     left: -3.75rem;
 
     @media only screen and (max-width: 770px) {
-      left: -2rem;
-    }
-
-    @media only screen and (max-width: 480px) {
       left: -1.25rem;
     }
   }
+
   .swiper-button-next {
     right: -3.75rem;
 
     @media only screen and (max-width: 770px) {
-      right: -2rem;
-    }
-
-    @media only screen and (max-width: 480px) {
       right: -1.25rem;
     }
   }
@@ -238,12 +174,11 @@ const S_LoadingBox = styled.div`
   padding: 0px 3.75rem;
 
   @media only screen and (max-width: 770px) {
-    padding: 0px 2rem;
+    padding: 0px 1.25rem;
   }
 
   @media only screen and (max-width: 480px) {
     margin-top: 10px;
-    padding: 0px 1.25rem;
   }
 `;
 
@@ -255,11 +190,6 @@ const S_GenreTitle = styled.h2`
   font-weight: 700;
 
   @media only screen and (max-width: 770px) {
-    margin: 25px 0 5px 0;
-    padding: 0px 2rem;
-  }
-
-  @media only screen and (max-width: 480px) {
     margin: 25px 0 5px 0;
     padding: 0px 1.25rem;
   }

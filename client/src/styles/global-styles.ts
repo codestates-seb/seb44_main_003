@@ -36,18 +36,6 @@ textarea:focus, input:focus {
   outline: none;
 }
 
-@font-face {
-  font-family: 'cookieRun';
-  src: url('./assets/fonts/CookieRunRegular.otf');
-}
-
-@font-face {
-  font-family: 'inter';
-  src: url('./assets/fonts/Inter-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .lds-ellipsis {
   display: inline-block;
   position: relative;

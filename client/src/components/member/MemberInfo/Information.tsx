@@ -7,10 +7,10 @@ import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { profileModalState } from '../../../recoil/atoms/Atoms';
 import { useQueryClient } from '@tanstack/react-query';
-import { logout } from '../../header/Dropdown';
 import { useModal } from '../../../hooks/useModal';
 import MemberLikesModal from '../MemberLikesModal';
 import { useNavigate } from 'react-router-dom';
+import { notifyError, notifyWithIcon } from './../../../utils/notify';
 
 function Information() {
   const queryClient = useQueryClient();
@@ -20,6 +20,9 @@ function Information() {
   const navigate = useNavigate();
   const { openModal } = useModal();
   const handleEdit = () => {
+    if (!isEditing) {
+      setUserInput(data!.nickname);
+    }
     setIsEditing(!isEditing);
   };
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +32,7 @@ function Information() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userInput.length < 2 || userInput.length > 10) {
-      window.alert('닉네임은 2~10자여야 합니다.');
+      notifyError('닉네임은 2~10자여야 합니다.');
       return;
     }
     mutationPatch.mutate({
@@ -48,7 +51,13 @@ function Information() {
   });
 
   const mutationDelete = useMutation(DeleteUser, {
-    onSuccess: () => logout(),
+    onSuccess: () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiration');
+      localStorage.removeItem('refresh');
+      navigate('/');
+      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
+    },
   });
 
   const handleDelete = () => {
@@ -81,7 +90,9 @@ function Information() {
               autoFocus
             />
             <button type="submit">Save</button>
-            <button onClick={handleEdit}>Cancel</button>
+            <button onClick={handleEdit} type="button">
+              Cancel
+            </button>
           </form>
         ) : (
           <h1>
@@ -132,7 +143,7 @@ const S_Wrapper = styled.div`
   justify-content: space-around;
   margin: 0 30px;
   @media only screen and (max-width: 600px) {
-    margin-top: 15px;
+    margin: 15px 0 0 0;
   }
   > h1 {
     display: flex;
@@ -157,7 +168,7 @@ const S_Wrapper = styled.div`
       width: 200px;
       padding: 5px;
       border-radius: 5px;
-      @media only screen and (max-width: 700px) {
+      @media only screen and (max-width: 770px) {
         display: block;
         margin-bottom: 10px;
       }
@@ -182,13 +193,13 @@ const S_Wrapper = styled.div`
     }
     > p {
       margin: 10px 0;
-      @media only screen and (min-width: 800px) {
+      @media only screen and (min-width: 770px) {
         display: inline;
       }
     }
     > span {
       margin: 0 3px;
-      @media only screen and (max-width: 800px) {
+      @media only screen and (max-width: 770px) {
         display: none;
       }
     }
@@ -198,12 +209,6 @@ const S_Wrapper = styled.div`
 const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-  /* @media only screen and (max-width: 800px) {
-    transform: translate(-200px, 65px);
-  }
-  @media only screen and (max-width: 480px) {
-    transform: translate(-100px, 35px);
-  } */
   > button {
     width: 130px;
     height: 36px;
@@ -211,7 +216,7 @@ const S_Div = styled.div`
     border: 1px solid #fff;
     flex-shrink: 0;
     margin-left: 15px;
-    @media only screen and (max-width: 480px) {
+    @media only screen and (max-width: 600px) {
       width: 100px;
       height: 30px;
     }
@@ -223,7 +228,7 @@ const S_Div = styled.div`
       height: 36px;
       border-radius: 5px;
       border: 1px solid #fff;
-      @media only screen and (max-width: 480px) {
+      @media only screen and (max-width: 600px) {
         width: 100px;
         height: 30px;
       }

@@ -50,6 +50,7 @@ public class MediaService {
     }
 
 
+
     @Transactional
     public void indexAllMedia() throws InterruptedException {
         SearchSession searchSession = Search.session(entityManager);

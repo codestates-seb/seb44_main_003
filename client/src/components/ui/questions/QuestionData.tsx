@@ -1,20 +1,26 @@
 export const questionList = [
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kuroming.svg',
+    characterImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/kuroming.svg`,
     characterName: 'kuroming',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/firstQ.webp',
+    questionImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/firstQ.webp`,
     questionText: '어떤 OTT 서비스를 이용하고 계신가요?',
   },
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/kongdami.svg',
+    characterImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/kongdami.svg`,
     characterName: 'kongdami',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/secondQ.webp',
+    questionImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/secondQ.webp`,
     questionText: 'TV 프로그램과 영화 중 어떤 것을 추천 받고 싶으신가요?',
   },
   {
-    characterImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg',
+    characterImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/beehappy.svg`,
     characterName: 'beehappy',
-    questionImage: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/thirdQ.webp',
+    questionImage:
+      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/thirdQ.webp`,
     questionText: '어떤 장르를 즐겨보시나요?',
   },
 ];
@@ -22,22 +28,23 @@ export const questionList = [
 export const ottServices = [
   {
     name: '넷플릭스',
-    ottname: 'netfilx',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/netflix.svg' },
+    ottname: 'netflix',
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/netflix.svg`,
+  },
   {
     name: '디즈니+',
-    ottname: 'disney',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/disney.svg'
+    ottname: 'disney plus',
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/disney.svg`,
   },
   {
     name: '왓챠',
     ottname: 'watcha',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/watcha.svg'
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/watcha.svg`,
   },
   {
     name: '웨이브',
     ottname: 'wavve',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/wavve.svg'
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/wavve.svg`,
   },
 ];
 
@@ -45,12 +52,12 @@ export const category = [
   {
     name: 'TV 프로그램',
     categoryname: 'tv',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/tv.svg',
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/tv.svg`,
   },
   {
     name: '영화',
     categoryname: 'movie',
-    icon: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/movie.svg',
+    icon: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/movie.svg`,
   },
 ];
 
@@ -71,45 +78,50 @@ export const genres = [
 
 export const noContentTitle = {
   name: 'noContentTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/noContentText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/noContentText.webp`,
+};
 
 export const nicknameTitle = {
   name: 'nicknameTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nicknameText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/nicknameText.webp`,
+};
 
 export const recommendTitle = {
   name: 'recommendTitle',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/recommendText.webp`,
+};
 
 export const moveAgainBtn = {
   name: 'again',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/againBtnText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/againBtnText.webp`,
+};
 
 export const moveNextBtn = {
   name: 'next',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/nextBtnText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/nextBtnText.webp`,
+};
 
 export const moveSignupBtn = {
   name: 'signup',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/signupBtnText.webp'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/signupBtnText.webp`,
+};
 
 export const moveRecommendBtn = {
-  name: 'signup',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/recommendBtnText.webp'
-}
+  name: 'recommend',
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/recommendBtnText.webp`,
+};
+
+export const moveResultBtn = {
+  name: 'result',
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/resultBtnText.webp`,
+};
 
 export const beehappy = {
   name: 'beehappy',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beehappy.svg'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/beehappy.svg`,
+};
 
 export const beesad = {
   name: 'beesad',
-  text: 'https://ott-main-project.s3.ap-northeast-2.amazonaws.com/beesad.svg'
-}
+  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/beesad.svg`,
+};

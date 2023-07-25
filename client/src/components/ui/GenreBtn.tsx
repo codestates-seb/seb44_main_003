@@ -90,7 +90,7 @@ function GenreBtn() {
     <GenreBtnContainer ref={genreBtnRef}>
       <S_GenreBtn
         onClick={isMobile ? handleMobileClick : handleGenreClick}
-        isMobile={isMobile}
+        ismobile={isMobile.toString()}
       >
         <h1>장르 검색</h1>
         {isMobile ? (
@@ -138,7 +138,7 @@ const GenreBtnContainer = styled.div`
   vertical-align: middle;
 `;
 
-const S_GenreBtn = styled.div<{ isMobile: boolean }>`
+const S_GenreBtn = styled.div<{ ismobile: string }>`
   display: flex;
   align-items: center;
   color: var(--color-white-80);
@@ -150,8 +150,8 @@ const S_GenreBtn = styled.div<{ isMobile: boolean }>`
     font-size: 20px;
   }
 
-  ${({ isMobile }) =>
-    isMobile &&
+  ${({ ismobile }) =>
+    ismobile === 'true' &&
     `
     svg {
       margin: 0;

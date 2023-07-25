@@ -3,10 +3,10 @@ import { useRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import RecommendBtn from '../MoveBtn';
+import MoveBtn from '../MoveBtn';
 import QuestionCard from '../../ui/QuestionCard';
 import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres, moveNextBtn, beehappy, beesad} from './QuestionData';
+import { questionList, genres, moveResultBtn, beehappy, beesad} from './QuestionData';
 import { Question } from '../../../types/types';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
@@ -60,11 +60,11 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
               </S_GenreBox>
             ))}
           </S_GenreList>
-          <RecommendBtn
+          <MoveBtn
             bgColor={'#F7CD40'}
             bgShadow={'#C17932'}
-            btnText={moveNextBtn.text}
-            btnAlt={moveNextBtn.name}
+            btnText={moveResultBtn.text}
+            btnAlt={moveResultBtn.name}
             onClick={onNextClick}
             disabled={!isAnySelected}
           />
@@ -184,6 +184,13 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
     background-image: url(${beehappy.text});
     filter: none;
     opacity: 1;
+  }
+  
+  @media (hover: hover) {
+    &:hover {
+      background-image: url(${beehappy.text});
+      filter: brightness(100%);
+    }
   }
 
   @media only screen and (max-width: 480px) {

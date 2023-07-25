@@ -103,7 +103,7 @@ export default CommentContent;
 const S_Comment = styled.li`
   display: flex;
   border-bottom: 1px solid white;
-  padding: 10px 30px;
+  padding: 10px;
   @media only screen and (max-width: 480px) {
     padding: 10px;
   }
