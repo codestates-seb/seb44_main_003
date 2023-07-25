@@ -3,14 +3,16 @@ import { BiError } from 'react-icons/bi';
 import { GetUser } from '../../api/api';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Dropdown from './Dropdown';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
+import { AxiosError } from 'axios';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
   const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShowDropdown(false);
@@ -34,12 +36,15 @@ function UserProfile() {
       </S_ProfileWrapper>
     );
 
-  if (error instanceof Error)
-    return (
-      <S_ProfileWrapper>
-        <BiError />
-      </S_ProfileWrapper>
-    );
+  if (error instanceof AxiosError) {
+    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+    else
+      return (
+        <S_ProfileWrapper>
+          <BiError />
+        </S_ProfileWrapper>
+      );
+  }
 
   if (isSuccess)
     return (

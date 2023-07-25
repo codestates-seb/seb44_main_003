@@ -4,19 +4,17 @@ import styled from 'styled-components';
 import ItemCard from '../ui/ItemCard';
 import { RecommendContentLoading } from '../ui/exceptions/RecommendContentLoading';
 import { ContentData } from '../../types/types';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
+  const navigate = useNavigate();
   const getRandomItems = (items: ContentData[], numItems: number) => {
     const shuffledItems = items.sort(() => 0.5 - Math.random());
     return shuffledItems.slice(0, numItems);
   };
 
-  const {
-    isLoading: detailLoading,
-    error: detailError,
-    data: detailData,
-    isSuccess: detailSuccess,
-  } = useQuery({
+  const { data: detailData, isSuccess: detailSuccess } = useQuery({
     queryKey: ['selectedContent', contentId],
     queryFn: () => GetDataDetail(contentId),
   });
@@ -24,7 +22,7 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
   let category = detailData?.category === 'TV' ? 'tv' : 'movie';
 
   const {
-    isLoading: filteredLoading,
+    isInitialLoading: filteredLoading,
     error: filteredError,
     data: filteredData,
     isSuccess: filteredSuccess,
@@ -37,7 +35,7 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     enabled: !!detailData, // true가 되면 filteredData를 실행한다
   });
 
-  if (detailLoading || filteredLoading) {
+  if (!!detailData && filteredLoading) {
     return (
       <S_Wrapper>
         <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
@@ -46,14 +44,12 @@ const RecommendContent = ({ contentId }: { contentId: string }) => {
     );
   }
 
-  if (detailError instanceof Error)
-    return 'An error has occurred: ' + detailError.message;
-
-  if (filteredError instanceof Error)
-    return 'An error has occurred: ' + filteredError.message;
+  if (filteredError instanceof AxiosError) {
+    if (!filteredError.status && filteredError.code === 'ERR_NETWORK')
+      navigate('/error');
+  }
 
   if (detailSuccess && filteredSuccess) {
-
     const randomItems = getRandomItems(filteredData?.content, 6);
 
     return (

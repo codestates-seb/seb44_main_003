@@ -16,6 +16,7 @@ import {
 } from './QuestionData';
 import { useRecoilValue } from 'recoil';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
+import { AxiosError } from 'axios';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
@@ -62,11 +63,15 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
     );
   }
 
-  if (filteredError instanceof Error)
-    return 'An error has occurred: ' + filteredError.message;
+  if (filteredError instanceof AxiosError) {
+    if (!filteredError.status && filteredError.code === 'ERR_NETWORK')
+      navigate('/error');
+  }
 
-  if (userError instanceof Error)
-    return 'An error has occurred: ' + userError.message;
+  if (userError instanceof AxiosError) {
+    if (!userError.status && userError.code === 'ERR_NETWORK')
+      navigate('/error');
+  }
 
   if (filterSuccess) {
     const randomNumber = Math.floor(Math.random() * filterData.content.length);

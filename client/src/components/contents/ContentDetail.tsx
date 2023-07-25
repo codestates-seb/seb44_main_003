@@ -11,6 +11,7 @@ import DeleteMediaBtn from '../admin/DeleteMediaBtn';
 import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import Error from '../../pages/Error';
 
 function ContentDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ function ContentDetail({ contentId }: { contentId: string }) {
 
   if (error instanceof AxiosError) {
     if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+    if (error.response?.status === 404) return <Error code="404" />;
   }
 
   if (isSuccess) {
