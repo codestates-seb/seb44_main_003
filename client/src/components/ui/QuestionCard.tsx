@@ -21,6 +21,7 @@ export default QuestionCard
 const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  
 `
 const S_Character = styled.img`
   height: 150px;

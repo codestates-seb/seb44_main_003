@@ -123,10 +123,19 @@ const S_SelectionBox = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 100%;
+  height: 350px;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.4);
+
+  @media only screen and (max-width: 770px) {
+    height: 300px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    height: 380px;
+  }
 `;
 
 const S_TextBox = styled.div`
@@ -181,6 +190,7 @@ const S_OttIcon = styled.img`
   transition: filter 0.2s, opacity 0.2s;
   cursor: pointer;
   width: 90px;
+  height: 90px;
 
   &.select {
     filter: none;
@@ -195,10 +205,12 @@ const S_OttIcon = styled.img`
 
   @media only screen and (max-width: 770px) {
     width: 70px;
+    height: 70px;
   }
 
   @media only screen and (max-width: 480px) {
     width: 65px;
+    height: 65px;
   }
 `;
 

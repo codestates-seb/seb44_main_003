@@ -102,6 +102,7 @@ const S_SelectionBox = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 90%;
+  height: 350px;
   background: var(--color-white-100);
   border: 5px solid var(--color-bg-100);
   border-radius: 15px;
@@ -146,6 +147,7 @@ const S_CategoryBox = styled.div`
 const S_CategoryIcon = styled.img`
   margin-bottom: 5px;
   width: 130px;
+  height: 130px;
   background: var(--color-white-100);
   object-fit: cover;
   filter: saturate(0);
@@ -166,9 +168,11 @@ const S_CategoryIcon = styled.img`
 
   @media only screen and (max-width: 770px) {
     width: 120px;
+    height: 120px;
   }
 
   @media only screen and (max-width: 480px) {
     width: 100px;
+    height: 100px;
   }
 `;
