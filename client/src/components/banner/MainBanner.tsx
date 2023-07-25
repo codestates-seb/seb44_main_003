@@ -128,6 +128,17 @@ const S_Banner = styled.div`
 const S_MainText = styled.img`
   object-fit: cover;
   height: 100%;
+  animation: appear-bottom 1.2s linear;
+  @keyframes appear-bottom {
+    from {
+      filter: brightness(0);
+      transform: translate(0, 40px);
+    }
+    to {
+      filter: brightness(1);
+      transform: translate(0, 0);
+    }
+  }
 `;
 
 const S_Nav = styled.div`
