@@ -271,12 +271,10 @@ public class MediaService {
         mediaRepository.delete(media);
     }
 
-    @Transactional(readOnly = true)
     public Integer countRecommendByMedia(Long mediaId) {
         return mediaRepository.findRecommendCountByMediaId(mediaId);
     }
 
-    @Transactional(readOnly = true)
     public Boolean checkBookmarkByMedia(Long mediaId) {
         Integer check = mediaRepository.checkBookmarkByMediaId(mediaId);
         if(check > 0)
@@ -320,7 +318,6 @@ public class MediaService {
         return new MultiResponseDto<>(responses, mediasPage.getNumber() + 1, mediasPage.getTotalPages());
     }
 
-    @Transactional(readOnly = true)
     public Media findVerifiedMedia(long mediaId) {
         Optional<Media> optionalMedia =
                 mediaRepository.findById(mediaId);
