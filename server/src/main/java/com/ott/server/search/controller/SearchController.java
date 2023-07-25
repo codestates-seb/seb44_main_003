@@ -58,14 +58,9 @@ public class SearchController {
     @GetMapping("/autocomplete")
     public ResponseEntity autocomplete(@RequestParam String q,
                                        @RequestParam(defaultValue = "5") int limit){
-        try {
-            Pageable pageable = PageRequest.of(0, limit);
-            List<String> titles = searchService.autocomplete(q, pageable);
-            return new ResponseEntity<>(titles, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        Pageable pageable = PageRequest.of(0, limit);
+        List<String> titles = searchService.autocomplete(q, pageable);
+        return new ResponseEntity<>(titles, HttpStatus.OK);
     }
 
 }
