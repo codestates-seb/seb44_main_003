@@ -192,5 +192,13 @@ https://joying.vercel.app
     </td>
   </tr> 
 </table>
+
+<br><br><br><br>
+
+## 🗂️ 프로젝트 문서
+
+[서비스 매뉴얼](https://file.notion.so/f/s/1cc7faa9-24f9-4859-a1a2-d5028604b76d/44%EA%B8%B0-Team-003-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A7%A4%EB%89%B4%EC%96%BC.pdf?id=2d3c3972-add3-492c-9bc9-a766102d8d46&table=block&spaceId=82d63a72-8254-4cde-bf1e-b2597b7c099c&expirationTimestamp=1690416000000&signature=HfqlU3BUz0Rlzr2UsCT9pdWz80LLU_YMYMAiziCsHus&downloadName=44%EA%B8%B0-Team-003-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
+
+[기술 발표 영상](https://youtu.be/ZF5zHZ7pLDc)
+
 </html>
-<br/>
