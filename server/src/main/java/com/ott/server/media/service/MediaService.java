@@ -49,7 +49,6 @@ public class MediaService {
         this.entityManager = entityManager;
     }
 
-    @Transactional
     public void indexAllMedia() throws InterruptedException {
         SearchSession searchSession = Search.session(entityManager);
 
