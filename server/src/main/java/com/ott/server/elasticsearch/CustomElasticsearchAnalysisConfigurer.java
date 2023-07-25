@@ -12,6 +12,33 @@ public class CustomElasticsearchAnalysisConfigurer implements ElasticsearchAnaly
     @Override
     public void configure(ElasticsearchAnalysisConfigurationContext context) {
 
+        context.analyzer("autocompleteAnalyzer")
+                .custom()
+                .tokenizer("ngram")
+                .tokenFilters("lowercase", "nori_readingform");
+
+        context.analyzer("standardAnalyzer")
+                .custom()
+                .tokenizer("standard")
+                .tokenFilters("lowercase", "nori_readingform");
+
+        context.tokenizer("ngram")
+                .type("ngram")
+                .param("min_gram", "1")
+                .param("max_gram", "2");
+
+        context.tokenFilter("nori_readingform")
+                .type("nori_readingform");
+
+        context.analyzer("ngramStandardAnalyzer")
+                .custom()
+                .tokenizer("standard")
+                .tokenFilters("lowercase", "nori_readingform", "ngramFilter");
+
+        context.tokenFilter("ngramFilter")
+                .type("ngram")
+                .param("min_gram", "1")
+                .param("max_gram", "2");
 
         context.analyzer("jasoAnalyzer")
                 .custom()
