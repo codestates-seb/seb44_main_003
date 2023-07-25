@@ -101,11 +101,17 @@ public class SearchService {
     private List<String> hibernateSearchWithTitles(String titleFragment, Pageable pageable, SearchSession searchSession) {
         List<String> titleList = new ArrayList<>();
 
+//        SearchQuery<Media> titleQuery = searchSession.search(Media.class)
+//                .where(f -> f.match()
+//                        .field("title")
+//                        .matching(titleFragment))
+//                .toQuery();
         SearchQuery<Media> titleQuery = searchSession.search(Media.class)
-                .where(f -> f.match()
+                .where(f -> f.simpleQueryString()
                         .field("title")
-                        .matching(titleFragment))
+                        .matching(titleFragment + "*")) // todo 와일드 카드 사용, 성능에 영향 가능, 추후에 자동완성에 특화된 suggest 사용 고려
                 .toQuery();
+
 
 
         List<Media> titleMediaList = titleQuery.fetchHits((int) pageable.getOffset(), pageable.getPageSize());
@@ -120,7 +126,8 @@ public class SearchService {
         List<String> castList = new ArrayList<>();
 
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(QueryBuilders.matchQuery("name", titleFragment));
+//        sourceBuilder.query(QueryBuilders.matchQuery("name", titleFragment));
+        sourceBuilder.query(QueryBuilders.prefixQuery("name", titleFragment));
 
         SearchRequest searchRequest = new SearchRequest("jaso");
         searchRequest.source(sourceBuilder);
