@@ -30,7 +30,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
     private final CustomAuthorityUtils authorityUtils;
-    private final RedisService redisService;
+    private RedisService redisService;
     @Autowired
     private final OAuth2MemberService oauthMemberService;
     @Autowired
