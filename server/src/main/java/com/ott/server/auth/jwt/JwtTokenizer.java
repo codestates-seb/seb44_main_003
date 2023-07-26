@@ -105,12 +105,15 @@ public class JwtTokenizer {
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
-        return Jwts.builder()
+        String refreshToken = Jwts.builder()
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(key)
                 .compact();
+        redisService.set(subject, refreshToken, refreshTokenExpirationMinutes);
+
+        return refreshToken;
     }
 
     // 검증 후, Claims을 반환 하는 용도

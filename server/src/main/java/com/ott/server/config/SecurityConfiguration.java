@@ -34,8 +34,8 @@ public class SecurityConfiguration {
     private final OAuth2MemberService oauthMemberService;
     @Autowired
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils,
-                                 OAuth2MemberService oauthMemberService) {
+                                 CustomAuthorityUtils authorityUtils, OAuth2MemberService oauthMemberService) {
+
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.oauthMemberService = oauthMemberService;
