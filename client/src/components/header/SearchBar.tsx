@@ -14,8 +14,10 @@ function SearchBar() {
   const isMobile = useMediaQuery('(max-width: 600px)');
   const navigate = useNavigate();
   const { closeModal } = useModal();
-  const { data } = useQuery(['searchData', userInput], () =>
-    GetAutoComplete(userInput)
+  const { data } = useQuery(
+    ['searchData', userInput],
+    () => GetAutoComplete(userInput),
+    { keepPreviousData: true }
   );
   const reset = () => {
     setUserInput('');

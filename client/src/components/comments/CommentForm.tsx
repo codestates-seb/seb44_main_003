@@ -31,9 +31,11 @@ function CommentForm() {
       ) : (
         <textarea placeholder="로그인 후 후기를 남길 수 있습니다." disabled />
       )}
-      <button type="submit" disabled={!isLoggedIn}>
-        <BiPaperPlane />
-      </button>
+      {isLoggedIn && (
+        <button type="submit">
+          <BiPaperPlane />
+        </button>
+      )}
     </S_Form>
   );
 }

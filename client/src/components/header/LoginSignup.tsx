@@ -10,13 +10,13 @@ function LoginSignup({ position }: { position: number }) {
         className={position >= SCROLL_Y_SECTION_1 ? 'solid' : undefined}
         onClick={() => navigate('/login')}
       >
-        login
+        로그인
       </S_Button>
       <S_Button
         className={position >= SCROLL_Y_SECTION_1 ? 'solid' : undefined}
         onClick={() => navigate('/signup')}
       >
-        signup
+        회원가입
       </S_Button>
     </S_Wrapper>
   );
@@ -37,6 +37,7 @@ const S_Wrapper = styled.div`
 const S_Button = styled.button`
   width: 75px;
   height: 30px;
+  font-size: 15px;
   border-radius: 5px;
   border: 1px solid var(--color-white-80);
   color: var(--color-white-80);
@@ -55,5 +56,6 @@ const S_Button = styled.button`
   @media only screen and (max-width: 480px) {
     width: 50px;
     height: 20px;
+    font-size: 13px;
   }
 `;
