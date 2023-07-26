@@ -1,8 +1,10 @@
 package com.ott.server.auth.handler;
 
-import com.ott.server.auth.dto.TokenDto;
+import com.ott.server.RedisService;
 import com.ott.server.auth.jwt.JwtTokenizer;
 import com.ott.server.auth.utils.CustomAuthorityUtils;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -29,9 +31,15 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final CustomAuthorityUtils authorityUtils;
 
-    public OAuth2AuthenticationSuccessHandler(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    private final RedisService redisService;
+    @Getter
+    @Value("${jwt.refresh-token-expiration-minutes}")
+    private int refreshTokenExpirationMinutes;
+
+    public OAuth2AuthenticationSuccessHandler(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, RedisService redisService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisService = redisService;
     }
 
     @Override
@@ -75,6 +83,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
+
+        redisService.set(username, refreshToken, refreshTokenExpirationMinutes);
 
         return refreshToken;
     }
