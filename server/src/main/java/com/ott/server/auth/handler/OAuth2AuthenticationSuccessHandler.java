@@ -4,6 +4,7 @@ import com.ott.server.RedisService;
 import com.ott.server.auth.jwt.JwtTokenizer;
 import com.ott.server.auth.utils.CustomAuthorityUtils;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -31,11 +32,12 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private final CustomAuthorityUtils authorityUtils;
 
-    private final RedisService redisService;
+    private RedisService redisService;
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
+    @Autowired
     public OAuth2AuthenticationSuccessHandler(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, RedisService redisService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
