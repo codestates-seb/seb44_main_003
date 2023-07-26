@@ -59,6 +59,7 @@ const StyledNav = styled.nav`
     font-weight: 700;
     text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    padding: 5px;
   }
   > h1:nth-child(3) {
     @media only screen and (max-width: 600px) {
