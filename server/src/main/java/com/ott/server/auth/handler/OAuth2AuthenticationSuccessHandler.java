@@ -3,6 +3,7 @@ package com.ott.server.auth.handler;
 import com.ott.server.auth.dto.TokenDto;
 import com.ott.server.auth.jwt.JwtTokenizer;
 import com.ott.server.auth.utils.CustomAuthorityUtils;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -30,6 +31,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     private final CustomAuthorityUtils authorityUtils;
 
     public OAuth2AuthenticationSuccessHandler(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
     }

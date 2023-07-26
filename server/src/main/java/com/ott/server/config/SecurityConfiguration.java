@@ -29,6 +29,7 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
     private final CustomAuthorityUtils authorityUtils;
+
     @Autowired
     private final OAuth2MemberService oauthMemberService;
     @Autowired
