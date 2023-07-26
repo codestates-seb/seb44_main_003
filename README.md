@@ -136,10 +136,10 @@ https://joying.vercel.app
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/c136ca8f-bb13-4a4e-b969-47d845badad9"  alt="signup page" width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/1da507cc-b946-4b62-893c-a6164033cca0"  alt="메인 페이지" width = "500" height = "300">
     </td>
     <td>
-      <img src= "https://github.com/codestates-seb/seb44_main_003/assets/122351417/9de48565-259c-474f-8ce3-d651a9bd424b" alt="login page" width = "500" height = "300">
+      <img src= "https://github.com/codestates-seb/seb44_main_003/assets/122351417/9de48565-259c-474f-8ce3-d651a9bd424b" alt="로그인 페이지" width = "500" height = "300">
     </td>
    </tr> 
   <tr>
@@ -153,10 +153,10 @@ https://joying.vercel.app
 
   <tr>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/cf881455-e4d2-436c-b00d-2601eb823cbb" alt="main page"  width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/cf881455-e4d2-436c-b00d-2601eb823cbb" alt="대분류 페이지"  width = "500" height = "300">
     </td>
     <td>
-      <img src= "https://github.com/codestates-seb/seb44_main_003/assets/122351417/c9cb443c-2394-4398-a63c-2a6b717e14bf" alt="write page"  width = "500" height = "300">
+      <img src= "https://github.com/codestates-seb/seb44_main_003/assets/122351417/c9cb443c-2394-4398-a63c-2a6b717e14bf" alt="소분류 페이지"  width = "500" height = "300">
     </td>
    </tr>
    <tr>
@@ -169,10 +169,10 @@ https://joying.vercel.app
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/bc68f490-b3ad-424b-8042-efc4a60c714d" alt="main page" width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/bc68f490-b3ad-424b-8042-efc4a60c714d" alt="검색 결과 페이지" width = "500" height = "300">
     </td>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/d4a3f628-c441-4e3b-ab01-78549f1713ce" alt="main page"  width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/d4a3f628-c441-4e3b-ab01-78549f1713ce" alt="상세 조회 페이지"  width = "500" height = "300">
     </td>
   </tr> 
    <tr>
@@ -185,10 +185,10 @@ https://joying.vercel.app
   </tr>
   <tr>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/5a435147-221a-42dc-bbb3-0956ca9679f8" alt="main page" width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/5a435147-221a-42dc-bbb3-0956ca9679f8" alt="추천해조잉" width = "500" height = "300">
     </td>
     <td>
-      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/58db366d-96a0-46c3-8507-221457648102" alt="main page"  width = "500" height = "300">
+      <img src="https://github.com/codestates-seb/seb44_main_003/assets/122351417/58db366d-96a0-46c3-8507-221457648102" alt="마이페이지"  width = "500" height = "300">
     </td>
   </tr> 
 </table>
@@ -200,5 +200,13 @@ https://joying.vercel.app
 [서비스 매뉴얼](https://file.notion.so/f/s/1cc7faa9-24f9-4859-a1a2-d5028604b76d/44%EA%B8%B0-Team-003-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A7%A4%EB%89%B4%EC%96%BC.pdf?id=2d3c3972-add3-492c-9bc9-a766102d8d46&table=block&spaceId=82d63a72-8254-4cde-bf1e-b2597b7c099c&expirationTimestamp=1690416000000&signature=HfqlU3BUz0Rlzr2UsCT9pdWz80LLU_YMYMAiziCsHus&downloadName=44%EA%B8%B0-Team-003-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)
 
 [기술 발표 영상](https://youtu.be/ZF5zHZ7pLDc)
+
+[API 명세서](https://www.joying003.click/swagger-ui/index.html#/)
+
+[ERD 테이블](https://www.erdcloud.com/d/mP2FdrMGWgzaB7JcW)
+
+[피그마](https://www.figma.com/file/aywiih2fn0y2nqs1wXJmqP/Main-Project?type=design&node-id=10-1277&mode=design&t=zDSPE0jp7PVuP4lz-0)
+
+[사용자 요구사항 정의서](https://jeanne57.notion.site/JOYING-9149d5f7a6054bddbb020f24d66a5326?pvs=4)
 
 </html>
