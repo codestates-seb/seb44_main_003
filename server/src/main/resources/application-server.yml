@@ -1,5 +1,8 @@
 spring:
   datasource:
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 10000
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${AWS_RDS_Endpoint}/ott?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: ${RDS_Mysql_Admin_id}

@@ -1,6 +1,5 @@
 package com.ott.server.config;
 
-import com.ott.server.RedisService;
 import com.ott.server.auth.filter.JwtAuthenticationFilter;
 import com.ott.server.auth.filter.JwtVerificationFilter;
 import com.ott.server.auth.handler.*;
@@ -10,6 +9,7 @@ import com.ott.server.auth.utils.CustomAuthorityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -29,11 +29,13 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
     private final CustomAuthorityUtils authorityUtils;
+
     @Autowired
     private final OAuth2MemberService oauthMemberService;
     @Autowired
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                  CustomAuthorityUtils authorityUtils, OAuth2MemberService oauthMemberService) {
+
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.oauthMemberService = oauthMemberService;
@@ -61,7 +63,12 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll()
+                                .antMatchers("/").permitAll()
+                                .antMatchers(HttpMethod.POST, "/medias").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.PATCH, "/medias/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/medias/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.PATCH, "/reports/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/reports/**").hasRole("ADMIN")
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint()

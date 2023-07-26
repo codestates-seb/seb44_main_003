@@ -36,7 +36,6 @@ public class Media extends Auditable {
     private Long mediaId;
 
 
-
     @FullTextField(analyzer = "standardAnalyzer", name = "title_standard")// todo jaso analyzer 쓰면서 사용안하게될듯
     @FullTextField(analyzer = "autocompleteAnalyzer", name = "title_autocomplete") // todo jaso analyzer 쓰면서 사용안하게될듯
     @FullTextField(analyzer = "jasoAnalyzer", name = "title_jaso")

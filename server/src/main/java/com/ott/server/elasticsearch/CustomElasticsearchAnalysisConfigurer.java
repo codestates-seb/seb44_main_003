@@ -11,6 +11,7 @@ public class CustomElasticsearchAnalysisConfigurer implements ElasticsearchAnaly
 
     @Override
     public void configure(ElasticsearchAnalysisConfigurationContext context) {
+
         context.analyzer("autocompleteAnalyzer")
                 .custom()
                 .tokenizer("ngram")
