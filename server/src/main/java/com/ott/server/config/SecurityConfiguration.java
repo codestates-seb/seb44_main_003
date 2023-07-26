@@ -29,16 +29,13 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
     private final CustomAuthorityUtils authorityUtils;
-    private RedisService redisService;
     @Autowired
     private final OAuth2MemberService oauthMemberService;
     @Autowired
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils,
-                                 RedisService redisService, OAuth2MemberService oauthMemberService) {
+                                 CustomAuthorityUtils authorityUtils, OAuth2MemberService oauthMemberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.redisService = redisService;
         this.oauthMemberService = oauthMemberService;
     }
 
@@ -70,7 +67,7 @@ public class SecurityConfiguration {
                         .userInfoEndpoint()
                         .userService(oauthMemberService)
                         .and()
-                        .successHandler(new OAuth2AuthenticationSuccessHandler(jwtTokenizer, authorityUtils, redisService))
+                        .successHandler(new OAuth2AuthenticationSuccessHandler(jwtTokenizer, authorityUtils))
                 );
         return http.build();
     }
