@@ -1,5 +1,6 @@
 package com.ott.server.config;
 
+import com.ott.server.RedisService;
 import com.ott.server.auth.filter.JwtAuthenticationFilter;
 import com.ott.server.auth.filter.JwtVerificationFilter;
 import com.ott.server.auth.handler.*;
@@ -28,14 +29,16 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
 
     private final CustomAuthorityUtils authorityUtils;
+    private final RedisService redisService;
     @Autowired
     private final OAuth2MemberService oauthMemberService;
     @Autowired
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                  CustomAuthorityUtils authorityUtils,
-                                 OAuth2MemberService oauthMemberService) {
+                                 RedisService redisService, OAuth2MemberService oauthMemberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisService = redisService;
         this.oauthMemberService = oauthMemberService;
     }
 
@@ -67,7 +70,7 @@ public class SecurityConfiguration {
                         .userInfoEndpoint()
                         .userService(oauthMemberService)
                         .and()
-                        .successHandler(new OAuth2AuthenticationSuccessHandler(jwtTokenizer, authorityUtils))
+                        .successHandler(new OAuth2AuthenticationSuccessHandler(jwtTokenizer, authorityUtils, redisService))
                 );
         return http.build();
     }
