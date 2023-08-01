@@ -10,9 +10,7 @@ const Banner = ({ image }: { image: string }) => {
 
   return (
     <S_Wrapper>
-      <S_SkeletonBox>
-        {!imageLoaded && <S_Skeleton />}
-      </S_SkeletonBox>
+      <S_SkeletonBox>{!imageLoaded && <S_Skeleton />}</S_SkeletonBox>
       <S_BannerBox>
         <S_BannerImage
           src={image}
@@ -21,15 +19,15 @@ const Banner = ({ image }: { image: string }) => {
           onLoad={handleImageLoad}
         />
       </S_BannerBox>
-      <S_BlackLinear/>
+      <S_BlackLinear />
     </S_Wrapper>
-  )
-}
+  );
+};
 
 export default Banner;
 
 const S_Wrapper = styled.div`
-  position: relative; 
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -65,16 +63,16 @@ const S_BannerImage = styled.img`
   height: 100%;
   min-width: 0;
   min-height: 0;
-`
+`;
 
 const S_BlackLinear = styled.div`
   position: absolute;
   width: 100%;
   height: 185px;
   background: linear-gradient(
-    0deg, 
-    var(--color-bg-100) 0%, 
+    0deg,
+    var(--color-bg-100) 0%,
     var(--color-bg-00) 100%
   );
   bottom: 0;
-`
+`;

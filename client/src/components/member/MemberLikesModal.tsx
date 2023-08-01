@@ -1,14 +1,14 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useModal } from '../../hooks/useModal';
-import { S_Modal } from '../../styles/style';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { notifySuccess } from '@/utils/notify';
 import { GetUser, PatchUser } from '../../api/api';
 import { genres } from '../../constant/constantValue';
+import { useModal } from '../../hooks/useModal';
+import { S_Modal } from '../../styles/style';
 import { arrToObj, objToArr } from '../../utils/convertResponse';
-import { useState, useEffect } from 'react';
-import { notifySuccess } from '../../utils/notify';
 
 const ottList = [
   { name: '넷플릭스', value: 'Netflix' },

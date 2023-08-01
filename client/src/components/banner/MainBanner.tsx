@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { styled } from 'styled-components';
-import { IoIosTv } from 'react-icons/io';
 import { BiCameraMovie } from 'react-icons/bi';
+import { IoIosTv } from 'react-icons/io';
 import { PiMagicWandFill } from 'react-icons/pi';
 import { PiCaretRightThin } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 import { useModal } from '../../hooks/useModal';
 import Recommend from '../ui/questions/RecommendModal';
 
@@ -19,9 +19,7 @@ function MainBanner() {
 
   return (
     <S_Wrapper>
-      <S_SkeletonBox>
-        {!imageLoaded && <S_Skeleton />}
-      </S_SkeletonBox>
+      <S_SkeletonBox>{!imageLoaded && <S_Skeleton />}</S_SkeletonBox>
       <S_MainBackground
         src={`${import.meta.env.VITE_IMAGE_URL}/main/main_background.webp`}
         alt="메인 배경"

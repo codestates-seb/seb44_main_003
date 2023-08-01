@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { IoClose } from 'react-icons/io5';
+import styled from 'styled-components';
 
 interface CloseBtnProps {
   onClick: () => void;
@@ -8,12 +8,12 @@ interface CloseBtnProps {
 const CloseBtn: React.FC<CloseBtnProps> = ({ onClick }) => {
   return (
     <>
-      <S_Close onClick={onClick}/>
+      <S_Close onClick={onClick} />
     </>
-  )
-}
+  );
+};
 
-export default CloseBtn
+export default CloseBtn;
 
 const S_Close = styled(IoClose)`
   position: absolute;

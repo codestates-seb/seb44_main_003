@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
+import { FiSearch } from 'react-icons/fi';
 import { styled } from 'styled-components';
 import MainLogo from './MainLogo';
-import Navigation from './Navigation';
 import MemberMenu from './MemberMenu';
+import Navigation from './Navigation';
 import SearchBar from './SearchBar';
 import useMediaQuery from '../../hooks/useMediaQuery';
-import { FiSearch } from 'react-icons/fi';
 import { useModal } from '../../hooks/useModal';
 
 function Header() {

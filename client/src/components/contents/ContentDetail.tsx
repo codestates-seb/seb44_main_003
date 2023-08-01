@@ -1,17 +1,17 @@
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { GetDataDetail, GetUser } from './../../api/api';
 import Bookmark from './Bookmark';
 import Recommend from './Recommend';
-import Tag from '../ui/Tag';
-import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
-import DeleteMediaBtn from '../admin/DeleteMediaBtn';
-import PatchMediaBtn from '../admin/PatchMediaBtn';
 import ReportBtn from './ReportBtn';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import Error from '../../pages/Error';
+import DeleteMediaBtn from '../admin/DeleteMediaBtn';
+import PatchMediaBtn from '../admin/PatchMediaBtn';
+import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
+import Tag from '../ui/Tag';
 
 function ContentDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();

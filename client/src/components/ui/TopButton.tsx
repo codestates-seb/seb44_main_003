@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { HiOutlineChevronUp } from 'react-icons/hi';
+import { styled } from 'styled-components';
 
 function TopButton() {
   return (

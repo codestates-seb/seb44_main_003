@@ -1,5 +1,5 @@
-import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 import { SCROLL_Y_SECTION_1 } from '../../constant/constantValue';
 
 function LoginSignup({ position }: { position: number }) {

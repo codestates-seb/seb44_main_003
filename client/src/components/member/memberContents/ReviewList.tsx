@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { styled } from 'styled-components';
 import { GetUserReviews } from '../../../api/api';
 import Comments from '../../comments/Comments';
-import { styled } from 'styled-components';
-import { useState } from 'react';
 
 function ReviewList() {
   const [page, setPage] = useState(1);

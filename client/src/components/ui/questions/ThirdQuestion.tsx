@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { ChangeEvent } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import MoveBtn from '../MoveBtn';
-import QuestionCard from '../../ui/QuestionCard';
-import CloseBtn from '../../ui/CloseBtn';
-import { questionList, genres, moveResultBtn, beehappy, beesad} from './QuestionData';
+import {
+  questionList,
+  genres,
+  moveResultBtn,
+  beehappy,
+  beesad,
+} from './QuestionData';
+import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { Question } from '../../../types/types';
+import CloseBtn from '../../ui/CloseBtn';
+import QuestionCard from '../../ui/QuestionCard';
+import MoveBtn from '../MoveBtn';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -188,7 +194,7 @@ const S_CheckBox = styled.input.attrs({ type: 'checkbox' })`
     filter: none;
     opacity: 1;
   }
-  
+
   @media (hover: hover) {
     &:hover {
       background-image: url(${beehappy.text});

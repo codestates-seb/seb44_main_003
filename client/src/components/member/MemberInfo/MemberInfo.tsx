@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import MemberProfile from './MemberProfile';
 import Information from './Information';
+import MemberProfile from './MemberProfile';
 
 function MemberInfo() {
   return (

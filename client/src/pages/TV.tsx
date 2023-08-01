@@ -1,37 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import styled from 'styled-components';
 import BannerSlide from '../components/slide/BannerSlide';
 import GenreSlide from '../components/slide/GenreSlide';
-import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
+import { BannerImgsType } from '../types/types';
 import { scrollToTop } from '../utils/scrollToTop';
-import { BannerImgsType } from '../types/types'
 
 const bannerTvImgs: BannerImgsType = [
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/마당이 있는 집.webp`,
     alt: '마당이 있는 집',
-    id: 4
+    id: 4,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/최애의 아이.webp`,
     alt: '최애의 아이',
-    id: 8
+    id: 8,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/셀러브리티.webp`,
     alt: '셀러브리티',
-    id: 59
+    id: 59,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/킹더랜드.webp`,
     alt: '킹더랜드',
-    id: 19
+    id: 19,
   },
   {
-    url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/이번 생도 잘 부탁해.webp`,
+    url: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/banner_image/이번 생도 잘 부탁해.webp`,
     alt: '이번 생도 잘 부탁해',
-    id: 11
+    id: 11,
   },
 ];
 
@@ -54,7 +56,7 @@ const genres: string[] = [
   '역사',
   '다큐멘터리',
   '전쟁',
-  '서부'
+  '서부',
 ];
 
 function TV() {
@@ -68,20 +70,23 @@ function TV() {
   useEffect(() => {
     const genreSlice = genres.slice(0, currentIndex.current);
     setVisibleGenres(genreSlice);
-  }, [])
+  }, []);
 
   const addMoreGenres = () => {
-    const newGenres = genres.slice(currentIndex.current, currentIndex.current + 4);
+    const newGenres = genres.slice(
+      currentIndex.current,
+      currentIndex.current + 4
+    );
     setVisibleGenres((genre) => [...genre, ...newGenres]);
     currentIndex.current = currentIndex.current + 4;
-  }
+  };
 
   useEffect(() => {
     let timeoutId: number;
 
     if (inView && visibleGenres.length < genres.length) {
       timeoutId = setTimeout(() => {
-        addMoreGenres()
+        addMoreGenres();
       }, 100);
     }
 
@@ -94,10 +99,10 @@ function TV() {
 
   return (
     <S_Wrapper>
-      <BannerSlide bannerImgs={bannerTvImgs}/>
+      <BannerSlide bannerImgs={bannerTvImgs} />
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <GenreSlide key={`tv-${genre}`} genre={genre} path='tv' />
+        <GenreSlide key={`tv-${genre}`} genre={genre} path="tv" />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>

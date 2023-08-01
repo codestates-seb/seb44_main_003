@@ -1,9 +1,9 @@
-import { BsFillPersonFill } from 'react-icons/bs';
-import { AiFillHeart } from 'react-icons/ai';
-import { FiLogOut } from 'react-icons/fi';
-import { styled } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import { Dispatch, SetStateAction } from 'react';
+import { AiFillHeart } from 'react-icons/ai';
+import { BsFillPersonFill } from 'react-icons/bs';
+import { FiLogOut } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 export const logout = () => {
   localStorage.removeItem('token');

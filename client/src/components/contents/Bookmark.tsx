@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { AxiosError } from 'axios';
-import { GetIsBookmark, PostBookmark } from '../../api/api';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
+import { GetIsBookmark, PostBookmark } from '../../api/api';
 import { S_IconWrapper } from '../../styles/style';
-import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
 import { notifyError, notifyWithIcon } from '../../utils/notify';
+import BookmarkLoading from '../ui/exceptions/BookmarkLoading';
 
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();

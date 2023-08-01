@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import ContentsList from './ContentsList';
 import ReviewList from './ReviewList';
-import { useNavigate } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
 
 const contentsLists = [
   { id: 1, text: '찜한 컨텐츠', searchParam: 'bookmarks' },

@@ -51,7 +51,7 @@ const S_ItemTitle = styled.p`
   @media only screen and (max-width: 1024px) {
     font-size: 16px;
   }
-  
+
   @media only screen and (max-width: 770px) {
     font-size: 14px;
   }

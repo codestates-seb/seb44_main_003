@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { EffectFade, Pagination, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
 SwiperCore.use([EffectFade, Pagination, Autoplay]);
 
-const BannerSlide = ({ bannerImgs }: { bannerImgs: { url: string, alt: string, id: number }[] }) => {
+const BannerSlide = ({
+  bannerImgs,
+}: {
+  bannerImgs: { url: string; alt: string; id: number }[];
+}) => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -19,12 +23,10 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { url: string, alt: string, i
 
   return (
     <S_Wrapper>
-      <S_SkeletonBox>
-        {!imageLoaded && <S_Skeleton />}
-      </S_SkeletonBox>
+      <S_SkeletonBox>{!imageLoaded && <S_Skeleton />}</S_SkeletonBox>
       <S_SwiperBox>
         <Swiper
-          effect='fade'
+          effect="fade"
           pagination={{ clickable: true }}
           autoplay={{
             delay: 5000,
@@ -43,7 +45,7 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { url: string, alt: string, i
               />
             </SwiperSlide>
           ))}
-          <S_BlackLinear/>
+          <S_BlackLinear />
         </Swiper>
       </S_SwiperBox>
     </S_Wrapper>
@@ -53,7 +55,7 @@ const BannerSlide = ({ bannerImgs }: { bannerImgs: { url: string, alt: string, i
 export default BannerSlide;
 
 const S_Wrapper = styled.div`
-  position: relative; 
+  position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -107,7 +109,7 @@ const S_SwiperBox = styled.div`
       --swiper-pagination-bullet-horizontal-gap: 3px;
     }
   }
-    
+
   .swiper-pagination-bullet-active {
     background: var(--color-primary-yellow);
   }
@@ -141,13 +143,13 @@ const S_BlackLinear = styled.div`
   width: 100%;
   height: 185px;
   background: linear-gradient(
-    0deg, 
-    var(--color-bg-100) 0%, 
+    0deg,
+    var(--color-bg-100) 0%,
     var(--color-bg-00) 100%
   );
   bottom: 0;
   z-index: 1;
-  
+
   @media only screen and (max-width: 1024px) {
     height: 100px;
   }
@@ -155,4 +157,4 @@ const S_BlackLinear = styled.div`
   @media only screen and (max-width: 600px) {
     height: 50px;
   }
-`
+`;

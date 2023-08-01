@@ -1,7 +1,7 @@
-import { useLocation } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
 import { DiGithubFull } from 'react-icons/di';
 import { TfiGithub } from 'react-icons/tfi';
+import { useLocation } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 
 function Footer() {
   const location = useLocation();

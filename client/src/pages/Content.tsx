@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ContentDetail from '../components/contents/ContentDetail';
 import CommentSection from '../components/comments/CommentSection';
+import ContentDetail from '../components/contents/ContentDetail';
 import RecommendContent from '../components/contents/RecommendContent';
 
 function Content() {

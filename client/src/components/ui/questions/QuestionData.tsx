@@ -1,26 +1,32 @@
 export const questionList = [
   {
-    characterImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/kuroming.svg`,
+    characterImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/kuroming.svg`,
     characterName: 'kuroming',
-    questionImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/firstQ.webp`,
+    questionImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/firstQ.webp`,
     questionText: '어떤 OTT 서비스를 이용하고 계신가요?',
   },
   {
-    characterImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/kongdami.svg`,
+    characterImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/kongdami.svg`,
     characterName: 'kongdami',
-    questionImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/secondQ.webp`,
+    questionImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/secondQ.webp`,
     questionText: 'TV 프로그램과 영화 중 어떤 것을 추천 받고 싶으신가요?',
   },
   {
-    characterImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/beehappy.svg`,
+    characterImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/beehappy.svg`,
     characterName: 'beehappy',
-    questionImage:
-      `${import.meta.env.VITE_IMAGE_URL}/recommendimage/thirdQ.webp`,
+    questionImage: `${
+      import.meta.env.VITE_IMAGE_URL
+    }/recommendimage/thirdQ.webp`,
     questionText: '어떤 장르를 즐겨보시나요?',
   },
 ];
@@ -108,7 +114,9 @@ export const moveSignupBtn = {
 
 export const moveRecommendBtn = {
   name: 'recommend',
-  text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/recommendBtnText.webp`,
+  text: `${
+    import.meta.env.VITE_IMAGE_URL
+  }/recommendimage/recommendBtnText.webp`,
 };
 
 export const moveResultBtn = {

@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetDataDetail, GetFilterdData } from '../../api/api';
-import styled from 'styled-components';
-import ItemCard from '../ui/ItemCard';
-import { RecommendContentLoading } from '../ui/exceptions/RecommendContentLoading';
-import { ContentData } from '../../types/types';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { GetDataDetail, GetFilterdData } from '../../api/api';
+import { ContentData } from '../../types/types';
+import { RecommendContentLoading } from '../ui/exceptions/RecommendContentLoading';
+import ItemCard from '../ui/ItemCard';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
   const navigate = useNavigate();

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { PostUserProfile } from '../../../api/api';
-import { styled } from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
-import useMediaQuery from '../../../hooks/useMediaQuery';
 import { AiOutlineUpload } from 'react-icons/ai';
+import { useSetRecoilState } from 'recoil';
+import { styled } from 'styled-components';
+import { PostUserProfile } from '../../../api/api';
+import useMediaQuery from '../../../hooks/useMediaQuery';
+import { profileModalState } from '../../../recoil/atoms/Atoms';
 
 function ImgUpload() {
   const queryClient = useQueryClient();

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import styled, { keyframes } from 'styled-components';
-import ItemCard from '../ui/ItemCard';
-import { GetFilterdData, GetSearchedData } from './../../api/api';
+import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import styled, { keyframes } from 'styled-components';
+import { GetFilterdData, GetSearchedData } from './../../api/api';
 import { ContentData } from '../../types/types';
-import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
 import { ItemProps } from '../../types/types';
+import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
+import ItemCard from '../ui/ItemCard';
 
 function InfinityScroll({ path, query }: { path: string; query: string }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);

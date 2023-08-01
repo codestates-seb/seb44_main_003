@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import SkeletonItemCard from '../../ui/SkeletonItemCard'
 import styled from 'styled-components';
+import SkeletonItemCard from '../../ui/SkeletonItemCard';
 
 const sliderLoading = () => {
   const getSkeletonSize = () => {
@@ -40,9 +40,9 @@ const sliderLoading = () => {
       </S_SkeletonBox>
     </S_Wrapper>
   );
-}
+};
 
-export default sliderLoading
+export default sliderLoading;
 
 const S_Wrapper = styled.div`
   position: relative;

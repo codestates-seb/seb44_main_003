@@ -1,11 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { GetFilterdData, GetUser } from '../../../api/api';
-import useIsLoggedIn from '../../../hooks/useIsLoggedIn';
+import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled, { keyframes } from 'styled-components';
-import MoveBtn from '../MoveBtn';
-import CloseBtn from '../../ui/CloseBtn';
-import { Question } from '../../../types/types';
 import {
   noContentTitle,
   nicknameTitle,
@@ -14,9 +11,12 @@ import {
   moveSignupBtn,
   moveRecommendBtn,
 } from './QuestionData';
-import { useRecoilValue } from 'recoil';
+import { GetFilterdData, GetUser } from '../../../api/api';
+import useIsLoggedIn from '../../../hooks/useIsLoggedIn';
 import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
-import { AxiosError } from 'axios';
+import { Question } from '../../../types/types';
+import CloseBtn from '../../ui/CloseBtn';
+import MoveBtn from '../MoveBtn';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();

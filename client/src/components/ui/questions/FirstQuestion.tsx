@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import styled from 'styled-components';
-import MoveBtn from '../MoveBtn';
-import QuestionCard from '../../ui/QuestionCard';
-import CloseBtn from '../../ui/CloseBtn';
 import { questionList, ottServices, moveNextBtn } from './QuestionData';
+import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
 import { Question } from '../../../types/types';
+import CloseBtn from '../../ui/CloseBtn';
+import QuestionCard from '../../ui/QuestionCard';
+import MoveBtn from '../MoveBtn';
 
 const FirstQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(
@@ -161,7 +161,6 @@ const S_OttList = styled.div`
 
   @media only screen and (max-width: 480px) {
     margin: 30px 30px 10px;
-    
   }
 `;
 

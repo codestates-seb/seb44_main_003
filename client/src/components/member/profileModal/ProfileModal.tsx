@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import { BiX } from 'react-icons/bi';
 import { useSetRecoilState } from 'recoil';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
 import DefaultImgs from './DefaultImgs';
-import { S_Modal } from '../../../styles/style';
 import ImgUpload from './ImgUpload';
-import { useState } from 'react';
+import { profileModalState } from '../../../recoil/atoms/Atoms';
+import { S_Modal } from '../../../styles/style';
 
 function ProfileModal() {
   const [isUploading, setIsUploading] = useState(false);

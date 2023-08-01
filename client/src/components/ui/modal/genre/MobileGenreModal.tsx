@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { RxDoubleArrowUp, RxDoubleArrowDown } from 'react-icons/rx';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useNavigate } from 'react-router-dom';
 import { styled, keyframes } from 'styled-components';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useModal } from '../../../../hooks/useModal';

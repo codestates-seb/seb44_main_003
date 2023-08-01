@@ -10,19 +10,18 @@ interface QuestionType {
 const QuestionCard = ({ question }: { question: QuestionType }) => {
   return (
     <S_Wrapper>
-      <S_Character src={question.characterImage} alt={question.characterName}/>
-      <S_Question src={question.questionImage} alt={question.questionText}/>
+      <S_Character src={question.characterImage} alt={question.characterName} />
+      <S_Question src={question.questionImage} alt={question.questionText} />
     </S_Wrapper>
-  )
-}
+  );
+};
 
-export default QuestionCard
+export default QuestionCard;
 
 const S_Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  
-`
+`;
 const S_Character = styled.img`
   height: 150px;
 
@@ -33,7 +32,6 @@ const S_Character = styled.img`
   @media only screen and (max-width: 480px) {
     height: 100px;
   }
-`
+`;
 
-const S_Question = styled.img`
-`
+const S_Question = styled.img``;
