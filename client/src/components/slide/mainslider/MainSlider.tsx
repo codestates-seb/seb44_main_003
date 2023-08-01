@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { GetOttTopList } from '../../../api/api';
-import ItemCard from '../../ui/ItemCard';
-import SliderLoading from '../../ui/exceptions/sliderLoading';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { AxiosError } from 'axios';
+import { GetOttTopList } from '../../../api/api';
+import SliderLoading from '../../ui/exceptions/sliderLoading';
+import ItemCard from '../../ui/ItemCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { useNavigate } from 'react-router-dom';
 
 SwiperCore.use([Virtual, Navigation]);
 

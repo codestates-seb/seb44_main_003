@@ -1,16 +1,16 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { GetUser, PatchUser, DeleteUser } from '../../../api/api';
-import { AxiosError } from 'axios';
-import { styled } from 'styled-components';
-import { HiPencil } from 'react-icons/hi';
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
 import { useQueryClient } from '@tanstack/react-query';
-import { useModal } from '../../../hooks/useModal';
-import MemberLikesModal from '../MemberLikesModal';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
+import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { styled } from 'styled-components';
 import { notifyError, notifyWithIcon } from './../../../utils/notify';
+import { GetUser, PatchUser, DeleteUser } from '../../../api/api';
+import { useModal } from '../../../hooks/useModal';
+import { profileModalState } from '../../../recoil/atoms/Atoms';
+import MemberLikesModal from '../MemberLikesModal';
 
 function Information() {
   const queryClient = useQueryClient();

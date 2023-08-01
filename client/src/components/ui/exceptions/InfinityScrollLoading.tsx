@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SkeletonItemCard from '../SkeletonItemCard';
 import { ItemProps } from '../../../types/types';
+import SkeletonItemCard from '../SkeletonItemCard';
 
 export function InfinityScrollLoading({ path }: { path: string }) {
   const [size, setSize] = useState(getSize());

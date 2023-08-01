@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import ListBtns from '../components/ui/ListBtns';
 import InfinityScroll from '../components/slide/InfinityScroll';
+import ListBtns from '../components/ui/ListBtns';
 import { scrollToTop } from '../utils/scrollToTop';
 
 function List() {

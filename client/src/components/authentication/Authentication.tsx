@@ -1,10 +1,10 @@
-import { styled } from 'styled-components';
-import Logo from './Logo';
 import { useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import AdditionalInfo from './AdditionalInfo';
 import LoginForm from './LoginForm';
+import Logo from './Logo';
 import SignupForm from './SignupForm';
 import SocialLogin from './SocialLogin';
-import AdditionalInfo from './AdditionalInfo';
 
 function Authentication() {
   const location = useLocation();

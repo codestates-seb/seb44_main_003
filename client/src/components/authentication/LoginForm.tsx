@@ -1,13 +1,13 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
-import { useMutation } from '@tanstack/react-query';
-import { Login } from '../../api/api';
-import { LoginInfo } from '../../types/types';
-import { AxiosError } from 'axios';
-import { useTokens } from '../../hooks/useTokens';
-import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
 import { useNavigate } from 'react-router-dom';
+import { Login } from '../../api/api';
+import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
+import { useTokens } from '../../hooks/useTokens';
+import { LoginInfo } from '../../types/types';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

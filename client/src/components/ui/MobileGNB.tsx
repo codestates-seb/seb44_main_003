@@ -1,13 +1,13 @@
+import { AiFillHome } from 'react-icons/ai';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
+import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import Recommend from './questions/RecommendModal';
 import { useModal } from '../../hooks/useModal';
-import { AiFillHome } from 'react-icons/ai';
-import { HiMagnifyingGlass } from 'react-icons/hi2';
-import { AiOutlineHeart } from 'react-icons/ai';
-import SearchBar from '../header/SearchBar';
-import { useResetRecoilState } from 'recoil';
 import { recommendedContentsState } from '../../recoil/atoms/Atoms';
+import SearchBar from '../header/SearchBar';
 
 function MobileGNB() {
   const navigate = useNavigate();

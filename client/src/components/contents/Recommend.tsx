@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 import { AxiosError } from 'axios';
-import { GetIsRecommend, PostRecommend } from '../../api/api';
+import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 import useIsLoggedIn from './../../hooks/useIsLoggedIn';
+import { GetIsRecommend, PostRecommend } from '../../api/api';
 import { S_IconWrapper } from '../../styles/style';
-import RecommendLoading from '../ui/exceptions/RecommendLoading';
 import { notifyError, notifyWithIcon } from '../../utils/notify';
+import RecommendLoading from '../ui/exceptions/RecommendLoading';
 
 function Recommend({
   countRecommend,

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { GetReport } from '../../api/api';
-import { Report } from '../../types/types';
 import { useModal } from '../../hooks/useModal';
+import { Report } from '../../types/types';
 import ReportDetail from '../ui/modal/report/ReportDetail';
 
 function AdminReport() {

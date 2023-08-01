@@ -1,23 +1,23 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
   QueryCache,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { tokenLoader, checkAuthLoader, checkUnauthLoader } from './utils/auth';
-import GlobalStyle from './styles/global-styles';
-import Root from './pages/Root';
+import Admin from './pages/Admin';
+import Auth from './pages/Auth';
+import Content from './pages/Content';
+import Error from './pages/Error';
+import List from './pages/List';
 import Main from './pages/Main';
 import Member from './pages/Member';
-import Auth from './pages/Auth';
-import TV from './pages/TV';
 import Movie from './pages/Movie';
-import Content from './pages/Content';
+import Root from './pages/Root';
 import Search from './pages/Search';
-import List from './pages/List';
-import Error from './pages/Error';
-import Admin from './pages/Admin';
+import TV from './pages/TV';
+import GlobalStyle from './styles/global-styles';
+import { tokenLoader, checkAuthLoader, checkUnauthLoader } from './utils/auth';
 import './App.css';
 
 const router = createBrowserRouter([

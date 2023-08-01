@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { GetTVData, GetMovieData } from '../../api/api';
-import { ContentData } from '../../types/types';
-import ItemCard from '../ui/ItemCard';
-import SliderLoading from '../ui/exceptions/sliderLoading';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { GetTVData, GetMovieData } from '../../api/api';
+import { ContentData } from '../../types/types';
+import SliderLoading from '../ui/exceptions/sliderLoading';
+import ItemCard from '../ui/ItemCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { AxiosError } from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 SwiperCore.use([Virtual, Navigation]);
 

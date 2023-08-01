@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { BiError } from 'react-icons/bi';
-import { GetUser } from '../../api/api';
-import { styled } from 'styled-components';
-import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Dropdown from './Dropdown';
-import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import { AxiosError } from 'axios';
+import { useState, useEffect } from 'react';
+import { BiError } from 'react-icons/bi';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import Dropdown from './Dropdown';
+import { GetUser } from '../../api/api';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);

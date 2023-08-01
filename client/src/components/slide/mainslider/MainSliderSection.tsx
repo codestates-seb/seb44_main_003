@@ -1,5 +1,5 @@
-import MainSlider from './MainSlider';
 import styled from 'styled-components';
+import MainSlider from './MainSlider';
 
 const ottList = [
   {

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { BiError } from 'react-icons/bi';
-import { GetUser } from '../../../api/api';
-import { styled } from 'styled-components';
 import { AxiosError } from 'axios';
+import { BiError } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { GetUser } from '../../../api/api';
 
 function MemberProfile() {
   const navigate = useNavigate();

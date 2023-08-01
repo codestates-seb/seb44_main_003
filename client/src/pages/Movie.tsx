@@ -1,37 +1,37 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
+import styled from 'styled-components';
 import BannerSlide from '../components/slide/BannerSlide';
 import GenreSlide from '../components/slide/GenreSlide';
-import styled from 'styled-components';
 import ListBtns from '../components/ui/ListBtns';
+import { BannerImgsType } from '../types/types';
 import { scrollToTop } from '../utils/scrollToTop';
-import { BannerImgsType } from '../types/types'
 
 const bannerMovieImgs: BannerImgsType = [
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/아바타 물의 길.webp`,
     alt: '아바타 물의 길',
-    id: 109
+    id: 109,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/코코.webp`,
     alt: '코코',
-    id: 326
+    id: 326,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/카운트.webp`,
     alt: '카운트',
-    id: 654
+    id: 654,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/암살.webp`,
     alt: '암살',
-    id: 475
+    id: 475,
   },
   {
     url: `${import.meta.env.VITE_IMAGE_URL}/banner_image/기생충.webp`,
     alt: '기생충',
-    id: 201
+    id: 201,
   },
 ];
 
@@ -54,7 +54,7 @@ const genres: string[] = [
   '역사',
   '다큐멘터리',
   '전쟁',
-  '서부'
+  '서부',
 ];
 
 function Movie() {
@@ -68,20 +68,23 @@ function Movie() {
   useEffect(() => {
     const genreSlice = genres.slice(0, currentIndex.current);
     setVisibleGenres(genreSlice);
-  }, [])
+  }, []);
 
   const addMoreGenres = () => {
-    const newGenres = genres.slice(currentIndex.current, currentIndex.current + 4);
+    const newGenres = genres.slice(
+      currentIndex.current,
+      currentIndex.current + 4
+    );
     setVisibleGenres((genre) => [...genre, ...newGenres]);
     currentIndex.current = currentIndex.current + 4;
-  }
+  };
 
   useEffect(() => {
     let timeoutId: number;
 
     if (inView && visibleGenres.length < genres.length) {
       timeoutId = setTimeout(() => {
-        addMoreGenres()
+        addMoreGenres();
       }, 100);
     }
 
@@ -94,10 +97,10 @@ function Movie() {
 
   return (
     <S_Wrapper>
-      <BannerSlide bannerImgs={bannerMovieImgs}/>
+      <BannerSlide bannerImgs={bannerMovieImgs} />
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <GenreSlide key={`movie-${genre}`} genre={genre} path='movie' />
+        <GenreSlide key={`movie-${genre}`} genre={genre} path="movie" />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>
@@ -111,7 +114,7 @@ const S_Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100vw;
-  
+
   .target {
     height: 10px;
   }

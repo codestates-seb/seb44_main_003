@@ -1,12 +1,12 @@
-import { styled } from 'styled-components';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { GetAutoComplete } from '../../api/api';
+import { useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
-import { useModal } from '../../hooks/useModal';
 import { FiSearch } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+import { GetAutoComplete } from '../../api/api';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { useModal } from '../../hooks/useModal';
 
 function SearchBar() {
   const [userInput, setUserInput] = useState('');
