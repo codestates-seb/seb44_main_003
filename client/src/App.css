@@ -1,0 +1,41 @@
+:root {
+  /* color */
+  --color-bg-100: #14181f;
+  --color-bg-80: rgba(20, 24, 31, 0.8);
+  --color-bg-60: rgba(20, 24, 31, 0.6);
+  --color-bg-00: rgba(20, 24, 31, 0);
+
+  --color-primary-yellow: #ffff00;
+  --color-primary-gold: #ffcd29;
+  --color-primary-linear: linear-gradient(to bottom, #ffff00, #ffcd29);
+
+  --color-dropdown: #282f39;
+  --color-dropdown-stroke: #4c535f;
+
+  --color-white-100: #ffffff;
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-60: rgba(255, 255, 255, 0.6);
+  --color-white-20: rgba(255, 255, 255, 0.2);
+
+  /* shadow */
+
+  --shadow-l-40: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.4));
+  --shadow-l-25: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
+
+  --shadow-modal-l: drop-shadow(4px 4px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-m: drop-shadow(2px 2px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-s: drop-shadow(1px 1px 0px rgba(20, 24, 31, 1));
+  --shadow-modal-m-b: drop-shadow(3px 3px 0px rgba(0, 0, 0, 0.6));
+  --shadow-modal-s-b: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.6));
+
+  --shadow-box-l-25: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.25));
+  --shadow-box-l-80: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.8));
+  --shadow-box-m-50: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+  --shadow-box-m-25: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  --shadow-box-s-50: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5));
+  --shadow-box-s-25: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.25));
+
+  --shadow-text: text-shadow(3px 3px 10px 0px rgba(0, 0, 0, 0.2));
+
+  --shadow-yellow-50: drop-shadow(0px 0px 10px rgba(255, 255, 0, 0.5));
+}

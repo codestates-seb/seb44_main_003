@@ -42,20 +42,35 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
 	//gradle추가
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
-	//testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	implementation 'com.google.code.gson:gson'
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+	implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
+	implementation 'org.seleniumhq.selenium:selenium-http-jdk-client:4.8.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+
+	implementation 'org.hibernate.search:hibernate-search-backend-elasticsearch:6.0.0.Final'
+	implementation 'org.apache.lucene:lucene-analyzers-nori:8.11.2'
+	implementation 'org.hibernate.search:hibernate-search-mapper-orm:6.0.0.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+	implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.17.11'
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'io.lettuce:lettuce-core:6.2.4.RELEASE'
 
 
 }
-
-
 
 
 tasks.named('test') {

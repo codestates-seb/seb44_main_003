@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OAuth2 + JWT My page</title>
+</head>
+<body>
+<script type="text/javascript">
+        let accessToken = (new URL(location.href)).searchParams.get('access_token');
+        let refreshToken = (new URL(location.href)).searchParams.get('refresh_token');
+
+        localStorage.setItem("accessToken", accessToken)
+        localStorage.setItem("refreshToken", refreshToken)
+
+        location.href = 'my-page.html'
+    </script>
+</body>
+</html>
