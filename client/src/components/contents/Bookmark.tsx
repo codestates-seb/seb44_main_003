@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { GetIsBookmark, PostBookmark } from '@/api/api';
-import BookmarkLoading from '@/components/ui/exceptions/BookmarkLoading';
+import BookmarkLoading from '@/components/contents/BookmarkLoading';
 import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { S_IconWrapper } from '@/styles/style';
 import { notifyError, notifyWithIcon } from '@/utils/notify';

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import Recommend from '@/components/contents/Recommend';
+import RecommendModal from '@/components/modal/recommendModal/RecommendModal';
 import { useModal } from '@/hooks/useModal';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 
@@ -27,7 +27,7 @@ function Navigation() {
           key={menu.text}
           onClick={() => {
             if (menu.route === null) {
-              openModal({ content: <Recommend /> });
+              openModal({ content: <RecommendModal /> });
               resetRecommendedContents();
             } else {
               navigate(menu.route);

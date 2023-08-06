@@ -6,10 +6,10 @@ import { GetDataDetail, GetUser } from '@/api/api';
 import DeleteMediaBtn from '@/components/admin/DeleteMediaBtn';
 import PatchMediaBtn from '@/components/admin/PatchMediaBtn';
 import Bookmark from '@/components/contents/Bookmark';
+import ContentDetailLoading from '@/components/contents/ContentDetailLoading';
 import Recommend from '@/components/contents/Recommend';
-import ReportBtn from '@/components/contents/ReportBtn';
-import ContentDetailLoading from '@/components/ui/exceptions/ContentDetailLoading';
-import Tag from '@/components/ui/Tag';
+import ReportButton from '@/components/contents/ReportButton';
+import Tag from '@/components/contents/Tag';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import Error from '@/pages/Error';
 
@@ -97,7 +97,7 @@ function ContentDetail({ contentId }: { contentId: string }) {
                   <S_Poster>
                     <img src={data.mainPoster} alt="poster" />
                   </S_Poster>
-                  <ReportBtn contentId={contentId} />
+                  <ReportButton contentId={contentId} />
                   <div className="icon-flex">
                     <Bookmark contentId={contentId} />
                     <Recommend
@@ -259,8 +259,7 @@ const S_TextTitle = styled.h1`
   display: flex;
   align-items: center;
   font-size: 50px !important;
-  font-weight: boldimport { GetUser } from '@/api/api';
-;
+  font-weight: bold;
   color: var(--color-white-100);
   width: 400px;
   height: 180px;

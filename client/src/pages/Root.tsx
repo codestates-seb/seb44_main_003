@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Outlet, useLoaderData } from 'react-router-dom';
+import TopButton from '@/components/button/TopButton';
+import Footer from '@/components/footer/Footer';
 import { logout } from '@/components/header/Dropdown';
 import Header from '@/components/header/Header';
-import Footer from '@/components/ui/Footer';
-import MobileGNB from '@/components/ui/MobileGNB';
-import Modal from '@/components/ui/modal/Modal';
-import Toast from '@/components/ui/Toast';
-import TopButton from '@/components/ui/TopButton';
+import MobileGNB from '@/components/mobile/MobileGNB';
+import Modal from '@/components/modal/Modal';
+import Toast from '@/components/toast/Toast';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { S_Root, S_Wrapper, S_Container } from '@/styles/style';
 
