@@ -83,7 +83,7 @@ function Movie() {
     let timeoutId: number;
 
     if (inView && visibleGenres.length < genres.length) {
-      timeoutId = setTimeout(() => {
+      timeoutId = window.setTimeout(() => {
         addMoreGenres();
       }, 100);
     }
