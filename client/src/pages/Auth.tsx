@@ -5,7 +5,10 @@ function Auth() {
   return (
     <S_main>
       <Authentication />
-      <img src={`${import.meta.env.VITE_IMAGE_URL}/login_background.webp`} />
+      <img
+        alt="배경 이미지"
+        src={`${import.meta.env.VITE_IMAGE_URL}/login_background.webp`}
+      />
     </S_main>
   );
 }

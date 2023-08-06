@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-import MainBanner from '@/components/banner/MainBanner.tsx';
-import MainSliderSection from '@/components/slide/mainslider/MainSliderSection.tsx';
+import MainSliderSection from '@/components/@common/slider/MainSliderSection';
+import MainBanner from '@/components/@layout/banners/MainBanner';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue.ts';
 import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { useTokens } from '@/hooks/useTokens.ts';

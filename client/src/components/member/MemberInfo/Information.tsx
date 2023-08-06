@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';

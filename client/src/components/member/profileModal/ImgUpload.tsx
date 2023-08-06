@@ -74,6 +74,7 @@ function ImgUpload() {
                 imgPreview ||
                 `${import.meta.env.VITE_IMAGE_URL}/profiles/preview.svg`
               }
+              alt="미리보기"
             />
           </div>
           <label htmlFor="img" className="upload">
@@ -109,6 +110,7 @@ function ImgUpload() {
                 imgPreview ||
                 `${import.meta.env.VITE_IMAGE_URL}/profiles/preview.svg`
               }
+              alt="미리보기"
             />
           </div>
         </div>

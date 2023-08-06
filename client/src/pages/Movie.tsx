@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import ListBtns from '@/components/filter/ListBtns';
-import BannerSlide from '@/components/slide/BannerSlide';
-import GenreSlide from '@/components/slide/GenreSlide';
+import BannerSlide from '@/components/@common/slider/BannerSlide';
+import GenreSlider from '@/components/@common/slider/GenreSlide';
+import ListBtns from '@/components/@layout/navigators/ListBtns';
 import { BannerImgsType } from '@/types/types';
 import { scrollToTop } from '@/utils/scrollToTop';
 
@@ -100,7 +100,7 @@ function Movie() {
       <BannerSlide bannerImgs={bannerMovieImgs} />
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <GenreSlide key={`movie-${genre}`} genre={genre} path="movie" />
+        <GenreSlider key={`movie-${genre}`} genre={genre} path="movie" />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>
