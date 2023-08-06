@@ -5,6 +5,7 @@ import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { PostUser, Login } from '@/api/api';
+import Button from '@/components/@common/button/Button';
 import { useTokens } from '@/hooks/useTokens';
 import { NewMember, LoginInfo } from '@/types/types';
 import { notifyWithIcon } from '@/utils/notify';
@@ -214,7 +215,9 @@ function SignupForm() {
       </div>
       {confirmError && <div className="error">{confirmError}</div>}
       {signupError && <div className="error">{signupError}</div>}
-      <button type="submit">회원가입하기</button>
+      <Button type="submit" variant="primary">
+        회원가입하기
+      </Button>
     </form>
   );
 }
