@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { GetUser, PatchUser, DeleteUser } from '@/api/api';
+import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
 import { useModal } from '@/hooks/useModal';
 import { profileModalState } from '@/recoil/atoms/Atoms';
@@ -90,10 +91,12 @@ function Information() {
               onChange={handleInput}
               autoFocus
             />
-            <button type="submit">Save</button>
-            <button onClick={handleEdit} type="button">
-              Cancel
-            </button>
+            <div>
+              <Button type="submit" variant="primary">
+                저장
+              </Button>
+              <Button onClick={handleEdit}>취소</Button>
+            </div>
           </form>
         ) : (
           <h1>
@@ -107,28 +110,30 @@ function Information() {
         </div>
         <S_Div>
           <div>
-            <button
-              type="button"
+            <Button
               onClick={() => {
                 setShowModal(true);
               }}
+              variant="solid"
             >
               프로필 변경
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={() =>
                 openModal({
                   content: <MemberLikesModal />,
                 })
               }
+              variant="solid"
             >
               선호도 변경
-            </button>
+            </Button>
           </div>
-          <button type="button" onClick={handleDelete}>
-            회원 탈퇴
-          </button>
+          <div className="button-wrapper">
+            <Button onClick={handleDelete} variant="solid">
+              회원 탈퇴
+            </Button>
+          </div>
         </S_Div>
       </S_Wrapper>
     );
@@ -162,7 +167,10 @@ const S_Wrapper = styled.div`
 
   > form {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    @media only screen and (max-width: 770px) {
+      height: 40px;
+    }
     > input {
       font-size: 30px;
       font-weight: 700;
@@ -170,20 +178,19 @@ const S_Wrapper = styled.div`
       padding: 5px;
       border-radius: 5px;
       @media only screen and (max-width: 770px) {
+        font-size: 20px;
+        width: 100px;
         display: block;
         margin-bottom: 10px;
       }
     }
-    > button {
-      width: 80px;
-      height: 30px;
-      margin: 0 10px;
-      border: 1px solid white;
-      border-radius: 5px;
-    }
-    > button:nth-child(2) {
-      background-color: var(--color-primary-yellow);
-      color: var(--color-bg-100);
+    > div {
+      display: flex;
+      align-items: center;
+      margin: 0 20px;
+      gap: 15px;
+      width: 150px;
+      height: 70%;
     }
   }
   & div.member-since {
@@ -210,32 +217,21 @@ const S_Wrapper = styled.div`
 const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
-  > button {
-    width: 130px;
-    height: 36px;
-    border-radius: 5px;
-    border: 1px solid #fff;
+  gap: 15px;
+  > div {
+    display: flex;
     flex-shrink: 0;
-    margin-left: 15px;
+    width: 250px;
+    height: 30px;
+    gap: 15px;
     @media only screen and (max-width: 600px) {
-      width: 100px;
-      height: 30px;
+      width: 200px;
     }
   }
-  > div {
-    flex-shrink: 0;
-    > button {
-      width: 130px;
-      height: 36px;
-      border-radius: 5px;
-      border: 1px solid #fff;
-      @media only screen and (max-width: 600px) {
-        width: 100px;
-        height: 30px;
-      }
-    }
-    > button:first-child {
-      margin-right: 15px;
+  > div.button-wrapper {
+    width: 115px;
+    @media only screen and (max-width: 600px) {
+      width: 90px;
     }
   }
 `;
