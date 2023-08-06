@@ -4,10 +4,10 @@ import { HiMagnifyingGlass } from 'react-icons/hi2';
 import { useNavigate } from 'react-router-dom';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import Recommend from './questions/RecommendModal';
-import { useModal } from '../../hooks/useModal';
-import { recommendedContentsState } from '../../recoil/atoms/Atoms';
-import SearchBar from '../header/SearchBar';
+import Recommend from '@/components/contents/Recommend';
+import SearchBar from '@/components/header/SearchBar';
+import { useModal } from '@/hooks/useModal';
+import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 
 function MobileGNB() {
   const navigate = useNavigate();

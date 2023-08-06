@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
+import { GetUser, PatchUser } from '@/api/api';
+import { genres } from '@/constant/constantValue';
+import { useModal } from '@/hooks/useModal';
+import { S_Modal } from '@/styles/style';
+import { arrToObj, objToArr } from '@/utils/convertResponse';
 import { notifySuccess } from '@/utils/notify';
-import { GetUser, PatchUser } from '../../api/api';
-import { genres } from '../../constant/constantValue';
-import { useModal } from '../../hooks/useModal';
-import { S_Modal } from '../../styles/style';
-import { arrToObj, objToArr } from '../../utils/convertResponse';
 
 const ottList = [
   { name: '넷플릭스', value: 'Netflix' },

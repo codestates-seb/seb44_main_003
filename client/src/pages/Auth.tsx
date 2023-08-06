@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import Authentication from '../components/authentication/Authentication';
+import Authentication from '@/components/authentication/Authentication';
 
 function Auth() {
   return (

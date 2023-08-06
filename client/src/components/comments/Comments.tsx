@@ -1,7 +1,7 @@
 import { AiOutlineComment } from 'react-icons/ai';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { styled } from 'styled-components';
-import CommentContent from './CommentContent';
+import CommentContent from '@/components/comments/CommentContent';
 import {
   COMMENTS_PER_PAGE,
   PAGES_PER_SECTION,

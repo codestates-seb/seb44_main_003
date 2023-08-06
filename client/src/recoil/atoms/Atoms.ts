@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { MemberLikes, ModalType } from '../../types/types';
+import { MemberLikes, ModalType } from '@/types/types';
 
 export const profileModalState = atom<boolean>({
   key: 'profileModal',

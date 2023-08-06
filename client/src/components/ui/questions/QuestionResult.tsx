@@ -3,6 +3,9 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled, { keyframes } from 'styled-components';
+import { GetFilterdData, GetUser } from '@/api/api';
+import CloseBtn from '@/components/ui/CloseBtn';
+import MoveBtn from '@/components/ui/MoveBtn';
 import {
   noContentTitle,
   nicknameTitle,
@@ -10,13 +13,10 @@ import {
   moveAgainBtn,
   moveSignupBtn,
   moveRecommendBtn,
-} from './QuestionData';
-import { GetFilterdData, GetUser } from '../../../api/api';
-import useIsLoggedIn from '../../../hooks/useIsLoggedIn';
-import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
-import { Question } from '../../../types/types';
-import CloseBtn from '../../ui/CloseBtn';
-import MoveBtn from '../MoveBtn';
+} from '@/components/ui/questions/QuestionData';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import { recommendedContentsState } from '@/recoil/atoms/Atoms';
+import { Question } from '@/types/types';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();

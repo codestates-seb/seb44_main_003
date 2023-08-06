@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import GenreBtn from './GenreBtn';
-import OttBtn from './OttBtn';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import GenreBtn from '@/components/filter/GenreBtn';
+import OttBtn from '@/components/filter/OttBtn';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 function ListBtns() {
   const genre = new URLSearchParams(location.search).get('genre');

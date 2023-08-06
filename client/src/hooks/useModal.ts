@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { modalState } from '../recoil/atoms/Atoms';
-import { OpenModalType } from '../types/types';
+import { modalState } from '@/recoil/atoms/Atoms';
+import { OpenModalType } from '@/types/types';
 
 export const useModal = () => {
   const [modalDataState, setModalDataState] = useRecoilState(modalState);

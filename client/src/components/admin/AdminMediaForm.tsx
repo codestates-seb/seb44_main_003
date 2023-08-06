@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { AdminPatchData, AdminPostData } from '../../api/api';
-import { AddData, SelectedData } from '../../types/types';
+import { AdminPatchData, AdminPostData } from '@/api/api';
+import { AddData, SelectedData } from '@/types/types';
 
 function AdminMediaForm({
   type,

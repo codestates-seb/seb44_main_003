@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SkeletonItemCard from '../../ui/SkeletonItemCard';
+import SkeletonItemCard from '@/components/ui/SkeletonItemCard';
 
 const sliderLoading = () => {
   const getSkeletonSize = () => {

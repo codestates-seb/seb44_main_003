@@ -5,20 +5,20 @@ import {
 } from '@tanstack/react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Admin from './pages/Admin';
-import Auth from './pages/Auth';
-import Content from './pages/Content';
-import Error from './pages/Error';
-import List from './pages/List';
-import Main from './pages/Main';
-import Member from './pages/Member';
-import Movie from './pages/Movie';
-import Root from './pages/Root';
-import Search from './pages/Search';
-import TV from './pages/TV';
-import GlobalStyle from './styles/global-styles';
-import { tokenLoader, checkAuthLoader, checkUnauthLoader } from './utils/auth';
-import './App.css';
+import Admin from '@/pages/Admin';
+import Auth from '@/pages/Auth';
+import Content from '@/pages/Content';
+import Error from '@/pages/Error';
+import List from '@/pages/List';
+import Main from '@/pages/Main';
+import Member from '@/pages/Member';
+import Movie from '@/pages/Movie';
+import Root from '@/pages/Root';
+import Search from '@/pages/Search';
+import TV from '@/pages/TV';
+import GlobalStyle from '@/styles/global-styles';
+import { tokenLoader, checkAuthLoader, checkUnauthLoader } from '@/utils/auth';
+import '@/App.css';
 
 const router = createBrowserRouter([
   {

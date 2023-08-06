@@ -1,4 +1,4 @@
-import { NewMember } from '../types/types';
+import { NewMember } from '@/types/types';
 
 type OttArr = NewMember['memberOtts'];
 type InterestArr = NewMember['interests'];

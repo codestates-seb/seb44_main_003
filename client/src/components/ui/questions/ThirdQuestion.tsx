@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react';
 import { ChangeEvent } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import CloseBtn from '@/components/ui/CloseBtn';
+import MoveBtn from '@/components/ui/MoveBtn';
+import QuestionCard from '@/components/ui/QuestionCard';
 import {
   questionList,
   genres,
   moveResultBtn,
   beehappy,
   beesad,
-} from './QuestionData';
-import { recommendedContentsState } from '../../../recoil/atoms/Atoms';
-import { Question } from '../../../types/types';
-import CloseBtn from '../../ui/CloseBtn';
-import QuestionCard from '../../ui/QuestionCard';
-import MoveBtn from '../MoveBtn';
+} from '@/components/ui/questions/QuestionData';
+import { recommendedContentsState } from '@/recoil/atoms/Atoms';
+import { Question } from '@/types/types';
 
 const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
   const [recommendedContents, setRecommendedContents] = useRecoilState(

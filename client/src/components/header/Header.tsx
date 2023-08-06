@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { styled } from 'styled-components';
-import MainLogo from './MainLogo';
-import MemberMenu from './MemberMenu';
-import Navigation from './Navigation';
-import SearchBar from './SearchBar';
-import useMediaQuery from '../../hooks/useMediaQuery';
-import { useModal } from '../../hooks/useModal';
+import MainLogo from '@/components/header/MainLogo';
+import MemberMenu from '@/components/header/MemberMenu';
+import Navigation from '@/components/header/Navigation';
+import SearchBar from '@/components/header/SearchBar';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import { useModal } from '@/hooks/useModal';
 
 function Header() {
   const [position, setPosition] = useState(window.scrollY);

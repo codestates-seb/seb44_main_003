@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AdminDeleteData } from '../../api/api';
+import { AdminDeleteData } from '@/api/api';
 
 function DeleteMediaBtn({ contentId }: { contentId: string }) {
   const navigate = useNavigate();

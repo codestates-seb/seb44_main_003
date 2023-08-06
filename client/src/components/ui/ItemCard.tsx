@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ContentData } from '../../types/types';
+import { ContentData } from '@/types/types';
 
 interface ItemProps {
   item: ContentData;

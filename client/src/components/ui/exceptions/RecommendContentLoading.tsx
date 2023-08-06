@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SkeletonItemCard from '../SkeletonItemCard';
+import SkeletonItemCard from '@/components/ui/SkeletonItemCard';
 
 export function RecommendContentLoading() {
   const [skeletonSize, setSkeletonSize] = useState(getSkeletonSize());

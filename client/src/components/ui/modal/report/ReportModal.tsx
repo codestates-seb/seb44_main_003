@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
-import { PostReport } from '../../../../api/api';
-import { useModal } from '../../../../hooks/useModal';
-import { notifySuccess } from '../../../../utils/notify';
+import { PostReport } from '@/api/api';
+import { useModal } from '@/hooks/useModal';
+import { notifySuccess } from '@/utils/notify';
 
 function ReportModal({ contentId }: { contentId: string }) {
   const { closeModal } = useModal();

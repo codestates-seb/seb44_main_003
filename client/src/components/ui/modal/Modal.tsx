@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import { useModal } from '../../../hooks/useModal';
+import { useModal } from '@/hooks/useModal';
 
 function Modal() {
   const { modalDataState, closeModal } = useModal();

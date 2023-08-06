@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { GetReport } from '../../api/api';
-import { useModal } from '../../hooks/useModal';
-import { Report } from '../../types/types';
-import ReportDetail from '../ui/modal/report/ReportDetail';
+import { GetReport } from '@/api/api';
+import ReportDetail from '@/components/ui/modal/report/ReportDetail';
+import { useModal } from '@/hooks/useModal';
+import { Report } from '@/types/types';
 
 function AdminReport() {
   const { openModal } = useModal();

@@ -5,7 +5,7 @@ import { styled, keyframes } from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { useModal } from '../../../../hooks/useModal';
+import { useModal } from '@/hooks/useModal';
 
 function MobileGenreModal({
   genres,
@@ -56,8 +56,11 @@ function MobileGenreModal({
             <S_RxDoubleArrowUp size={30} />
           </S_SwiperSlide>
           {genres.map((genreText) => (
-            <S_SwiperSlide onClick={() => handleClick(genreText)}>
-              <h1 key={genreText}>{genreText}</h1>
+            <S_SwiperSlide
+              key={genreText}
+              onClick={() => handleClick(genreText)}
+            >
+              <h1>{genreText}</h1>
             </S_SwiperSlide>
           ))}
           <S_SwiperSlide className="arrow">

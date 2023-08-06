@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
-import LoginSignup from './LoginSignup';
-import UserProfile from './UserProfile';
-import useIsLoggedIn from '../../hooks/useIsLoggedIn';
+import LoginSignup from '@/components/header/LoginSignup';
+import UserProfile from '@/components/header/UserProfile';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 function MemberMenu({ position }: { position: number }) {
   const isLoggedIn = useIsLoggedIn();

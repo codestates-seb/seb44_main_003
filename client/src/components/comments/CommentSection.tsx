@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import CommentForm from './CommentForm';
-import Comments from './Comments';
-import { GetComments } from '../../api/api';
+import { GetComments } from '@/api/api';
+import CommentForm from '@/components/comments/CommentForm';
+import Comments from '@/components/comments/Comments';
 
 function CommentSection() {
   const [page, setPage] = useState(1);

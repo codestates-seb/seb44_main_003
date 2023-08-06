@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { Login } from '../../api/api';
-import { REFRSH_TOKEN_DURATION } from '../../constant/constantValue';
-import { useTokens } from '../../hooks/useTokens';
-import { LoginInfo } from '../../types/types';
+import { Login } from '@/api/api';
+import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue';
+import { useTokens } from '@/hooks/useTokens';
+import { LoginInfo } from '@/types/types';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
