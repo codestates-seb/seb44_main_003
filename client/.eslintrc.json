@@ -22,6 +22,7 @@
   "rules": {
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
+    "react/prop-types": 0,
     "import/no-unresolved": "error",
     "import/order": [
       "error",
@@ -61,7 +62,8 @@
     },
     "import/resolver": {
       "typescript": {
-        "alwaysTryTypes": true
+        "alwaysTryTypes": true,
+        "project": "./**/tsconfig.json"
       }
     }
   },
