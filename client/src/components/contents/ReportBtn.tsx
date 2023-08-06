@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
-import useIsLoggedIn from './../../hooks/useIsLoggedIn';
-import { useModal } from '../../hooks/useModal';
-import { notifyError } from '../../utils/notify';
-import ReportModal from '../ui/modal/report/ReportModal';
+import ReportModal from '@/components/ui/modal/report/ReportModal';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import { useModal } from '@/hooks/useModal';
+import { notifyError } from '@/utils/notify';
 
 function ReportBtn({ contentId }: { contentId: string }) {
   const { openModal } = useModal();

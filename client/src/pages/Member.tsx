@@ -1,9 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
-import MemberContents from '../components/member/memberContents/MemberContents';
-import MemberInfo from '../components/member/MemberInfo/MemberInfo';
-import ProfileModal from '../components/member/profileModal/ProfileModal';
-import { profileModalState } from '../recoil/atoms/Atoms';
+import MemberContents from '@/components/member/memberContents/MemberContents';
+import MemberInfo from '@/components/member/MemberInfo/MemberInfo';
+import ProfileModal from '@/components/member/profileModal/ProfileModal';
+import { profileModalState } from '@/recoil/atoms/Atoms';
 
 function Member() {
   const showModal = useRecoilValue(profileModalState);

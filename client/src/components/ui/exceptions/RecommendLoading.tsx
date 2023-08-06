@@ -1,5 +1,5 @@
 import { BsHandThumbsUp } from 'react-icons/bs';
-import { S_IconWrapper } from '../../../styles/style';
+import { S_IconWrapper } from '@/styles/style';
 
 function RecommendLoading({ countRecommend }: { countRecommend: number }) {
   return (

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { COMMENTS_PER_PAGE } from '../constant/constantValue';
-import { AUTOCOMPLETE_RESULT_SIZE } from '../constant/constantValue';
-import { useTokens } from '../hooks/useTokens';
+import { COMMENTS_PER_PAGE } from '@/constant/constantValue';
+import { AUTOCOMPLETE_RESULT_SIZE } from '@/constant/constantValue';
+import { useTokens } from '@/hooks/useTokens';
 import {
   NewMember,
   LoginInfo,
@@ -11,7 +11,7 @@ import {
   AddData,
   ContentData,
   Description,
-} from '../types/types';
+} from '@/types/types';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({

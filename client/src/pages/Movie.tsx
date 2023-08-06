@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import BannerSlide from '../components/slide/BannerSlide';
-import GenreSlide from '../components/slide/GenreSlide';
-import ListBtns from '../components/ui/ListBtns';
-import { BannerImgsType } from '../types/types';
-import { scrollToTop } from '../utils/scrollToTop';
+import ListBtns from '@/components/filter/ListBtns';
+import BannerSlide from '@/components/slide/BannerSlide';
+import GenreSlide from '@/components/slide/GenreSlide';
+import { BannerImgsType } from '@/types/types';
+import { scrollToTop } from '@/utils/scrollToTop';
 
 const bannerMovieImgs: BannerImgsType = [
   {

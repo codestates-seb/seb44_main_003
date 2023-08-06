@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { GetDataDetail, GetUser } from './../../api/api';
-import Bookmark from './Bookmark';
-import Recommend from './Recommend';
-import ReportBtn from './ReportBtn';
-import useMediaQuery from '../../hooks/useMediaQuery';
-import Error from '../../pages/Error';
-import DeleteMediaBtn from '../admin/DeleteMediaBtn';
-import PatchMediaBtn from '../admin/PatchMediaBtn';
-import ContentDetailLoading from '../ui/exceptions/ContentDetailLoading';
-import Tag from '../ui/Tag';
+import { GetDataDetail, GetUser } from '@/api/api';
+import DeleteMediaBtn from '@/components/admin/DeleteMediaBtn';
+import PatchMediaBtn from '@/components/admin/PatchMediaBtn';
+import Bookmark from '@/components/contents/Bookmark';
+import Recommend from '@/components/contents/Recommend';
+import ReportBtn from '@/components/contents/ReportBtn';
+import ContentDetailLoading from '@/components/ui/exceptions/ContentDetailLoading';
+import Tag from '@/components/ui/Tag';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import Error from '@/pages/Error';
 
 function ContentDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -259,7 +259,8 @@ const S_TextTitle = styled.h1`
   display: flex;
   align-items: center;
   font-size: 50px !important;
-  font-weight: bold;
+  font-weight: boldimport { GetUser } from '@/api/api';
+;
   color: var(--color-white-100);
   width: 400px;
   height: 180px;

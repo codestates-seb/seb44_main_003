@@ -5,10 +5,10 @@ import { BsFillTrash3Fill } from 'react-icons/bs';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { DeleteComment, GetUser, PatchComment } from '../../api/api';
-import { ADMIN_MEMBERID } from '../../constant/constantValue';
-import { Comment } from '../../types/types';
-import { convertDatetime } from '../../utils/datetime';
+import { DeleteComment, GetUser, PatchComment } from '@/api/api';
+import { ADMIN_MEMBERID } from '@/constant/constantValue';
+import { Comment } from '@/types/types';
+import { convertDatetime } from '@/utils/datetime';
 
 function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);

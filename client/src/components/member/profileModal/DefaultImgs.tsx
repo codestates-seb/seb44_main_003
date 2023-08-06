@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PatchUser } from '../../../api/api';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
-import { NewMember } from '../../../types/types';
-import { profileImgs } from '../../authentication/SignupForm';
+import { PatchUser } from '@/api/api';
+import { profileImgs } from '@/components/authentication/SignupForm';
+import { profileModalState } from '@/recoil/atoms/Atoms';
+import { NewMember } from '@/types/types';
 
 function DefaultImgs({
   setIsUploading,

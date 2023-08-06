@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PostUserProfile } from '../../../api/api';
-import useMediaQuery from '../../../hooks/useMediaQuery';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
+import { PostUserProfile } from '@/api/api';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import { profileModalState } from '@/recoil/atoms/Atoms';
 
 function ImgUpload() {
   const queryClient = useQueryClient();

@@ -2,11 +2,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled, { keyframes } from 'styled-components';
-import { GetFilterdData, GetSearchedData } from './../../api/api';
-import { ContentData } from '../../types/types';
-import { ItemProps } from '../../types/types';
-import { InfinityScrollLoading } from '../ui/exceptions/InfinityScrollLoading';
-import ItemCard from '../ui/ItemCard';
+import { GetFilterdData, GetSearchedData } from '@/api/api';
+import { InfinityScrollLoading } from '@/components/ui/exceptions/InfinityScrollLoading';
+import ItemCard from '@/components/ui/ItemCard';
+import { ContentData } from '@/types/types';
+import { ItemProps } from '@/types/types';
 
 function InfinityScroll({ path, query }: { path: string; query: string }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -152,7 +152,8 @@ function InfinityScroll({ path, query }: { path: string; query: string }) {
               <img
                 src={`${
                   import.meta.env.VITE_IMAGE_URL
-                }/exception/loadmore.webp`}
+                }/import { GetSearchedData } from './../../api/api';
+exception/loadmore.webp`}
                 alt="다미 로딩스피너"
               />
             </S_LoadMore>

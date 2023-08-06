@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SwiperCore, { Virtual, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { GetOttTopList } from '../../../api/api';
-import SliderLoading from '../../ui/exceptions/sliderLoading';
-import ItemCard from '../../ui/ItemCard';
+import { GetOttTopList } from '@/api/api';
+import SliderLoading from '@/components/ui/exceptions/sliderLoading';
+import ItemCard from '@/components/ui/ItemCard';
 import 'swiper/css';
 import 'swiper/css/navigation';
 

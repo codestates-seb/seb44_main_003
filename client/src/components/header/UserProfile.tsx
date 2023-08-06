@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { BiError } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import Dropdown from './Dropdown';
-import { GetUser } from '../../api/api';
-import useIsLoggedIn from '../../hooks/useIsLoggedIn';
+import { GetUser } from '@/api/api';
+import Dropdown from '@/components/header/Dropdown';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);

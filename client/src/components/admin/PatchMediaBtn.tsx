@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import AdminMediaForm from './AdminMediaForm';
-import { SelectedData } from '../../types/types';
+import AdminMediaForm from '@/components/admin/AdminMediaForm';
+import { SelectedData } from '@/types/types';
 
 function PatchMediaBtn({
   editData,

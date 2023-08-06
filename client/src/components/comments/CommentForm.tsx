@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { BiPaperPlane } from 'react-icons/bi';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { PostComment } from '../../api/api';
-import useIsLoggedIn from '../../hooks/useIsLoggedIn';
+import { PostComment } from '@/api/api';
+import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 
 function CommentForm() {
   const [content, setContent] = useState('');

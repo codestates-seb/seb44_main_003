@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import InfinityScroll from '../components/slide/InfinityScroll';
-import ListBtns from '../components/ui/ListBtns';
-import { scrollToTop } from '../utils/scrollToTop';
+import InfinityScroll from '@/components/filter/InfinityScroll';
+import ListBtns from '@/components/filter/ListBtns';
+import { scrollToTop } from '@/utils/scrollToTop';
 
 function List() {
   const path = useLocation().pathname;

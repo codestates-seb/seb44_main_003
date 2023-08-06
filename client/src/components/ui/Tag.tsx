@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 function Tag({ genre }: { genre: string[] }) {
   const changeText = (text: string) => {
     if (text === 'Reality TV') {

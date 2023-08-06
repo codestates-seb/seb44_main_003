@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import MobileGenreModal from './modal/genre/MobileGenreModal';
-import useMediaQuery from '../../hooks/useMediaQuery';
-import { useModal } from '../../hooks/useModal';
+import MobileGenreModal from '@/components/ui/modal/genre/MobileGenreModal';
+import useMediaQuery from '@/hooks/useMediaQuery';
+import { useModal } from '@/hooks/useModal';
 
 function GenreBtn() {
   const [selectedGenre, setSelectedGenre] = useState('');

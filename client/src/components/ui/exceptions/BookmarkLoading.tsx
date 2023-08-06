@@ -1,5 +1,5 @@
 import { BsHeart } from 'react-icons/bs';
-import { S_IconWrapper } from '../../../styles/style';
+import { S_IconWrapper } from '@/styles/style';
 
 function BookmarkLoading() {
   return (

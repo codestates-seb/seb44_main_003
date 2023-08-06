@@ -6,11 +6,11 @@ import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { notifyError, notifyWithIcon } from './../../../utils/notify';
-import { GetUser, PatchUser, DeleteUser } from '../../../api/api';
-import { useModal } from '../../../hooks/useModal';
-import { profileModalState } from '../../../recoil/atoms/Atoms';
-import MemberLikesModal from '../MemberLikesModal';
+import { GetUser, PatchUser, DeleteUser } from '@/api/api';
+import MemberLikesModal from '@/components/member/MemberLikesModal';
+import { useModal } from '@/hooks/useModal';
+import { profileModalState } from '@/recoil/atoms/Atoms';
+import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Information() {
   const queryClient = useQueryClient();

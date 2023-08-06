@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GetDataDetail, GetFilterdData } from '../../api/api';
-import { ContentData } from '../../types/types';
-import { RecommendContentLoading } from '../ui/exceptions/RecommendContentLoading';
-import ItemCard from '../ui/ItemCard';
+import { GetDataDetail, GetFilterdData } from '@/api/api';
+import { RecommendContentLoading } from '@/components/ui/exceptions/RecommendContentLoading';
+import ItemCard from '@/components/ui/ItemCard';
+import { ContentData } from '@/types/types';
 
 const RecommendContent = ({ contentId }: { contentId: string }) => {
   const navigate = useNavigate();
