@@ -1,14 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Button from '@/components/@common/button/Button';
-// import { SCROLL_Y_SECTION_1 } from '@/constant/constantValue';
+import { SCROLL_Y_SECTION_1 } from '@/constant/constantValue';
 
-function LoginSignup() {
+function LoginSignup({ position }: { position: number }) {
   const navigate = useNavigate();
   return (
     <S_Wrapper>
-      <Button onClick={() => navigate('/login')}>로그인</Button>
-      <Button onClick={() => navigate('/signup')}>회원가입</Button>
+      <Button
+        onClick={() => navigate('/login')}
+        variant={position >= SCROLL_Y_SECTION_1 ? 'solid' : 'default'}
+      >
+        로그인
+      </Button>
+      <Button
+        onClick={() => navigate('/signup')}
+        variant={position >= SCROLL_Y_SECTION_1 ? 'solid' : 'default'}
+      >
+        회원가입
+      </Button>
     </S_Wrapper>
   );
 }
