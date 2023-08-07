@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentSection from '@/components/comments/CommentSection';
-import ContentDetail from '@/components/contents/ContentDetail';
-import RecommendContent from '@/components/contents/RecommendContent';
+import ContentDetail from '@/components/mediaDetail/MediaDetail';
+import RecommendContent from '@/components/mediaDetail/relatedMedia/RelatedMedia';
 
 function Content() {
   const { id = '' } = useParams<{ id?: string }>();

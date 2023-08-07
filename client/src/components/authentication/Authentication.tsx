@@ -38,7 +38,6 @@ const S_Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
     > div {
       position: relative;
     }
@@ -92,18 +91,9 @@ const S_Wrapper = styled.div`
       }
     }
   }
-
   & button {
-    width: 300px;
-    height: 45px;
-    border-radius: 10px;
-    border: 1px solid #ffffff4d;
-    background-color: #ffff0033;
     margin-top: 25px;
-  }
-
-  & button:hover {
-    background-color: #ffff0060;
+    height: 2.7rem;
   }
 
   & a {

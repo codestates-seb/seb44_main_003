@@ -5,6 +5,7 @@ import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '@/api/api';
+import Button from '@/components/@common/button/Button';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue';
 import { useTokens } from '@/hooks/useTokens';
 import { LoginInfo } from '@/types/types';
@@ -112,7 +113,9 @@ function LoginForm() {
       </div>
       {passwordError && <div className="error">{passwordError}</div>}
       {loginError && <div className="error">{loginError}</div>}
-      <button type="submit">로그인하기</button>
+      <Button type="submit" variant="primary">
+        로그인하기
+      </Button>
     </form>
   );
 }

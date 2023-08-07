@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import InfinityScroll from '@/components/filter/InfinityScroll';
-import ListBtns from '@/components/filter/ListBtns';
+import InfiniteScroll from '@/components/@common/InfiniteScroll/InfiniteScroll';
+import ListBtns from '@/components/@layout/navigators/ListBtns';
 import { scrollToTop } from '@/utils/scrollToTop';
 
 function List() {
@@ -19,7 +19,7 @@ function List() {
       <S_BtnWrapper>
         <ListBtns />
       </S_BtnWrapper>
-      <InfinityScroll path={path} query={selectedList} />
+      <InfiniteScroll path={path} query={selectedList} />
     </S_Wrapper>
   );
 }

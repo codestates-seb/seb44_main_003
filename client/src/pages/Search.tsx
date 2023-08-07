@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import InfinityScroll from '@/components/filter/InfinityScroll';
+import InfiniteScroll from '@/components/@common/InfiniteScroll/InfiniteScroll';
 
 function Search() {
   const [keyword, setKeyword] = useState('');
@@ -15,7 +15,7 @@ function Search() {
 
   return (
     <S_Wrapper>
-      <InfinityScroll path="/search" query={keyword} />
+      <InfiniteScroll path="/search" query={keyword} />
     </S_Wrapper>
   );
 }

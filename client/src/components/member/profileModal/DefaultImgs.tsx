@@ -29,6 +29,7 @@ function DefaultImgs({
       <S_ImgDiv>
         {profileImgs.map((profile, index) => (
           <img
+            role="presentation"
             key={index}
             src={`${import.meta.env.VITE_IMAGE_URL}/${profile}.png`}
             alt={profile}
@@ -38,6 +39,8 @@ function DefaultImgs({
       </S_ImgDiv>
       <div className="add">
         <img
+          role="presentation"
+          alt="이미지 추가"
           src={`${import.meta.env.VITE_IMAGE_URL}/profiles/profileAdd.svg`}
           onClick={() => setIsUploading(true)}
         />
