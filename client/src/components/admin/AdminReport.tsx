@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
 import { GetReport } from '@/api/api';
-import ReportDetail from '@/components/ui/modal/report/ReportDetail';
+import ReportDetail from '@/components/admin/ReportDetail';
 import { useModal } from '@/hooks/useModal';
 import { Report } from '@/types/types';
 

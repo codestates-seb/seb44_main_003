@@ -5,10 +5,10 @@ import {
 } from '@tanstack/react-query';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import Error from '@/components/common/layout/Error';
 import Admin from '@/pages/Admin';
 import Auth from '@/pages/Auth';
 import Content from '@/pages/Content';
-import Error from '@/pages/Error';
 import List from '@/pages/List';
 import Main from '@/pages/Main';
 import Member from '@/pages/Member';

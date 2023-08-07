@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled, { keyframes } from 'styled-components';
 import { GetFilterdData, GetSearchedData } from '@/api/api';
-import { InfinityScrollLoading } from '@/components/ui/exceptions/InfinityScrollLoading';
-import ItemCard from '@/components/ui/ItemCard';
+import ItemCard from '@/components/common/item/ItemCard';
+import { InfinityScrollLoading } from '@/components/filter/InfinityScrollLoading';
 import { ContentData } from '@/types/types';
 import { ItemProps } from '@/types/types';
 

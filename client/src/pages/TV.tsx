@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
+import BannerSlide from '@/components/filter/BannerSlide';
+import GenreSlide from '@/components/filter/GenreSlide';
 import ListBtns from '@/components/filter/ListBtns';
-import BannerSlide from '@/components/slide/BannerSlide';
-import GenreSlide from '@/components/slide/GenreSlide';
 import { BannerImgsType } from '@/types/types';
 import { scrollToTop } from '@/utils/scrollToTop';
 

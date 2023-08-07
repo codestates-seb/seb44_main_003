@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { GetUser } from '@/api/api';
 import AdminMediaForm from '@/components/admin/AdminMediaForm';
 import AdminReport from '@/components/admin/AdminReport';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import useIsLoggedIn from '@/utils/useIsLoggedIn';
 
 function Admin() {
   const isLoggedIn = useIsLoggedIn();

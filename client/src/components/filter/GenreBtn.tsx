@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import MobileGenreModal from '@/components/ui/modal/genre/MobileGenreModal';
+import MobileGenreModal from '@/components/filter/MobileGenreModal';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useModal } from '@/hooks/useModal';
 

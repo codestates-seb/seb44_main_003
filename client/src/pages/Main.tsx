@@ -1,10 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
-import MainBanner from '@/components/banner/MainBanner.tsx';
-import MainSliderSection from '@/components/slide/mainslider/MainSliderSection.tsx';
+import MainBanner from '@/components/main/MainBanner';
+import MainSliderSection from '@/components/main/MainSliderSection';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue.ts';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
-import { useTokens } from '@/hooks/useTokens.ts';
 import { scrollToTop } from '@/utils/scrollToTop.ts';
+import useIsLoggedIn from '@/utils/useIsLoggedIn';
+import { useTokens } from '@/utils/useTokens';
 
 function Main() {
   const isLoggedIn = useIsLoggedIn();

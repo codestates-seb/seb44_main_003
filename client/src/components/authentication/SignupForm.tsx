@@ -5,9 +5,9 @@ import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { PostUser, Login } from '@/api/api';
-import { useTokens } from '@/hooks/useTokens';
 import { NewMember, LoginInfo } from '@/types/types';
 import { notifyWithIcon } from '@/utils/notify';
+import { useTokens } from '@/utils/useTokens';
 
 export const profileImgs = [
   'kongdami',
