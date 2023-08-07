@@ -1,20 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { GetIsRecommend, PostRecommend } from '@/api/api';
-import RecommendLoading from '@/components/contents/RecommendLoading';
+import { GetIsBookmark, PostBookmark } from '@/api/api';
+import BookmarkLoading from '@/components/contents/bookmark/BookmarkLoading';
 import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { S_IconWrapper } from '@/styles/style';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
-function Recommend({
-  countRecommend,
-  contentId,
-}: {
-  countRecommend: number;
-  contentId: string;
-}) {
+function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
@@ -23,48 +17,46 @@ function Recommend({
     return (
       <S_IconWrapper>
         <div>
-          <BsHandThumbsUp
+          <BsHeart
             color="white"
             size="35"
             onClick={() => notifyError('로그인 후 이용 가능합니다')}
           />
-          <p>추천</p>
+          <p>찜</p>
         </div>
-        <p>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
 
   const { isLoading, data, isSuccess, error } = useQuery(
-    ['isRecommend', contentId],
-    () => GetIsRecommend(contentId),
+    ['isBookmarked', contentId],
+    () => GetIsBookmark(contentId),
     {
       enabled: isLoggedIn,
     }
   );
 
-  const RecommendMutation = useMutation({
-    mutationFn: (contentId: string) => PostRecommend(contentId),
+  const BookmarkMutation = useMutation({
+    mutationFn: (contentId: string) => PostBookmark(contentId),
     onSuccess: () => {
       if (!data) {
-        notifyWithIcon('추천 완료!', '👍🏼');
+        notifyWithIcon('찜 완료!', '❤️');
       } else {
-        notifyWithIcon('추천 취소..', '👎🏼');
+        notifyWithIcon('찜 취소..', '🤍');
       }
-      queryClient.invalidateQueries(['isRecommend', contentId]);
-      queryClient.invalidateQueries(['selectedContent', contentId]);
+      queryClient.invalidateQueries(['isBookmarked', contentId]);
       queryClient.invalidateQueries(['userContents']);
     },
   });
 
-  const handleRecommend = () => {
-    if (!RecommendMutation.isLoading) {
-      RecommendMutation.mutate(contentId);
+  const handleBookmark = () => {
+    if (!BookmarkMutation.isLoading) {
+      BookmarkMutation.mutate(contentId);
     }
   };
 
   if (isLoading) {
-    return <RecommendLoading countRecommend={countRecommend} />;
+    return <BookmarkLoading />;
   }
 
   if (error instanceof AxiosError) {
@@ -76,21 +68,20 @@ function Recommend({
       <S_IconWrapper>
         <div>
           {data ? (
-            <BsHandThumbsUpFill
+            <BsHeartFill
               color="white"
-              size="35"
+              size="34"
               className="isTrue"
-              onClick={handleRecommend}
+              onClick={handleBookmark}
             />
           ) : (
-            <BsHandThumbsUp color="white" size="35" onClick={handleRecommend} />
+            <BsHeart color="white" size="35" onClick={handleBookmark} />
           )}
-          <p>추천</p>
+          <p className={data ? 'isTrue' : ''}>찜</p>
         </div>
-        <p className={data ? 'isTrue' : ''}>{countRecommend}</p>
       </S_IconWrapper>
     );
   }
 }
 
-export default Recommend;
+export default Bookmark;

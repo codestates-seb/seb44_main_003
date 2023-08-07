@@ -51,13 +51,12 @@ function CommentContent({ comment }: { comment: Comment }) {
           />
         </div>
       ) : (
-        <div>
-          <img
-            className="poster"
-            src={comment.media!.mainPoster}
-            onClick={() => navigate(`/content/${comment.media!.mediaId}`)}
-          />
-        </div>
+        <button
+          className="poster"
+          onClick={() => navigate(`/content/${comment.media!.mediaId}`)}
+        >
+          <img src={comment.media!.mainPoster} alt="media poster" />
+        </button>
       )}
       <div>
         {comment.member && (
