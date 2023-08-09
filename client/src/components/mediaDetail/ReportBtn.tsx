@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import ReportModal from '@/components/mediaDetail/report/ReportModal';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { useModal } from '@/hooks/useModal';
+import useIsLoggedIn from '@/utils/isLoggedIn';
 import { notifyError } from '@/utils/notify';
 
 function ReportBtn({ contentId }: { contentId: string }) {
