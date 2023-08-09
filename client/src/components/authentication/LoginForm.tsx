@@ -8,7 +8,7 @@ import { Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue';
 import { LoginInfo } from '@/types/types';
-import { areTokens } from '@/utils/areTokens';
+import { validateTokens } from '@/utils/validateTokens';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -58,7 +58,7 @@ function LoginForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        areTokens(data.headers.authorization, data.headers.refresh);
+        validateTokens(data.headers.authorization, data.headers.refresh);
         const expiration = new Date();
         expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
         localStorage.setItem('expiration', expiration.toISOString());

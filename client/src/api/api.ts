@@ -11,7 +11,7 @@ import {
   ContentData,
   Description,
 } from '@/types/types';
-import { areTokens } from '@/utils/areTokens';
+import { validateTokens } from '@/utils/validateTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
       const headers = error.response.headers;
       const accessToken = headers.authorization;
       const refreshToken = headers.refresh;
-      areTokens(accessToken, refreshToken);
+      validateTokens(accessToken, refreshToken);
       const originalRequestConfig = error.config;
       const newAccess = localStorage.getItem('token');
       const newRefresh = localStorage.getItem('refresh');

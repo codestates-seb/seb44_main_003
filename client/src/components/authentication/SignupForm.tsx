@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { PostUser, Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import { NewMember, LoginInfo } from '@/types/types';
-import { areTokens } from '@/utils/areTokens';
 import { notifyWithIcon } from '@/utils/notify';
+import { validateTokens } from '@/utils/validateTokens';
 
 export const profileImgs = [
   'kongdami',
@@ -115,7 +115,7 @@ function SignupForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        areTokens(data.headers.authorization, data.headers.refresh);
+        validateTokens(data.headers.authorization, data.headers.refresh);
         navigate('/');
       }
     },
