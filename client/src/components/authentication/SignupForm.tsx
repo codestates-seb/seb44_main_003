@@ -6,8 +6,8 @@ import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { PostUser, Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
-import { useTokens } from '@/hooks/useTokens';
 import { NewMember, LoginInfo } from '@/types/types';
+import { areTokens } from '@/utils/areTokens';
 import { notifyWithIcon } from '@/utils/notify';
 
 export const profileImgs = [
@@ -115,7 +115,7 @@ function SignupForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        useTokens(data.headers.authorization, data.headers.refresh);
+        areTokens(data.headers.authorization, data.headers.refresh);
         navigate('/');
       }
     },

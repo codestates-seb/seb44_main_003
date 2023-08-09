@@ -4,8 +4,8 @@ import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { GetIsRecommend, PostRecommend } from '@/api/api';
 import RecommendLoading from '@/components/mediaDetail/recommend/RecommendLoading';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { S_IconWrapper } from '@/styles/style';
+import useIsLoggedIn from '@/utils/isLoggedIn';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Recommend({

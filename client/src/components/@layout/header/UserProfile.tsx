@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { GetUser } from '@/api/api';
 import Dropdown from '@/components/@layout/header/Dropdown';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
+import useIsLoggedIn from '@/utils/isLoggedIn';
 
 function UserProfile() {
   const [showDropdown, setShowDropdown] = useState(false);

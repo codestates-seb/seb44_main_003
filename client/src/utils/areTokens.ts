@@ -1,4 +1,4 @@
-export const useTokens = (
+export const areTokens = (
   accessToken: string | null,
   refreshToken: string | null
 ) => {

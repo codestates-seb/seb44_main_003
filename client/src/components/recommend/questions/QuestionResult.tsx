@@ -14,9 +14,9 @@ import {
   moveSignupBtn,
   moveRecommendBtn,
 } from '@/components/recommend/questions/QuestionData';
-import useIsLoggedIn from '@/hooks/useIsLoggedIn';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
+import useIsLoggedIn from '@/utils/isLoggedIn';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();

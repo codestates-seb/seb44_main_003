@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { COMMENTS_PER_PAGE } from '@/constant/constantValue';
 import { AUTOCOMPLETE_RESULT_SIZE } from '@/constant/constantValue';
-import { useTokens } from '@/hooks/useTokens';
 import {
   NewMember,
   LoginInfo,
@@ -12,6 +11,7 @@ import {
   ContentData,
   Description,
 } from '@/types/types';
+import { areTokens } from '@/utils/areTokens';
 
 /* 액세스 토큰이 필요한 요청에 사용 */
 export const instance = axios.create({
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
       const headers = error.response.headers;
       const accessToken = headers.authorization;
       const refreshToken = headers.refresh;
-      useTokens(accessToken, refreshToken);
+      areTokens(accessToken, refreshToken);
       const originalRequestConfig = error.config;
       const newAccess = localStorage.getItem('token');
       const newRefresh = localStorage.getItem('refresh');

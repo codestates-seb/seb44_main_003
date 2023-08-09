@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue';
-import { useTokens } from '@/hooks/useTokens';
 import { LoginInfo } from '@/types/types';
+import { areTokens } from '@/utils/areTokens';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -58,7 +58,7 @@ function LoginForm() {
     mutationFn: (member: LoginInfo) => Login(member),
     onSuccess(data) {
       if (data.status === 200) {
-        useTokens(data.headers.authorization, data.headers.refresh);
+        areTokens(data.headers.authorization, data.headers.refresh);
         const expiration = new Date();
         expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
         localStorage.setItem('expiration', expiration.toISOString());
