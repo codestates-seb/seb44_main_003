@@ -1,12 +1,12 @@
 import { AiOutlineComment } from 'react-icons/ai';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { styled } from 'styled-components';
-import CommentContent from '@/components/comments/CommentContent';
+import CommentContent from '@/components/mediaDetail/comments/CommentContent';
 import {
   COMMENTS_PER_PAGE,
   PAGES_PER_SECTION,
-} from '../../constant/constantValue';
-import { CommentData } from '../../types/types';
+} from '../../../constant/constantValue';
+import { CommentData } from '../../../types/types';
 
 function Comments({
   data,

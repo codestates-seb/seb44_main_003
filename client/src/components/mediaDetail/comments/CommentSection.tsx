@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { GetComments } from '@/api/api';
-import CommentForm from '@/components/comments/CommentForm';
-import Comments from '@/components/comments/Comments';
+import CommentForm from '@/components/mediaDetail/comments/CommentForm';
+import Comments from '@/components/mediaDetail/comments/Comments';
 
 function CommentSection() {
   const [page, setPage] = useState(1);

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { GetDataDetail, GetUser } from '@/api/api';
+import { GetUser } from '@/api/api';
 import DeleteMediaBtn from '@/components/admin/DeleteMediaBtn';
 import PatchMediaBtn from '@/components/admin/PatchMediaBtn';
 import Bookmark from '@/components/mediaDetail/bookmark/Bookmark';
@@ -12,6 +12,7 @@ import ReportBtn from '@/components/mediaDetail/ReportBtn';
 import Tag from '@/components/mediaDetail/Tag';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import Error from '@/pages/Error';
+import useMediaDetailQuery from '@/queries/mediaDetail/useMediaDetailQuery';
 
 function MediaDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -22,10 +23,7 @@ function MediaDetail({ contentId }: { contentId: string }) {
     { name: 'wavve', img: '/ott/wavve.webp' },
   ];
   const isUnder900 = useMediaQuery('(max-width: 900px)');
-  const { isLoading, data, error, isSuccess } = useQuery(
-    ['selectedContent', contentId],
-    () => GetDataDetail(contentId)
-  );
+  const { isLoading, data, error, isSuccess } = useMediaDetailQuery(contentId);
 
   const findOtt = (ottName: string) => {
     return data?.mediaOtt.some((ott) => ott.ottName === ottName);
