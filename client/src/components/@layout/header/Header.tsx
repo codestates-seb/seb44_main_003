@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { FiSearch } from 'react-icons/fi';
 import { styled } from 'styled-components';
 import MainLogo from '@/components/@layout/header/MainLogo';
@@ -7,30 +6,19 @@ import Navigation from '@/components/@layout/header/Navigation';
 import SearchBar from '@/components/@layout/header/SearchBar';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useModal } from '@/hooks/useModal';
+import useScrollPosition from '@/hooks/useScrollPosition';
 
 function Header() {
-  const [position, setPosition] = useState(window.scrollY);
-  const [visible, setVisible] = useState(true);
   const { openModal } = useModal();
   const isMobile = useMediaQuery('(max-width:600px)');
+  const { position, pastThreshold, scrollDown } = useScrollPosition(400);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const moving = window.scrollY;
-      setVisible(position < 400 || position > moving);
-      setPosition(moving);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [position]);
   const handleClick = () => {
     openModal({ content: <SearchBar /> });
   };
 
   return (
-    <S_Header $visible={visible}>
+    <S_Header $visible={!pastThreshold || scrollDown}>
       <S_Wrapper>
         <div>
           <MainLogo />
