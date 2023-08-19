@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { styled } from 'styled-components';
-import { GetUserContents } from '@/api/api';
+import { GetMemberContents } from '@/api/api';
 import ItemCard from '@/components/@common/Itemcard/ItemCard';
 
 function ContentsList({ path }: { path: string }) {
   const { data, isSuccess, isStale, refetch } = useQuery({
     queryKey: ['userContents', path],
-    queryFn: () => GetUserContents(path),
+    queryFn: () => GetMemberContents(path),
   });
   if (isStale) refetch();
   if (isSuccess) {

@@ -2,12 +2,12 @@ import { useSearchParams } from 'react-router-dom';
 import MainSliderSection from '@/components/@common/slider/MainSliderSection';
 import MainBanner from '@/components/@layout/banners/MainBanner';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue.ts';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/isLoggedIn';
 import { scrollToTop } from '@/utils/scrollToTop.ts';
 import { validateTokens } from '@/utils/validateTokens';
 
 function Main() {
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const [searchParams] = useSearchParams();
   const accessToken = searchParams.get('access_token');
   const refreshToken = searchParams.get('refresh_token');

@@ -1,12 +1,12 @@
 import { styled } from 'styled-components';
 import ReportModal from '@/components/mediaDetail/report/ReportModal';
 import { useModal } from '@/hooks/useModal';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/isLoggedIn';
 import { notifyError } from '@/utils/notify';
 
 function ReportBtn({ contentId }: { contentId: string }) {
   const { openModal } = useModal();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
 
   const modalData = {
     content: <ReportModal contentId={contentId} />,

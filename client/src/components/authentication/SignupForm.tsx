@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { PostUser, Login } from '@/api/api';
+import { PostMember, Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import { NewMember, LoginInfo } from '@/types/types';
 import { notifyWithIcon } from '@/utils/notify';
@@ -122,7 +122,7 @@ function SignupForm() {
   });
 
   const SignupMutation = useMutation({
-    mutationFn: (newMember: NewMember) => PostUser(newMember),
+    mutationFn: (newMember: NewMember) => PostMember(newMember),
     onSuccess(data) {
       if (data.status === 201) {
         notifyWithIcon(`${nickname}님 JOYING에 오신 걸 환영합니다!`, '🎉');

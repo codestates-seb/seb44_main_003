@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
@@ -7,9 +7,10 @@ import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { GetUser, PatchUser, DeleteUser } from '@/api/api';
+import { PatchMember, DeleteMember } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
+import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
@@ -43,16 +44,13 @@ function Information() {
     });
     setIsEditing(false);
   };
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: GetUser,
+  const { isLoading, data, error, isSuccess } = useMemberQuery(true);
+
+  const mutationPatch = useMutation(PatchMember, {
+    onSuccess: () => queryClient.invalidateQueries(['member']),
   });
 
-  const mutationPatch = useMutation(PatchUser, {
-    onSuccess: () => queryClient.invalidateQueries(['user']),
-  });
-
-  const mutationDelete = useMutation(DeleteUser, {
+  const mutationDelete = useMutation(DeleteMember, {
     onSuccess: () => {
       localStorage.removeItem('token');
       localStorage.removeItem('expiration');
@@ -75,7 +73,7 @@ function Information() {
     if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
   if (isSuccess) {
-    const memberSince = new Date(data.createdAt);
+    const memberSince = new Date(data!.createdAt);
     const currentDate = new Date();
     const timeDiff = currentDate.getTime() - memberSince.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -86,7 +84,7 @@ function Information() {
             <input
               type="text"
               name="userNickname"
-              defaultValue={data.nickname}
+              defaultValue={data!.nickname}
               className="border-b border-gray-300 w-[100px] mr-4"
               onChange={handleInput}
               autoFocus
@@ -100,12 +98,12 @@ function Information() {
           </form>
         ) : (
           <h1>
-            {data.nickname}
+            {data!.nickname}
             <HiPencil onClick={handleEdit} />
           </h1>
         )}
         <div className="member-since">
-          <p>가입일 : {data.createdAt.substring(0, 10)} </p>
+          <p>가입일 : {data!.createdAt.substring(0, 10)} </p>
           <span>|</span> <p>조잉에 함께한 지 {daysDiff}일 째입니다</p>
         </div>
         <S_Div>

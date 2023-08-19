@@ -1,28 +1,24 @@
-import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 import { BiError } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { GetUser } from '@/api/api';
 import Dropdown from '@/components/@layout/header/Dropdown';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import useMemberQuery from '@/hooks/useMemberQuery';
+import checkLogin from '@/utils/isLoggedIn';
 
-function UserProfile() {
+function MemberProfile() {
   const [showDropdown, setShowDropdown] = useState(false);
   const location = useLocation();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     setShowDropdown(false);
   }, [location]);
 
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: GetUser,
-    enabled: isLoggedIn,
-  });
+  const { isLoading, data, error, isSuccess } = useMemberQuery(isLoggedIn);
 
   if (isLoading)
     return (
@@ -52,11 +48,11 @@ function UserProfile() {
         onMouseOver={() => setShowDropdown(true)}
         onMouseOut={() => setShowDropdown(false)}
       >
-        <img src={data.avatarUri} alt="user" />
+        <img src={data!.avatarUri} alt="user" />
         {showDropdown && (
           <Dropdown
-            avatarUri={data.avatarUri}
-            nickname={data.nickname}
+            avatarUri={data!.avatarUri}
+            nickname={data!.nickname}
             setShowDropdown={setShowDropdown}
           />
         )}
@@ -64,7 +60,7 @@ function UserProfile() {
     );
 }
 
-export default UserProfile;
+export default MemberProfile;
 
 const S_ProfileWrapper = styled.div`
   display: flex;

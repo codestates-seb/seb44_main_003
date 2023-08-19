@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PostUserProfile } from '@/api/api';
+import { PostMemberProfile } from '@/api/api';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 
@@ -14,9 +14,9 @@ function ImgUpload() {
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isUnder600 = useMediaQuery('(max-width: 600px)');
-  const mutation = useMutation(PostUserProfile, {
+  const mutation = useMutation(PostMemberProfile, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['user']);
+      queryClient.invalidateQueries(['member']);
       setShowModal(false);
     },
   });

@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { GetIsBookmark, PostBookmark } from '@/api/api';
 import BookmarkLoading from '@/components/mediaDetail/bookmark/BookmarkLoading';
 import { S_IconWrapper } from '@/styles/style';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/isLoggedIn';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Bookmark({ contentId }: { contentId: string }) {
   const queryClient = useQueryClient();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const navigate = useNavigate();
 
   if (!isLoggedIn) {

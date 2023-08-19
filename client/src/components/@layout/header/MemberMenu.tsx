@@ -1,10 +1,10 @@
 import { styled } from 'styled-components';
 import LoginSignup from '@/components/@layout/header/LoginSignup';
-import UserProfile from '@/components/@layout/header/UserProfile';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import UserProfile from '@/components/@layout/header/MemberProfile';
+import checkLogin from '@/utils/isLoggedIn';
 
 function MemberMenu({ position }: { position: number }) {
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   return (
     <S_Nav>
       {isLoggedIn ? <UserProfile /> : <LoginSignup position={position} />}

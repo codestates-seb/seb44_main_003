@@ -1,10 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
-import { GetUser, PatchUser } from '@/api/api';
+import { PatchMember } from '@/api/api';
 import { genres } from '@/constant/constantValue';
+import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
 import { S_Modal } from '@/styles/style';
 import { arrToObj, objToArr } from '@/utils/convertResponse';
@@ -22,13 +23,13 @@ function MemberLikesModal() {
   const [error, setError] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const { closeModal } = useModal();
-  const { data } = useQuery(['user'], GetUser);
+  const { data } = useMemberQuery(true);
 
-  const mutation = useMutation(PatchUser, {
+  const mutation = useMutation(PatchMember, {
     onSuccess: () => {
       notifySuccess('선호도가 변경되었습니다.');
       closeModal();
-      queryClient.invalidateQueries(['user']);
+      queryClient.invalidateQueries(['member']);
     },
   });
   const { watch, register, handleSubmit } = useForm();
