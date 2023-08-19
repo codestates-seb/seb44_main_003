@@ -1,10 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
-import { PatchMember } from '@/api/api';
 import { genres } from '@/constant/constantValue';
+import useMemberMutation from '@/hooks/useMemberMutation';
 import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
 import { S_Modal } from '@/styles/style';
@@ -21,17 +20,14 @@ const longName = ['애니메이션'];
 
 function MemberLikesModal() {
   const [error, setError] = useState<string | null>(null);
-  const queryClient = useQueryClient();
   const { closeModal } = useModal();
   const { data } = useMemberQuery(true);
 
-  const mutation = useMutation(PatchMember, {
-    onSuccess: () => {
-      notifySuccess('선호도가 변경되었습니다.');
-      closeModal();
-      queryClient.invalidateQueries(['member']);
-    },
-  });
+  const onSuccessMutation = () => {
+    notifySuccess('선호도가 변경되었습니다.');
+    closeModal();
+  };
+  const mutation = useMemberMutation(onSuccessMutation);
   const { watch, register, handleSubmit } = useForm();
   useEffect(() => {
     const subscription = watch((value) => {

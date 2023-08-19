@@ -1,22 +1,21 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { useMutation } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PatchMember, DeleteMember } from '@/api/api';
+import { DeleteMember } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
+import useMemberMutation from '@/hooks/useMemberMutation';
 import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Information() {
-  const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
@@ -46,9 +45,7 @@ function Information() {
   };
   const { isLoading, data, error, isSuccess } = useMemberQuery(true);
 
-  const mutationPatch = useMutation(PatchMember, {
-    onSuccess: () => queryClient.invalidateQueries(['member']),
-  });
+  const mutationPatch = useMemberMutation();
 
   const mutationDelete = useMutation(DeleteMember, {
     onSuccess: () => {

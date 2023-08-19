@@ -1,8 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PatchMember } from '@/api/api';
 import { profileImgs } from '@/components/authentication/SignupForm';
+import useMemberMutation from '@/hooks/useMemberMutation';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 import { NewMember } from '@/types/types';
 
@@ -11,19 +11,14 @@ function DefaultImgs({
 }: {
   setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const queryClient = useQueryClient();
   const setShowModal = useSetRecoilState(profileModalState);
   const user = useQuery(['member']).data as NewMember;
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLImageElement;
     mutationPatch.mutate({ ...user, avatarUri: target.src });
   };
-  const mutationPatch = useMutation(PatchMember, {
-    onSuccess: () => {
-      setShowModal(false);
-      queryClient.invalidateQueries(['member']);
-    },
-  });
+
+  const mutationPatch = useMemberMutation(() => setShowModal(false));
   return (
     <S_Wrapper>
       <S_ImgDiv>
