@@ -1,14 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
-import { useNavigate } from 'react-router-dom';
-import { PostMember, Login } from '@/api/api';
 import Button from '@/components/@common/button/Button';
-import { NewMember, LoginInfo } from '@/types/types';
-import { notifyWithIcon } from '@/utils/notify';
-import { validateTokens } from '@/utils/validateTokens';
+import useMemberCreate from '@/hooks/useMemberCreate';
 
 export const profileImgs = [
   'kongdami',
@@ -33,7 +27,6 @@ function SignupForm() {
   const [confirmError, setConfirmError] = useState<string | null>(null);
   const [signupError, setSignupError] = useState<string | null>(null);
   const randomNum = Math.floor(Math.random() * 6);
-  const navigate = useNavigate();
 
   const handleNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -110,40 +103,18 @@ function SignupForm() {
   function validate() {
     return checknickname() && checkEmail() && checkPassword() && checkConfirm();
   }
+  const { signupMutation, mutationError } = useMemberCreate(
+    nickname,
+    email,
+    password
+  );
 
-  const LoginMutation = useMutation({
-    mutationFn: (member: LoginInfo) => Login(member),
-    onSuccess(data) {
-      if (data.status === 200) {
-        validateTokens(data.headers.authorization, data.headers.refresh);
-        navigate('/');
-      }
-    },
-  });
-
-  const SignupMutation = useMutation({
-    mutationFn: (newMember: NewMember) => PostMember(newMember),
-    onSuccess(data) {
-      if (data.status === 201) {
-        notifyWithIcon(`${nickname}님 JOYING에 오신 걸 환영합니다!`, '🎉');
-        LoginMutation.mutate({ email, password });
-      }
-    },
-    onError(error: AxiosError) {
-      if (error.response && error.response.status === 409) {
-        setSignupError('이미 사용 중인 이메일입니다.');
-        console.error('error:  with same data already exist.');
-      } else {
-        console.error('error:', error);
-      }
-    },
-  });
   const randomProfileUrl = `https://ott-main-project.s3.ap-northeast-2.amazonaws.com/${profileImgs[randomNum]}.png`;
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSignupError(null);
     if (validate()) {
-      SignupMutation.mutate({
+      signupMutation.mutate({
         nickname,
         email,
         password,
@@ -155,6 +126,7 @@ function SignupForm() {
         createdAt: '',
         roles: [],
       });
+      if (mutationError) setSignupError(mutationError);
     }
   };
 
