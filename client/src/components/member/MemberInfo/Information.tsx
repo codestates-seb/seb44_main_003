@@ -1,19 +1,18 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { DeleteMember } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
+import useMemberDelete from '@/hooks/useMemberDelete';
 import useMemberMutation from '@/hooks/useMemberMutation';
 import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
 import { profileModalState } from '@/recoil/atoms/Atoms';
-import { notifyError, notifyWithIcon } from '@/utils/notify';
+import { notifyError } from '@/utils/notify';
 
 function Information() {
   const [isEditing, setIsEditing] = useState(false);
@@ -46,16 +45,7 @@ function Information() {
   const { isLoading, data, error, isSuccess } = useMemberQuery(true);
 
   const mutationPatch = useMemberMutation();
-
-  const mutationDelete = useMutation(DeleteMember, {
-    onSuccess: () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('expiration');
-      localStorage.removeItem('refresh');
-      navigate('/');
-      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
-    },
-  });
+  const mutationDelete = useMemberDelete();
 
   const handleDelete = () => {
     const confirm = window.confirm(
