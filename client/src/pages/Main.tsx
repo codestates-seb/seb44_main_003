@@ -1,8 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
 import MainSliderSection from '@/components/@common/slider/MainSliderSection';
 import MainBanner from '@/components/@layout/banners/MainBanner';
-import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue.ts';
-import checkLogin from '@/utils/isLoggedIn';
+import { REFRESH_TOKEN_DURATION } from '@/constant/constantValue.ts';
+import checkLogin from '@/utils/checkLogin';
 import { scrollToTop } from '@/utils/scrollToTop.ts';
 import { validateTokens } from '@/utils/validateTokens';
 
@@ -14,7 +14,7 @@ function Main() {
   if (!isLoggedIn && accessToken) {
     validateTokens(accessToken, refreshToken);
     const expiration = new Date();
-    expiration.setMinutes(expiration.getMinutes() + REFRSH_TOKEN_DURATION);
+    expiration.setMinutes(expiration.getMinutes() + REFRESH_TOKEN_DURATION);
     localStorage.setItem('expiration', expiration.toISOString());
     window.location.href = `${import.meta.env.VITE_CLIENT_URL}`;
   }

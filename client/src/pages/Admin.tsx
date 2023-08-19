@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AdminMediaForm from '@/components/admin/AdminMediaForm';
 import AdminReport from '@/components/admin/AdminReport';
 import useMemberQuery from '@/hooks/useMemberQuery';
-import checkLogin from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 
 function Admin() {
   const isLoggedIn = checkLogin();

@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Dropdown from '@/components/@layout/header/Dropdown';
 import useMemberQuery from '@/hooks/useMemberQuery';
-import checkLogin from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 
 function MemberProfile() {
   const [showDropdown, setShowDropdown] = useState(false);

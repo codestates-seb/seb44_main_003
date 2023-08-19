@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import LoginSignup from '@/components/@layout/header/LoginSignup';
 import UserProfile from '@/components/@layout/header/MemberProfile';
-import checkLogin from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 
 function MemberMenu({ position }: { position: number }) {
   const isLoggedIn = checkLogin();

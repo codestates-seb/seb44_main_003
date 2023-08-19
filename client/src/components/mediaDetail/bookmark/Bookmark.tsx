@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { GetIsBookmark, PostBookmark } from '@/api/api';
 import BookmarkLoading from '@/components/mediaDetail/bookmark/BookmarkLoading';
 import { S_IconWrapper } from '@/styles/style';
-import checkLogin from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Bookmark({ contentId }: { contentId: string }) {

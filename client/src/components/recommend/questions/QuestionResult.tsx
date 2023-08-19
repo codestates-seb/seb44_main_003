@@ -17,7 +17,7 @@ import {
 import useMemberQuery from '@/hooks/useMemberQuery';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
-import checkLogin from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
