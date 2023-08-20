@@ -173,7 +173,7 @@ export const GetMemberContents = (path: string): Promise<ContentData[]> =>
   instance.get(`/${path}`).then((res) => res.data);
 
 /* 유저 후기 목록 조회 */
-export const GetMemberReviews = (page: number): Promise<CommentData> =>
+export const GetMemberComments = (page: number): Promise<CommentData> =>
   instance
     .get(`/reviews/me?page=${page}&size=${COMMENTS_PER_PAGE}`)
     .then((res) => res.data);

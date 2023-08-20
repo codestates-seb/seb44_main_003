@@ -1,27 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { GetComments } from '@/api/api';
 import CommentForm from '@/components/comments/CommentForm';
 import Comments from '@/components/comments/Comments';
+import useCommentQuery from '@/queries/comment/useCommentQuery';
 
 function CommentSection() {
   const [page, setPage] = useState(1);
   const { id } = useParams() as { id: string };
-  const { data, isSuccess, isLoading, isFetching } = useQuery({
-    queryKey: ['comments', id, page],
-    queryFn: () => GetComments({ id, page }),
-    refetchOnWindowFocus: false,
-    staleTime: 0,
-    cacheTime: 0,
-  });
+  const { data, isSuccess, isLoading, isFetching } = useCommentQuery(id, page);
   if (isLoading || isFetching) return <S_Loading />;
   if (isSuccess) {
     return (
       <S_Wrapper>
         <CommentForm />
-        <Comments data={data} page={page} setPage={setPage} />
+        <Comments data={data!} page={page} setPage={setPage} />
       </S_Wrapper>
     );
   }

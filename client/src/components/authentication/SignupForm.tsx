@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiXCircle } from 'react-icons/hi';
 import Button from '@/components/@common/button/Button';
-import useMemberCreate from '@/hooks/useMemberCreate';
+import useMemberCreate from '@/queries/member/useMemberCreate';
 
 export const profileImgs = [
   'kongdami',

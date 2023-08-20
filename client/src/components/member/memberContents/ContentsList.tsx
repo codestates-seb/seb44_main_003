@@ -1,16 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import { styled } from 'styled-components';
-import { GetMemberContents } from '@/api/api';
 import ItemCard from '@/components/@common/Itemcard/ItemCard';
+import useMemberContents from '@/queries/member/useMemberContents';
 
 function ContentsList({ path }: { path: string }) {
-  const { data, isSuccess, isStale, refetch } = useQuery({
-    queryKey: ['userContents', path],
-    queryFn: () => GetMemberContents(path),
-  });
+  const { data, isSuccess, isStale, refetch } = useMemberContents(path);
   if (isStale) refetch();
   if (isSuccess) {
-    if (!data.length)
+    if (!data!.length)
       return (
         <S_Error>
           <img
@@ -22,7 +18,7 @@ function ContentsList({ path }: { path: string }) {
       );
     return (
       <S_Wrapper>
-        {data.map((item) => (
+        {data!.map((item) => (
           <ItemCard key={item.id} item={item} />
         ))}
       </S_Wrapper>
