@@ -4,7 +4,7 @@ import { HiXCircle } from 'react-icons/hi';
 
 import Button from '@/components/@common/button/Button';
 
-import useMemberLogin from '@/hooks/useMemberLogin';
+import useMemberLogin from '@/queries/member/useMemberLogin';
 
 function LoginForm() {
   const [email, setEmail] = useState('');

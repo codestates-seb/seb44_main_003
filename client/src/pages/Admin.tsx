@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AdminMediaForm from '@/components/admin/AdminMediaForm';
 import AdminReport from '@/components/admin/AdminReport';
-import useMemberQuery from '@/hooks/useMemberQuery';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import checkLogin from '@/utils/checkLogin';
 
 function Admin() {

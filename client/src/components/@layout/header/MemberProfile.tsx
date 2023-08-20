@@ -4,7 +4,7 @@ import { BiError } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Dropdown from '@/components/@layout/header/Dropdown';
-import useMemberQuery from '@/hooks/useMemberQuery';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import checkLogin from '@/utils/checkLogin';
 
 function MemberProfile() {

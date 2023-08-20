@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { profileImgs } from '@/components/authentication/SignupForm';
-import useMemberMutation from '@/hooks/useMemberMutation';
+import useMemberMutation from '@/queries/member/useMemberMutation';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 import { NewMember } from '@/types/types';
 

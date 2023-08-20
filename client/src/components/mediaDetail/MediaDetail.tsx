@@ -11,8 +11,8 @@ import Recommend from '@/components/mediaDetail/recommend/Recommend';
 import ReportBtn from '@/components/mediaDetail/ReportBtn';
 import Tag from '@/components/mediaDetail/Tag';
 import useMediaQuery from '@/hooks/useMediaQuery';
-import useMemberQuery from '@/hooks/useMemberQuery';
 import Error from '@/pages/Error';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 
 function MediaDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();

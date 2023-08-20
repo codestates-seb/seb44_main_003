@@ -7,10 +7,10 @@ import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
-import useMemberDelete from '@/hooks/useMemberDelete';
-import useMemberMutation from '@/hooks/useMemberMutation';
-import useMemberQuery from '@/hooks/useMemberQuery';
 import { useModal } from '@/hooks/useModal';
+import useMemberDelete from '@/queries/member/useMemberDelete';
+import useMemberMutation from '@/queries/member/useMemberMutation';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 import { notifyError } from '@/utils/notify';
 

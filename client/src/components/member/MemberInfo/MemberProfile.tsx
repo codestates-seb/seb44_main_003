@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { BiError } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import useMemberQuery from '@/hooks/useMemberQuery';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 
 function MemberProfile() {
   const navigate = useNavigate();
