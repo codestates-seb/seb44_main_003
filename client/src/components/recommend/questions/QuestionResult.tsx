@@ -15,6 +15,7 @@ import {
   moveRecommendBtn,
 } from '@/components/recommend/questions/QuestionData';
 import useMemberQuery from '@/queries/member/useMemberQuery';
+} from '@/constant/questionData';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
 import checkLogin from '@/utils/checkLogin';

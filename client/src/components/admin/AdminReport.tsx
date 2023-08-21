@@ -1,13 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import styled from 'styled-components';
-import { GetReport } from '@/api/api';
 import ReportDetail from '@/components/mediaDetail/report/ReportDetail';
 import { useModal } from '@/hooks/useModal';
+import useAdminReportQuery from '@/queries/admin/useAdminReportQuery';
 import { Report } from '@/types/types';
 
 function AdminReport() {
   const { openModal } = useModal();
-  const { data, isSuccess } = useQuery(['Reports'], () => GetReport());
+  const { data, isSuccess } = useAdminReportQuery();
 
   const formatDate = (date: any) => {
     const dateTime = new Date(date);
@@ -26,7 +25,7 @@ function AdminReport() {
       <S_Wrapper>
         {data.data.map((report: Report) => (
           <S_Report
-            key={data.createdAt}
+            key={report.id}
             onClick={() =>
               openModal({ content: <ReportDetail data={report} /> })
             }

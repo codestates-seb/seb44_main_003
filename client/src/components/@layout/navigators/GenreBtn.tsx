@@ -3,6 +3,7 @@ import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MobileGenreModal from '@/components/@layout/navigators/MobileGenreModal';
+import { genres } from '@/constant/constantValue';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useModal } from '@/hooks/useModal';
 
@@ -13,27 +14,6 @@ function GenreBtn() {
   const path = useLocation().pathname;
   const ott = new URLSearchParams(location.search).get('ott');
   const genre = new URLSearchParams(location.search).get('genre');
-  const genres = [
-    '액션',
-    '드라마',
-    'SF',
-    '스릴러',
-    '애니메이션',
-    '코미디',
-    '가족',
-    '판타지',
-    '로맨스',
-    '공포',
-    '범죄',
-    '스포츠',
-    '음악',
-    '역사',
-    '전쟁',
-    '서부',
-    '다큐멘터리',
-    'Reality TV',
-    'Made in Europe',
-  ];
   const genreBtnRef = useRef(null);
   const isMobile = useMediaQuery('(max-width: 600px)');
   const { openModal } = useModal();

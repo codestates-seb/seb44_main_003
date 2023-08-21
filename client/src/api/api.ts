@@ -88,7 +88,7 @@ export const GetOttTopList = (ott: string): Promise<ItemData> =>
     )
     .then((res) => res.data);
 
-export const GetDataDetail = (mediaId: string): Promise<SelectedData> =>
+export const GetMediaDetail = (mediaId: string): Promise<SelectedData> =>
   axios
     .get(`${import.meta.env.VITE_BASE_URL}/medias/${mediaId}`)
     .then((res) => res.data);

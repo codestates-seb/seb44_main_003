@@ -1,9 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
-import { PostReport } from '@/api/api';
 import { useModal } from '@/hooks/useModal';
-import { notifySuccess } from '@/utils/notify';
+import usePostReportMutation from '@/queries/mediaDetail/report/usePostReportMutation';
 
 function ReportModal({ contentId }: { contentId: string }) {
   const { closeModal } = useModal();
@@ -13,13 +11,7 @@ function ReportModal({ contentId }: { contentId: string }) {
     formState: { isSubmitting },
   } = useForm();
 
-  const PostReportMutation = useMutation({
-    mutationFn: PostReport,
-    onSuccess: () => {
-      notifySuccess('제보가 접수되었습니다.');
-      closeModal();
-    },
-  });
+  const PostReportMutation = usePostReportMutation();
 
   const convertData = (data: Record<string, any>) => {
     const convertedData = {

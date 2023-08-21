@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import QuestionCard from '@/components/recommend/questions/QuestionCard';
-import {
-  questionList,
-  category,
-  moveNextBtn,
-} from '@/components/recommend/questions/QuestionData';
+import { questionList, category, moveNextBtn } from '@/constant/questionData';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
 

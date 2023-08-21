@@ -2,27 +2,14 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SkeletonItemCard from '@/components/@common/Itemcard/SkeletonItemCard';
 import { ItemProps } from '@/types/types';
+import { getResponsiveSize } from '@/utils/getResponsiveSize';
 
 export function InfiniteScrollLoading({ path }: { path: string }) {
-  const [size, setSize] = useState(getSize());
-
-  function getSize() {
-    const width = window.innerWidth;
-
-    if (width <= 480) {
-      return 12;
-    } else if (width <= 770) {
-      return 16;
-    } else if (width <= 1024) {
-      return 20;
-    } else {
-      return 24;
-    }
-  }
+  const [size, setSize] = useState(getResponsiveSize());
 
   useEffect(() => {
     const handleResize = () => {
-      setSize(getSize());
+      setSize(getResponsiveSize());
     };
 
     window.addEventListener('resize', handleResize);

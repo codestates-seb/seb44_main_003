@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import QuestionCard from '@/components/recommend/questions/QuestionCard';
+import { genres } from '@/constant/constantValue';
 import {
   questionList,
-  genres,
   moveResultBtn,
   beehappy,
   beesad,
-} from '@/components/recommend/questions/QuestionData';
+} from '@/constant/questionData';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
 
@@ -53,7 +53,7 @@ const ThirdQuestion: React.FC<Question> = ({ closeModal, onNextClick }) => {
             <S_Text>* 최대 5개 선택 가능</S_Text>
           </S_TextBox>
           <S_GenreList>
-            {genres.map((genre) => (
+            {genres.slice(0, 12).map((genre) => (
               <S_GenreBox key={genre}>
                 <S_CheckBox
                   id={`check${genre}`}

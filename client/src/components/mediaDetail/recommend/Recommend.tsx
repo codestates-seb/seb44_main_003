@@ -1,12 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { BsHandThumbsUp, BsHandThumbsUpFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { GetIsRecommend, PostRecommend } from '@/api/api';
 import RecommendLoading from '@/components/mediaDetail/recommend/RecommendLoading';
+import useIsRecommendQuery from '@/queries/mediaDetail/useIsRecommendQuery';
+import useRecommendMutation from '@/queries/mediaDetail/useRecommendMutation';
 import { S_IconWrapper } from '@/styles/style';
 import checkLogin from '@/utils/checkLogin';
-import { notifyError, notifyWithIcon } from '@/utils/notify';
+import { notifyError } from '@/utils/notify';
 
 function Recommend({
   countRecommend,
@@ -15,7 +15,6 @@ function Recommend({
   countRecommend: number;
   contentId: string;
 }) {
-  const queryClient = useQueryClient();
   const isLoggedIn = checkLogin();
   const navigate = useNavigate();
 
@@ -35,31 +34,13 @@ function Recommend({
     );
   }
 
-  const { isLoading, data, isSuccess, error } = useQuery(
-    ['isRecommend', contentId],
-    () => GetIsRecommend(contentId),
-    {
-      enabled: isLoggedIn,
-    }
-  );
+  const { isLoading, data, isSuccess, error } = useIsRecommendQuery(contentId);
 
-  const RecommendMutation = useMutation({
-    mutationFn: (contentId: string) => PostRecommend(contentId),
-    onSuccess: () => {
-      if (!data) {
-        notifyWithIcon('추천 완료!', '👍🏼');
-      } else {
-        notifyWithIcon('추천 취소..', '👎🏼');
-      }
-      queryClient.invalidateQueries(['isRecommend', contentId]);
-      queryClient.invalidateQueries(['selectedContent', contentId]);
-      queryClient.invalidateQueries(['userContents']);
-    },
-  });
+  const recommendMutation = useRecommendMutation(contentId, data);
 
   const handleRecommend = () => {
-    if (!RecommendMutation.isLoading) {
-      RecommendMutation.mutate(contentId);
+    if (!recommendMutation.isLoading) {
+      recommendMutation.mutate();
     }
   };
 
@@ -68,7 +49,7 @@ function Recommend({
   }
 
   if (error instanceof AxiosError) {
-    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+    navigate('/error');
   }
 
   if (isSuccess) {

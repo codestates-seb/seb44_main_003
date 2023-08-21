@@ -1,15 +1,14 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { GetIsBookmark, PostBookmark } from '@/api/api';
 import BookmarkLoading from '@/components/mediaDetail/bookmark/BookmarkLoading';
+import useBookmarkMutation from '@/queries/mediaDetail/useBookmarkMutation';
+import useIsBookmarkQuery from '@/queries/mediaDetail/useIsBookmarkQuery';
 import { S_IconWrapper } from '@/styles/style';
 import checkLogin from '@/utils/checkLogin';
-import { notifyError, notifyWithIcon } from '@/utils/notify';
+import { notifyError } from '@/utils/notify';
 
 function Bookmark({ contentId }: { contentId: string }) {
-  const queryClient = useQueryClient();
   const isLoggedIn = checkLogin();
   const navigate = useNavigate();
 
@@ -28,30 +27,12 @@ function Bookmark({ contentId }: { contentId: string }) {
     );
   }
 
-  const { isLoading, data, isSuccess, error } = useQuery(
-    ['isBookmarked', contentId],
-    () => GetIsBookmark(contentId),
-    {
-      enabled: isLoggedIn,
-    }
-  );
-
-  const BookmarkMutation = useMutation({
-    mutationFn: (contentId: string) => PostBookmark(contentId),
-    onSuccess: () => {
-      if (!data) {
-        notifyWithIcon('찜 완료!', '❤️');
-      } else {
-        notifyWithIcon('찜 취소..', '🤍');
-      }
-      queryClient.invalidateQueries(['isBookmarked', contentId]);
-      queryClient.invalidateQueries(['userContents']);
-    },
-  });
+  const { isLoading, data, isSuccess, error } = useIsBookmarkQuery(contentId);
+  const bookmarkMutation = useBookmarkMutation(contentId, data);
 
   const handleBookmark = () => {
-    if (!BookmarkMutation.isLoading) {
-      BookmarkMutation.mutate(contentId);
+    if (!bookmarkMutation.isLoading) {
+      bookmarkMutation.mutate();
     }
   };
 
@@ -60,7 +41,7 @@ function Bookmark({ contentId }: { contentId: string }) {
   }
 
   if (error instanceof AxiosError) {
-    if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
+    navigate('/error');
   }
 
   if (isSuccess) {

@@ -1,58 +1,24 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled, { keyframes } from 'styled-components';
-import { GetFilterdData, GetSearchedData } from '@/api/api';
 import { InfiniteScrollLoading } from '@/components/@common/InfiniteScroll/InfiniteScrollLoading';
 import ItemCard from '@/components/@common/Itemcard/ItemCard';
+import useInfiniteScroll from '@/queries/common/InfiniteScroll/useInfiniteScroll';
 import { ContentData } from '@/types/types';
 import { ItemProps } from '@/types/types';
+import { getCategory } from '@/utils/getCategory';
+import { getResponsiveSize } from '@/utils/getResponsiveSize';
 
 function InfiniteScroll({ path, query }: { path: string; query: string }) {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [size, setSize] = useState(getSize());
-  let category = '';
+  const [size, setSize] = useState(getResponsiveSize());
+  const category = getCategory(path);
 
-  if (path.includes('tv')) {
-    category = '/tv';
-  }
-  if (path.includes('movie')) {
-    category = '/movie';
-  }
-
-  function getSize() {
-    const width = window.innerWidth;
-
-    if (width <= 480) {
-      return 12;
-    } else if (width <= 770) {
-      return 16;
-    } else if (width <= 1024) {
-      return 20;
-    } else {
-      return 24;
-    }
-  }
-
-  const { data, fetchNextPage, hasNextPage, status } = useInfiniteQuery(
-    path.includes('search') ? ['search', query] : ['selectedList', query],
-    ({ pageParam = 1 }) =>
-      path.includes('search')
-        ? GetSearchedData(`${query}&page=${pageParam}&size=${size}`)
-        : GetFilterdData(
-            `/medias${category}?page=${pageParam}&size=${size}&${query}`
-          ),
-    {
-      getNextPageParam: (lastPage) => {
-        const currentPage = lastPage.currentPage;
-        const totalPages = lastPage.totalPages;
-        if (currentPage < totalPages) {
-          return currentPage + 1;
-        }
-
-        return undefined;
-      },
-    }
+  const { data, fetchNextPage, hasNextPage, status } = useInfiniteScroll(
+    path,
+    query,
+    size,
+    category
   );
 
   const { ref, inView } = useInView({
@@ -80,7 +46,7 @@ function InfiniteScroll({ path, query }: { path: string; query: string }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setSize(getSize());
+      setSize(getResponsiveSize());
     };
     window.addEventListener('resize', handleResize);
 
@@ -152,8 +118,7 @@ function InfiniteScroll({ path, query }: { path: string; query: string }) {
               <img
                 src={`${
                   import.meta.env.VITE_IMAGE_URL
-                }/import { GetSearchedData } from './../../api/api';
-exception/loadmore.webp`}
+                }/exception/loadmore.webp`}
                 alt="다미 로딩스피너"
               />
             </S_LoadMore>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CommentSection from '@/components/comments/CommentSection';
+import CommentSection from '@/components/mediaDetail/comments/CommentSection';
 import ContentDetail from '@/components/mediaDetail/MediaDetail';
 import RecommendContent from '@/components/mediaDetail/relatedMedia/RelatedMedia';
 
