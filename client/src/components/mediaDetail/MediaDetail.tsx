@@ -10,8 +10,8 @@ import ReportBtn from '@/components/mediaDetail/ReportBtn';
 import Tag from '@/components/mediaDetail/Tag';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import Error from '@/pages/Error';
-import useGetUserQuery from '@/queries/authentication/useGetUserQuery';
 import useMediaDetailQuery from '@/queries/mediaDetail/useMediaDetailQuery';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 
 function MediaDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ function MediaDetail({ contentId }: { contentId: string }) {
     }
   };
 
-  const admin = useGetUserQuery();
+  const member = useMemberQuery(false);
 
   if (isLoading) return <MediaDetailLoading />;
 
@@ -74,7 +74,7 @@ function MediaDetail({ contentId }: { contentId: string }) {
     return (
       <S_Wrapper>
         <S_Section backgroundimage={data.mainPoster}>
-          {admin?.data?.roles[0] === 'ADMIN' && (
+          {member?.data?.roles[0] === 'ADMIN' && (
             <>
               <PatchMediaBtn editData={data} contentId={contentId} />
               <DeleteMediaBtn contentId={contentId} />

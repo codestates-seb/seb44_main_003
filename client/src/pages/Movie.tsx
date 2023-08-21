@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
-import BannerSlide from '@/components/@common/slider/BannerSlide';
-import GenreSlider from '@/components/@common/slider/GenreSlide';
+import BannerCarousel from '@/components/@common/carousel/BannerCarousel';
+import GenreCarousel from '@/components/@common/carousel/GenreCarousel';
 import ListBtns from '@/components/@layout/navigators/ListBtns';
 import { genres } from '@/constant/constantValue';
 import { BannerImgsType } from '@/types/types';
@@ -76,10 +76,10 @@ function Movie() {
 
   return (
     <S_Wrapper>
-      <BannerSlide bannerImgs={bannerMovieImgs} />
+      <BannerCarousel bannerImgs={bannerMovieImgs} />
       <ListBtns />
       {visibleGenres.map((genre) => (
-        <GenreSlider key={`movie-${genre}`} genre={genre} path="movie" />
+        <GenreCarousel key={`movie-${genre}`} genre={genre} path="movie" />
       ))}
       <div ref={ref} className="target" />
     </S_Wrapper>

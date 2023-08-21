@@ -1,29 +1,24 @@
-import { useQueryClient, useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { BiPaperPlane } from 'react-icons/bi';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { DeleteComment, PatchComment } from '@/api/api';
 import { ADMIN_MEMBERID } from '@/constant/constantValue';
-import useGetUserQuery from '@/queries/authentication/useGetUserQuery';
+import useCommentMutation from '@/queries/comment/useCommentMutation';
+import useCommentDelete from '@/queries/comment/useCommetnDelete';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import { Comment } from '@/types/types';
 import { convertDatetime } from '@/utils/datetime';
 
 function CommentContent({ comment }: { comment: Comment }) {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
-  const queryClient = useQueryClient();
-  const user = useGetUserQuery();
+  const { data } = useMemberQuery(false);
   const navigate = useNavigate();
 
-  const PatchMutation = useMutation(PatchComment, {
-    onSuccess: () => queryClient.invalidateQueries(['comments']),
-  });
-  const DeleteMutation = useMutation(DeleteComment, {
-    onSuccess: () => queryClient.invalidateQueries(['comments']),
-  });
+  const PatchMutation = useCommentMutation();
+  const DeleteMutation = useCommentDelete();
   const handleChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLTextAreaElement;
     setContent(target.value);
@@ -84,8 +79,8 @@ function CommentContent({ comment }: { comment: Comment }) {
         )}
       </div>
       {(!comment.member ||
-        (user.data && user.data.memberId === comment.member.memberId) ||
-        user.data?.memberId === ADMIN_MEMBERID) && (
+        (data && data.memberId === comment.member.memberId) ||
+        data?.memberId === ADMIN_MEMBERID) && (
         <div>
           <button type="button" onClick={handleEdit}>
             <HiOutlinePencilAlt />

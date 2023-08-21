@@ -5,7 +5,7 @@ import RecommendLoading from '@/components/mediaDetail/recommend/RecommendLoadin
 import useIsRecommendQuery from '@/queries/mediaDetail/useIsRecommendQuery';
 import useRecommendMutation from '@/queries/mediaDetail/useRecommendMutation';
 import { S_IconWrapper } from '@/styles/style';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 import { notifyError } from '@/utils/notify';
 
 function Recommend({
@@ -15,7 +15,7 @@ function Recommend({
   countRecommend: number;
   contentId: string;
 }) {
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const navigate = useNavigate();
 
   if (!isLoggedIn) {

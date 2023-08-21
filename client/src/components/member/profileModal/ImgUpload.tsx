@@ -1,25 +1,19 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { PostUserProfile } from '@/api/api';
 import useMediaQuery from '@/hooks/useMediaQuery';
+import useMemberProfileMutation from '@/queries/member/useMemberProfileMutation';
 import { profileModalState } from '@/recoil/atoms/Atoms';
 
 function ImgUpload() {
-  const queryClient = useQueryClient();
   const setShowModal = useSetRecoilState(profileModalState);
   const [imgState, setImgState] = useState<Blob | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const isUnder600 = useMediaQuery('(max-width: 600px)');
-  const mutation = useMutation(PostUserProfile, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['user']);
-      setShowModal(false);
-    },
-  });
+  const mutation = useMemberProfileMutation();
+
   const checkFileVaildity = (file: File) => {
     const maxSize = 1024 * 1024 * 20;
     const fileType = 'image';

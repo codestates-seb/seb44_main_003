@@ -1,6 +1,6 @@
-const isLoggedIn = () => {
+const checkLogin = () => {
   const token = localStorage.getItem('token');
   return !!token;
 };
 
-export default isLoggedIn;
+export default checkLogin;

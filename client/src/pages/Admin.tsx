@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AdminMediaForm from '@/components/admin/AdminMediaForm';
 import AdminReport from '@/components/admin/AdminReport';
-import useGetUserQuery from '@/queries/authentication/useGetUserQuery';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import useMemberQuery from '@/queries/member/useMemberQuery';
+import checkLogin from '@/utils/checkLogin';
 
 function Admin() {
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const navigate = useNavigate();
-  const admin = useGetUserQuery();
+  const admin = useMemberQuery(true);
 
   useEffect(() => {
     if (!isLoggedIn || admin?.data?.roles[0] === 'USER') {

@@ -1,21 +1,20 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { HiPencil } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
-import { GetUser, PatchUser, DeleteUser } from '@/api/api';
 import Button from '@/components/@common/button/Button';
 import MemberLikesModal from '@/components/member/MemberLikesModal';
 import { useModal } from '@/hooks/useModal';
+import useMemberDelete from '@/queries/member/useMemberDelete';
+import useMemberMutation from '@/queries/member/useMemberMutation';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import { profileModalState } from '@/recoil/atoms/Atoms';
-import { notifyError, notifyWithIcon } from '@/utils/notify';
+import { notifyError } from '@/utils/notify';
 
 function Information() {
-  const queryClient = useQueryClient();
   const [isEditing, setIsEditing] = useState(false);
   const [userInput, setUserInput] = useState('');
   const setShowModal = useSetRecoilState(profileModalState);
@@ -43,24 +42,10 @@ function Information() {
     });
     setIsEditing(false);
   };
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: GetUser,
-  });
+  const { isLoading, data, error, isSuccess } = useMemberQuery(true);
 
-  const mutationPatch = useMutation(PatchUser, {
-    onSuccess: () => queryClient.invalidateQueries(['user']),
-  });
-
-  const mutationDelete = useMutation(DeleteUser, {
-    onSuccess: () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('expiration');
-      localStorage.removeItem('refresh');
-      navigate('/');
-      notifyWithIcon('JOYING은 이 일을 기억할 것입니다.', '🥲');
-    },
-  });
+  const mutationPatch = useMemberMutation();
+  const mutationDelete = useMemberDelete();
 
   const handleDelete = () => {
     const confirm = window.confirm(
@@ -75,7 +60,7 @@ function Information() {
     if (!error.status && error.code === 'ERR_NETWORK') navigate('/error');
   }
   if (isSuccess) {
-    const memberSince = new Date(data.createdAt);
+    const memberSince = new Date(data!.createdAt);
     const currentDate = new Date();
     const timeDiff = currentDate.getTime() - memberSince.getTime();
     const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
@@ -86,7 +71,7 @@ function Information() {
             <input
               type="text"
               name="userNickname"
-              defaultValue={data.nickname}
+              defaultValue={data!.nickname}
               className="border-b border-gray-300 w-[100px] mr-4"
               onChange={handleInput}
               autoFocus
@@ -100,12 +85,12 @@ function Information() {
           </form>
         ) : (
           <h1>
-            {data.nickname}
+            {data!.nickname}
             <HiPencil onClick={handleEdit} />
           </h1>
         )}
         <div className="member-since">
-          <p>가입일 : {data.createdAt.substring(0, 10)} </p>
+          <p>가입일 : {data!.createdAt.substring(0, 10)} </p>
           <span>|</span> <p>조잉에 함께한 지 {daysDiff}일 째입니다</p>
         </div>
         <S_Div>
