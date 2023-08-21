@@ -1,11 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiX } from 'react-icons/bi';
 import { styled } from 'styled-components';
-import { GetUser, PatchUser } from '@/api/api';
 import { genres } from '@/constant/constantValue';
 import { useModal } from '@/hooks/useModal';
+import useMemberMutation from '@/queries/member/useMemberMutation';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import { S_Modal } from '@/styles/style';
 import { arrToObj, objToArr } from '@/utils/convertResponse';
 import { notifySuccess } from '@/utils/notify';
@@ -20,17 +20,14 @@ const longName = ['애니메이션'];
 
 function MemberLikesModal() {
   const [error, setError] = useState<string | null>(null);
-  const queryClient = useQueryClient();
   const { closeModal } = useModal();
-  const { data } = useQuery(['user'], GetUser);
+  const { data } = useMemberQuery(true);
 
-  const mutation = useMutation(PatchUser, {
-    onSuccess: () => {
-      notifySuccess('선호도가 변경되었습니다.');
-      closeModal();
-      queryClient.invalidateQueries(['user']);
-    },
-  });
+  const onSuccessMutation = () => {
+    notifySuccess('선호도가 변경되었습니다.');
+    closeModal();
+  };
+  const mutation = useMemberMutation(onSuccessMutation);
   const { watch, register, handleSubmit } = useForm();
   useEffect(() => {
     const subscription = watch((value) => {

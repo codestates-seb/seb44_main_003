@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled, { keyframes } from 'styled-components';
-import { GetFilterdData, GetUser } from '@/api/api';
+import { GetFilterdData } from '@/api/api';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import {
@@ -14,13 +14,14 @@ import {
   moveSignupBtn,
   moveRecommendBtn,
 } from '@/components/recommend/questions/QuestionData';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
 
   const recommendedContents = useRecoilValue(recommendedContentsState);
 
@@ -45,11 +46,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
     data: userData,
     error: userError,
     isSuccess: userSuccess,
-  } = useQuery({
-    queryKey: ['user'],
-    queryFn: GetUser,
-    enabled: isLoggedIn,
-  });
+  } = useMemberQuery(isLoggedIn);
 
   if (filteredLoading) {
     return (

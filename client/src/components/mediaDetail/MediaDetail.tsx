@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import { GetDataDetail, GetUser } from '@/api/api';
+import { GetDataDetail } from '@/api/api';
 import DeleteMediaBtn from '@/components/admin/DeleteMediaBtn';
 import PatchMediaBtn from '@/components/admin/PatchMediaBtn';
 import Bookmark from '@/components/mediaDetail/bookmark/Bookmark';
@@ -12,6 +12,7 @@ import ReportBtn from '@/components/mediaDetail/ReportBtn';
 import Tag from '@/components/mediaDetail/Tag';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import Error from '@/pages/Error';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 
 function MediaDetail({ contentId }: { contentId: string }) {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ function MediaDetail({ contentId }: { contentId: string }) {
     }
   };
 
-  const admin = useQuery(['user'], GetUser, { enabled: false });
+  const member = useMemberQuery(false);
 
   if (isLoading) return <MediaDetailLoading />;
 
@@ -77,7 +78,7 @@ function MediaDetail({ contentId }: { contentId: string }) {
     return (
       <S_Wrapper>
         <S_Section backgroundimage={data.mainPoster}>
-          {admin?.data?.roles[0] === 'ADMIN' && (
+          {member?.data?.roles[0] === 'ADMIN' && (
             <>
               <PatchMediaBtn editData={data} contentId={contentId} />
               <DeleteMediaBtn contentId={contentId} />

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { GetIsRecommend, PostRecommend } from '@/api/api';
 import RecommendLoading from '@/components/mediaDetail/recommend/RecommendLoading';
 import { S_IconWrapper } from '@/styles/style';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import checkLogin from '@/utils/checkLogin';
 import { notifyError, notifyWithIcon } from '@/utils/notify';
 
 function Recommend({
@@ -16,7 +16,7 @@ function Recommend({
   contentId: string;
 }) {
   const queryClient = useQueryClient();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const navigate = useNavigate();
 
   if (!isLoggedIn) {

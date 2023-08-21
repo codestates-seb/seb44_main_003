@@ -1,16 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { BiError } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { GetUser } from '@/api/api';
+import useMemberQuery from '@/queries/member/useMemberQuery';
 
 function MemberProfile() {
   const navigate = useNavigate();
-  const { isLoading, data, error, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: GetUser,
-  });
+  const { isLoading, data, error, isSuccess } = useMemberQuery(true);
   if (isLoading)
     return (
       <S_ProfileWrapper>
@@ -36,7 +32,7 @@ function MemberProfile() {
   if (isSuccess)
     return (
       <S_ProfileWrapper>
-        <img src={data.avatarUri} alt="member" />
+        <img src={data!.avatarUri} alt="member" />
       </S_ProfileWrapper>
     );
 }

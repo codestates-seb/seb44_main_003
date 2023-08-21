@@ -1,19 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { GetUserReviews } from '@/api/api';
 import Comments from '@/components/comments/Comments';
+import useMemberComments from '@/queries/member/useMemberComments';
 
-function ReviewList() {
+function CommentList() {
   const [page, setPage] = useState(1);
-  const { data, isSuccess } = useQuery({
-    queryKey: ['comments', page],
-    queryFn: () => GetUserReviews(page),
-    refetchOnWindowFocus: false,
-  });
+  const { data, isSuccess } = useMemberComments(page);
 
   if (isSuccess) {
-    if (!data.reviews.length)
+    if (!data!.reviews.length)
       return (
         <S_Error>
           <img
@@ -25,13 +20,13 @@ function ReviewList() {
       );
     return (
       <S_Wrapper>
-        <Comments data={data} page={page} setPage={setPage} />
+        <Comments data={data!} page={page} setPage={setPage} />
       </S_Wrapper>
     );
   }
 }
 
-export default ReviewList;
+export default CommentList;
 
 const S_Error = styled.div`
   display: flex;

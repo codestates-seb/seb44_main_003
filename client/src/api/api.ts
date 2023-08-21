@@ -53,18 +53,18 @@ instance.interceptors.response.use(
 );
 
 /* 유저 정보 가져오기 */
-export const GetUser = (): Promise<NewMember> =>
+export const GetMember = (): Promise<NewMember> =>
   instance.get('/members').then((res) => res.data);
 
 export const Login = (data: LoginInfo) =>
   axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`, data);
 
-export const PostUser = (data: NewMember) =>
+export const PostMember = (data: NewMember) =>
   axios.post(`${import.meta.env.VITE_BASE_URL}/members`, data);
 
-export const PatchUser = (data: any) => instance.patch(`/members`, data);
+export const PatchMember = (data: any) => instance.patch(`/members`, data);
 
-export const DeleteUser = () => instance.delete('/members');
+export const DeleteMember = () => instance.delete('/members');
 
 /* TV 데이터 가져오기 */
 export const GetTVData = (genre: string): Promise<ItemData> =>
@@ -169,17 +169,17 @@ export const PostRecommend = (mediaId: string) =>
   instance.post(`/recommend`, { mediaId });
 
 /* 유저 찜, 좋아요 조회 */
-export const GetUserContents = (path: string): Promise<ContentData[]> =>
+export const GetMemberContents = (path: string): Promise<ContentData[]> =>
   instance.get(`/${path}`).then((res) => res.data);
 
 /* 유저 후기 목록 조회 */
-export const GetUserReviews = (page: number): Promise<CommentData> =>
+export const GetMemberComments = (page: number): Promise<CommentData> =>
   instance
     .get(`/reviews/me?page=${page}&size=${COMMENTS_PER_PAGE}`)
     .then((res) => res.data);
 
 /* 유저 프로필 사진 업로드 */
-export const PostUserProfile = (data: FormData) => {
+export const PostMemberProfile = (data: FormData) => {
   const accessToken = localStorage.getItem('token');
   return axios.post(`${import.meta.env.VITE_BASE_URL}/members/upload`, data, {
     headers: {
