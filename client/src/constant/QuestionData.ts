@@ -67,21 +67,6 @@ export const category = [
   },
 ];
 
-export const genres = [
-  '액션',
-  '드라마',
-  'SF',
-  '판타지',
-  '스릴러',
-  '코미디',
-  '가족',
-  '애니메이션',
-  '로맨스',
-  '공포',
-  '범죄',
-  '역사',
-];
-
 export const noContentTitle = {
   name: 'noContentTitle',
   text: `${import.meta.env.VITE_IMAGE_URL}/recommendimage/noContentText.webp`,

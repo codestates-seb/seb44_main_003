@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { AdminPatchData, AdminPostData } from '@/api/api';
+import useAddMediaMutation from '@/queries/admin/useAddMediaMutation';
+import useEditMediaMutation from '@/queries/admin/useEditMediaMutation';
 import { AddData, SelectedData } from '@/types/types';
 
 function AdminMediaForm({
@@ -27,21 +27,8 @@ function AdminMediaForm({
     { ottName: 'Tving', ottAddress: '' },
   ];
 
-  const AddMediaMutation = useMutation({
-    mutationFn: (convertedData: AddData) => AdminPostData(convertedData),
-    onSuccess: () => {
-      alert('등록 완료');
-      window.location.reload();
-    },
-  });
-
-  const EditMediaMutation = useMutation({
-    mutationFn: AdminPatchData,
-    onSuccess: () => {
-      alert('수정 완료');
-      window.location.reload();
-    },
-  });
+  const AddMediaMutation = useAddMediaMutation();
+  const EditMediaMutation = useEditMediaMutation();
 
   const convertData = (data: Record<string, any>) => {
     const filteredOtt = data.ott.filter(
@@ -72,22 +59,22 @@ function AdminMediaForm({
     return convertedData;
   };
 
+  const handleSubmitFunction = async (data: Record<string, any>) => {
+    await new Promise((r) => setTimeout(r, 1000));
+    const convertedData = convertData(data);
+    if (type === 'add') {
+      return AddMediaMutation.mutate(convertedData);
+    }
+    if (contentId) {
+      EditMediaMutation.mutate({
+        mediaId: contentId,
+        mediaData: convertedData,
+      });
+    }
+  };
+
   return (
-    <S_Form
-      onSubmit={handleSubmit(async (data) => {
-        await new Promise((r) => setTimeout(r, 1000));
-        const convertedData = convertData(data);
-        if (type === 'add') {
-          return AddMediaMutation.mutate(convertedData);
-        }
-        if (contentId) {
-          EditMediaMutation.mutate({
-            mediaId: contentId,
-            mediaData: convertedData,
-          });
-        }
-      })}
-    >
+    <S_Form onSubmit={handleSubmit(handleSubmitFunction)}>
       <label htmlFor="title">제목</label>
       <input
         id="title"

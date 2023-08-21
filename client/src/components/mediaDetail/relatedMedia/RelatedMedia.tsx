@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GetDataDetail, GetFilterdData } from '@/api/api';
+import { GetMediaDetail, GetFilterdData } from '@/api/api';
 import ItemCard from '@/components/@common/Itemcard/ItemCard';
 import { RelatedMediaLoading } from '@/components/mediaDetail/relatedMedia/RelatedMediaLoading';
 import { ContentData } from '@/types/types';
@@ -16,7 +16,7 @@ const RelatedMedia = ({ contentId }: { contentId: string }) => {
 
   const { data: detailData, isSuccess: detailSuccess } = useQuery({
     queryKey: ['selectedContent', contentId],
-    queryFn: () => GetDataDetail(contentId),
+    queryFn: () => GetMediaDetail(contentId),
   });
 
   let category = detailData?.category === 'TV' ? 'tv' : 'movie';

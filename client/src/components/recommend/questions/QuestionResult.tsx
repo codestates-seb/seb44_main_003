@@ -13,7 +13,7 @@ import {
   moveAgainBtn,
   moveSignupBtn,
   moveRecommendBtn,
-} from '@/components/recommend/questions/QuestionData';
+} from '@/constant/QuestionData';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
 import useIsLoggedIn from '@/utils/isLoggedIn';

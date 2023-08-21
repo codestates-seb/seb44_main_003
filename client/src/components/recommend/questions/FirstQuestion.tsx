@@ -8,7 +8,7 @@ import {
   questionList,
   ottServices,
   moveNextBtn,
-} from '@/components/recommend/questions/QuestionData';
+} from '@/constant/QuestionData';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 import { Question } from '@/types/types';
 

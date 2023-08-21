@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import BannerSlide from '@/components/@common/slider/BannerSlide';
 import GenreSlider from '@/components/@common/slider/GenreSlide';
 import ListBtns from '@/components/@layout/navigators/ListBtns';
+import { genres } from '@/constant/constantValue';
 import { BannerImgsType } from '@/types/types';
 import { scrollToTop } from '@/utils/scrollToTop';
 
@@ -33,28 +34,6 @@ const bannerMovieImgs: BannerImgsType = [
     alt: '기생충',
     id: 201,
   },
-];
-
-const genres: string[] = [
-  '액션',
-  '드라마',
-  'SF',
-  '스릴러',
-  '애니메이션',
-  '코미디',
-  '가족',
-  '판타지',
-  '로맨스',
-  '공포',
-  '범죄',
-  '스포츠',
-  '음악',
-  'Made in Europe',
-  'Reality TV',
-  '역사',
-  '다큐멘터리',
-  '전쟁',
-  '서부',
 ];
 
 function Movie() {

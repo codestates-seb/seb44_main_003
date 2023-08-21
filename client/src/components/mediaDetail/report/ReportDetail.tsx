@@ -1,8 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { DeleteReport } from '@/api/api';
 import { useModal } from '@/hooks/useModal';
+import useDeleteReportMutation from '@/queries/mediaDetail/report/useDeleteReportMutation';
 import { Report } from '@/types/types';
 
 function ReportDetail({ data }: { data: Report }) {
@@ -14,12 +13,7 @@ function ReportDetail({ data }: { data: Report }) {
     navigate(`/content/${data.mediaId}`);
   };
 
-  const DeleteReportMutation = useMutation(DeleteReport, {
-    onSuccess: () => {
-      alert('삭제 완료');
-      window.location.reload();
-    },
-  });
+  const DeleteReportMutation = useDeleteReportMutation();
 
   const handleDelete = () => {
     const input = window.prompt(`삭제하려면 "${data.id}을/를 입력하세요.`);

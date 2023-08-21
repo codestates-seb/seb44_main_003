@@ -1,21 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { AdminDeleteData } from '@/api/api';
+import useDeleteMediaMutation from '@/queries/admin/useDeleteMediaMutation';
 
 function DeleteMediaBtn({ contentId }: { contentId: string }) {
-  const navigate = useNavigate();
-  const DeleteMediaMutation = useMutation(() => AdminDeleteData(contentId), {
-    onSuccess: () => {
-      alert('삭제 완료');
-      navigate('/');
-    },
-  });
+  const DeleteMediaMutation = useDeleteMediaMutation();
 
   const handleDelete = () => {
     const input = window.prompt(`삭제하려면 "${contentId} 삭제"를 입력하세요.`);
     if (input === `${contentId} 삭제`) {
-      DeleteMediaMutation.mutate();
+      DeleteMediaMutation.mutate(contentId);
     } else {
       alert('삭제 취소');
     }

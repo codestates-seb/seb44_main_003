@@ -1,16 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GetUser } from '@/api/api';
 import AdminMediaForm from '@/components/admin/AdminMediaForm';
 import AdminReport from '@/components/admin/AdminReport';
+import useGetUserQuery from '@/queries/authentication/useGetUserQuery';
 import useIsLoggedIn from '@/utils/isLoggedIn';
 
 function Admin() {
   const isLoggedIn = useIsLoggedIn();
   const navigate = useNavigate();
-  const admin = useQuery(['user'], GetUser, { enabled: false });
+  const admin = useGetUserQuery();
 
   useEffect(() => {
     if (!isLoggedIn || admin?.data?.roles[0] === 'USER') {
