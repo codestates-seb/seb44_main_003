@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import MainSliderSection from '@/components/@common/slider/MainSliderSection';
+import MainCarouselSection from '@/components/@common/carousel/MainCarouselSection';
 import MainBanner from '@/components/@layout/banners/MainBanner';
 import { REFRSH_TOKEN_DURATION } from '@/constant/constantValue.ts';
 import useIsLoggedIn from '@/utils/isLoggedIn';
@@ -24,7 +24,7 @@ function Main() {
   return (
     <>
       <MainBanner />
-      <MainSliderSection />
+      <MainCarouselSection />
     </>
   );
 }
