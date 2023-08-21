@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import QuestionCard from '@/components/recommend/recommendModalQuestions/QuestionCard';
-import {
-  questionList,
-  category,
-  moveNextBtn,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+import { questionList, category, moveNextBtn } from '@/constant/questionData';
 import useCategory from '@/queries/recommendModal/useCategory';
 import { Question } from '@/types/types';
 

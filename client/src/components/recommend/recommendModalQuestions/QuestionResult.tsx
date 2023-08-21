@@ -9,10 +9,10 @@ import {
   moveAgainBtn,
   moveSignupBtn,
   moveRecommendBtn,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+} from '@/constant/questionData';
 import useQuestionResultData from '@/queries/recommendModal/useQuestionResultData';
 import { Question } from '@/types/types';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import useIsLoggedIn from '@/utils/checkLogin';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();

@@ -10,7 +10,7 @@ import {
   moveResultBtn,
   beehappy,
   beesad,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+} from '@/constant/questionData';
 import useGenre from '@/queries/recommendModal/useGenre';
 import { Question } from '@/types/types';
 
