@@ -1,41 +1,21 @@
-import { useQuery } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GetDataDetail, GetFilterdData } from '@/api/api';
 import ItemCard from '@/components/@common/Itemcard/ItemCard';
 import { RelatedMediaLoading } from '@/components/mediaDetail/relatedMedia/RelatedMediaLoading';
+import useRelatedMediaData from '@/queries/relatedMedia/useRelatedMediaData';
 import { ContentData } from '@/types/types';
 
 const RelatedMedia = ({ contentId }: { contentId: string }) => {
   const navigate = useNavigate();
+  const { detailDataResult, filteredDataResult } =
+    useRelatedMediaData(contentId);
+
   const getRandomItems = (items: ContentData[], numItems: number) => {
     const shuffledItems = items.sort(() => 0.5 - Math.random());
     return shuffledItems.slice(0, numItems);
   };
 
-  const { data: detailData, isSuccess: detailSuccess } = useQuery({
-    queryKey: ['selectedContent', contentId],
-    queryFn: () => GetDataDetail(contentId),
-  });
-
-  let category = detailData?.category === 'TV' ? 'tv' : 'movie';
-
-  const {
-    isInitialLoading: filteredLoading,
-    error: filteredError,
-    data: filteredData,
-    isSuccess: filteredSuccess,
-  } = useQuery({
-    queryKey: ['filteredContent', contentId],
-    queryFn: () =>
-      GetFilterdData(
-        `/medias/${category}?genre=${detailData?.genre.join(',')}`
-      ),
-    enabled: !!detailData, // true가 되면 filteredData를 실행한다
-  });
-
-  if (!!detailData && filteredLoading) {
+  if (detailDataResult.isLoading || filteredDataResult.isLoading) {
     return (
       <S_Wrapper>
         <S_Text>이런 컨텐츠는 어떠세요?</S_Text>
@@ -44,13 +24,13 @@ const RelatedMedia = ({ contentId }: { contentId: string }) => {
     );
   }
 
-  if (filteredError instanceof AxiosError) {
-    if (!filteredError.status && filteredError.code === 'ERR_NETWORK')
-      navigate('/error');
+  if (detailDataResult.isError || filteredDataResult.isError) {
+    navigate('/error');
+    return null;
   }
 
-  if (detailSuccess && filteredSuccess) {
-    const randomItems = getRandomItems(filteredData?.content, 6);
+  if (detailDataResult.isSuccess && filteredDataResult.isSuccess) {
+    const randomItems = getRandomItems(filteredDataResult.data?.content, 6);
 
     return (
       <S_Wrapper>
@@ -95,7 +75,6 @@ const S_ItemBox = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 18px;
-  /* border: 2px solid red; */
 
   @media only screen and (max-width: 770px) {
     gap: 10px;
@@ -105,7 +84,6 @@ const S_ItemBox = styled.div`
 const S_Item = styled.div`
   width: calc(100% / 6 - 18px);
   margin: 0px 0px 50px;
-  /* border: 2px solid yellow; */
 
   @media only screen and (max-width: 770px) {
     width: calc(100% / 3 - 10px);

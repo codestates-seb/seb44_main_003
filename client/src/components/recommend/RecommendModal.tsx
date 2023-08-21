@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import FirstQuestion from '@/components/recommend/questions/FirstQuestion';
-import QuestionResult from '@/components/recommend/questions/QuestionResult';
-import SecondQuestion from '@/components/recommend/questions/SecondQuestion';
-import ThirdQuestion from '@/components/recommend/questions/ThirdQuestion';
+import CategoryQuestion from '@/components/recommend/recommendModalQuestions/CategoryQuestion';
+import GenreQuestion from '@/components/recommend/recommendModalQuestions/GenreQuestion';
+import MemberOttsQuestion from '@/components/recommend/recommendModalQuestions/MemberOttsQuestion';
+import QuestionResult from '@/components/recommend/recommendModalQuestions/QuestionResult';
 import { useModal } from '@/hooks/useModal';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 
@@ -16,9 +16,9 @@ const RecommendModal = () => {
   const { closeModal } = useModal();
 
   const questionComponents = [
-    FirstQuestion,
-    SecondQuestion,
-    ThirdQuestion,
+    MemberOttsQuestion,
+    CategoryQuestion,
+    GenreQuestion,
     QuestionResult,
   ];
 
