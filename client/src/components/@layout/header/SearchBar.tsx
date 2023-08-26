@@ -4,6 +4,7 @@ import { FaXmark } from 'react-icons/fa6';
 import { FiSearch } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import useDebounce from '@/hooks/useDebounce';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import { useModal } from '@/hooks/useModal';
 import useAutoCompleteQuery from '@/queries/autoComplete/useAutoCompleteQuery';
@@ -14,12 +15,14 @@ function SearchBar() {
   const isMobile = useMediaQuery('(max-width: 600px)');
   const navigate = useNavigate();
   const { closeModal } = useModal();
-  const data = useAutoCompleteQuery(userInput);
+  const fetchValue = useDebounce(userInput, 500);
+  const data = useAutoCompleteQuery(fetchValue);
   const reset = () => {
     setUserInput('');
     setCurrentOptionIdx(-1);
     closeModal();
   };
+
   const search = (keyword: string) => {
     if (keyword.trim().length) {
       navigate(`/search?keyword=${keyword}`);
