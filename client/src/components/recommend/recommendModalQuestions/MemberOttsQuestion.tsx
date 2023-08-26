@@ -7,7 +7,7 @@ import {
   questionList,
   ottServices,
   moveNextBtn,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+} from '@/constant/questionData';
 import useMemberOtts from '@/queries/recommendModal/useMemberOtts';
 import { Question } from '@/types/types';
 

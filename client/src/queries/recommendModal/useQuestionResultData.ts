@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
-import { GetFilterdData, GetUser } from '@/api/api';
+import { GetFilterdData, GetMember } from '@/api/api';
 import { recommendedContentsState } from '@/recoil/atoms/Atoms';
 
 const useQuestionResultData = (isLoggedIn: boolean) => {
@@ -30,7 +30,7 @@ const useQuestionResultData = (isLoggedIn: boolean) => {
 
   const userDataResult = useQuery({
     queryKey: ['user'],
-    queryFn: GetUser,
+    queryFn: GetMember,
     enabled: isLoggedIn,
     onError: (error: AxiosError) => {
       if (

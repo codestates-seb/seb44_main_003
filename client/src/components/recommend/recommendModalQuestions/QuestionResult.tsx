@@ -9,10 +9,10 @@ import {
   moveAgainBtn,
   moveSignupBtn,
   moveRecommendBtn,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+} from '@/constant/questionData';
 import useQuestionResultData from '@/queries/recommendModal/useQuestionResultData';
 import { Question } from '@/types/types';
-import useIsLoggedIn from '@/utils/isLoggedIn';
+import useIsLoggedIn from '@/utils/checkLogin';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
               <S_ResultId>
-                {userSuccess ? userData.nickname : 'guest'}
+                {userSuccess ? userData?.nickname : 'guest'}
               </S_ResultId>
               <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>
@@ -128,7 +128,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
               <S_ResultId>
-                {userSuccess ? userData.nickname : 'guest'}
+                {userSuccess ? userData?.nickname : 'guest'}
               </S_ResultId>
               <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>

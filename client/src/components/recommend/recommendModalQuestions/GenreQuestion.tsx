@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import QuestionCard from '@/components/recommend/recommendModalQuestions/QuestionCard';
+import { genres } from '@/constant/constantValue';
 import {
   questionList,
-  genres,
   moveResultBtn,
   beehappy,
   beesad,
-} from '@/components/recommend/recommendModalQuestions/QuestionData';
+} from '@/constant/questionData';
 import useGenre from '@/queries/recommendModal/useGenre';
 import { Question } from '@/types/types';
 
