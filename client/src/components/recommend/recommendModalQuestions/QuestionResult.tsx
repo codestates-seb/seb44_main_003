@@ -62,7 +62,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
               <S_ResultId>
-                {userSuccess ? userData.nickname : 'guest'}
+                {userSuccess ? userData?.nickname : 'guest'}
               </S_ResultId>
               <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>
@@ -128,7 +128,7 @@ const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
             <CloseBtn onClick={closeModal} />
             <S_ResultIdBox>
               <S_ResultId>
-                {userSuccess ? userData.nickname : 'guest'}
+                {userSuccess ? userData?.nickname : 'guest'}
               </S_ResultId>
               <S_ResultImg src={nicknameTitle.text} />
             </S_ResultIdBox>

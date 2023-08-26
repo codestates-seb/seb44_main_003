@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import CloseBtn from '@/components/recommend/buttons/CloseBtn';
 import MoveBtn from '@/components/recommend/buttons/MoveBtn';
 import QuestionCard from '@/components/recommend/recommendModalQuestions/QuestionCard';
+import { genres } from '@/constant/constantValue';
 import {
   questionList,
-  genres,
   moveResultBtn,
   beehappy,
   beesad,
