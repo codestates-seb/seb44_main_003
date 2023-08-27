@@ -29,6 +29,7 @@ export type MemberLikes = {
 };
 
 export type AuthData = {
+  nickname: string;
   email: string;
   password: string;
   confirm?: string;
