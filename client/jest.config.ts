@@ -1,3 +1,4 @@
-module.exports = {
-  setupFilesAfterEnv: ['./setup.ts'],
+export default {
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/client/setup.ts'],
 };
