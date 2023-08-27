@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { GetDataDetail, GetFilterdData } from '@/api/api';
+import { GetMediaDetail, GetFilterdData } from '@/api/api';
 import { ContentData } from '@/types/types';
 
 type DetailData = {
@@ -11,7 +11,7 @@ type DetailData = {
 const useRelatedMediaData = (contentId: string) => {
   const detailDataResult = useQuery<DetailData, AxiosError>({
     queryKey: ['selectedContent', contentId],
-    queryFn: () => GetDataDetail(contentId),
+    queryFn: () => GetMediaDetail(contentId),
     onError: (error: AxiosError) => {
       if (
         error instanceof AxiosError &&

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { GetUser } from '@/api/api';
+import { GetMember } from '@/api/api';
 
 const useGetUserQuery = () => {
-  const getUserQuery = useQuery(['user'], GetUser, { enabled: false });
+  const getUserQuery = useQuery(['user'], GetMember, { enabled: false });
   return getUserQuery;
 };
 

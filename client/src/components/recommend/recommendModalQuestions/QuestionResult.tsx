@@ -12,11 +12,11 @@ import {
 } from '@/constant/questionData';
 import useQuestionResultData from '@/queries/recommendModal/useQuestionResultData';
 import { Question } from '@/types/types';
-import useIsLoggedIn from '@/utils/checkLogin';
+import checkLogin from '@/utils/checkLogin';
 
 const QuestionResult: React.FC<Question> = ({ closeModal, onReset }) => {
   const navigate = useNavigate();
-  const isLoggedIn = useIsLoggedIn();
+  const isLoggedIn = checkLogin();
   const { filterDataResult, userDataResult } =
     useQuestionResultData(isLoggedIn);
 
