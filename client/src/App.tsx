@@ -3,84 +3,160 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Admin from '@/pages/Admin';
-import Auth from '@/pages/Auth';
-import Content from '@/pages/Content';
-import Error from '@/pages/Error';
-import List from '@/pages/List';
-import Main from '@/pages/Main';
-import Member from '@/pages/Member';
-import Movie from '@/pages/Movie';
-import Root from '@/pages/Root';
-import Search from '@/pages/Search';
-import TV from '@/pages/TV';
+// import Admin from '@/pages/Admin';
+// import Content from '@/pages/Content';
+// import List from '@/pages/List';
+// import Search from '@/pages/Search';
 import GlobalStyle from '@/styles/global-styles';
 import { tokenLoader, checkAuthLoader, checkUnauthLoader } from '@/utils/auth';
 import '@/App.css';
 
+const Root = lazy(() => import('@/pages/Root'));
+const Main = lazy(() => import('@/pages/Main'));
+const Member = lazy(() => import('@/pages/Member'));
+const Auth = lazy(() => import('@/pages/Auth'));
+const TV = lazy(() => import('@/pages/TV'));
+const Movie = lazy(() => import('@/pages/Movie'));
+const Error = lazy(() => import('@/pages/Error'));
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: (
+      <Suspense>
+        <Root />
+      </Suspense>
+    ),
     loader: tokenLoader,
     errorElement: <Error code="404" />,
     children: [
       {
         index: true,
-        element: <Main />,
+        element: (
+          <Suspense>
+            <Main />
+          </Suspense>
+        ),
       },
       {
         path: 'member',
-        element: <Member />,
+        element: (
+          <Suspense>
+            <Member />
+          </Suspense>
+        ),
         loader: checkAuthLoader,
       },
       {
         path: 'login',
-        element: <Auth />,
+        element: (
+          <Suspense>
+            <Auth />
+          </Suspense>
+        ),
         loader: checkUnauthLoader,
       },
       {
         path: 'signup',
-        element: <Auth />,
+        element: (
+          <Suspense>
+            <Auth />
+          </Suspense>
+        ),
         loader: checkUnauthLoader,
       },
       {
         path: 'tv',
-        element: <TV />,
+        element: (
+          <Suspense>
+            <TV />
+          </Suspense>
+        ),
       },
       {
         path: 'movie',
-        element: <Movie />,
-      },
-      {
-        path: 'content/:id',
-        element: <Content />,
-      },
-      {
-        path: 'tv/list',
-        element: <List />,
-      },
-      {
-        path: 'movie/list',
-        element: <List />,
-      },
-      {
-        path: 'search',
-        element: <Search />,
-      },
-      {
-        path: 'admin',
-        element: <Admin />,
+        element: (
+          <Suspense>
+            <Movie />
+          </Suspense>
+        ),
       },
       {
         path: 'error',
-        element: <Error code="500" />,
+        element: (
+          <Suspense>
+            <Error code="500" />
+          </Suspense>
+        ),
       },
     ],
   },
 ]);
+
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <Root />,
+//     loader: tokenLoader,
+//     errorElement: <Error code="404" />,
+//     children: [
+//       {
+//         index: true,
+//         element: <Main />,
+//       },
+//       {
+//         path: 'member',
+//         element: <Member />,
+//         loader: checkAuthLoader,
+//       },
+//       {
+//         path: 'login',
+//         element: <Auth />,
+//         loader: checkUnauthLoader,
+//       },
+//       {
+//         path: 'signup',
+//         element: <Auth />,
+//         loader: checkUnauthLoader,
+//       },
+//       {
+//         path: 'tv',
+//         element: <TV />,
+//       },
+//       {
+//         path: 'movie',
+//         element: <Movie />,
+//       },
+//       {
+//         path: 'content/:id',
+//         element: <Content />,
+//       },
+//       {
+//         path: 'tv/list',
+//         element: <List />,
+//       },
+//       {
+//         path: 'movie/list',
+//         element: <List />,
+//       },
+//       {
+//         path: 'search',
+//         element: <Search />,
+//       },
+//       {
+//         path: 'admin',
+//         element: <Admin />,
+//       },
+//       {
+//         path: 'error',
+//         element: <Error code="500" />,
+//       },
+//     ],
+//   },
+// ]);
 
 const queryClient = new QueryClient({
   defaultOptions: {
