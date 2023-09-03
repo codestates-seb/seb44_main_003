@@ -6,10 +6,6 @@ import {
 import { lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-// import Admin from '@/pages/Admin';
-// import Content from '@/pages/Content';
-// import List from '@/pages/List';
-// import Search from '@/pages/Search';
 import GlobalStyle from '@/styles/global-styles';
 import { tokenLoader, checkAuthLoader, checkUnauthLoader } from '@/utils/auth';
 import '@/App.css';
@@ -21,6 +17,10 @@ const Auth = lazy(() => import('@/pages/Auth'));
 const TV = lazy(() => import('@/pages/TV'));
 const Movie = lazy(() => import('@/pages/Movie'));
 const Error = lazy(() => import('@/pages/Error'));
+const Content = lazy(() => import('@/pages/Content'));
+const List = lazy(() => import('@/pages/List'));
+const Search = lazy(() => import('@/pages/Search'));
+const Admin = lazy(() => import('@/pages/Admin'));
 
 const router = createBrowserRouter([
   {
@@ -85,6 +85,46 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: 'content/:id',
+        element: (
+          <Suspense>
+            <Content />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'tv/list',
+        element: (
+          <Suspense>
+            <List />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'movie/list',
+        element: (
+          <Suspense>
+            <List />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'search',
+        element: (
+          <Suspense>
+            <Search />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'admin',
+        element: (
+          <Suspense>
+            <Admin />
+          </Suspense>
+        ),
+      },
+      {
         path: 'error',
         element: (
           <Suspense>
@@ -95,68 +135,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Root />,
-//     loader: tokenLoader,
-//     errorElement: <Error code="404" />,
-//     children: [
-//       {
-//         index: true,
-//         element: <Main />,
-//       },
-//       {
-//         path: 'member',
-//         element: <Member />,
-//         loader: checkAuthLoader,
-//       },
-//       {
-//         path: 'login',
-//         element: <Auth />,
-//         loader: checkUnauthLoader,
-//       },
-//       {
-//         path: 'signup',
-//         element: <Auth />,
-//         loader: checkUnauthLoader,
-//       },
-//       {
-//         path: 'tv',
-//         element: <TV />,
-//       },
-//       {
-//         path: 'movie',
-//         element: <Movie />,
-//       },
-//       {
-//         path: 'content/:id',
-//         element: <Content />,
-//       },
-//       {
-//         path: 'tv/list',
-//         element: <List />,
-//       },
-//       {
-//         path: 'movie/list',
-//         element: <List />,
-//       },
-//       {
-//         path: 'search',
-//         element: <Search />,
-//       },
-//       {
-//         path: 'admin',
-//         element: <Admin />,
-//       },
-//       {
-//         path: 'error',
-//         element: <Error code="500" />,
-//       },
-//     ],
-//   },
-// ]);
 
 const queryClient = new QueryClient({
   defaultOptions: {
